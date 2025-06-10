@@ -1,3 +1,12 @@
+## bioinfo specific files not in the default python gitignore
+
+*gz
+*fastq
+*fastqc
+# for me the fastqc output still works without the zip file, just with the html. Try to remove the below line if it doesn't
+*zip 
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
