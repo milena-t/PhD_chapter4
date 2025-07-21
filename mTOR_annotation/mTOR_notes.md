@@ -19,7 +19,6 @@ This is the workflow that Doug used and thankfully documented really well in `/p
 They already have candidate proteins from Cmac that they think are the duplicates on the Y, so Doug starts with making an alignment between them, the autosomal one, and several other species (`sequences/mTor_sequences.faa`):
 <details>
   <summary>list</summary>
-
 * [Homo sapiens]:\t NP_004949.1 serine/threonine kinas mTOR isoform 1 
 * [Callosobruchus maculatus]:\t VEN43112.1 unnamed protein product 
 * [Callosobruchus maculatus]:\t VEN51984.1 unnamed protein product 
@@ -48,3 +47,5 @@ They already have candidate proteins from Cmac that they think are the duplicate
 * [Propylea japonica]:\t UIB01653.1 serine/threonine-protein kinase mTOR 
 
 </details>
+
+Since it has been identified in the other Cmac annotation already, I will not do it from scratch again in this one, I will just blast the Cmac yTor transcripts against the proteinfasta files of all the RNA annotations I did for the comparison in chapter 1.
