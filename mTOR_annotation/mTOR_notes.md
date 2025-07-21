@@ -14,7 +14,9 @@ However, this old annotation contains some manual curation for the copy number v
 
 This is the workflow that Doug used and thankfully documented really well in `/proj/naiss2023-6-65/douglas/nobackup/Callosobruchus_maculatus/mTor`
 
-### mTOR consensus sequence
+### yTOR in Cmac
+
+#### mTor consensus sequence 
 
 They already have candidate proteins from Cmac that they think are the duplicates on the Y, so Doug starts with making an alignment between them, the autosomal one, and several other species (`sequences/mTor_sequences.faa`):
 <details>
@@ -48,4 +50,29 @@ They already have candidate proteins from Cmac that they think are the duplicate
 
 </details>
 
-Since it has been identified in the other Cmac annotation already, I will not do it from scratch again in this one, I will just blast the Cmac yTor transcripts against the proteinfasta files of all the RNA annotations I did for the comparison in chapter 1.
+#### blastp hits of the yTor in the other annotations
+
+Since it has been identified in the other Cmac annotation already, I will not do it from scratch again in this one, I will just blast the Cmac yTor transcripts against the proteinfasta files of all the RNA annotations I did for the comparison in chapter 1. I expect them to be on contig `utg000322l_1`in the old assembly, and therefore `scaffold_26` or `scaffold_48` in the superscaffolded assembly (that the annotations are based on.)
+
+* **Lome** results: There is only one hit and it is `Cmac_Lome_diverse_g1010.t1_1` for both the queries. the other ones have high e-values but the sequence identity is only 35% or lower. It is on `scafold_1`
+*  **Lu** results: Same as above, only `Cmac_Lu2024_simple_g1006.t1_1` has a sequence identity above 35%. It is on `scafold_1`
+*  **SI** results: Same as the other two, only `Cmac_SI_diverse_g963.t1_1`. It is on `scafold_1`
+
+None of the RNA-based annotations detect the y-TOR, so I'm going to try with the uniform annotation that does not use RNAseq. it has much more hits with above99% sequence identity:
+* VEN43112.1 (longer query)
+    * C_maculatus_g11558.t1_1 : `scaffold_271`
+    * C_maculatus_g23887.t1_1 : `scaffold_6`
+    * C_maculatus_g23872.t1_1 : `scaffold_6`
+    * C_maculatus_g23878.t1_1 : `scaffold_6`
+    * C_maculatus_g23876.t1_1 : `scaffold_6`
+    * C_maculatus_g23870.t1_1 : `scaffold_6`
+    * C_maculatus_g23885.t1_1 : `scaffold_6`
+    * C_maculatus_g11556.t1_1 : `scaffold_271`
+  
+* VEN51984.1 (shorter query)
+    * C_maculatus_g23876.t1_1 : `scaffold_6`
+    * C_maculatus_g23870.t1_1 : `scaffold_6`
+    * C_maculatus_g23885.t1_1 : `scaffold_6`
+    * C_maculatus_g11556.t1_1 : `scaffold_271`
+    * other hits with low sequence identity
+
