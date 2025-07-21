@@ -3,6 +3,7 @@
 *gz
 *fastq
 *fastqc
+*faa
 # for me the fastqc output still works without the zip file, just with the html. Try to remove the below line if it doesn't
 *zip 
 
