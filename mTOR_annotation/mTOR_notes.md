@@ -8,49 +8,47 @@ However, this old annotation contains some manual curation for the copy number v
 
 ## Functional annotation
 
+If I want Bianca to use this for the differential expression analysis, I should do a functional annotation, Doug used eggnogg, I can probably figure it out.
 
-
-## Manual curation 
+## Manual curation of Y-Tor
 
 This is the workflow that Doug used and thankfully documented really well in `/proj/naiss2023-6-65/douglas/nobackup/Callosobruchus_maculatus/mTor`
 
-### yTOR in Cmac
-
-#### mTor consensus sequence 
+### mTor consensus sequence 
 
 They already have candidate proteins from Cmac that they think are the duplicates on the Y, so Doug starts with making an alignment between them, the autosomal one, and several other species (`sequences/mTor_sequences.faa`):
 <details>
   <summary>list</summary>
-* [Homo sapiens]:\t NP_004949.1 serine/threonine kinas mTOR isoform 1 
-* [Callosobruchus maculatus]:\t VEN43112.1 unnamed protein product 
-* [Callosobruchus maculatus]:\t VEN51984.1 unnamed protein product 
-* [Anoplophora glabripennis]:\t XP_018572076.1 serine/threonine-protein kinase Tor 
-*  virgifera virgifera]:\t XP_028145210.1 serine/threonine-protein kinase Tor [Diabrotica
-* [Leptinotarsa decemlineata]:\t XP_023015005.1 target of rapamycin 
-* [Leptinotarsa decemlineata]:\t ALE20544.1 mTOR 
-* [Brassicogethes aeneus]:\t CAH0563318.1 unnamed protein product 
-* [Brassicogethes aeneus]:\t CAH0563403.1 unnamed protein product 
-* [Rhynchophorus ferrugineus]:\t KAF7282696.1 hypothetical protein GWI33_002162 
-* [Aethina tumida]:\t XP_019880827.1 PREDICTED: LOW QUALITY PROTEIN: target of rapamycin-like 
-* [Tribolium castaneum]:\t XP_971819.1 PREDICTED: serine/threonine-protein kinase mTOR 
-* [Sitophilus oryzae]:\t XP_030750054.1 serine/threonine-protein kinase Tor 
-* [Asbolus verrucosus]:\t RZC37432.1 serine/threonine-protein kinase mTOR 
-* [Tenebrio molitor]:\t CAH1377105.1 unnamed protein product 
-* [Tenebrio molitor]:\t AKB11618.1 target of rapamycin 
-* [Ignelater luminosus]:\t KAF2880605.1 hypothetical protein ILUMI_25569 
-* [Lamprigera yunnana]:\t KAF5285925.1 hypothetical protein FQA39_LY04386 
-* [Nicrophorus vespilloides]:\t XP_017768823.1 PREDICTED: target of rapamycin 
-* [Photinus pyralis]:\t XP_031352545.1 serine/threonine-protein kinase Tor 
-* [Onthophagus taurus]:\t XP_022907797.1 target of rapamycin 
-* [Agrilus planipennis]:\t XP_025831250.1 serine/threonine-protein kinase Tor 
-* [Coccinella septempunctata]:\t XP_044759281.1 serine/threonine-protein kinase Tor 
-* [Harmonia axyridis]:\t XP_045478375.1 serine/threonine-protein kinase Tor 
-* [Abscondita terminalis]:\t KAF5280820.1 hypothetical protein FQR65_LT14927 
-* [Propylea japonica]:\t UIB01653.1 serine/threonine-protein kinase mTOR 
+<li>[Homo sapiens]: NP_004949.1 serine/threonine kinas mTOR isoform 1 </li>
+<li>[Callosobruchus maculatus]: VEN43112.1 unnamed protein product </li>
+<li>[Callosobruchus maculatus]: VEN51984.1 unnamed protein product </li>
+<li>[Anoplophora glabripennis]: XP_018572076.1 serine/threonine-protein kinase Tor </li>
+<li>[Diabrotica virgifera virgifera]: XP_028145210.1 serine/threonine-protein kinase Tor </li>
+<li>[Leptinotarsa decemlineata]: XP_023015005.1 target of rapamycin </li>
+<li>[Leptinotarsa decemlineata]: ALE20544.1 mTOR </li>
+<li>[Brassicogethes aeneus]: CAH0563318.1 unnamed protein product </li>
+<li>[Brassicogethes aeneus]: CAH0563403.1 unnamed protein product </li>
+<li>[Rhynchophorus ferrugineus]: KAF7282696.1 hypothetical protein GWI33_002162 </li>
+<li>[Aethina tumida]: XP_019880827.1 PREDICTED: LOW QUALITY PROTEIN: target of rapamycin-like </li>
+<li>[Tribolium castaneum]: XP_971819.1 PREDICTED: serine/threonine-protein kinase mTOR </li>
+<li>[Sitophilus oryzae]: XP_030750054.1 serine/threonine-protein kinase Tor </li>
+<li>[Asbolus verrucosus]: RZC37432.1 serine/threonine-protein kinase mTOR </li>
+<li>[Tenebrio molitor]: CAH1377105.1 unnamed protein product </li>
+<li>[Tenebrio molitor]: AKB11618.1 target of rapamycin </li>
+<li>[Ignelater luminosus]: KAF2880605.1 hypothetical protein ILUMI_25569 </li>
+<li>[Lamprigera yunnana]: KAF5285925.1 hypothetical protein FQA39_LY04386 </li>
+<li>[Nicrophorus vespilloides]: XP_017768823.1 PREDICTED: target of rapamycin </li>
+<li>[Photinus pyralis]: XP_031352545.1 serine/threonine-protein kinase Tor </li>
+<li>[Onthophagus taurus]: XP_022907797.1 target of rapamycin </li>
+<li>[Agrilus planipennis]: XP_025831250.1 serine/threonine-protein kinase Tor </li>
+<li>[Coccinella septempunctata]: XP_044759281.1 serine/threonine-protein kinase Tor </li>
+<li>[Harmonia axyridis]: XP_045478375.1 serine/threonine-protein kinase Tor </li>
+<li>[Abscondita terminalis]: KAF5280820.1 hypothetical protein FQR65_LT14927 </li>
+<li>[Propylea japonica]: UIB01653.1 serine/threonine-protein kinase mTOR </li>
 
 </details>
 
-#### blastp hits of the yTor in the other annotations
+### blastp hits of the yTor in the other annotations
 
 Since it has been identified in the other Cmac annotation already, I will not do it from scratch again in this one, I will just blast the Cmac yTor transcripts against the proteinfasta files of all the RNA annotations I did for the comparison in chapter 1. I expect them to be on contig `utg000322l_1`in the old assembly, and therefore `scaffold_26` or `scaffold_48` in the superscaffolded assembly (that the annotations are based on.)
 
@@ -75,4 +73,24 @@ None of the RNA-based annotations detect the y-TOR, so I'm going to try with the
     * C_maculatus_g23885.t1_1 : `scaffold_6`
     * C_maculatus_g11556.t1_1 : `scaffold_271`
     * other hits with low sequence identity
+  
+This does also not find the Y-Tor, but a bunch of stuff on Scaffold 6? None of the Y contigs in the old assembly are placed on scaffold 6. 
 
+### blastp hits in non-superscaffolded annotation
+
+Since no TOR copy is found on any Y contig in the superscaffolded annotation, I will check the uniform annotation i have for the non-superscaffolded one. These are the blast results for the same two query proteins as above. Two results with 100% sequence identity are highlighted, the rest are above 99%.
+* VEN43112.1 (longer query)
+  * C_maculatus_g11558.t1_1 (100% seq ident) : `utg000092` (`scaffold_1`)
+  * C_maculatus_g23887.t1_1 : **`utg000322` (Y)**
+  * C_maculatus_g23872.t1_1 : **`utg000322` (Y)**
+  * C_maculatus_g23878.t1_1 : **`utg000322` (Y)**
+  * C_maculatus_g23876.t1_1 : **`utg000322` (Y)** (100% seq ident for shorter query)
+  * C_maculatus_g23870.t1_1 : **`utg000322` (Y)**
+  * C_maculatus_g23885.t1_1 : **`utg000322` (Y)**
+  * C_maculatus_g11556.t1_1 : `utg000092` (`scaffold_1`)
+
+* VEN51984.1 (shorter query), all hits are also hits with longer query
+  * C_maculatus_g23876.t1_1 (100% seq ident) : **`utg000322` (Y)**
+  * C_maculatus_g23870.t1_1 : **`utg000322` (Y)**
+  * C_maculatus_g23885.t1_1 : **`utg000322` (Y)**
+  * C_maculatus_g11556.t1_1 : `utg000092` (`scaffold_1`)
