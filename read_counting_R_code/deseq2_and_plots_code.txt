@@ -1,0 +1,105 @@
+library(tximport)
+library(DESeq2)
+library(readr)
+library(ggplot2)
+
+results_dir <- "/Users/bsarc/Desktop/salmon_results"
+
+files <- list.files(results_dir, pattern="\\.sf$", full.names = TRUE)
+
+names(files) <- tools::file_path_sans_ext(basename(files))
+
+coldata<- read.csv("/Users/bsarc/Desktop/sample_metadata.csv", row.names = 1)
+
+txi <- tximport(files, type = "salmon", txOut = TRUE)
+
+dds <- DESeqDataSetFromTximport(txi, colData = coldata, design = ~ sex + age + tor_copies)
+
+dds <- DESeq(dds)
+res <- results(dds)
+
+head(res[order(res$padj), ])
+
+
+colData(dds)$age <- factor(colData(dds)$age)
+
+colData(dds)$tor_copies <- factor(colData(dds)$tor_copies)
+
+vsd <- vst(dds, blind = TRUE)  # blind=TRUE ignores design for unbiased PCA
+# 6. PCA plot
+tor<- plotPCA(vsd, intgroup = "tor_copies")
+tor + ggtitle("PCA of samples by TOR copy number")
+
+age <- plotPCA(vsd, intgroup = "age")
+age + ggtitle("PCA of samples by age (days)")+ scale_color_brewer(palette = "Set2")
+
+sex <- plotPCA(vsd, intgroup = "sex")
+sex + ggtitle("PCA of samples by sex")
+
+sex <- plotPCA(vsd, intgroup = c("tor_copies","sex"))
+sex + ggtitle("PCA of samples by number of TOR copies and sex") + scale_color_manual(values = c("1:F" = "firebrick", "1:M" = "darkblue","3:F" = "salmon", "3:M" = "lightblue"))
+
+
+
+plotPCA(vsd, intgroup = c("tor_copies", "sex"))
+age <- plotPCA(vsd, intgroup = "age")
+plotPCA(vsd, intgroup = c("tor_copies", "age"))
+tor + ggtitle("PCA of samples by TOR copy number")
+
+
+# only females
+
+dds_female <- dds[, dds$sex == "F"]
+design(dds_female) <- ~ tor_copies + age
+dds_female <- DESeq(dds_female)
+
+dds_female <- DESeq(dds_female)
+vsd_female <- vst(dds_female, blind = TRUE)
+
+females<- plotPCA(vsd_female, intgroup = "tor_copies")
+females + ggtitle("PCA of females by TOR copy number") + scale_color_manual(values = c("1" = "darkgreen", "3" = "lightgreen"), name = "TOR copy number" ) 
+
+# only males
+
+dds_male <- dds[, dds$sex == "M"]
+design(dds_male) <- ~ tor_copies + age
+dds_male <- DESeq(dds_male)
+
+dds_male <- DESeq(dds_male)
+vsd_male <- vst(dds_male, blind = TRUE)
+
+males<-plotPCA(vsd_male, intgroup = "tor_copies")
+males + ggtitle("PCA of males by TOR copy number") + scale_color_manual(values = c("1" = "darkblue", "3" = "skyblue"), name = "TOR copy number" ) 
+
+
+# separating by days
+
+dds_14 <- dds[, dds$age == "14"]
+design(dds_14) <- ~ tor_copies + sex
+dds_14 <- DESeq(dds_14 )
+
+vsd_14 <- vst(dds_14, blind = TRUE)
+
+age_14<- plotPCA(vsd_14 , intgroup = c("tor_copies", "sex"))
+age_14 + ggtitle("PCA of samples at 14 days by sex and TOR copies")+scale_color_manual(values = c("1:F" = "firebrick", "1:M" = "darkblue","3:F" = "salmon", "3:M" = "lightblue"))
+
+
+dds_16 <- dds[, dds$age == "16"]
+design(dds_16) <- ~ tor_copies + sex
+dds_16 <- DESeq(dds_16 )
+
+vsd_16 <- vst(dds_16, blind = TRUE)
+
+age_16<- plotPCA(vsd_16 , intgroup = c("tor_copies", "sex"))
+age_16 + ggtitle("PCA of samples at 16 days by sex and TOR copies")+scale_color_manual(values = c("1:F" = "firebrick", "1:M" = "darkblue","3:F" = "salmon", "3:M" = "lightblue"))
+
+
+dds_18 <- dds[, dds$age == "18"]
+design(dds_18) <- ~ tor_copies + sex
+dds_18 <- DESeq(dds_18 )
+
+vsd_18 <- vst(dds_18, blind = TRUE)
+
+age_18<- plotPCA(vsd_18 , intgroup = c("tor_copies", "sex"))
+age_18 + ggtitle("PCA of samples at 18 days by sex and TOR copies")+scale_color_manual(values = c("1:F" = "firebrick", "1:M" = "darkblue","3:F" = "salmon", "3:M" = "lightblue"))
+
