@@ -94,3 +94,17 @@ Since no TOR copy is found on any Y contig in the superscaffolded annotation, I 
   * C_maculatus_g23870.t1_1 : **`utg000322` (Y)**
   * C_maculatus_g23885.t1_1 : **`utg000322` (Y)**
   * C_maculatus_g11556.t1_1 : `utg000092` (`scaffold_1`)
+
+#### Non-superscaffolded assembly reannotated with RNAseq data and BRAKER3
+
+The old non-superscaffolded annotation was made with BRAKER2, orthoDB v11 Arthropoda and population-specific RNAseq data, and I have re-done this annotation with OrthoDB v12, and BRAKER3 with the same RNAseq data. No hits on the y-contig that were previously identified to contain the yTOR copies
+
+* VEN43112.1 (longer query)
+  * g6611.t1	(99.944% seq ident): `utg000092l`
+* VEN51984.1 (shorter query)
+  * g6611.t1	(99.799% seq ident): `utg000092l`
+  * g2534.t1	(34.988% seq ident): `utg000025l`
+  * g2335.t1	(30.244% seq ident): `utg000020l`
+  * g2518.t1	(25.164% seq ident): `utg000025l`
+  * g1915.t1	(25.744% seq ident): `utg000019l`
+  * g128.t1	(24.242% seq ident): `utg000002l`
