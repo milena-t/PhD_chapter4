@@ -134,4 +134,6 @@ utg000322l      AUGUSTUS        gene    6373201 6374370 .       -       .       
 
 ## IGV comparison of the annotations of the yTOR region
 
+The first two rows are the same annotation with BRAKER2 and RNAseq, just the second row removes everything except the yTor genes of interest. The third row is the BRAKER3 annotation with RNAseq, the fourth row is the BRAKER3 annotation without RNAseq (only protein evidence).
+
 ![IGV screenshot](../plots/yTOR_IGV.png)
