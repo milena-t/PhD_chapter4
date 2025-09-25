@@ -78,6 +78,8 @@ This does also not find the Y-Tor, but a bunch of stuff on Scaffold 6? None of t
 
 ### blastp hits in non-superscaffolded annotation
 
+### no RNA seq annotation
+
 Since no TOR copy is found on any Y contig in the superscaffolded annotation, I will check the uniform annotation i have for the non-superscaffolded one. These are the blast results for the same two query proteins as above. Two results with 100% sequence identity are highlighted, the rest are above 99%.
 * VEN43112.1 (longer query)
   * C_maculatus_g11558.t1_1 (100% seq ident) : `utg000092` (`scaffold_1`)
@@ -95,16 +97,41 @@ Since no TOR copy is found on any Y contig in the superscaffolded annotation, I 
   * C_maculatus_g23885.t1_1 : **`utg000322` (Y)**
   * C_maculatus_g11556.t1_1 : `utg000092` (`scaffold_1`)
 
-#### Non-superscaffolded assembly reannotated with RNAseq data and BRAKER3
+#### yes RNA seq annotation (BRAKER3)
 
 The old non-superscaffolded annotation was made with BRAKER2, orthoDB v11 Arthropoda and population-specific RNAseq data, and I have re-done this annotation with OrthoDB v12, and BRAKER3 with the same RNAseq data. No hits on the y-contig that were previously identified to contain the yTOR copies
 
 * VEN43112.1 (longer query)
-  * g6611.t1	(99.944% seq ident): `utg000092l`
+  * g6611.t1	(99.944% seq ident): `utg000092l` (normal autosomal TOR)
 * VEN51984.1 (shorter query)
-  * g6611.t1	(99.799% seq ident): `utg000092l`
-  * g2534.t1	(34.988% seq ident): `utg000025l`
-  * g2335.t1	(30.244% seq ident): `utg000020l`
-  * g2518.t1	(25.164% seq ident): `utg000025l`
-  * g1915.t1	(25.744% seq ident): `utg000019l`
-  * g128.t1	(24.242% seq ident): `utg000002l`
+  * g6611.t1	(99.799% seq ident): `utg000092l` (normal autosomal TOR)
+  * very low seq ident hits
+    * g2534.t1	(34.988% seq ident): `utg000025l`
+    * g2335.t1	(30.244% seq ident): `utg000020l`
+    * g2518.t1	(25.164% seq ident): `utg000025l`
+    * g1915.t1	(25.744% seq ident): `utg000019l`
+    * g128.t1	(24.242% seq ident): `utg000002l`
+  
+Since none of these are on the Y chromosome `utg000322` I will check the region where the three TOR copies are annotated
+
+```
+utg000092l_1	exonerate:protein2genome:local	gene	1461991	1523525	.	-	.	ID=mTor;sequence=mTor_Cmac_consensus;score=12235;gene_orientation=+;identity=99.92;similarity=99.92;
+utg000322l_1	exonerate:protein2genome:local	gene	5685151	5729229	.	-	.	ID=yTor-A;sequence=mTor_Cmac_consensus;score=9127;gene_orientation=+;identity=99.72;similarity=99.78;
+utg000322l_1	exonerate:protein2genome:local	gene	5875248	5919319	.	-	.	ID=yTor-B;sequence=mTor_Cmac_consensus;score=9101;gene_orientation=+;identity=99.72;similarity=99.78;
+utg000322l_1	exonerate:protein2genome:local	gene	6073692	6119745	.	-	.	ID=yTor-C;sequence=mTor_Cmac_consensus;score=9114;gene_orientation=+;identity=99.67;similarity=99.72;
+```
+
+The surrounding genes in the new annotation are these:
+
+```
+utg000322l      AUGUSTUS        gene    5665586 5681426 .       +       .       ID=g13123
+utg000322l      AUGUSTUS        gene    5712613 5904154 .       +       .       ID=g13124
+utg000322l      AUGUSTUS        gene    5855689 5871524 .       +       .       ID=g13125
+utg000322l      AUGUSTUS        gene    5902712 5904154 .       +       .       ID=g13126
+utg000322l      AUGUSTUS        gene    6054136 6069970 .       +       .       ID=g13127
+utg000322l      AUGUSTUS        gene    6373201 6374370 .       -       .       ID=g13128
+```
+
+## IGV comparison of the annotations of the yTOR region
+
+![IGV screenshot](../plots/yTOR_IGV.png)
