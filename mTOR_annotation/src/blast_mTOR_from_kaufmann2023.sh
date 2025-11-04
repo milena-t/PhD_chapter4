@@ -29,5 +29,5 @@ CMAC_Bianca_transcriptome=/proj/naiss2024-6-73/Bianca/transcriptome/filtered_tra
 # makeblastdb -in $CMAC_nonSCAFFOLDED_yesRNA_PROTEINS -dbtype prot
 # blastp -query $YTOR_QUERY -db $CMAC_nonSCAFFOLDED_yesRNA_PROTEINS -out CMAC_nonSCAFFOLDED_noRNA_ytor_blast.out -outfmt 6 -num_threads 4 -evalue 1e-10
 
-makeblastdb -in $CMAC_Bianca_transcriptome -dbtype prot
-blastp -query $YTOR_QUERY -db $CMAC_Bianca_transcriptome -out yTOR_against_Bianca_transcriptome_blast.out -outfmt 6 -num_threads 4 -evalue 1e-10
+makeblastdb -in $CMAC_Bianca_transcriptome -dbtype nucl
+blastn -query $YTOR_QUERY -db $CMAC_Bianca_transcriptome -out yTOR_against_Bianca_transcriptome_blast.out -outfmt 6 -num_threads 4 -evalue 1e-10
