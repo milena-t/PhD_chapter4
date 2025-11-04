@@ -14,8 +14,8 @@ module load bioinfo-tools gffread/0.12.7 samtools/1.20 emboss/6.6.0
 
 CMAC_Bianca_transcriptome=/proj/naiss2024-6-73/Bianca/transcriptome/filtered_transcriptome/filtered_transcriptome.fasta
 TRANSLATED_BIANCA=/proj/naiss2024-6-73/Bianca/transcriptome/filtered_transcriptome/filtered_transcriptome_proteinseq.fasta
-CMAC_SI_transcriptome=/Users/miltr339/work/c_maculatus/LOME_larval_transcriptome/SI_transcriptome/GEUF01.fasta
-TRANSLATED_SI=/Users/miltr339/work/c_maculatus/LOME_larval_transcriptome/SI_transcriptome/GEUF01_proteinseq.fasta
+CMAC_SI_transcriptome=/proj/naiss2023-6-65/Milena/chapter4/SI_transcriptome/GEUF01.fasta
+TRANSLATED_SI=/proj/naiss2023-6-65/Milena/chapter4/SI_transcriptome/GEUF01_proteinseq.fasta
 
 # transeq -sequence $CMAC_Bianca_transcriptome -outseq $TRANSLATED_BIANCA
 transeq -sequence $CMAC_SI_transcriptome -outseq $TRANSLATED_SI
