@@ -1,5 +1,14 @@
 #!/bin/bash -l
 
+#!/bin/bash -l
+#SBATCH -A uppmax2025-2-148
+#SBATCH -p core
+#SBATCH -n 1
+#SBATCH -t 2:00:00
+#SBATCH -J blast_yTOR_transcriptome
+#SBATCH -o blast_yTOR_transcriptome.log
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user milena.trabert@ebc.uu.se
 
 YTOR_QUERY=/Users/miltr339/work/c_maculatus/annotation_comparison/superscaffolded_annotation/yTOR_annotation/yTor_Cmac_kaufmann2023.faa
 
