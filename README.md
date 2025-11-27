@@ -11,12 +11,19 @@
 
 ### relevant and actionable
 
-* [MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/360037052812-MarkDuplicates-Picard) marks reads that are e.g. PCR duplicates in a SAM/BAM file. They are *not* removed
+* Picard [MarkDuplicates](https://gatk.broadinstitute.org/hc/en-us/articles/360037052812-MarkDuplicates-Picard) marks reads that are e.g. PCR duplicates in a SAM/BAM file. They are *not* removed
 * manual curation of the TOR in the BRAKER3 annotation: re-run annotation
   * check the optional flag to run braker3 with exonerate
   * add larval RNA data
   * Manually curate TOR gene models in IGV based on RNA read alignment (bam files)
   * [Jbrowse](https://jbrowse.org/jb2/) is a GUI that keeps track of edits and exports them as gff
+
+## DE analysis in R 
+
+* DEseq2: integrated PCA
+* Vegan: multidimensional scaling (MDS) plot
+* pheatmap: hierarchical clustering heatmap
+* TopGO: GO-term analysis
 
 ### other 
 
