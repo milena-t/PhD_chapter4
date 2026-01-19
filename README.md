@@ -5,6 +5,7 @@
 * [Mank 2017](https://www.nature.com/articles/s41559-016-0006) The transcriptional architecture of phenotypic dimorphism
 * [Shaw 2022](https://www.cell.com/trends/genetics/fulltext/S0168-9525(22)00084-1) Evolution of gene regulation on sex chromosomes. 
   * Mostly for young sex chromosomes, so potentially not super relevant for us, but check the methods of how they identified regulatory mutations.
+* [Carpentier 2026](https://doi.org/10.64898/2025.12.31.697208) strongly differentiated Y-haplotypes in wild frog population, non-canonical sex chromosome evolution
 
 
 ## Notes from NBIS bioinformatics adisory program meeting Nov 2024
