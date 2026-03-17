@@ -148,10 +148,35 @@ I will use the agp file from the superscaffolding that associates non-scaffolded
 
 #### convert yTor annotations to superscaffolded coordinates
 
-1. make braker annotation from gtf into gff via gffread 
-2. convert old yTOR annotations to new coordinates using `mTOR_annotation/data/SALSA_superscaffolding_contig_coordinates.agp`
-3. remove genes in this location in superscaffolded gff
-4. insert yTor annotations in the right place, (cat at the bottom and then sort with `agat_convert_sp_gxf2gxf.pl`)
+1. make braker annotation from gtf into gff via AGAT 
+<details>
+    <summary>using AGAT on pelle</summary>
+
+When using the current version 1.6.1, I get this error when using `agat_convert_sp_gxf2gxf.pl`, which seems to refer to some internal log file, so no clue how to fix that. I think it may be something to do with the braker gtf that does not use the `transcript_id` tag for transcripts because the IDs are sequential with the gene IDs, so e.g. `g1` has transcripts `g1.t1` and `g1.t2`.
+
+```text
+File tf provided as input does not exits! Please verify your path and file existence! at /sw/arch/eb/software/AGAT/1.6.1-GCCcore-13.3.0/lib/perl5/site_perl/5.38.2/AGAT/AGAT.pm line 687.
+```
+
+Therefore I will install an older version that has worked before with mamba and then do the conversion myself. v1.3.2 has worked for filtering isoforms, 
+
+```bash
+module load Mamba/23.11.0-0
+mamba create -n mamba_agat
+mamba activate mamba_agat
+mamba install -c bioconda agat=1.3.2
+
+mamba deactivate
+```
+
+
+</details>
+
+1. convert old yTOR annotations to new coordinates using `mTOR_annotation/data/SALSA_superscaffolding_contig_coordinates.agp`
+2. remove genes in this location in superscaffolded gff
+3. insert yTor annotations in the right place, (cat at the bottom and then sort with `agat_convert_sp_gxf2gxf.pl`)
+
+
 
 ## Functional annotation
 
