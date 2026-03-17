@@ -173,8 +173,12 @@ mamba deactivate
 </details>
 
 1. convert old yTOR annotations to new coordinates using `mTOR_annotation/data/SALSA_superscaffolding_contig_coordinates.agp`
+   
+   
+
 2. remove genes in this location in superscaffolded gff
-3. insert yTor annotations in the right place, (cat at the bottom and then sort with `agat_convert_sp_gxf2gxf.pl`)
+3. insert yTor annotations in the right place, (merge annotations with `agat_sp_merge_annotations.pl`)
+  
 
 
 
