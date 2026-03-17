@@ -7,8 +7,8 @@
   * Mostly for young sex chromosomes, so potentially not super relevant for us, but check the methods of how they identified regulatory mutations.
 * [Carpentier 2026](https://doi.org/10.64898/2025.12.31.697208) strongly differentiated Y-haplotypes in wild frog population, non-canonical sex chromosome evolution
 
-
-## Notes from NBIS bioinformatics adisory program meeting Nov 2024
+<details>
+<summary>Notes from NBIS bioinformatics adisory program meeting Nov 2025</summary>
 
 ### relevant and actionable
 
@@ -34,3 +34,16 @@
   * The internal stop codons may be some weird artefact of the scaffolding or how CDhit picks its representative sequence.
   * "Manual" clustering that involves looking at the genomic coordinates and not the nucleotide sequences may be better.
   * AGAT has a tool that can make gene models based on genomic position of reads
+
+</details>
+
+# Mapping pipeline
+
+## Genome annotation with manual curation
+
+There's two relevant annotations
+
+* Kaufmann 2023 based on non-superscaffolded Cmac, has manually curated yTOR
+* My Lome_RNA annotation based on superscaffolded Cmac, no correct TOR annotation
+
+see details here: `mTOR_annotation/README.md`.
