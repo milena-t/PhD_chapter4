@@ -52,6 +52,8 @@ We use the existing Cmac Tor protein sequences to check if there is existing yTo
 * **Nigeria** (Lu 2024) results: Same as above, only `Cmac_Lu2024_simple_g1006.t1_1` has a sequence identity above 35%. It is on `scafold_1`
 * **South India** results: Same as the other two, only `Cmac_SI_diverse_g963.t1_1`. It is on `scafold_1`
 
+All of these annotations identify only autosomal Tor, so I am checking the non-RNA based annotation as well just to be sure, but they also don't reproduce the right gene structures. I have also attempted to reproduce the annotations on the non-superscaffolded versions of the assembly, in case the scaffolding changes the Y-chromosome gene structure in a way that negatively impacts gene prediction, but they also don't have the correct gene models.
+
 <details>
 <summary>Gene structures in annotations without RNAseq data</summary>
 
@@ -134,12 +136,15 @@ utg000322l      AUGUSTUS        gene    6373201 6374370 .       -       .       
 
 </details>
 
-## IGV comparison of the annotations of the yTOR region
+### IGV comparison of the annotations of the yTOR region
 
-The first two rows are the same annotation with BRAKER2 and RNAseq, just the second row removes everything except the yTor genes of interest. The third row is the BRAKER3 annotation with RNAseq, the fourth row is the BRAKER3 annotation without RNAseq (only protein evidence).
+All annotations are based on the non-superscaffolded version of the assembly. The first two rows are the Kaufmann2023 annotation with BRAKER2 and RNAseq, just the second row removes everything except the yTor genes of interest. The third row is the BRAKER3 annotation with RNAseq, the fourth row is the BRAKER3 annotation without RNAseq (only protein evidence).
 
 ![IGV screenshot](../plots/yTOR_IGV.png)
 
+### manual curation of gene structures
+
+I will use the agp file from the superscaffolding that associates non-scaffolded contigs with their superscaffolded counterparts to transform the annotation of the yTor gene structures from Kaufmann2023 and insert them into the superscaffolded Lome RNA annotation.
 
 ## Functional annotation
 
