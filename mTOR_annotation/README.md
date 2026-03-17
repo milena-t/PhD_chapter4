@@ -146,6 +146,13 @@ All annotations are based on the non-superscaffolded version of the assembly. Th
 
 I will use the agp file from the superscaffolding that associates non-scaffolded contigs with their superscaffolded counterparts to transform the annotation of the yTor gene structures from Kaufmann2023 and insert them into the superscaffolded Lome RNA annotation.
 
+#### convert yTor annotations to superscaffolded coordinates
+
+1. make braker annotation from gtf into gff via gffread 
+2. convert old yTOR annotations to new coordinates using `mTOR_annotation/data/SALSA_superscaffolding_contig_coordinates.agp`
+3. remove genes in this location in superscaffolded gff
+4. insert yTor annotations in the right place, (cat at the bottom and then sort with `agat_convert_sp_gxf2gxf.pl`)
+
 ## Functional annotation
 
 I will use a simplified version of Ingo's approach of using eggnogmapper and InterProScan and combining the functional annotation information with `agat_sp_manage_functional_annotation.pl`.

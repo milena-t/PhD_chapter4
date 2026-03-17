@@ -1,6 +1,4 @@
 #!/bin/bash -l
-
-#!/bin/bash -l
 #SBATCH -A uppmax2025-2-148
 #SBATCH -p core
 #SBATCH -n 1
