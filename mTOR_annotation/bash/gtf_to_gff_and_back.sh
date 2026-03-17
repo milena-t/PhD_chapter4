@@ -6,7 +6,10 @@
 #SBATCH -o gff_formatting.log
 #SBATCH --mail-type=ALL
 
-module load gffread/0.12.7-GCCcore-13.3.0 AGAT/1.6.1-GCCcore-13.3.0
+# interactive -A uppmax2026-1-8 -t 5:00:00
+
+# module load gffread/0.12.7-GCCcore-13.3.0 AGAT/1.6.1-GCCcore-13.3.0
+mamba activate mamba_agat
 cd /proj/naiss2023-6-65/Milena/chapter4/annotation
 
 GTF_ANNOT=/proj/naiss2023-6-65/Milena/chapter4/annotation/Cmac_Lome_no_yTor.gtf
