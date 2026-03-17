@@ -2,17 +2,13 @@
 
 ## Old annotation: why am I doing this
 
-There is an older version of the annotation done with BRAKER2 and TSEBRA separately, published in Kaufmann 2023 ([here](https://academic.oup.com/mbe/article/40/8/msad167/7227908)) which has like 35k genes, a lot for beetles. When I re-annotate a superscaffolded version of this assembly with BRAKER3 and the same RNAseq data, I find a much more reasonable 15k genes. I think this is because of the way that TSEBRA sets it's default values when combining evidence from different sources. the TSEBRA internal default weight value for RNAseq is only half of the value that BRAKER3 sets for TSEBRA. I assume this is why the old BRAKER2 annotation (which used TSEBRA-specific defaults) finds about the same number of genes as my annotation with no RNAseq, because the RNA evidence is valued down. When it is weighted higher like in BRAKER3, then more false positives are filtered out, reducing the number of genes overall, especially for shorter transcripts. 
+There is an older version of the annotation done with BRAKER2 and TSEBRA separately, published in Kaufmann 2023 ([here](https://academic.oup.com/mbe/article/40/8/msad167/7227908)) which has like 35k genes, a lot for beetles. When I re-annotate a superscaffolded version of this assembly with BRAKER3 and the same RNAseq data, I find a much more reasonable 15k genes. I think this is because of the way that TSEBRA sets it's default values when combining evidence from different sources. The TSEBRA internal default weight value for RNAseq is only half of the value that BRAKER3 sets for TSEBRA. I assume this is why the old BRAKER2 annotation (which used TSEBRA-specific defaults) finds about the same number of genes as my annotation with no RNAseq, because the RNA evidence is valued down. When it is weighted higher like in BRAKER3, then more false positives are filtered out, reducing the number of genes overall, especially for shorter transcripts. See more detailed explanation in the SI of https://github.com/milena-t/PhD_chapter1.
 
 However, this old annotation contains some manual curation for the copy number variation of TOR on the Y contigs. To be able to use the updated annotation for this project, I need to include the manual curation and also do a functional annotation.
 
-## Functional annotation
-
-If I want Bianca to use this for the differential expression analysis, I should do a functional annotation, Doug used eggnogg, I can probably figure it out.
-
 ## Manual curation of Y-Tor
 
-This is the workflow that Doug used and thankfully documented really well in `/proj/naiss2023-6-65/douglas/nobackup/Callosobruchus_maculatus/mTor`
+This is the workflow that Doug used and thankfully documented really well in `/proj/naiss2023-6-65/douglas/nobackup/Callosobruchus_maculatus/mTor`. This is based on the Kaufmann2023 annotation that already has correct gene structure models and just needed the functional information added. 
 
 ### mTor consensus sequence 
 
@@ -48,15 +44,19 @@ They already have candidate proteins from Cmac that they think are the duplicate
 
 </details>
 
-### blastp hits of the yTor in the other annotations
+### Identify Tor gene structure models via blast in other annotations
 
-Since it has been identified in the other Cmac annotation already, I will not do it from scratch again in this one, I will just blast the Cmac yTor transcripts against the proteinfasta files of all the RNA annotations I did for the comparison in chapter 1. I expect them to be on contig `utg000322l_1`in the old assembly, and therefore `scaffold_26` or `scaffold_48` in the superscaffolded assembly (that the annotations are based on.)
+We use the existing Cmac Tor protein sequences to check if there is existing yTor gene structures in the superscaffolded annotations (I will use the ones I made for chapter 1, which use RNA from Lome, Nigeria or South India). I expect yTor to be on contig `utg000322l_1` in the old assembly, and therefore `scaffold_26` or `scaffold_48` in the superscaffolded assembly (that the annotations are based on.)
 
 * **Lome** results: There is only one hit and it is `Cmac_Lome_diverse_g1010.t1_1` for both the queries. the other ones have high e-values but the sequence identity is only 35% or lower. It is on `scafold_1`
-*  **Lu** results: Same as above, only `Cmac_Lu2024_simple_g1006.t1_1` has a sequence identity above 35%. It is on `scafold_1`
-*  **SI** results: Same as the other two, only `Cmac_SI_diverse_g963.t1_1`. It is on `scafold_1`
+* **Nigeria** (Lu 2024) results: Same as above, only `Cmac_Lu2024_simple_g1006.t1_1` has a sequence identity above 35%. It is on `scafold_1`
+* **South India** results: Same as the other two, only `Cmac_SI_diverse_g963.t1_1`. It is on `scafold_1`
 
-None of the RNA-based annotations detect the y-TOR, so I'm going to try with the uniform annotation that does not use RNAseq. it has much more hits with above99% sequence identity:
+<details>
+<summary>Gene structures in annotations without RNAseq data</summary>
+
+None of the RNA-based annotations detect the y-TOR, so I'm going to try with the uniform annotation that does not use RNAseq. it has much more hits with above 99% sequence identity:
+
 * VEN43112.1 (longer query)
     * C_maculatus_g11558.t1_1 : `scaffold_271`
     * C_maculatus_g23887.t1_1 : `scaffold_6`
@@ -132,8 +132,15 @@ utg000322l      AUGUSTUS        gene    6054136 6069970 .       +       .       
 utg000322l      AUGUSTUS        gene    6373201 6374370 .       -       .       ID=g13128
 ```
 
+</details>
+
 ## IGV comparison of the annotations of the yTOR region
 
 The first two rows are the same annotation with BRAKER2 and RNAseq, just the second row removes everything except the yTor genes of interest. The third row is the BRAKER3 annotation with RNAseq, the fourth row is the BRAKER3 annotation without RNAseq (only protein evidence).
 
 ![IGV screenshot](../plots/yTOR_IGV.png)
+
+
+## Functional annotation
+
+I will use a simplified version of Ingo's approach of using eggnogmapper and InterProScan and combining the functional annotation information with `agat_sp_manage_functional_annotation.pl`.
