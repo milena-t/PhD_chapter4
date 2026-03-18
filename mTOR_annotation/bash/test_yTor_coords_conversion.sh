@@ -13,7 +13,7 @@
 
 module load gffread/0.12.7-GCCcore-13.3.0 SAMtools/1.22-GCC-13.3.0
 
-ANNOT_GFF=$1
+ANNOT_GFF_RAW=$1
 ASSEMBLY=/proj/naiss2023-6-65/Milena/chapter4/annotation/Cmac_superscaffolded.fna.masked
 ASSEMBLY_K=/proj/naiss2023-6-65/Milena/annotation_pipeline/only_orthodb_annotation/C_maculatus/assembly_genomic.fna.masked
 
@@ -24,8 +24,14 @@ TRANSEQ_PATH=/proj/naiss2023-6-65/Milena/software_install/emboss/EMBOSS-6.6.0/EM
 echo $(pwd)
 echo $(ls -lh $ASSEMBLY)
 
+## fix IDs and cds reading frame with AGAT
+ANNOT_GFF_ID=${ANNOT_GFF_RAW}_AGAT_ID.gff
+agat_sp_manage_IDs.pl --gff $ANNOT_GFF_RAW -o $ANNOT_GFF_ID
+ANNOT_GFF=${ANNOT_GFF_ID}_CDS.gff
+agat_sp_fix_cds_phases.pl --gff $ANNOT_GFF_ID -o $ANNOT_GFF
+
 # index assemblies (greatly decreases computing time, and won't work for the more fragmented callosobruchus assemblies otherwise)
-samtools faidx $ASSEMBLY
+# samtools faidx $ASSEMBLY
 # extract transcript sequences
 
 echo "gffread $ANNOT_GFF -M -x $ANNOT_TRANSCRIPTS -g $ASSEMBLY"
