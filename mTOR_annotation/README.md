@@ -169,7 +169,6 @@ mamba install -c bioconda agat=1.3.2
 mamba deactivate
 ```
 
-
 </details>
 
 2. convert old yTOR annotations to new coordinates using `mTOR_annotation/data/SALSA_superscaffolding_contig_coordinates.agp`, script in `mTOR_annotation/convert_coordinates.py`. This only does the `scaffold_26` chunk of the original Y, it is not general! I do not take the contig placement direction into account (`+` or `-`) since it's all `+` for `scaffold_26`. I also correct the annotations with AGAT using `agat_sp_manage_IDs.pl` and `agat_sp_fix_cds_phases.pl`.
@@ -180,7 +179,7 @@ mamba deactivate
 agat_sp_filter_feature_from_kill_list.pl --gff Cmac_Lome_no_yTor.gff --kill_list yTor_overlap_IDs_Lome_annot.txt -o Cmac_Lome_no_yTor_no_overlap_genes.gff
 ```
 
-4. insert yTor annotations in the right place, (there is a bug in `agat_sp_merge_annotations.pl`, so I will use `agat_convert_sp_gxf2gxf.pl` instead) 
+1. insert yTor annotations in the right place, (there is a bug in `agat_sp_merge_annotations.pl`, so I will use `agat_convert_sp_gxf2gxf.pl` instead). 
 
 ```bash
 # AGAT/1.6.1
@@ -194,8 +193,12 @@ cat Cmac_Lome_no_yTor_no_overlap_genes.gff_AGAT_ID.gff_CDS.gff yTor-A_superscaff
 agat_convert_sp_gxf2gxf.pl -g Cmac_Lome_yes_yTor_unsorted.gff -o Cmac_Lome_yes_yTor.gff
 ## all cds coordinates right, but for some reason yTor-A gene and transcript coordinates are too long (to the end of yTor-C)
 ```
+    The resulting transcript IDs are:
+   * yTor-A : `transcript-2`
+   * yTor-B : `agat-transcript-1`
+   * yTor-C : `agat-transcript-2`
 
-5. make nucleotide and proteinfasta for future analyses
+1. make nucleotide and proteinfasta for future analyses
 
 ```bash
 # gffread/0.12.7
@@ -204,5 +207,7 @@ gffread Cmac_Lome_yes_yTor.gff -M -y Cmac_Lome_yes_yTor.faa -g Cmac_superscaffol
 ```
 
 ## Functional annotation
+
+`PhD_chapter4/mTOR_annotation/bash/eggnog.sh`
 
 I will use a simplified version of Ingo's approach of using eggnogmapper and InterProScan and combining the functional annotation information with `agat_sp_manage_functional_annotation.pl`.
