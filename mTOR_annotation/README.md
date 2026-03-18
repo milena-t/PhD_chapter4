@@ -202,8 +202,12 @@ agat_convert_sp_gxf2gxf.pl -g Cmac_Lome_yes_yTor_unsorted.gff -o Cmac_Lome_yes_y
 
 ```bash
 # gffread/0.12.7
+# nucleotides
 gffread Cmac_Lome_yes_yTor.gff -M -x Cmac_Lome_yes_yTor.fna -g Cmac_superscaffolded.fna.masked
-gffread Cmac_Lome_yes_yTor.gff -M -y Cmac_Lome_yes_yTor.faa -g Cmac_superscaffolded.fna.masked
+# proteins
+transeq -sequence Cmac_Lome_yes_yTor.fna -outseq Cmac_Lome_yes_yTor_emboss.fna
+  # don't use gffread, it uses '.' as characters which eggnog does not recognize
+  # gffread Cmac_Lome_yes_yTor.gff -M -y Cmac_Lome_yes_yTor.faa -g Cmac_superscaffolded.fna.masked
 ```
 
 ## Functional annotation
