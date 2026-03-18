@@ -15,8 +15,8 @@ def transform_coords(in_path:str, out_path:str, agp_new, agp_old):
             line_old = line.strip().split("\t")
             if line_old[contig_ind] == agp_old["cont"]:
                 line_new[contig_ind] = agp_new["cont"]
-                line_new[start_ind] = str(int(line_old[start_ind])-agp_old["start"])
-                line_new[end_ind] = str(int(line_old[end_ind])-agp_old["start"])
+                line_new[start_ind] = str(int(line_old[start_ind])-agp_old["start"]+agp_new["start"])
+                line_new[end_ind] = str(int(line_old[end_ind])-agp_old["start"]+agp_new["start"])
             write_line_new = "\t".join(line_new)
             tor_scaffold.write(f"{write_line_new}\n")
     print(f"transformed coords written to {out_path}")
