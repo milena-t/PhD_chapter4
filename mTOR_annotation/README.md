@@ -172,15 +172,15 @@ mamba deactivate
 
 </details>
 
-1. convert old yTOR annotations to new coordinates using `mTOR_annotation/data/SALSA_superscaffolding_contig_coordinates.agp`, script in `mTOR_annotation/convert_coordinates.py`. This only does the `scaffold_26` chunk of the original Y, it is not general! I do not take the contig placement direction into account (`+` or `-`) since it's all `+` for `scaffold_26`. I also correct the annotations with AGAT using `agat_sp_manage_IDs.pl` and `agat_sp_fix_cds_phases.pl`.
-2. remove genes in this location in superscaffolded gff. All genes from `3188183` to `3622777` are removed, which is `g5425`, `g5426`, `g5427`
+2. convert old yTOR annotations to new coordinates using `mTOR_annotation/data/SALSA_superscaffolding_contig_coordinates.agp`, script in `mTOR_annotation/convert_coordinates.py`. This only does the `scaffold_26` chunk of the original Y, it is not general! I do not take the contig placement direction into account (`+` or `-`) since it's all `+` for `scaffold_26`. I also correct the annotations with AGAT using `agat_sp_manage_IDs.pl` and `agat_sp_fix_cds_phases.pl`.
+3. remove genes in this location in superscaffolded gff. All genes from `3188183` to `3622777` are removed, which is `g5425`, `g5426`, `g5427`
   
 ```bash
 # AGAT/1.6.1
 agat_sp_filter_feature_from_kill_list.pl --gff Cmac_Lome_no_yTor.gff --kill_list yTor_overlap_IDs_Lome_annot.txt -o Cmac_Lome_no_yTor_no_overlap_genes.gff
 ```
 
-3. insert yTor annotations in the right place, (there is a bug in `agat_sp_merge_annotations.pl`, so I will use `agat_convert_sp_gxf2gxf.pl` instead) 
+4. insert yTor annotations in the right place, (there is a bug in `agat_sp_merge_annotations.pl`, so I will use `agat_convert_sp_gxf2gxf.pl` instead) 
 
 ```bash
 # AGAT/1.6.1
@@ -195,6 +195,13 @@ agat_convert_sp_gxf2gxf.pl -g Cmac_Lome_yes_yTor_unsorted.gff -o Cmac_Lome_yes_y
 ## all cds coordinates right, but for some reason yTor-A gene and transcript coordinates are too long (to the end of yTor-C)
 ```
 
+5. make nucleotide and proteinfasta for future analyses
+
+```bash
+# gffread/0.12.7
+gffread Cmac_Lome_yes_yTor.gff -M -x Cmac_Lome_yes_yTor.fna -g Cmac_superscaffolded.fna.masked
+gffread Cmac_Lome_yes_yTor.gff -M -y Cmac_Lome_yes_yTor.faa -g Cmac_superscaffolded.fna.masked
+```
 
 ## Functional annotation
 
