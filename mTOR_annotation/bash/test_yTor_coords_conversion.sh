@@ -13,20 +13,22 @@
 
 module load gffread/0.12.7-GCCcore-13.3.0 SAMtools/1.22-GCC-13.3.0
 
-ANNOT_GTF=$1
-ASSEMBLY=/proj/naiss2023-6-65/Milena/annotation_pipeline/only_orthodb_annotation/C_maculatus_superscaffolded/assembly_genomic.fna.masked
+ANNOT_GFF=$1
+ASSEMBLY=/proj/naiss2023-6-65/Milena/chapter4/annotation/Cmac_superscaffolded.fna.masked
+ASSEMBLY_K=/proj/naiss2023-6-65/Milena/annotation_pipeline/only_orthodb_annotation/C_maculatus/assembly_genomic.fna.masked
 
-ANNOT_TRANSCRIPTS=${ANNOT_GTF}_isoform_filtered_transcripts.fna
-ANNOT_PROTEINS=${ANNOT_GTF}_isoform_filtered_proteins.faa
+ANNOT_TRANSCRIPTS=${ANNOT_GFF}_isoform_filtered_transcripts.fna
+ANNOT_PROTEINS=${ANNOT_GFF}_isoform_filtered_proteins.faa
 TRANSEQ_PATH=/proj/naiss2023-6-65/Milena/software_install/emboss/EMBOSS-6.6.0/EMBOSS-6.6.0/bin/transeq
 
 echo $(pwd)
-echo $(ll $ASSEMBLY)
+echo $(ls -lh $ASSEMBLY)
 
 # index assemblies (greatly decreases computing time, and won't work for the more fragmented callosobruchus assemblies otherwise)
 samtools faidx $ASSEMBLY
 # extract transcript sequences
-gffread -M -x $ANNOT_TRANSCRIPTS -g $ASSEMBLY $ANNOT_GTF
+gffread $ANNOT_GFF -M -x $ANNOT_TRANSCRIPTS -g $ASSEMBLY
+# gffread $ANNOT_GFF -g $ASSEMBLY -y $ANNOT_PROTEINS
 # change fasta headers to include species names
 # sed -i "s/>/>${SPECIES_NAME}_/g" $ANNOT_TRANSCRIPTS
 # translate transcript sequences
