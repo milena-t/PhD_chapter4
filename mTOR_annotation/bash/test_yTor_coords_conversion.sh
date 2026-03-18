@@ -17,8 +17,8 @@ ANNOT_GFF_RAW=$1
 ASSEMBLY=/proj/naiss2023-6-65/Milena/chapter4/annotation/Cmac_superscaffolded.fna.masked
 ASSEMBLY_K=/proj/naiss2023-6-65/Milena/annotation_pipeline/only_orthodb_annotation/C_maculatus/assembly_genomic.fna.masked
 
-ANNOT_TRANSCRIPTS=${ANNOT_GFF}_isoform_filtered_transcripts.fna
-ANNOT_PROTEINS=${ANNOT_GFF}_isoform_filtered_proteins.faa
+ANNOT_TRANSCRIPTS=${ANNOT_GFF_RAW}_isoform_filtered_transcripts.fna
+ANNOT_PROTEINS=${ANNOT_GFF_RAW}_isoform_filtered_proteins.faa
 TRANSEQ_PATH=/proj/naiss2023-6-65/Milena/software_install/emboss/EMBOSS-6.6.0/EMBOSS-6.6.0/bin/transeq
 
 echo $(pwd)
@@ -28,7 +28,8 @@ echo $(ls -lh $ASSEMBLY)
 ANNOT_GFF_ID=${ANNOT_GFF_RAW}_AGAT_ID.gff
 agat_sp_manage_IDs.pl --gff $ANNOT_GFF_RAW -o $ANNOT_GFF_ID
 ANNOT_GFF=${ANNOT_GFF_ID}_CDS.gff
-agat_sp_fix_cds_phases.pl --gff $ANNOT_GFF_ID -f $ASSEMBLY -o $ANNOT_GFF
+agat_sp_fix_cds_phases.pl --gff $ANNOT_GFF_ID --fasta $ASSEMBLY -o $ANNOT_GFF
+rm $ANNOT_GFF_ID
 
 # index assemblies (greatly decreases computing time, and won't work for the more fragmented callosobruchus assemblies otherwise)
 # samtools faidx $ASSEMBLY
