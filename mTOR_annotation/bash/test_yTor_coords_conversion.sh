@@ -11,7 +11,7 @@
 # -M :  cluster the input transcripts into loci, discarding "duplicated" transcripts (those with the same exact introns and fully contained or equal boundaries)
 # -x :  write a FASTA file with spliced CDS for each GFF transcript
 
-module load gffread/0.12.7-GCCcore-13.3.0 SAMtools/1.22-GCC-13.3.0
+module load gffread/0.12.7-GCCcore-13.3.0 SAMtools/1.22-GCC-13.3.0 AGAT/1.6.1-GCCcore-13.3.0
 
 ANNOT_GFF_RAW=$1
 ASSEMBLY=/proj/naiss2023-6-65/Milena/chapter4/annotation/Cmac_superscaffolded.fna.masked
@@ -28,7 +28,7 @@ echo $(ls -lh $ASSEMBLY)
 ANNOT_GFF_ID=${ANNOT_GFF_RAW}_AGAT_ID.gff
 agat_sp_manage_IDs.pl --gff $ANNOT_GFF_RAW -o $ANNOT_GFF_ID
 ANNOT_GFF=${ANNOT_GFF_ID}_CDS.gff
-agat_sp_fix_cds_phases.pl --gff $ANNOT_GFF_ID -o $ANNOT_GFF
+agat_sp_fix_cds_phases.pl --gff $ANNOT_GFF_ID -f $ASSEMBLY -o $ANNOT_GFF
 
 # index assemblies (greatly decreases computing time, and won't work for the more fragmented callosobruchus assemblies otherwise)
 # samtools faidx $ASSEMBLY
