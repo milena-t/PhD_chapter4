@@ -29,7 +29,8 @@ ANNOT_GFF_ID=${ANNOT_GFF_RAW}_AGAT_ID.gff
 agat_sp_manage_IDs.pl --gff $ANNOT_GFF_RAW -o $ANNOT_GFF_ID
 # ANNOT_GFF=${ANNOT_GFF_ID}_CDS.gff
 # agat_sp_fix_cds_phases.pl --gff $ANNOT_GFF_ID --fasta $ASSEMBLY -o $ANNOT_GFF
-rm $ANNOT_GFF_ID
+# rm $ANNOT_GFF_ID
+$ANNOT_GFF=$ANNOT_GFF_ID
 
 # index assemblies (greatly decreases computing time, and won't work for the more fragmented callosobruchus assemblies otherwise)
 # samtools faidx $ASSEMBLY
