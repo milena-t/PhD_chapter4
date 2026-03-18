@@ -172,10 +172,7 @@ mamba deactivate
 
 </details>
 
-1. convert old yTOR annotations to new coordinates using `mTOR_annotation/data/SALSA_superscaffolding_contig_coordinates.agp`
-   
-   
-
+1. convert old yTOR annotations to new coordinates using `mTOR_annotation/data/SALSA_superscaffolding_contig_coordinates.agp`, script in `mTOR_annotation/convert_coordinates.py`. This only does the `scaffold_26` chunk of the original Y, it is not general! I do not take the contig placement direction into account (`+` or `-`) since it's all `+` for `scaffold_26`.
 2. remove genes in this location in superscaffolded gff
 3. insert yTor annotations in the right place, (merge annotations with `agat_sp_merge_annotations.pl`)
   
