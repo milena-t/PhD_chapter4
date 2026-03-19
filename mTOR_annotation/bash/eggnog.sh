@@ -16,7 +16,7 @@ module load eggnog-mapper/2.1.12-foss-2024a
 
 DBDIR=/proj/naiss2023-6-65/Milena/chapter3/Cmac_func_annot/
 INDIR=/proj/naiss2023-6-65/Milena/chapter4/annotation/
-InFAA=${INDIR}Cmac_Lome_yes_yTor_emboss.faa
+InFAA=${INDIR}Cmac_Lome_yes_yTor.faa
 OutDIR=${INDIR}eggnog
 GFF=${INDIR}Cmac_Lome_yes_yTor.gff
 
