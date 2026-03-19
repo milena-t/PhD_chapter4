@@ -1,0 +1,20 @@
+# BUSCO version is: 5.7.1 
+# The lineage dataset is: endopterygota_odb10 (Creation date: 2024-01-08, number of genomes: 56, number of BUSCOs: 2124)
+# Summarized benchmarking in BUSCO notation for file /proj/naiss2024-6-73/Bianca/transcriptome/with_ref/trinity_with_ref/Trinity-GG.fasta
+# BUSCO was run in mode: euk_tran
+
+	***** Results: *****
+
+	C:95.8%[S:25.9%,D:69.9%],F:1.6%,M:2.6%,n:2124	   
+	2034	Complete BUSCOs (C)			   
+	550	Complete and single-copy BUSCOs (S)	   
+	1484	Complete and duplicated BUSCOs (D)	   
+	34	Fragmented BUSCOs (F)			   
+	56	Missing BUSCOs (M)			   
+	2124	Total BUSCO groups searched		   
+
+Dependencies and versions:
+	hmmsearch: 3.4
+	metaeuk: fba1b3d5a6009a46968734adca0ff15ac98bb732
+	python: sys.version_info(major=3, minor=11, micro=4, releaselevel='final', serial=0)
+	busco: 5.7.1
