@@ -50,4 +50,5 @@ emapper.py \
     --data_dir ${DBDIR}eggnog/eggnog_db \
     -m diamond --tax_scope 6656 \
     --decorate_gff ${GFF} \
-	--sensmode ultra-sensitive --dmnd_iterate yes --matrix BLOSUM62
+	--sensmode ultra-sensitive --dmnd_iterate yes --matrix BLOSUM62 \
+    --override
