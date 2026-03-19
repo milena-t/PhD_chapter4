@@ -23,4 +23,4 @@ sed -i.bak -e 's/>//g' decoys.txt
 cat $TRANSCRIPTOME $ASSEMBLY > gentrome.fa
 
 ## run salmon indexing
-salmon index -t gentrome.fa.gz -d decoys.txt -p 12 -i salmon_index --gencode
+salmon index -t gentrome.fa -d decoys.txt -p 12 -i salmon_index --gencode
