@@ -175,43 +175,50 @@ mamba deactivate
 3. remove genes in this location in superscaffolded gff. All genes from `3188183` to `3622777` are removed, which is `g5425`, `g5426`, `g5427`
   
 ```bash
-# AGAT/1.6.1
+module load AGAT/1.6.1-GCCcore-13.3.0
 agat_sp_filter_feature_from_kill_list.pl --gff Cmac_Lome_no_yTor.gff --kill_list yTor_overlap_IDs_Lome_annot.txt -o Cmac_Lome_no_yTor_no_overlap_genes.gff
 ```
 
-1. insert yTor annotations in the right place, (there is a bug in `agat_sp_merge_annotations.pl`, so I will use `agat_convert_sp_gxf2gxf.pl` instead). 
+4. insert yTor annotations in the right place, (there is a bug in `agat_sp_merge_annotations.pl`, so I will use `agat_convert_sp_gxf2gxf.pl` instead). 
 
 ```bash
 # AGAT/1.6.1
 # by default, this converts the TORs to transcripts of the same gene because they have the same parentID, so give them custom IDs
-sed 's/gene-1/yTor-A/g' yTor-A_superscaffolds.gff_AGAT_ID.gff_CDS.gff > yTor-A_superscaffolds_AGAT_fixed_customID.gff
-sed 's/gene-1/yTor-B/g' yTor-B_superscaffolds.gff_AGAT_ID.gff_CDS.gff > yTor-B_superscaffolds_AGAT_fixed_customID.gff
-sed 's/gene-1/yTor-C/g' yTor-C_superscaffolds.gff_AGAT_ID.gff_CDS.gff > yTor-C_superscaffolds_AGAT_fixed_customID.gff
+sed 's/gene-1/yTor-A/g' yTor-A_superscaffolds.gff_AGAT_ID.gff_CDS.gff | sed 's/transcript-2/yTor-A_transcript/g'  > yTor-A_superscaffolds_AGAT_fixed_customID.gff
+sed 's/gene-1/yTor-B/g' yTor-B_superscaffolds.gff_AGAT_ID.gff_CDS.gff | sed 's/transcript-2/yTor-B_transcript/g'  > yTor-B_superscaffolds_AGAT_fixed_customID.gff
+sed 's/gene-1/yTor-C/g' yTor-C_superscaffolds.gff_AGAT_ID.gff_CDS.gff | sed 's/transcript-2/yTor-C_transcript/g'  > yTor-C_superscaffolds_AGAT_fixed_customID.gff
 
 cat Cmac_Lome_no_yTor_no_overlap_genes.gff_AGAT_ID.gff_CDS.gff yTor-A_superscaffolds_AGAT_fixed_customID.gff yTor-B_superscaffolds_AGAT_fixed_customID.gff yTor-C_superscaffolds_AGAT_fixed_customID.gff > Cmac_Lome_yes_yTor_unsorted.gff
 
 agat_convert_sp_gxf2gxf.pl -g Cmac_Lome_yes_yTor_unsorted.gff -o Cmac_Lome_yes_yTor.gff
-## all cds coordinates right, but for some reason yTor-A gene and transcript coordinates are too long (to the end of yTor-C)
 ```
     The resulting transcript IDs are:
-   * yTor-A : `transcript-2`
-   * yTor-B : `agat-transcript-1`
-   * yTor-C : `agat-transcript-2`
+   * yTor-A : `yTor-A_transcript_1`
+   * yTor-B : `yTor-B_transcript_1`
+   * yTor-C : `yTor-C_transcript_1`
 
-1. make nucleotide and proteinfasta for future analyses
+5. make nucleotide and proteinfasta for future analyses
 
 ```bash
 # gffread/0.12.7
 # nucleotides
 gffread Cmac_Lome_yes_yTor.gff -M -x Cmac_Lome_yes_yTor.fna -g Cmac_superscaffolded.fna.masked
 # proteins
-transeq -sequence Cmac_Lome_yes_yTor.fna -outseq Cmac_Lome_yes_yTor_emboss.fna
+transeq -sequence Cmac_Lome_yes_yTor.fna -outseq Cmac_Lome_yes_yTor.faa
   # don't use gffread, it uses '.' as characters which eggnog does not recognize
   # gffread Cmac_Lome_yes_yTor.gff -M -y Cmac_Lome_yes_yTor.faa -g Cmac_superscaffolded.fna.masked
 ```
 
+The transcript are present as fasta sequences under their transcript headers in both.
+
 ## Functional annotation
+
+### just eggnogmapper
+
+The basic version I have for now is just eggnogmapper diamond
 
 `PhD_chapter4/mTOR_annotation/bash/eggnog.sh`
 
-I will use a simplified version of Ingo's approach of using eggnogmapper and InterProScan and combining the functional annotation information with `agat_sp_manage_functional_annotation.pl`.
+### eggnogmapper and interproscan combined
+
+I would like to use a simplified version of Ingo's approach of using eggnogmapper and InterProScan and combining the functional annotation information with `agat_sp_manage_functional_annotation.pl`. But Interproscan is not on pelle right now and those databases are giant so I'm not downloading them either. Just eggnogmapper will be fine for now, and if interproscan is available after I do GO enrichment then I might still do this.
