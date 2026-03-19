@@ -4,7 +4,7 @@
 #SBATCH -c 20
 #SBATCH -t 48:00:00
 #SBATCH -J salmon_quant
-#SBATCH -o salmon_quant
+#SBATCH -o salmon_quant.out
 #SBATCH --mail-type=ALL
 #SBATCH --mem=32G
 
