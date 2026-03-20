@@ -21,7 +21,7 @@ module load STAR/2.7.11b-GCC-13.3.0
 WKDIR=/proj/naiss2023-6-65/Milena/chapter4/mapping_STAR
 
 GENOME_DIR="${WKDIR}/star_index"
-RNA_DIR="${WKDIR}/dedupplicated_reads"
+DATA_DIR="${WKDIR}/dedupplicated_reads"
 OUT_DIR="${WKDIR}/star_mapping_res"
 
 mkdir -p "$OUT_DIR"
