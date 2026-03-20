@@ -3,8 +3,8 @@
 #SBATCH -p pelle
 #SBATCH -c 20
 #SBATCH -t 48:00:00
-#SBATCH -J salmon_quant
-#SBATCH -o salmon_quant.out
+#SBATCH -J STAR_mapping
+#SBATCH -o STAR_mapping.out
 #SBATCH --mail-type=ALL
 #SBATCH --mem=32G
 
