@@ -57,7 +57,7 @@ for R1 in "$DATA_DIR"/*R1_001.fastq.gz; do
        --twopassMode Basic \
        --outFilterMultimapNmax 20 \
        --limitBAMsortRAM 20000000000 \
-       --outFileNamePrefix "$OUT_DIR/${SAMPLE}_"
+       --outFileNamePrefix "$OUT_DIR/${SAMPLE_NAME}_"
 done
 
 echo " "
