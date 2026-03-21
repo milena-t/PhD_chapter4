@@ -31,10 +31,10 @@ echo "Array task $SLURM_ARRAY_TASK_ID processing $SAMPLE..."
 
 # Mark duplicates
 java -jar $EBROOTPICARD/picard.jar MarkDuplicates \
-    INPUT="$BAM" \
-    OUTPUT="$OUTPUT_BAM" \
-    METRICS_FILE="$METRICS" \
-    VALIDATION_STRINGENCY=LENIENT
+    -INPUT $BAM \
+    -OUTPUT $OUTPUT_BAM \
+    -METRICS_FILE $METRICS \
+    -VALIDATION_STRINGENCY LENIENT
 
 # Index the marked BAM
 samtools index "$OUTPUT_BAM"
