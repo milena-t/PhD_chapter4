@@ -4,6 +4,12 @@ I also tried Salmon but it didn't work and the mapping rate is good with star
 
 ## mapping rate
 
+* Mean uniquely mapped reads: 83.76 %
+* mean multimapped reads: 9.74 %
+
+<details>
+<summary>Full table</summary
+
 | Sample                 | uniquely mapped reads | mapped to multiple loci |
 | ---------------------- | --------------------- | ----------------------- |
 | WJ-3841-1-14-10-M_S377 | 84.71 %               | 10.11 %                 |
@@ -88,3 +94,5 @@ I also tried Salmon but it didn't work and the mapping rate is good with star
 | WJ-3841-3-18-7-M_S369  | 87.04 %               | 6.87 %                  |
 | WJ-3841-3-18-8-M_S370  | 84.97 %               | 8.52 %                  |
 | WJ-3841-3-18-9-M_S371  | 86.01 %               | 8.42 %                  |
+
+</details>
