@@ -42,10 +42,10 @@ java -jar $EBROOTPICARD/picard.jar AddOrReplaceReadGroups \
 
 # Mark duplicates
 java -jar $EBROOTPICARD/picard.jar MarkDuplicates \
-    INPUT="${BAM%.bam}.rg.bam" \
-    OUTPUT="$OUTPUT_BAM" \
-    METRICS_FILE="$METRICS" \
-    VALIDATION_STRINGENCY=LENIENT
+    -INPUT "${BAM%.bam}.rg.bam" \
+    -OUTPUT $OUTPUT_BAM \
+    -METRICS_FILE $METRICS \
+    -VALIDATION_STRINGENCY LENIENT
 
 # Index the marked BAM
 samtools index "$OUTPUT_BAM"
