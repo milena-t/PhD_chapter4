@@ -5,10 +5,10 @@ I also tried Salmon but it didn't work and the mapping rate is good with star
 ## mapping rate
 
 * Mean uniquely mapped reads: 83.76 %
-* mean multimapped reads: 9.74 %
+* Mean multimapped reads: 9.74 %
 
 <details>
-<summary>Full table</summary
+<summary>Full table</summary>
 
 | Sample                 | uniquely mapped reads | mapped to multiple loci |
 | ---------------------- | --------------------- | ----------------------- |
