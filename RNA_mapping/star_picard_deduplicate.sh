@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -A uppmax2026-1-8
 #SBATCH -p pelle
-#SBATCH -c 8
-#SBATCH -t 4:00:00
+#SBATCH -c 1
+#SBATCH -t 20:00:00
 #SBATCH -J picard_deduplicate
 #SBATCH -o picard_deduplicate.out
 
