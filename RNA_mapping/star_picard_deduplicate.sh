@@ -2,7 +2,8 @@
 #SBATCH -A uppmax2026-1-8
 #SBATCH -p pelle
 #SBATCH -c 1
-#SBATCH -t 20:00:00
+#SBATCH -t 2:00:00
+#SBATCH --mem=32G
 #SBATCH -J picard_deduplicate
 #SBATCH -o picard_deduplicate.out
 
@@ -16,8 +17,7 @@ OUTPUT_DIR="$INPUT_DIR/picard_marked_indexed"
 
 mkdir -p "$OUTPUT_DIR"
 
-
-for BAM in "$INPUT_DIR"/*_Aligned.sortedByCoord.out.bam; do
+BAM=$1
 
 SAMPLE=$(basename "$BAM" "_Aligned.sortedByCoord.out.bam")
 OUTPUT_BAM="$OUTPUT_DIR/${SAMPLE}_marked_duplicates.bam"
@@ -49,5 +49,3 @@ java -jar $EBROOTPICARD/picard.jar MarkDuplicates \
 
 # Index the marked BAM
 samtools index "$OUTPUT_BAM"
-
-done
