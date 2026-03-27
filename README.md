@@ -37,6 +37,8 @@ See `PhD_chapter4/RNA_mapping`.
 
 ### PCA plots
 
+PCAs are based on log-transformed normalized counts.
+
 <details>
 <summary>Toggle down for plots</summary>
 

@@ -46,7 +46,7 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
   all(colnames(count_data) %in% rownames(meta_data))
   
 ## normalize library sizes
-  # make sample groups that reflect line and sex
+  # make sample groups that reflect line and day
   groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
   # read data into data structure
   y <- DGEList(counts=count_data, group=groups)
@@ -55,7 +55,7 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
   
   ## filter out low count genes
   # minimum count of 5 in at least some samples, and a minimum total count of 15 across all samples 
-  keep <- filterByExpr(y, group=groups, min.count=5, min.total.count=15)
+  keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
   y <- y[keep, , keep.lib.sizes=FALSE]
   y$samples$lib.size <- colSums(y$counts) # recompute library sizes
   # dim(y)
