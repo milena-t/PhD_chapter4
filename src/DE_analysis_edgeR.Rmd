@@ -1,0 +1,81 @@
+---
+title: "DE_analysis"
+author: "Milena Trabert"
+date: "2026-03-27"
+output: html_document
+---
+
+## load libraries
+```{r}
+# install all dependencies
+if (FALSE){
+  if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+  BiocManager::install("DESeq2") # compiled from source 
+  BiocManager::install("edgeR")
+  # install tidyverse (ggplot2 is in tidyverse)
+  install.packages("tidyverse") 
+  install.packages("gtable") 
+}
+library(tidyverse)
+library(ggplot2)
+library(edgeR)
+library(limma)
+library(DESeq2)
+```
+
+## prepare data
+```{r}
+in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
+out_norm_counts <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_normalized.tsv"
+metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv"
+
+## load data
+  count_data <- read.csv(in_filename, header = TRUE, sep = "\t",comment.char = "#", check.names = FALSE)
+  count_data <- count_data %>% select(-one_of('Chr','Start','End','Strand','Length')) 
+  # make the Geneid the row id 
+  count_data <- count_data %>% remove_rownames %>% column_to_rownames(var="Geneid")
+  ## meta data
+  DE_metadata_all <- read.csv(metadata, header = TRUE, sep = ",",comment.char = "#")
+  # only include metadata when the samples are in the counts
+  meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(count_data))==TRUE), ]
+  meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
+  # reorder so it's in the same order as the count data columns
+  meta_data <- meta_data[names(count_data),]
+  # check assumptions, should be TRUE
+  all(colnames(count_data) %in% rownames(meta_data))
+  
+## normalize library sizes
+  # make sample groups that reflect line and sex
+  groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
+  # read data into data structure
+  y <- DGEList(counts=count_data, group=groups)
+  #dim(y)
+  #[1] 15702    82
+  
+  ## filter out low count genes
+  # minimum count of 5 in at least some samples, and a minimum total count of 15 across all samples 
+  keep <- filterByExpr(y, group=groups, min.count=5, min.total.count=15)
+  y <- y[keep, , keep.lib.sizes=FALSE]
+  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
+  # dim(y)
+  # [1] 11641    82
+  
+  ## normalize by library sizes
+  y <- calcNormFactors(y)
+  
+## export normalized counts to file
+  log_norm_counts <- cpm(y,normalized.lib.sizes = TRUE,log = TRUE,prior.count = 1)
+  write.table(log_norm_counts,file = out_norm_counts, sep = "\t",quote = FALSE)# ,col.names = NA)
+  #### !!! manually add first header "geneID" to the file !!! ###
+  
+```
+
+## set up differential expression analysis
+```{r}
+setwd("/Users/miltr339/work/PhD_code/PhD_chapter4/data")
+
+
+```
+
+

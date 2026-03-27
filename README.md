@@ -29,5 +29,23 @@ From his results I made the choice to use Salmon-mapping, see `PhD_chapter4/mapp
 
 This work is based on the selection lines evaluated by Kaufmann *et al.* ([link](https://doi.org/10.1093/molbev/msad167)), but I am using a different version of the *C. maculatus* annotation that does not have the gene structures of the Y TOR copy number variation. Therefore I lift these gene structures from the original annotation and transform the coordinates to match my superscaffolded version of the assembly/annotation, see `PhD_chapter4/mTOR_annotation`.
 
-## 2. SALMON mapping
+## 2. STAR mapping
+
+See `PhD_chapter4/RNA_mapping`.
+
+## 3. DE analysis
+
+### PCA plots
+
+<details>
+<summary>Toggle down for plots</summary>
+
+<p float="left">
+  <img src="data/DE_figures/PCA_sex_line_all_counts.png" width="49%" />
+  <img src="data/DE_figures/PCA_sex_day_all_counts.png" width="49%" />
+</p>
+
+When plotting all samples at once, the line is a clear separator, but the day not as clearly. Day 14 seems to be mostly to the left, but 16 and 18 are across the entire range.
+
+</details>
 
