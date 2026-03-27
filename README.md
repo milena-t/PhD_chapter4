@@ -40,12 +40,27 @@ See `PhD_chapter4/RNA_mapping`.
 <details>
 <summary>Toggle down for plots</summary>
 
+Lines are SL1 and SL3 which are the large (1) and small (3) males respectively. The days are day 14, 16, or 18 of larval development.
+
+#### All samples
+
 <p float="left">
   <img src="data/DE_figures/PCA_sex_line_all_counts.png" width="49%" />
   <img src="data/DE_figures/PCA_sex_day_all_counts.png" width="49%" />
 </p>
 
 When plotting all samples at once, the line is a clear separator, but the day not as clearly. Day 14 seems to be mostly to the left, but 16 and 18 are across the entire range.
+
+#### Only males or only females
+
+Since we are interested in the male variation and the females are mostly control, we have much fewer female than male samples.
+
+<p float="left">
+  <img src="data/DE_figures/PCA_M_day_line.png" width="49%" />
+  <img src="data/DE_figures/PCA_F_day_line.png" width="49%" />
+</p>
+
+Mostly the same as above, line is the lagest difference and day 14 kind of separate but otherwise the age does not make a massive difference.
 
 </details>
 
