@@ -35,7 +35,7 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
   count_data <- count_data %>% select(-one_of('Chr','Start','End','Strand','Length')) 
   # make the Geneid the row id 
   count_data <- count_data %>% remove_rownames %>% column_to_rownames(var="Geneid")
-  ## meta data
+## meta data
   DE_metadata_all <- read.csv(metadata, header = TRUE, sep = ",",comment.char = "#")
   # only include metadata when the samples are in the counts
   meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(count_data))==TRUE), ]
@@ -53,7 +53,7 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
   #dim(y)
   #[1] 15702    82
   
-  ## filter out low count genes
+## filter out low count genes
   # minimum count of 5 in at least some samples, and a minimum total count of 15 across all samples 
   keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
   y <- y[keep, , keep.lib.sizes=FALSE]
@@ -61,7 +61,7 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
   # dim(y)
   # [1] 11641    82
   
-  ## normalize by library sizes
+## normalize by library sizes
   y <- calcNormFactors(y)
   
 ## export normalized counts to file
@@ -70,11 +70,63 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
   #### !!! manually add first header "geneID" to the file !!! ###
   
 ```
+See Python scripting for the PCA plots
 
-## set up differential expression analysis
+
+# basic DE with only the males
+
+I will start with DE analysis that involves only the males to get an idea of what is going on. 
+
+## partition and prepare data
+
+```{r} 
+## filter count data to only include males 
+counts_M <- count_data[,grepl("-M_", colnames(count_data))]
+## adjust metadata
+meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
+meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
+# reorder so it's in the same order as the count data columns
+meta_data <- meta_data[names(counts_M),]
+# check assumptions, should be TRUE
+all(colnames(counts_M) %in% rownames(meta_data))
+
+# make sample groups that reflect line and day
+groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
+# read data into data structure
+y <- DGEList(counts=counts_M, group=groups)
+
+## filter out low count genes
+# filter by only line group and not day, since we aren't sure how the expression changes between days and we don't want to remove genes that are only rarely expressed
+keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
+  y <- y[keep, , keep.lib.sizes=FALSE]
+  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
+  
+# normalize by library sizes
+y <- calcNormFactors(y)
+
+# estimate dispersion
+MM <- model.matrix(~0 + groups)
+colnames(MM) <- c("SL1_14", "SL1_16", "SL1_18", "SL3_14",  "SL3_16", "SL3_18")
+rownames(MM) <- colnames(y)
+
+y <- estimateDisp(y, MM)
+plotBCV(y)
+```
+
+## do Differential expression
+
+I will test several contrasts, where each contrast is SL1-SL3 within the same day
 ```{r}
-setwd("/Users/miltr339/work/PhD_code/PhD_chapter4/data")
+fit <- glmFit(y, MM)
 
+my.contrasts <- makeContrasts(
+day14 =	SL1_14 - SL3_14, 
+day16 =	SL1_16 - SL3_16, 
+day18 = SL1_18 - SL3_18,
+levels=MM)
+
+lrt14 <- glmLRT(fit, contrast=my.contrasts[,"day14"])
+summary(de<-decideTestsDGE(lrt1, p.value=0.05, lfc=1)) 
 
 ```
 
