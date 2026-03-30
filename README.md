@@ -80,13 +80,26 @@ I started the differential expression analysis with only the male samples. The c
 | no difference | 10318         | 10147         | 10515         |
 | Upregulated   | 216           | 314           | 58            |
 
-Day 14 and 16 have more of the same genes significantly differentially expressed than day 18.
+Day 14 and 16 have more significantly differentially expressed genes in common than day 18. The DE genes here are identified with `decideTestsDGE`, while the table above is `topTags`, which is why I think the numbers don't match but I'm unsure what the exact difference is.
 
 <details>
 <summary>Toggle down for venn diagramm</summary>
 
 <p float="left">
   <img src="data/DE_figures/DE_days_M_venn.png" width="59%" />
+</p>
+
+</details>
+
+Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in `SL1`) genes, while day 18 about the same number as up- and downregulated genes. 
+
+<details>
+<summary>Toggle down for smear plots</summary>
+
+<p float="left">
+  <img src="data/DE_figures/smear_M_d14.png" width="49%" />
+  <img src="data/DE_figures/smear_M_d16.png" width="49%" />
+  <img src="data/DE_figures/smear_M_d18.png" width="49%" />
 </p>
 
 </details>

@@ -191,6 +191,25 @@ venn_plot <- venn.diagram(DE_genes, filename = venn_name,
                           rotation = 1,
                           main="DE genes (q=0.05, lfc >1)")
 
+
+## smear plots
+smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d14.png"
+png(smear_name, width = 6, height = 4, units = "in", res = 300)
+plotSmear(lrt14, de.tags=detags14, smearWidth=0.1, smooth.scatter=F, xlim=c(), ylab="logFC SL1-SL3", main = "Male samples day 14")
+abline(h=c(-1, 1), col="blue")
+dev.off()
+
+smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d16.png"
+png(smear_name, width = 6, height = 4, units = "in", res = 300)
+plotSmear(lrt16, de.tags=detags16, smearWidth=0.1, smooth.scatter=F, xlim=c(), ylab="logFC SL1-SL3", main = "Male samples day 16")
+abline(h=c(-1, 1), col="blue")
+dev.off()
+
+smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d18.png"
+png(smear_name, width = 6, height = 4, units = "in", res = 300)
+plotSmear(lrt18, de.tags=detags18, smearWidth=0.1, smooth.scatter=F, xlim=c(), ylab="logFC SL1-SL3", main = "Male samples day 18")
+abline(h=c(-1, 1), col="blue")
+dev.off()
 ```
 
 
