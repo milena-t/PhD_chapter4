@@ -79,3 +79,14 @@ I started the differential expression analysis with only the male samples. The c
 | Downregulated | 102           | 175           | 63            |
 | no difference | 10318         | 10147         | 10515         |
 | Upregulated   | 216           | 314           | 58            |
+
+Day 14 and 16 have more of the same genes significantly differentially expressed than day 18.
+
+<details>
+<summary>Toggle down for venn diagramm</summary>
+
+<p float="left">
+  <img src="data/DE_figures/DE_days_M_venn.png" width="59%" />
+</p>
+
+</details>

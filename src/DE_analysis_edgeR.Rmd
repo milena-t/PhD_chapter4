@@ -16,12 +16,13 @@ if (FALSE){
   # install tidyverse (ggplot2 is in tidyverse)
   install.packages("tidyverse") 
   install.packages("gtable") 
+  install.packages("VennDiagram") 
 }
 library(tidyverse)
 library(ggplot2)
 library(edgeR)
 library(limma)
-library(DESeq2)
+library(VennDiagram)
 ```
 
 ## prepare data
@@ -125,13 +126,70 @@ day16 =	SL1_16 - SL3_16,
 day18 = SL1_18 - SL3_18,
 levels=MM)
 
+## fit model for all contrasts
 lrt14 <- glmLRT(fit, contrast=my.contrasts[,"day14"])
-summary(de<-decideTestsDGE(lrt14, p.value=0.05, lfc=1)) 
-lrt14 <- glmLRT(fit, contrast=my.contrasts[,"day16"])
-summary(de<-decideTestsDGE(lrt14, p.value=0.05, lfc=1)) 
-lrt14 <- glmLRT(fit, contrast=my.contrasts[,"day18"])
-summary(de<-decideTestsDGE(lrt14, p.value=0.05, lfc=1)) 
+summary(de14<-decideTestsDGE(lrt14, p.value=0.05, lfc=1)) 
+lrt16 <- glmLRT(fit, contrast=my.contrasts[,"day16"])
+summary(de16<-decideTestsDGE(lrt16, p.value=0.05, lfc=1)) 
+lrt18 <- glmLRT(fit, contrast=my.contrasts[,"day18"])
+summary(de18<-decideTestsDGE(lrt18, p.value=0.05, lfc=1)) 
 
+## save DE genes to table
+### different number of lines than the DE genes in the summaries above?
+Tags14 <- topTags(lrt14, n=Inf, p.value=0.05)						
+Tags14 <- Tags14$table
+Tags14 $Gene <- rownames(Tags14)
+write.table(Tags14, file="/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day14.txt", sep="\t")	
+
+Tags16 <- topTags(lrt16, n=Inf, p.value=0.05)						
+Tags16 <- Tags16$table
+Tags16 $Gene <- rownames(Tags16)
+write.table(Tags16, file="/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day16.txt", sep="\t")	
+
+Tags18 <- topTags(lrt18, n=Inf, p.value=0.05)						
+Tags18 <- Tags18$table
+Tags18 $Gene <- rownames(Tags18)
+write.table(Tags18, file="/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day18.txt", sep="\t")	
+
+## make venn diagram to show the overlap
+library(VennDiagram)
+
+de14<-decideTestsDGE(lrt14, p.value=0.05, lfc=1) 
+detags14 <- rownames(y)[as.logical(de14)]
+
+de16<-decideTestsDGE(lrt16, p.value=0.05, lfc=1) 
+detags16 <- rownames(y)[as.logical(de16)]
+
+de18<-decideTestsDGE(lrt18, p.value=0.05, lfc=1) 
+detags18 <- rownames(y)[as.logical(de18)]
+
+venn_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_M_venn.png"
+DE_genes <- list(d14 = detags14, d16 = detags16, d18 = detags18)
+venn_plot <- venn.diagram(DE_genes, filename = venn_name, 
+                          # output
+                          imagetype="png" ,
+                          height = 720 , 
+                          width = 720 , 
+                          resolution = 300,
+                          compression = "lzw",
+                          # circles
+                          fill = c("#DE8F6E", "#2D93AD", "#88AB75"), 
+                          lwd = 2,
+                          lty = 'blank',
+                          # Numbers
+                          cex = .8,
+                          main.fontface = "bold",
+                          main.fontfamily = "sans",
+                          fontface = "bold",
+                          fontfamily = "sans",
+                          cat.cex = 0.8, 
+                          cat.fontface = "bold",
+                          cat.default.pos = "outer",
+                          cat.pos = c(-27, 27, 135),
+                          cat.dist = c(0.055, 0.055, 0.085),
+                          cat.fontfamily = "sans",
+                          rotation = 1,
+                          main="DE genes (q=0.05, lfc >1)")
 
 ```
 
