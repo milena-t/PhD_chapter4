@@ -126,7 +126,12 @@ day18 = SL1_18 - SL3_18,
 levels=MM)
 
 lrt14 <- glmLRT(fit, contrast=my.contrasts[,"day14"])
-summary(de<-decideTestsDGE(lrt1, p.value=0.05, lfc=1)) 
+summary(de<-decideTestsDGE(lrt14, p.value=0.05, lfc=1)) 
+lrt14 <- glmLRT(fit, contrast=my.contrasts[,"day16"])
+summary(de<-decideTestsDGE(lrt14, p.value=0.05, lfc=1)) 
+lrt14 <- glmLRT(fit, contrast=my.contrasts[,"day18"])
+summary(de<-decideTestsDGE(lrt14, p.value=0.05, lfc=1)) 
+
 
 ```
 

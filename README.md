@@ -68,3 +68,14 @@ Mostly the same as above, line is the lagest difference and day 14 kind of separ
 
 </details>
 
+### Male samples 
+
+I started the differential expression analysis with only the male samples. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`.
+
+#### Number of differentially expressed genes
+
+|               | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 102           | 175           | 63            |
+| no difference | 10318         | 10147         | 10515         |
+| Upregulated   | 216           | 314           | 58            |
