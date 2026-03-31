@@ -132,6 +132,8 @@ levels=MM)
 contrast_analysis <- function(y,fit,contrast, table_name, smear_name, smear_ylab, smear_title){
   lrt <- glmLRT(fit, contrast=contrast)
   de <- decideTestsDGE(lrt, p.value=0.05, lfc=1)
+  print(smear_title)
+  print(summary(de))
   ## make output table
   Tags <- topTags(lrt, n=Inf, p.value=0.05)						
   Tags <- Tags$table
@@ -172,6 +174,22 @@ out_18 <- contrast_analysis(y=y,fit=fit,contrast=my.contrasts[,"day18"],table_na
 lrt18 <- out_18["lrt"]
 de18 <- out_18["de"]
 detags18 <- out_18["detags"]
+
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1.png"
+line1_smear_title <- "Male samples line 1"
+out_SL1 <- contrast_analysis(y=y,fit=fit,contrast=my.contrasts[,"line_1"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line1_smear_title)
+lrtSL1 <- out_SL1["lrt"]
+deSL1 <- out_SL1["de"]
+detagsSL1 <- out_SL1["detags"]
+
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3.png"
+line3_smear_title <- "Male samples line 3"
+out_SL3 <- contrast_analysis(y=y,fit=fit,contrast=my.contrasts[,"line_3"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line3_smear_title)
+lrtSL3 <- out_SL3["lrt"]
+deSL3 <- out_SL3["de"]
+detagsSL3 <- out_SL3["detags"]
 ```
 
 ### Venn diagram
@@ -207,6 +225,35 @@ venn_plot <- venn.diagram(DE_genes,
                           cat.dist = c(0.055, 0.055, 0.085),
                           cat.fontfamily = "sans",
                           rotation = 1,
+                          main="DE genes (q=0.05, lfc >1)",
+                          disable.logging = TRUE)
+
+venn_name_lines <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_M_venn.png"
+DE_genes_lines <- list(smallY = unlist(detagsSL1), largeY = unlist(detagsSL3))
+venn_plot <- venn.diagram(DE_genes_lines, 
+                          filename = venn_name_lines, 
+                          # output
+                          imagetype="png",
+                          height = 720,
+                          width = 720,
+                          resolution = 300,
+                          compression = "lzw",
+                          # circles
+                          fill = c("#DE8F6E", "#2D93AD"),
+                          lwd = 2,
+                          lty = 'blank',
+                          # Numbers
+                          cex = .8,
+                          main.fontface = "bold",
+                          main.fontfamily = "sans",
+                          fontface = "bold",
+                          fontfamily = "sans",
+                          cat.cex = 0.8,
+                          cat.fontface = "bold",
+                          cat.default.pos = "outer",
+                          cat.pos = c(-27, 27),
+                          cat.dist = c(0.03, 0.02),
+                          cat.fontfamily = "sans",
                           main="DE genes (q=0.05, lfc >1)",
                           disable.logging = TRUE)
 ```

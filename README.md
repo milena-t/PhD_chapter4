@@ -72,7 +72,7 @@ Mostly the same as above, line is the lagest difference and day 14 kind of separ
 
 I started the differential expression analysis with only the male samples. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`.
 
-#### Number of differentially expressed genes
+#### Number of differentially expressed genes between SL1 and SL3
 
 |               | Day 14        | Day 16        | Day 18        |
 | ------------- | ------------- | ------------- | ------------- |
@@ -103,3 +103,32 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 </p>
 
 </details>
+
+#### Number of differentially expressed genes between day18 and mean(day14+day16)
+
+|               | Line 1        | Line 3        |
+| ------------- | ------------- | ------------- |
+| Downregulated | 388           | 488           |
+| no difference | 9010          | 8174          |
+| Upregulated   | 1238          | 1974          |
+
+Most of the DE genes are shared between line 1 (small males) and line 3 (large males), supporting the hypothesis that the difference between the lines is mostly in day 14 and 16, and that the larvae start a common preparation for pupation around day 18.
+
+<details>
+<summary>Toggle down for venn diagramm</summary>
+
+<p float="left">
+  <img src="data/DE_figures/DE_lines_M_venn.png" width="59%" />
+</p>
+
+</details>
+
+Lots of genes are upregulated in day 18 compared to 14 and 16 as well.
+
+<details>
+<summary>Toggle down for smear plots</summary>
+
+<p float="left">
+  <img src="data/DE_figures/smear_M_SL1.png" width="49%" />
+  <img src="data/DE_figures/smear_M_SL3.png" width="49%" />
+</p>
