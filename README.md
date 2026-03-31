@@ -91,7 +91,7 @@ Day 14 and 16 have more significantly differentially expressed genes in common t
 
 </details>
 
-Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in `SL1`) genes, while day 18 about the same number as up- and downregulated genes. 
+Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in `SL1`) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.
 
 <details>
 <summary>Toggle down for smear plots</summary>
