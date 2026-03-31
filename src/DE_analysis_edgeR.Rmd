@@ -252,10 +252,16 @@ venn_plot <- venn.diagram(DE_genes_lines,
                           cat.fontface = "bold",
                           cat.default.pos = "outer",
                           cat.pos = c(-27, 27),
-                          cat.dist = c(0.03, 0.02),
+                          cat.dist = c(0.03, 0.01),
                           cat.fontfamily = "sans",
                           main="DE genes (q=0.05, lfc >1)",
                           disable.logging = TRUE)
+```
+
+## TODO continue 3.2.4
+
+```{r}
+
 ```
 
 
