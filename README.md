@@ -42,7 +42,7 @@ I will use edgeR. After reading the data and filtering for minimum expression th
 PCAs are based on log-transformed normalized counts.
 
 <details>
-<summary>Toggle down for plots</summary>
+<summary>Toggle down for PCA plots</summary>
 
 Lines are SL1 and SL3 which are the large (1) and small (3) males respectively. The days are day 14, 16, or 18 of larval development.
 
@@ -65,6 +65,20 @@ Since we are interested in the male variation and the females are mostly control
 </p>
 
 Mostly the same as above, line is the lagest difference and day 14 kind of separate but otherwise the age does not make a massive difference.
+
+</details>
+
+I have also generated a MDS plot based on the edgeR data structure using `plotMDS()`
+
+<details>
+<summary>Toggle down for MDS plots</summary>
+
+<p float="left">
+  <img src="data/DE_figures/MDS_males_only.png" width="49%" />
+  <img src="data/DE_figures/MDS_males_and_females.png" width="49%" />
+</p>
+
+Males and females are kind of but not super clearly separated, but for only male samples, the SL1 and SL3 border is relatively clear.
 
 </details>
 
