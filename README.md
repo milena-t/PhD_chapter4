@@ -84,15 +84,19 @@ Males and females are kind of but not super clearly separated, but for only male
 
 ### Male samples 
 
-I started the differential expression analysis with only the male samples. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`.
+I started the differential expression analysis with only the male samples. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`. I am trying both `glmLRT` and `glmQLFTest` to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from `glmQLFTest`.
 
 #### Number of differentially expressed genes between SL1 and SL3
 
-|               | Day 14        | Day 16        | Day 18        |
+| `glmLRT`      | Day 14        | Day 16        | Day 18        |
 | ------------- | ------------- | ------------- | ------------- |
 | Downregulated | 102           | 175           | 63            |
 | no difference | 10318         | 10147         | 10515         |
 | Upregulated   | 216           | 314           | 58            |
+| `glmQLFTest`  |               |               |               |
+| Downregulated | 76            | 139           | 17            |
+| no difference | 10368         | 10253         | 10574         |
+| Upregulated   | 192           | 244           | 45            |
 
 Day 14 and 16 have more significantly differentially expressed genes in common than day 18. The DE genes here are identified with `decideTestsDGE`, while the table above is `topTags`, which is why I think the numbers don't match but I'm unsure what the exact difference is.
 
@@ -120,11 +124,15 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 
 #### Number of differentially expressed genes between day18 and mean(day14+day16)
 
-|               | Line 1        | Line 3        |
+| `glmLRT`      | Line 1        | Line 3        |
 | ------------- | ------------- | ------------- |
 | Downregulated | 388           | 488           |
 | no difference | 9010          | 8174          |
 | Upregulated   | 1238          | 1974          |
+| `glmQLFTest`  |               |               |
+| Downregulated | 311           | 438           |
+| no difference | 9172          | 8309          |
+| Upregulated   | 1153          | 1889          |
 
 Most of the DE genes are shared between line 1 (small males) and line 3 (large males), supporting the hypothesis that the difference between the lines is mostly in day 14 and 16, and that the larvae start a common preparation for pupation around day 18.
 
