@@ -23,6 +23,7 @@ library(ggplot2)
 library(edgeR)
 library(limma)
 library(VennDiagram)
+library(dplyr)
 ```
 
 ## prepare data with all samples
@@ -170,7 +171,7 @@ contrast_analysis <- function(y,MM,contrast, table_name, smear_name, smear_ylab,
   abline(h=c(-1, 1), col="blue")
   dev.off()
   
-  output <- list(lrt=qlf,de=de,detags=detags)
+  output <- list(qlf=qlf,de=de,detags=detags, Tags=Tags)
   return(output)
 }
 
@@ -178,41 +179,46 @@ d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day1
 d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d14.png"
 d14_smear_title <- "Male samples day 14"
 out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d14_smear_title)
-lrt14 <- out_14["lrt"]
+qlf14 <- out_14["qlf"]
 de14 <- out_14["de"]
 detags14 <- out_14["detags"]
+Tags14 <- out_14["Tags"]
 
 d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day16.txt"
 d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d16.png"
 d16_smear_title <- "Male samples day 16"
 out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d16_smear_title)
-lrt16 <- out_16["lrt"]
+qlf16 <- out_16["qlf"]
 de16 <- out_16["de"]
 detags16 <- out_16["detags"]
+Tags16 <- out_16["Tags"]
 
 d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day18.txt"
 d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d18.png"
 d18_smear_title <- "Male samples day 18"
 out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d18_smear_title)
-lrt18 <- out_18["lrt"]
+qlf18 <- out_18["qlf"]
 de18 <- out_18["de"]
 detags18 <- out_18["detags"]
+Tags18 <- out_18["Tags"]
 
 line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1.txt"
 line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1.png"
 line1_smear_title <- "Male samples line 1"
 out_SL1 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line1_smear_title)
-lrtSL1 <- out_SL1["lrt"]
+qlfSL1 <- out_SL1["qlf"]
 deSL1 <- out_SL1["de"]
 detagsSL1 <- out_SL1["detags"]
+Tags_SL1 <- out_SL1["Tags"]
 
 line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3.txt"
 line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3.png"
 line3_smear_title <- "Male samples line 3"
 out_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line3_smear_title)
-lrtSL3 <- out_SL3["lrt"]
+qlfSL3 <- out_SL3["qlf"]
 deSL3 <- out_SL3["de"]
 detagsSL3 <- out_SL3["detags"]
+Tags_SL3 <- out_SL3["Tags"]
 ```
 
 ### Venn diagram
@@ -281,11 +287,72 @@ venn_plot <- venn.diagram(DE_genes_lines,
                           disable.logging = TRUE)
 ```
 
-## gene-wise test for DE with glm
+## plot sex bias overlap
+
+Plot genes showing DE in any combination of two contrasts
 
 ```{r}
-fit <- glmQLFit(y, MM)
-qlf <- glmQLFTest(fit, contrast = my.contrasts[,"day14"])
+
+plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,ylabel,plot_title){
+  
+  Tags1 <- topTags(Res1, n=Inf)
+  Tags2 <- topTags(Res2, n=Inf)
+  abdg <- Tags1$table	
+  htg <- Tags2$table
+  abdg$gene <- row.names(abdg)
+  htg$gene <- row.names(htg)
+  
+  df <- merge(abdg, htg, by="gene", all=T)
+  df <- subset(df, FDR.x<sig_p | FDR.y<sig_p )
+  dim(df)
+  df$category <- ifelse((df$FDR.x <sig_p) & (df$FDR.y > sig_p | is.na(df$FDR.y)), "AbdOnly", 
+		             ifelse((df$FDR.x > sig_p | is.na(df$FDR.x)) & (df$FDR.y < sig_p), "HTOnly", 
+		             ifelse((df$FDR.x <sig_p) & (df$FDR.y < sig_p),"Both", 0)))
+  
+  abdLogFC <- df[,c("logFC.x")] # Take only the logFC
+  htLogFC <- df[,c("logFC.y")]
+  abdLogFC <- as.numeric(abdLogFC)
+  htLogFC <- as.numeric(htLogFC)
+  
+  category <- df[,c("category")]
+  newDF <- as.data.frame(cbind(abdLogFC, htLogFC))	
+  newDF$category <- as.factor(category)
+
+  g = ggplot(data= newDF, aes(x= htLogFC, y= abdLogFC)) + 
+    geom_point(aes(colour=factor(category)), alpha=0.6, size=1.75) + 
+   	scale_color_manual(values = c("#F2933A", "#4d7298", "#b82946"),name ="Differential expression (q<0.05)", 
+                                  labels=c(label1, "both", label2)) +
+    xlab(xlabel) + ylab(ylabel) + 
+   	ggtitle(plot_title) + 
+   	geom_hline(aes(yintercept=0), colour="#990000", linetype="dashed") + 
+   	geom_vline(aes(xintercept=0), colour="#990000", linetype="dashed") +  
+   	geom_hline(aes(yintercept=1), colour="darkgrey", linetype ="dashed") + 
+   	geom_hline(aes(yintercept=-1), colour="darkgrey", linetype ="dashed") + 
+   	geom_vline(aes(xintercept =1), colour="darkgrey", linetype ="dashed") + 
+   	geom_vline(aes(xintercept =-1), colour="darkgrey", linetype="dashed") +
+   	theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+    panel.background = element_blank(), axis.line = element_line(colour = "black")) 
+  ggsave(filename = plot_name, width = 6, height = 4, units = "in", plot = g)
+}
+
+# DE between SL1 vs. SL3 and DE in both, for day 14 and day 16
+day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_16.png"
+plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf16[[1]], sig_p = 0.05, plot_name=day14_16_name,
+                label1 = "day 14", label2 = "day 16", 
+                xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 16" ,
+                plot_title = "differential expression between SL1 and SL3")
+
+day14_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_18.png"
+plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day14_18_name,
+                label1 = "day 14", label2 = "day 18", 
+                xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 18" ,
+                plot_title = "differential expression between SL1 and SL3")
+
+day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day16_18.png"
+plot_DE_overlap(Res1 = qlf16[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day16_18_name,
+                label1 = "day 16", label2 = "day 18", 
+                xlabel = "LFC SL1-SL3 day 16",ylabel = "LFC SL1-SL3 day 18" ,
+                plot_title = "differential expression between SL1 and SL3")
 ```
 
 
