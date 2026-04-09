@@ -171,10 +171,10 @@ Lots of genes are upregulated in day 18 compared to 14 and 16 as well.
 I will also look at DE genes in time points that are the same or different in the small and large males.
 
 <details>
-<summary>Toggle down for plot and numbers</summary>
+<summary>Day 14 and day 16 overlap</summary>
 
 <p float="left">
-  <img src="data/DE_figures/DE_line_overlap_day14_16.png" width="49%" />
+  <img src="data/DE_figures/DE_line_overlap_day14_16.png" width="75%" />
 </p>
 
 | category      | num DE genes  |
@@ -183,24 +183,34 @@ I will also look at DE genes in time points that are the same or different in th
 | d14 exclusive | 134           |
 | d16 exclusive | 296           |
 
+</details>
+
+<details>
+<summary>Day 14 and day 18 overlap</summary>
+
 <p float="left">
-  <img src="data/DE_figures/DE_line_overlap_day14_18.png" width="49%" />
+  <img src="data/DE_figures/DE_line_overlap_day14_18.png" width="75%" />
 </p>
 
 | category      | num DE genes  |
 | ------------- | ------------- |
 | both          | 47            |
 | d14 exclusive | 263           |
-| d18 exclusive | 26           |
+| d18 exclusive | 26            |
+
+</details>
+
+<details>
+<summary>Day 16 and day 18 overlap</summary>
 
 <p float="left">
-  <img src="data/DE_figures/DE_line_overlap_day16_18.png" width="49%" />
+  <img src="data/DE_figures/DE_line_overlap_day16_18.png" width="75%" />
 </p>
 
 | category      | num DE genes  |
 | ------------- | ------------- |
 | both          | 48            |
-| d14 exclusive | 424           |
-| d16 exclusive | 25            |
+| d16 exclusive | 424           |
+| d18 exclusive | 25            |
 
 </details>
