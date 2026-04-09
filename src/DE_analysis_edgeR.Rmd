@@ -29,7 +29,7 @@ library(dplyr)
 ## prepare data with all samples
 ```{r}
 in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
-out_norm_counts <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_normalized.tsv"
+out_norm_counts <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
 metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv"
 
 ## load data
@@ -54,10 +54,11 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
   y <- DGEList(counts=count_data, group=groups)
   #dim(y)
   #[1] 15702    82
-  
 ## filter out low count genes
   # minimum count of 5 in at least some samples, and a minimum total count of 15 across all samples 
-  keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
+  # min.prop=0 so that the yTors stay even though they are only expressed in SL1-M
+  #   In general, all Y-exclusive genes should be kept this way since they are absent in all females
+  keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=5 , min.prop=0)
   y <- y[keep, , keep.lib.sizes=FALSE]
   y$samples$lib.size <- colSums(y$counts) # recompute library sizes
   # dim(y)
@@ -72,13 +73,20 @@ plotMDS(y, labels = short_rownames, col=as.numeric(y$samples$group))
 title("MDS clustering of all samples")
 dev.off()
 ## export normalized counts to file
-  log_norm_counts <- cpm(y,normalized.lib.sizes = TRUE,log = TRUE,prior.count = 1)
+  log_norm_counts <- cpm(y,normalized.lib.sizes = TRUE,log = FALSE,prior.count = 1)
   write.table(log_norm_counts,file = out_norm_counts, sep = "\t",quote = FALSE)# ,col.names = NA)
   #### !!! manually add first header "geneID" to the file !!! ###
   
 ```
 See Python scripting for the PCA plots
 
+## check yTor stuff
+
+```{r}
+y$counts["yTor-A",]
+# y$counts["yTor-B",] # B is not expressed! 
+y$counts["yTor-C",]
+```
 
 # basic DE with only the males
 

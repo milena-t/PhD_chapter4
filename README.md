@@ -37,6 +37,15 @@ See `PhD_chapter4/RNA_mapping`.
 
 I will use edgeR. After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B.
 
+<details>
+<summary>normalized counts plot</summary>
+
+<p float="left">
+  <img src="data/yTor_counts.png" width="75%" />
+</p>
+
+</details>
+
 ### PCA plots
 
 PCAs are based on log-transformed normalized counts.
