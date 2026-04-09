@@ -68,7 +68,7 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
 
 short_rownames <- c("1-14-M","1-14-F","1-14-M","1-14-M","1-14-F","1-14-M","1-14-M","1-14-M","1-14-M","1-14-F","1-14-M","1-14-M","1-14-M","1-16-M","1-16-M","1-16-M","1-16-F","1-16-M","1-16-F","1-16-M","1-16-F","1-16-M","1-16-M","1-16-M","1-16-M","1-16-M","1-16-M","1-18-M","1-18-M","1-18-F","1-18-F","1-18-M","1-18-M","1-18-M","1-18-M","1-18-M","1-18-F","1-18-F","1-18-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-F","3-14-F","3-14-M","3-16-F","3-16-M","3-16-F","3-16-M","3-16-M","3-16-F","3-16-M","3-16-F","3-16-F","3-16-M","3-16-M","3-16-M","3-16-F","3-18-F","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-F","3-18-M","3-18-F","3-18-M","3-18-M","3-18-M","3-18-M")
 png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_and_females.png", width = 7, height = 6, units = "in", res = 300)
-plotMDS(y, labels = short_rownames)
+plotMDS(y, labels = short_rownames, col=as.numeric(y$samples$group))
 title("MDS clustering of all samples")
 dev.off()
 ## export normalized counts to file
@@ -120,7 +120,7 @@ y <- estimateDisp(y, MM)
 plotBCV(y)
 short_rownames <- c("1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-18","1-18","1-18","1-18","1-18","1-18","1-18","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-16","3-16","3-16","3-16","3-16","3-16","3-16","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18")
 png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_only.png", width = 7, height = 6, units = "in", res = 300)
-plotMDS(y, labels = short_rownames)
+plotMDS(y,  labels = short_rownames, col=as.numeric(y$samples$group))
 title("MDS clustering of male samples")
 dev.off()
 ```
@@ -292,7 +292,6 @@ venn_plot <- venn.diagram(DE_genes_lines,
 Plot genes showing DE in any combination of two contrasts
 
 ```{r}
-
 plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,ylabel,plot_title){
   
   Tags1 <- topTags(Res1, n=Inf)
@@ -305,9 +304,14 @@ plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,y
   df <- merge(abdg, htg, by="gene", all=T)
   df <- subset(df, FDR.x<sig_p | FDR.y<sig_p )
   dim(df)
-  df$category <- ifelse((df$FDR.x <sig_p) & (df$FDR.y > sig_p | is.na(df$FDR.y)), "AbdOnly", 
-		             ifelse((df$FDR.x > sig_p | is.na(df$FDR.x)) & (df$FDR.y < sig_p), "HTOnly", 
+  df$category <- ifelse((df$FDR.x <sig_p) & (df$FDR.y > sig_p | is.na(df$FDR.y)), label1, 
+		             ifelse((df$FDR.x > sig_p | is.na(df$FDR.x)) & (df$FDR.y < sig_p), label2, 
 		             ifelse((df$FDR.x <sig_p) & (df$FDR.y < sig_p),"Both", 0)))
+  
+  print(plot_title)
+  counts <- df |> count(category)
+  print(counts)
+  print("-----------------------------------")
   
   abdLogFC <- df[,c("logFC.x")] # Take only the logFC
   htLogFC <- df[,c("logFC.y")]
@@ -334,8 +338,10 @@ plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,y
     panel.background = element_blank(), axis.line = element_line(colour = "black")) 
   ggsave(filename = plot_name, width = 6, height = 4, units = "in", plot = g)
 }
+```
 
-# DE between SL1 vs. SL3 and DE in both, for day 14 and day 16
+DE between SL1 vs. SL3 and DE in both, for day 14 and day 16
+```{r}
 day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_16.png"
 plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf16[[1]], sig_p = 0.05, plot_name=day14_16_name,
                 label1 = "day 14", label2 = "day 16", 
@@ -355,5 +361,18 @@ plot_DE_overlap(Res1 = qlf16[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=da
                 plot_title = "differential expression between SL1 and SL3")
 ```
 
+DE between mean(day14,day16) and day 18, for SL1 and SL3
+```{r}
+lines_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_day_overlap_SL1_SL3.png"
+plot_DE_overlap(Res1 = qlfSL1[[1]], Res2 = qlfSL3[[1]], sig_p = 0.05, plot_name=lines_name,
+                label1 = "SL1 (small Y)", label2 = "SL3 (large Y)", 
+                xlabel = "LFC d18-mean(d14,d16) SL1",ylabel = "LFC d18-mean(d14,d16) SL3" ,
+                plot_title = "differential expression between d18 and mean(d14,d16)")
+```
+
+
+```{r}
+
+```
 
 

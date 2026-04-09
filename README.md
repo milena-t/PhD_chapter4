@@ -119,6 +119,24 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 
 </details>
 
+I also check which genes are DE in only one or both lines for the day contrast. A lot of them are shared but there is a decent amount of difference.
+
+<details>
+<summary>Toggle down for plot and numbers</summary>
+
+<p float="left">
+  <img src="data/DE_figures/DE_day_overlap_SL1_SL3.png" width="75%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 1984          |
+| SL1 exclusive | 502           |
+| SL3 exclusive | 1999          |
+
+</details>
+
+
 #### Number of differentially expressed genes between day18 and mean(day14+day16)
 
 | `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
@@ -147,3 +165,42 @@ Lots of genes are upregulated in day 18 compared to 14 and 16 as well.
   <img src="data/DE_figures/smear_M_SL1.png" width="49%" />
   <img src="data/DE_figures/smear_M_SL3.png" width="49%" />
 </p>
+
+</details>
+
+I will also look at DE genes in time points that are the same or different in the small and large males.
+
+<details>
+<summary>Toggle down for plot and numbers</summary>
+
+<p float="left">
+  <img src="data/DE_figures/DE_line_overlap_day14_16.png" width="49%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 176           |
+| d14 exclusive | 134           |
+| d16 exclusive | 296           |
+
+<p float="left">
+  <img src="data/DE_figures/DE_line_overlap_day14_18.png" width="49%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 47            |
+| d14 exclusive | 263           |
+| d18 exclusive | 26           |
+
+<p float="left">
+  <img src="data/DE_figures/DE_line_overlap_day16_18.png" width="49%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 48            |
+| d14 exclusive | 424           |
+| d16 exclusive | 25            |
+
+</details>
