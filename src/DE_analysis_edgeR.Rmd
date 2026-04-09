@@ -304,13 +304,14 @@ plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,y
   df <- merge(abdg, htg, by="gene", all=T)
   df <- subset(df, FDR.x<sig_p | FDR.y<sig_p )
   dim(df)
-  df$category <- ifelse((df$FDR.x <sig_p) & (df$FDR.y > sig_p | is.na(df$FDR.y)), label1, 
-		             ifelse((df$FDR.x > sig_p | is.na(df$FDR.x)) & (df$FDR.y < sig_p), label2, 
-		             ifelse((df$FDR.x <sig_p) & (df$FDR.y < sig_p),"Both", 0)))
+  df$category <- ifelse((df$FDR.x < sig_p) & (df$FDR.y > sig_p), label1, 
+		             ifelse((df$FDR.x > sig_p) & (df$FDR.y < sig_p), label2, 
+		             ifelse((df$FDR.x < sig_p) & (df$FDR.y < sig_p),"Both", 0)))
   
   print(plot_title)
   counts <- df |> count(category)
-  print(counts)
+  print(counts$category)
+  print(counts$n)
   print("-----------------------------------")
   
   abdLogFC <- df[,c("logFC.x")] # Take only the logFC
@@ -318,14 +319,18 @@ plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,y
   abdLogFC <- as.numeric(abdLogFC)
   htLogFC <- as.numeric(htLogFC)
   
+  col_vec <- setNames(
+    c("#F2933A", "#4d7298", "#b82946"),
+    c(label1, "Both", label2)
+  )
+  
   category <- df[,c("category")]
   newDF <- as.data.frame(cbind(abdLogFC, htLogFC))	
   newDF$category <- as.factor(category)
 
   g = ggplot(data= newDF, aes(x= htLogFC, y= abdLogFC)) + 
     geom_point(aes(colour=factor(category)), alpha=0.6, size=1.75) + 
-   	scale_color_manual(values = c("#F2933A", "#4d7298", "#b82946"),name ="Differential expression (q<0.05)", 
-                                  labels=c(label1, "both", label2)) +
+   	scale_color_manual(values = col_vec, name ="Differential expression (q<0.05)") +
     xlab(xlabel) + ylab(ylabel) + 
    	ggtitle(plot_title) + 
    	geom_hline(aes(yintercept=0), colour="#990000", linetype="dashed") + 

@@ -119,7 +119,7 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 
 </details>
 
-I also check which genes are DE in only one or both lines for the day contrast. A lot of them are shared but there is a decent amount of difference.
+I also check which genes are DE in only one or both lines for the day contrast. A lot of them are shared but there is a even more difference, most DE genes are exclusive to the large males, wich is about four times as many genes as are exclusive to the small males. 
 
 <details>
 <summary>Toggle down for plot and numbers</summary>
@@ -168,7 +168,7 @@ Lots of genes are upregulated in day 18 compared to 14 and 16 as well.
 
 </details>
 
-I will also look at DE genes in time points that are the same or different in the small and large males.
+I will also look at DE genes in time points that are the same or different in the small and large males. The line-DE genes are mostly different between day 18 and day 14/16, which agrees with previous results. Between day 14 and day 16, most genes are exclusively DE in day 16.
 
 <details>
 <summary>Day 14 and day 16 overlap</summary>
@@ -186,7 +186,7 @@ I will also look at DE genes in time points that are the same or different in th
 </details>
 
 <details>
-<summary>Day 14 and day 18 overlap</summary>
+<summary>Day 14/day 26 and day 18 overlap</summary>
 
 <p float="left">
   <img src="data/DE_figures/DE_line_overlap_day14_18.png" width="75%" />
@@ -198,10 +198,6 @@ I will also look at DE genes in time points that are the same or different in th
 | d14 exclusive | 263           |
 | d18 exclusive | 26            |
 
-</details>
-
-<details>
-<summary>Day 16 and day 18 overlap</summary>
 
 <p float="left">
   <img src="data/DE_figures/DE_line_overlap_day16_18.png" width="75%" />
