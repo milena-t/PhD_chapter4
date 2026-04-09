@@ -186,7 +186,7 @@ I will also look at DE genes in time points that are the same or different in th
 </details>
 
 <details>
-<summary>Day 14/day 26 and day 18 overlap</summary>
+<summary>Day 14/day 16 and day 18 overlap</summary>
 
 <p float="left">
   <img src="data/DE_figures/DE_line_overlap_day14_18.png" width="75%" />
