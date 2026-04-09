@@ -36,7 +36,7 @@ def plot_counts(counts_table:str, geneIDs_list:list, outfile_name:str):
     print(f"out of {len(headers)} there are {len(nonzero_samples)} samples that have at least one count in one gene! \n{nonzero_samples}")
 
     ### plotting
-    fig, ax = plt.subplots(1,1, figsize=(15, 10)) # for more than three rows
+    fig, ax = plt.subplots(1,1, figsize=(18, 10)) # for more than three rows
 
     fs = 25
     ps = fs*15 # point size
