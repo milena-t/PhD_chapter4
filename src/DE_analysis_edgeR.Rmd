@@ -80,25 +80,26 @@ dev.off()
 ```
 See Python scripting for the PCA plots
 
-## check yTor stuff
 
-```{r}
-y$counts["yTor-A",]
-# y$counts["yTor-B",] # B is not expressed! 
-y$counts["yTor-C",]
-```
-
-# basic DE with only the males
+# basic DE with only one sex
 
 I will start with DE analysis that involves only the males to get an idea of what is going on. 
 
 ## partition and prepare data
 
 ```{r} 
+use_males<-FALSE
+
+if (use_males){
 ## filter count data to only include males 
 counts_M <- count_data[,grepl("-M_", colnames(count_data))]
-## adjust metadata
+}else{
+## filter count data to only include females 
+counts_M <- count_data[,grepl("-F_", colnames(count_data))]
+}
+
 meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
+## adjust metadata
 meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
 # reorder so it's in the same order as the count data columns
 meta_data <- meta_data[names(counts_M),]
@@ -126,19 +127,26 @@ rownames(MM) <- colnames(y)
 
 y <- estimateDisp(y, MM)
 plotBCV(y)
+
+if (use_males){
 short_rownames <- c("1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-18","1-18","1-18","1-18","1-18","1-18","1-18","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-16","3-16","3-16","3-16","3-16","3-16","3-16","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18")
 png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_only.png", width = 7, height = 6, units = "in", res = 300)
 plotMDS(y,  labels = short_rownames, col=as.numeric(y$samples$group))
 title("MDS clustering of male samples")
 dev.off()
+}else{
+short_rownames <- c("1_14","1_14","1_14","1_16","1_16","1_16","1_18","1_18","1_18","1_18","1_18","3_14","3_14","3_14","3_14","3_14","3_14","3_16","3_16","3_16","3_16","3_16","3_16","3_18","3_18","3_18")
+png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_females_only.png", width = 7, height = 6, units = "in", res = 300)
+plotMDS(y,  labels = short_rownames, col=as.numeric(y$samples$group))
+title("MDS clustering of female samples")
+dev.off() 
+}
 ```
 
-## Differential expression just males
+## Differential expression just one sex (determined in the above section)
 
 This is based on Elina's code and the edgeR manual. I will test several contrasts, where each contrast is SL1-SL3 within the same day. Additionally, since we know that day 14 and 16 are similar and 18 is different from both of them, I will specify the within-line contrasts to 18-mean(14,16).
 ```{r}
-fit <- glmFit(y, MM)
-
 my.contrasts <- makeContrasts(
 day14 =	SL1_14 - SL3_14, 
 day16 =	SL1_16 - SL3_16, 
@@ -182,46 +190,78 @@ contrast_analysis <- function(y,MM,contrast, table_name, smear_name, smear_ylab,
   output <- list(qlf=qlf,de=de,detags=detags, Tags=Tags)
   return(output)
 }
+``` 
 
+```{r}
+if (use_males){
 d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day14.txt"
 d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d14.png"
 d14_smear_title <- "Male samples day 14"
+}else{
+d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day14.txt"
+d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d14.png"
+d14_smear_title <- "Female samples day 14"
+}
 out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d14_smear_title)
 qlf14 <- out_14["qlf"]
 de14 <- out_14["de"]
 detags14 <- out_14["detags"]
 Tags14 <- out_14["Tags"]
 
+if (use_males){
 d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day16.txt"
 d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d16.png"
 d16_smear_title <- "Male samples day 16"
+}else{
+d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day16.txt"
+d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d16.png"
+d16_smear_title <- "Female samples day 16"
+}
 out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d16_smear_title)
 qlf16 <- out_16["qlf"]
 de16 <- out_16["de"]
 detags16 <- out_16["detags"]
 Tags16 <- out_16["Tags"]
 
+if (use_males){
 d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day18.txt"
 d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d18.png"
 d18_smear_title <- "Male samples day 18"
+}else{
+d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day18.txt"
+d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d18.png"
+d18_smear_title <- "Female samples day 18"
+}
 out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d18_smear_title)
 qlf18 <- out_18["qlf"]
 de18 <- out_18["de"]
 detags18 <- out_18["detags"]
 Tags18 <- out_18["Tags"]
 
+if (use_males){
 line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1.txt"
 line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1.png"
 line1_smear_title <- "Male samples line 1"
+}else{
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1.png"
+line1_smear_title <- "Female samples line 1"
+}
 out_SL1 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line1_smear_title)
 qlfSL1 <- out_SL1["qlf"]
 deSL1 <- out_SL1["de"]
 detagsSL1 <- out_SL1["detags"]
 Tags_SL1 <- out_SL1["Tags"]
 
+if (use_males){
 line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3.txt"
 line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3.png"
 line3_smear_title <- "Male samples line 3"
+}else{
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3.png"
+line3_smear_title <- "Female samples line 3"
+}
 out_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line3_smear_title)
 qlfSL3 <- out_SL3["qlf"]
 deSL3 <- out_SL3["de"]
@@ -235,7 +275,11 @@ General venn diagramm for overlap of differentially expressed genes in either di
 ```{r}
 library(VennDiagram)
 
+if(use_males){
 venn_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_M_venn.png"
+}else{
+venn_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_F_venn.png"
+}
 DE_genes <- list(d14 = unlist(detags14), d16 = unlist(detags16), d18 = unlist(detags18))
 venn_plot <- venn.diagram(DE_genes, 
                           filename = venn_name, 
@@ -265,7 +309,11 @@ venn_plot <- venn.diagram(DE_genes,
                           main="DE genes (q=0.05, lfc >1)",
                           disable.logging = TRUE)
 
+if(use_males){
 venn_name_lines <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_M_venn.png"
+}else{
+venn_name_lines <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_F_venn.png"
+}
 DE_genes_lines <- list(smallY = unlist(detagsSL1), largeY = unlist(detagsSL3))
 venn_plot <- venn.diagram(DE_genes_lines, 
                           filename = venn_name_lines, 
@@ -312,8 +360,8 @@ plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,y
   df <- merge(abdg, htg, by="gene", all=T)
   df <- subset(df, FDR.x<sig_p | FDR.y<sig_p )
   dim(df)
-  df$category <- ifelse((df$FDR.x < sig_p) & (df$FDR.y > sig_p), label1, 
-		             ifelse((df$FDR.x > sig_p) & (df$FDR.y < sig_p), label2, 
+  df$category <- ifelse((df$FDR.x < sig_p) & (df$FDR.y > sig_p), label2, 
+		             ifelse((df$FDR.x > sig_p) & (df$FDR.y < sig_p), label1, 
 		             ifelse((df$FDR.x < sig_p) & (df$FDR.y < sig_p),"Both", 0)))
   
   print(plot_title)
@@ -355,32 +403,56 @@ plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,y
 
 DE between SL1 vs. SL3 and DE in both, for day 14 and day 16
 ```{r}
+if (use_males){
 day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_16.png"
+day14_16_title <- "differential expression between SL1 and SL3 males"
+}else{
+day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_16.png"
+day14_16_title <- "differential expression between SL1 and SL3 females"
+}
 plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf16[[1]], sig_p = 0.05, plot_name=day14_16_name,
                 label1 = "day 14", label2 = "day 16", 
                 xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 16" ,
-                plot_title = "differential expression between SL1 and SL3")
+                plot_title = day14_16_title)
 
+if(use_males){
 day14_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_18.png"
+day14_18_title <-  "differential expression between SL1 and SL3 males"
+}else{
+day14_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_18.png"
+day14_18_title <-  "differential expression between SL1 and SL3 females"
+}
 plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day14_18_name,
                 label1 = "day 14", label2 = "day 18", 
                 xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 18" ,
-                plot_title = "differential expression between SL1 and SL3")
+                plot_title = day14_18_title)
 
-day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day16_18.png"
+if(use_males){
+day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day16_18.png"  
+day16_18_title <- "differential expression between SL1 and SL3 males"
+}else{
+day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day16_18.png"
+day16_18_title <- "differential expression between SL1 and SL3 females"
+}
 plot_DE_overlap(Res1 = qlf16[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day16_18_name,
                 label1 = "day 16", label2 = "day 18", 
                 xlabel = "LFC SL1-SL3 day 16",ylabel = "LFC SL1-SL3 day 18" ,
-                plot_title = "differential expression between SL1 and SL3")
+                plot_title = day16_18_title)
 ```
 
 DE between mean(day14,day16) and day 18, for SL1 and SL3
 ```{r}
+if(use_males){
 lines_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_day_overlap_SL1_SL3.png"
+lines_title <- "differential expression between d18 and mean(d14,d16) males"
+}else{
+lines_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_day_overlap_SL1_SL3.png"
+lines_title <- "differential expression between d18 and mean(d14,d16) females"
+}
 plot_DE_overlap(Res1 = qlfSL1[[1]], Res2 = qlfSL3[[1]], sig_p = 0.05, plot_name=lines_name,
-                label1 = "SL1 (small Y)", label2 = "SL3 (large Y)", 
+                label1 = "SL3 (large Y)", label2 = "SL1 (small Y)", 
                 xlabel = "LFC d18-mean(d14,d16) SL1",ylabel = "LFC d18-mean(d14,d16) SL3" ,
-                plot_title = "differential expression between d18 and mean(d14,d16)")
+                plot_title = lines_title)
 ```
 
 
