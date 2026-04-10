@@ -29,19 +29,22 @@ From his results I made the choice to use Salmon-mapping, see `PhD_chapter4/mapp
 
 This work is based on the selection lines evaluated by Kaufmann *et al.* ([link](https://doi.org/10.1093/molbev/msad167)), but I am using a different version of the *C. maculatus* annotation that does not have the gene structures of the Y TOR copy number variation. Therefore I lift these gene structures from the original annotation and transform the coordinates to match my superscaffolded version of the assembly/annotation, see `PhD_chapter4/mTOR_annotation`.
 
+The genes are named `yTor-A`, `yTor-B`, and `yTor-C`, and the autosomal Tor is `transcript-30111`, or `gene-30110`.
+
 ## 2. STAR mapping
 
 See `PhD_chapter4/RNA_mapping`.
 
 ## 3. DE analysis
 
-I will use edgeR. After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B.
+I will use edgeR. After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. The autosomal Tor is expressed much higher than any y-linked copy
 
 <details>
-<summary>normalized counts plot</summary>
+<summary>normalized counts plots</summary>
 
 <p float="left">
-  <img src="data/yTor_counts.png" width="75%" />
+  <img src="data/yTor_analysis/yTor_counts.png" width="75%" />
+  <img src="data/yTor_analysis/all_Tor_counts.png" width="75%" />
 </p>
 
 </details>

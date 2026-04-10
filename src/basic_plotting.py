@@ -33,7 +33,7 @@ def plot_counts(counts_table:str, geneIDs_list:list, outfile_name:str):
             raise RuntimeError(f"{sample} not found in {gene_counts[geneIDs_list[0]].keys()}")
         if sum(sample_counts) > 0:
             nonzero_samples.append(sample)
-    print(f"out of {len(headers)} there are {len(nonzero_samples)} samples that have at least one count in one gene! \n{nonzero_samples}")
+    print(f"out of {len(headers)} there are {len(nonzero_samples)} samples that have at least one count in one gene!")# \n{nonzero_samples}")
 
     ### plotting
     fig, ax = plt.subplots(1,1, figsize=(18, 10)) # for more than three rows
@@ -63,6 +63,11 @@ if __name__ == "__main__":
     username = "miltr339"
     counts_file = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
 
+    # all TOR
+    yTor_IDs = ["yTor-A", "yTor-B", "yTor-C","gene-30110"]
+    yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/all_Tor_counts.png"
+    plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot)
+    # only yTOR
     yTor_IDs = ["yTor-A", "yTor-B", "yTor-C"]
-    yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_counts.png"
+    yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/yTor_counts.png"
     plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot)
