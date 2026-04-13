@@ -1,0 +1,463 @@
+---
+title: "DE_analysis"
+author: "Milena Trabert"
+date: "2026-03-27"
+output: html_document
+---
+
+## load libraries
+```{r}
+# install all dependencies
+if (FALSE){
+  if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+  BiocManager::install("DESeq2") # compiled from source 
+  BiocManager::install("edgeR")
+  # install tidyverse (ggplot2 is in tidyverse)
+  install.packages("tidyverse") 
+  install.packages("gtable") 
+  install.packages("VennDiagram") 
+}
+library(tidyverse)
+library(ggplot2)
+library(edgeR)
+library(limma)
+library(VennDiagram)
+library(dplyr)
+```
+
+## prepare data with all samples
+```{r}
+in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
+out_norm_counts <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
+metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv"
+
+## load data
+  count_data <- read.csv(in_filename, header = TRUE, sep = "\t",comment.char = "#", check.names = FALSE)
+  count_data <- count_data %>% select(-one_of('Chr','Start','End','Strand','Length')) 
+  # make the Geneid the row id 
+  count_data <- count_data %>% remove_rownames %>% column_to_rownames(var="Geneid")
+## meta data
+  DE_metadata_all <- read.csv(metadata, header = TRUE, sep = ",",comment.char = "#")
+  # only include metadata when the samples are in the counts
+  meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(count_data))==TRUE), ]
+  meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
+  # reorder so it's in the same order as the count data columns
+  meta_data <- meta_data[names(count_data),]
+  # check assumptions, should be TRUE
+  all(colnames(count_data) %in% rownames(meta_data))
+  
+## normalize library sizes
+  # make sample groups that reflect line and day
+  groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
+  # read data into data structure
+  y <- DGEList(counts=count_data, group=groups)
+  #dim(y)
+  #[1] 15702    82
+## filter out low count genes
+  # minimum count of 5 in at least some samples, and a minimum total count of 15 across all samples 
+  # min.prop=0 so that the yTors stay even though they are only expressed in SL1-M
+  #   In general, all Y-exclusive genes should be kept this way since they are absent in all females
+  keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=5 , min.prop=0)
+  y <- y[keep, , keep.lib.sizes=FALSE]
+  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
+  # dim(y)
+  # [1] 11641    82
+  
+## normalize by library sizes
+  y <- calcNormFactors(y)
+
+short_rownames <- c("1-14-M","1-14-F","1-14-M","1-14-M","1-14-F","1-14-M","1-14-M","1-14-M","1-14-M","1-14-F","1-14-M","1-14-M","1-14-M","1-16-M","1-16-M","1-16-M","1-16-F","1-16-M","1-16-F","1-16-M","1-16-F","1-16-M","1-16-M","1-16-M","1-16-M","1-16-M","1-16-M","1-18-M","1-18-M","1-18-F","1-18-F","1-18-M","1-18-M","1-18-M","1-18-M","1-18-M","1-18-F","1-18-F","1-18-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-F","3-14-F","3-14-M","3-16-F","3-16-M","3-16-F","3-16-M","3-16-M","3-16-F","3-16-M","3-16-F","3-16-F","3-16-M","3-16-M","3-16-M","3-16-F","3-18-F","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-F","3-18-M","3-18-F","3-18-M","3-18-M","3-18-M","3-18-M")
+png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_and_females.png", width = 7, height = 6, units = "in", res = 300)
+plotMDS(y, labels = short_rownames, col=as.numeric(y$samples$group))
+title("MDS clustering of all samples")
+dev.off()
+## export normalized counts to file
+  log_norm_counts <- cpm(y,normalized.lib.sizes = TRUE,log = FALSE,prior.count = 1)
+  write.table(log_norm_counts,file = out_norm_counts, sep = "\t",quote = FALSE)# ,col.names = NA)
+  #### !!! manually add first header "geneID" to the file !!! ###
+  
+```
+See Python scripting for the PCA plots
+
+
+# basic DE with only one sex
+
+I will start with DE analysis that involves only the males to get an idea of what is going on. 
+
+## partition and prepare data
+
+```{r} 
+use_males<-FALSE
+
+if (use_males){
+## filter count data to only include males 
+counts_M <- count_data[,grepl("-M_", colnames(count_data))]
+}else{
+## filter count data to only include females 
+counts_M <- count_data[,grepl("-F_", colnames(count_data))]
+}
+
+meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
+## adjust metadata
+meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
+# reorder so it's in the same order as the count data columns
+meta_data <- meta_data[names(counts_M),]
+# check assumptions, should be TRUE
+all(colnames(counts_M) %in% rownames(meta_data))
+
+# make sample groups that reflect line and day
+groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
+# read data into data structure
+y <- DGEList(counts=counts_M, group=groups)
+
+## filter out low count genes
+# filter by only line group and not day, since we aren't sure how the expression changes between days and we don't want to remove genes that are only rarely expressed
+keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
+  y <- y[keep, , keep.lib.sizes=FALSE]
+  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
+  
+# normalize by library sizes
+y <- calcNormFactors(y)
+
+# estimate dispersion
+MM <- model.matrix(~0 + groups, data = y$samples)
+colnames(MM) <- c("SL1_14", "SL1_16", "SL1_18", "SL3_14",  "SL3_16", "SL3_18")
+rownames(MM) <- colnames(y)
+
+y <- estimateDisp(y, MM)
+plotBCV(y)
+
+if (use_males){
+short_rownames <- c("1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-18","1-18","1-18","1-18","1-18","1-18","1-18","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-16","3-16","3-16","3-16","3-16","3-16","3-16","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18")
+png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_only.png", width = 7, height = 6, units = "in", res = 300)
+plotMDS(y,  labels = short_rownames, col=as.numeric(y$samples$group))
+title("MDS clustering of male samples")
+dev.off()
+}else{
+short_rownames <- c("1_14","1_14","1_14","1_16","1_16","1_16","1_18","1_18","1_18","1_18","1_18","3_14","3_14","3_14","3_14","3_14","3_14","3_16","3_16","3_16","3_16","3_16","3_16","3_18","3_18","3_18")
+png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_females_only.png", width = 7, height = 6, units = "in", res = 300)
+plotMDS(y,  labels = short_rownames, col=as.numeric(y$samples$group))
+title("MDS clustering of female samples")
+dev.off() 
+}
+```
+
+## Differential expression just one sex (determined in the above section)
+
+This is based on Elina's code and the edgeR manual. I will test several contrasts, where each contrast is SL1-SL3 within the same day. Additionally, since we know that day 14 and 16 are similar and 18 is different from both of them, I will specify the within-line contrasts to 18-mean(14,16).
+```{r}
+my.contrasts <- makeContrasts(
+day14 =	SL1_14 - SL3_14, 
+day16 =	SL1_16 - SL3_16, 
+day18 = SL1_18 - SL3_18,
+# compare 18 to the average of 14 and 16 in each line, since 18 is the most different
+line_1 = SL1_18 - (SL1_14+SL1_16)/2,
+line_3 = SL3_18 - (SL3_14+SL3_16)/2,
+levels=MM)
+
+contrast_analysis <- function(y,MM,contrast, table_name, smear_name, smear_ylab, smear_title){
+  
+  fit <- glmFit(y, MM)
+  lrt <- glmLRT(fit, contrast=contrast)
+  de <- decideTestsDGE(lrt, p.value=0.05, lfc=1)
+  print("glmLRT")
+  print(smear_title)
+  print(summary(de))
+  
+  fit <- glmQLFit(y, MM)
+  qlf <- glmQLFTest(fit, contrast=contrast)
+  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=1)
+  print("glmQLFTest")
+  print(summary(de_qlf))
+  
+  print("--------------------------------------------")
+  
+  ## make output table
+  Tags <- topTags(qlf, n=Inf, p.value=0.05)						
+  Tags <- Tags$table
+  Tags$Gene <- rownames(Tags)
+  write.table(Tags, file=table_name, sep="\t")	
+  
+  ## make smear plot
+  de<-decideTestsDGE(qlf, p.value=0.05, lfc=1) 
+  detags <- rownames(y)[as.logical(de)]
+  png(smear_name, width = 6, height = 4, units = "in", res = 300)
+  plotSmear(qlf, de.tags=detags, smearWidth=0.1, smooth.scatter=F, xlim=c(), ylab=smear_ylab, main = smear_title)
+  abline(h=c(-1, 1), col="blue")
+  dev.off()
+  
+  output <- list(qlf=qlf,de=de,detags=detags, Tags=Tags)
+  return(output)
+}
+``` 
+
+```{r}
+if (use_males){
+d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day14.txt"
+d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d14.png"
+d14_smear_title <- "Male samples day 14"
+}else{
+d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day14.txt"
+d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d14.png"
+d14_smear_title <- "Female samples day 14"
+}
+out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d14_smear_title)
+qlf14 <- out_14["qlf"]
+de14 <- out_14["de"]
+detags14 <- out_14["detags"]
+Tags14 <- out_14["Tags"]
+
+if (use_males){
+d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day16.txt"
+d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d16.png"
+d16_smear_title <- "Male samples day 16"
+}else{
+d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day16.txt"
+d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d16.png"
+d16_smear_title <- "Female samples day 16"
+}
+out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d16_smear_title)
+qlf16 <- out_16["qlf"]
+de16 <- out_16["de"]
+detags16 <- out_16["detags"]
+Tags16 <- out_16["Tags"]
+
+if (use_males){
+d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day18.txt"
+d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d18.png"
+d18_smear_title <- "Male samples day 18"
+}else{
+d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day18.txt"
+d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d18.png"
+d18_smear_title <- "Female samples day 18"
+}
+out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d18_smear_title)
+qlf18 <- out_18["qlf"]
+de18 <- out_18["de"]
+detags18 <- out_18["detags"]
+Tags18 <- out_18["Tags"]
+
+if (use_males){
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1.png"
+line1_smear_title <- "Male samples line 1"
+}else{
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1.png"
+line1_smear_title <- "Female samples line 1"
+}
+out_SL1 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line1_smear_title)
+qlfSL1 <- out_SL1["qlf"]
+deSL1 <- out_SL1["de"]
+detagsSL1 <- out_SL1["detags"]
+Tags_SL1 <- out_SL1["Tags"]
+
+if (use_males){
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3.png"
+line3_smear_title <- "Male samples line 3"
+}else{
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3.png"
+line3_smear_title <- "Female samples line 3"
+}
+out_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line3_smear_title)
+qlfSL3 <- out_SL3["qlf"]
+deSL3 <- out_SL3["de"]
+detagsSL3 <- out_SL3["detags"]
+Tags_SL3 <- out_SL3["Tags"]
+```
+
+### Venn diagram
+
+General venn diagramm for overlap of differentially expressed genes in either direction between the days
+```{r}
+library(VennDiagram)
+
+if(use_males){
+venn_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_M_venn.png"
+}else{
+venn_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_F_venn.png"
+}
+DE_genes <- list(d14 = unlist(detags14), d16 = unlist(detags16), d18 = unlist(detags18))
+venn_plot <- venn.diagram(DE_genes, 
+                          filename = venn_name, 
+                          # output
+                          imagetype="png",
+                          height = 720,
+                          width = 720,
+                          resolution = 300,
+                          compression = "lzw",
+                          # circles
+                          fill = c("#DE8F6E", "#2D93AD", "#88AB75"),
+                          lwd = 2,
+                          lty = 'blank',
+                          # Numbers
+                          cex = .8,
+                          main.fontface = "bold",
+                          main.fontfamily = "sans",
+                          fontface = "bold",
+                          fontfamily = "sans",
+                          cat.cex = 0.8,
+                          cat.fontface = "bold",
+                          cat.default.pos = "outer",
+                          cat.pos = c(-27, 27, 135),
+                          cat.dist = c(0.055, 0.055, 0.085),
+                          cat.fontfamily = "sans",
+                          rotation = 1,
+                          main="DE genes (q=0.05, lfc >1)",
+                          disable.logging = TRUE)
+
+if(use_males){
+venn_name_lines <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_M_venn.png"
+}else{
+venn_name_lines <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_F_venn.png"
+}
+DE_genes_lines <- list(smallY = unlist(detagsSL1), largeY = unlist(detagsSL3))
+venn_plot <- venn.diagram(DE_genes_lines, 
+                          filename = venn_name_lines, 
+                          # output
+                          imagetype="png",
+                          height = 720,
+                          width = 720,
+                          resolution = 300,
+                          compression = "lzw",
+                          # circles
+                          fill = c("#DE8F6E", "#2D93AD"),
+                          lwd = 2,
+                          lty = 'blank',
+                          # Numbers
+                          cex = .8,
+                          main.fontface = "bold",
+                          main.fontfamily = "sans",
+                          fontface = "bold",
+                          fontfamily = "sans",
+                          cat.cex = 0.8,
+                          cat.fontface = "bold",
+                          cat.default.pos = "outer",
+                          cat.pos = c(-27, 27),
+                          cat.dist = c(0.03, 0.01),
+                          cat.fontfamily = "sans",
+                          main="DE genes (q=0.05, lfc >1)",
+                          disable.logging = TRUE)
+```
+
+## plot sex bias overlap
+
+Plot genes showing DE in any combination of two contrasts
+
+```{r}
+plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,ylabel,plot_title){
+  
+  Tags1 <- topTags(Res1, n=Inf)
+  Tags2 <- topTags(Res2, n=Inf)
+  abdg <- Tags1$table	
+  htg <- Tags2$table
+  abdg$gene <- row.names(abdg)
+  htg$gene <- row.names(htg)
+  
+  df <- merge(abdg, htg, by="gene", all=T)
+  df <- subset(df, FDR.x<sig_p | FDR.y<sig_p )
+  dim(df)
+  df$category <- ifelse((df$FDR.x < sig_p) & (df$FDR.y > sig_p), label2, 
+		             ifelse((df$FDR.x > sig_p) & (df$FDR.y < sig_p), label1, 
+		             ifelse((df$FDR.x < sig_p) & (df$FDR.y < sig_p),"Both", 0)))
+  
+  print(plot_title)
+  counts <- df |> count(category)
+  print(counts$category)
+  print(counts$n)
+  print("-----------------------------------")
+  
+  abdLogFC <- df[,c("logFC.x")] # Take only the logFC
+  htLogFC <- df[,c("logFC.y")]
+  abdLogFC <- as.numeric(abdLogFC)
+  htLogFC <- as.numeric(htLogFC)
+  
+  col_vec <- setNames(
+    c("#F2933A", "#4d7298", "#b82946"),
+    c(label1, "Both", label2)
+  )
+  
+  category <- df[,c("category")]
+  newDF <- as.data.frame(cbind(abdLogFC, htLogFC))	
+  newDF$category <- as.factor(category)
+
+  g = ggplot(data= newDF, aes(x= htLogFC, y= abdLogFC)) + 
+    geom_point(aes(colour=factor(category)), alpha=0.6, size=1.75) + 
+   	scale_color_manual(values = col_vec, name ="Differential expression (q<0.05)") +
+    xlab(xlabel) + ylab(ylabel) + 
+   	ggtitle(plot_title) + 
+   	geom_hline(aes(yintercept=0), colour="#990000", linetype="dashed") + 
+   	geom_vline(aes(xintercept=0), colour="#990000", linetype="dashed") +  
+   	geom_hline(aes(yintercept=1), colour="darkgrey", linetype ="dashed") + 
+   	geom_hline(aes(yintercept=-1), colour="darkgrey", linetype ="dashed") + 
+   	geom_vline(aes(xintercept =1), colour="darkgrey", linetype ="dashed") + 
+   	geom_vline(aes(xintercept =-1), colour="darkgrey", linetype="dashed") +
+   	theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+    panel.background = element_blank(), axis.line = element_line(colour = "black")) 
+  ggsave(filename = plot_name, width = 6, height = 4, units = "in", plot = g)
+}
+```
+
+DE between SL1 vs. SL3 and DE in both, for day 14 and day 16
+```{r}
+if (use_males){
+day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_16.png"
+day14_16_title <- "differential expression between SL1 and SL3 males"
+}else{
+day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_16.png"
+day14_16_title <- "differential expression between SL1 and SL3 females"
+}
+plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf16[[1]], sig_p = 0.05, plot_name=day14_16_name,
+                label1 = "day 14", label2 = "day 16", 
+                xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 16" ,
+                plot_title = day14_16_title)
+
+if(use_males){
+day14_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_18.png"
+day14_18_title <-  "differential expression between SL1 and SL3 males"
+}else{
+day14_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_18.png"
+day14_18_title <-  "differential expression between SL1 and SL3 females"
+}
+plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day14_18_name,
+                label1 = "day 14", label2 = "day 18", 
+                xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 18" ,
+                plot_title = day14_18_title)
+
+if(use_males){
+day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day16_18.png"  
+day16_18_title <- "differential expression between SL1 and SL3 males"
+}else{
+day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day16_18.png"
+day16_18_title <- "differential expression between SL1 and SL3 females"
+}
+plot_DE_overlap(Res1 = qlf16[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day16_18_name,
+                label1 = "day 16", label2 = "day 18", 
+                xlabel = "LFC SL1-SL3 day 16",ylabel = "LFC SL1-SL3 day 18" ,
+                plot_title = day16_18_title)
+```
+
+DE between mean(day14,day16) and day 18, for SL1 and SL3
+```{r}
+if(use_males){
+lines_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_day_overlap_SL1_SL3.png"
+lines_title <- "differential expression between d18 and mean(d14,d16) males"
+}else{
+lines_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_day_overlap_SL1_SL3.png"
+lines_title <- "differential expression between d18 and mean(d14,d16) females"
+}
+plot_DE_overlap(Res1 = qlfSL1[[1]], Res2 = qlfSL3[[1]], sig_p = 0.05, plot_name=lines_name,
+                label1 = "SL3 (large Y)", label2 = "SL1 (small Y)", 
+                xlabel = "LFC d18-mean(d14,d16) SL1",ylabel = "LFC d18-mean(d14,d16) SL3" ,
+                plot_title = lines_title)
+```
+
+
+```{r}
+
+```
+
+
