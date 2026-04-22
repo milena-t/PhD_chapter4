@@ -122,7 +122,7 @@ I started the differential expression analysis with only samples from one sex at
 <details>
 <summary>Toggle down for venn diagramm</summary>
 
-Male samples (left) and female samples (right)
+Male samples (left) and female samples (right). 
 
 <p float="left">
   <img src="data/DE_figures/DE_days_M_venn.png" width="49%" />
@@ -193,8 +193,11 @@ I also check which genes are DE in only one or both lines for the day contrast. 
 <details>
 <summary>Toggle down for venn diagramm</summary>
 
+Male samples (left) and female samples (right). 
+
 <p float="left">
-  <img src="data/DE_figures/DE_lines_M_venn.png" width="59%" />
+  <img src="data/DE_figures/DE_lines_M_venn.png" width="49%" />
+  <img src="data/DE_figures/DE_lines_F_venn.png" width="49%" />
 </p>
 
 </details>
@@ -204,9 +207,18 @@ Lots of genes are upregulated in day 18 compared to 14 and 16 as well.
 <details>
 <summary>Toggle down for smear plots</summary>
 
+Males:
+
 <p float="left">
   <img src="data/DE_figures/smear_M_SL1.png" width="49%" />
   <img src="data/DE_figures/smear_M_SL3.png" width="49%" />
+</p>
+
+Females:
+
+<p float="left">
+  <img src="data/DE_figures/smear_F_SL1.png" width="49%" />
+  <img src="data/DE_figures/smear_F_SL3.png" width="49%" />
 </p>
 
 </details>

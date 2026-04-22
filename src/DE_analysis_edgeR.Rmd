@@ -89,7 +89,9 @@ I will start with DE analysis that involves only the males to get an idea of wha
 
 ```{r} 
 use_males<-FALSE
+```
 
+```{r} 
 if (use_males){
 ## filter count data to only include males 
 counts_M <- count_data[,grepl("-M_", colnames(count_data))]
@@ -306,7 +308,7 @@ venn_plot <- venn.diagram(DE_genes,
                           cat.dist = c(0.055, 0.055, 0.085),
                           cat.fontfamily = "sans",
                           rotation = 1,
-                          main="DE genes (q=0.05, lfc >1)",
+                          main="DE genes (q=0.05)",
                           disable.logging = TRUE)
 
 if(use_males){
@@ -339,7 +341,7 @@ venn_plot <- venn.diagram(DE_genes_lines,
                           cat.pos = c(-27, 27),
                           cat.dist = c(0.03, 0.01),
                           cat.fontfamily = "sans",
-                          main="DE genes (q=0.05, lfc >1)",
+                          main="DE genes (q=0.05)",
                           disable.logging = TRUE)
 ```
 
