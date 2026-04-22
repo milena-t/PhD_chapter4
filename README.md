@@ -40,27 +40,12 @@ See `PhD_chapter4/RNA_mapping`.
 I will use edgeR. After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. The autosomal Tor is expressed much higher than any y-linked copy
 
 <details>
-<summary>normalized counts plots</summary>
+<summary>normalized counts plots</summary> 
 
-
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'only yTor')">yTor</button>
-  <button class="tablinks" onclick="openCity(event, 'all Tor copies')">aTor</button>
-</div>
-
-<!-- Tab content -->
-<div id="yTor" class="tabcontent">
-  <p float="left">
+<p float="left">
   <img src="data/yTor_analysis/yTor_counts.png" width="85%" />
-  </p>
-</div>
-
-<div id="aTor" class="tabcontent">
-  <p float="left">
   <img src="data/yTor_analysis/all_Tor_counts.png" width="85%" />
-  </p>
-</div>
-
+</p>
 
 </details>
 
