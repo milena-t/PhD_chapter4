@@ -42,10 +42,25 @@ I will use edgeR. After reading the data and filtering for minimum expression th
 <details>
 <summary>normalized counts plots</summary>
 
-<p float="left">
-  <img src="data/yTor_analysis/yTor_counts.png" width="75%" />
-  <img src="data/yTor_analysis/all_Tor_counts.png" width="75%" />
-</p>
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'only yTor')">yTor</button>
+  <button class="tablinks" onclick="openCity(event, 'all Tor copies')">aTor</button>
+</div>
+
+<!-- Tab content -->
+<div id="yTor" class="tabcontent">
+  <p float="left">
+  <img src="data/yTor_analysis/yTor_counts.png" width="85%" />
+  </p>
+</div>
+
+<div id="aTor" class="tabcontent">
+  <p float="left">
+  <img src="data/yTor_analysis/all_Tor_counts.png" width="85%" />
+  </p>
+</div>
+
 
 </details>
 
