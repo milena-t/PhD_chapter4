@@ -94,11 +94,14 @@ Males and females are kind of but not super clearly separated, but for only male
 
 </details>
 
-### Male samples 
+### Sex-separated samples 
 
-I started the differential expression analysis with only the male samples. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`. I am trying both `glmLRT` and `glmQLFTest` to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from `glmQLFTest`.
+I started the differential expression analysis with only samples from one sex at a time. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`. I am trying both `glmLRT` and `glmQLFTest` to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from `glmQLFTest`.
 
 #### Number of differentially expressed genes between SL1 and SL3
+
+*Males*: Day 14 and 16 have more significantly differentially expressed genes in common than day 18. The DE genes here are identified with `decideTestsDGE`, while the table above is `topTags`, which is why I think the numbers don't match but I'm unsure what the exact difference is.
+
 
 | `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
@@ -107,13 +110,23 @@ I started the differential expression analysis with only the male samples. The c
 | Upregulated   | 216           | 314           | 58            | Upregulated   | 192           | 244           | 45            |
 
 
-Day 14 and 16 have more significantly differentially expressed genes in common than day 18. The DE genes here are identified with `decideTestsDGE`, while the table above is `topTags`, which is why I think the numbers don't match but I'm unsure what the exact difference is.
+*Females*: fewer DE genes than males which is good since they are not supposed to have any
+
+| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 20            | 53            | 88            | Downregulated | 6             | 19            | 32            |
+| no difference | 9546          | 9488          | 9467          | no difference | 9581          | 9553          | 9559          |
+| Upregulated   | 90            | 115           | 101           | Upregulated   | 69            | 115           | 65            |
+
 
 <details>
 <summary>Toggle down for venn diagramm</summary>
 
+Male samples (left) and female samples (right)
+
 <p float="left">
-  <img src="data/DE_figures/DE_days_M_venn.png" width="59%" />
+  <img src="data/DE_figures/DE_days_M_venn.png" width="49%" />
+  <img src="data/DE_figures/DE_days_F_venn.png" width="49%" />
 </p>
 
 </details>
@@ -123,10 +136,20 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 <details>
 <summary>Toggle down for smear plots</summary>
 
+Males:
+
 <p float="left">
   <img src="data/DE_figures/smear_M_d14.png" width="49%" />
   <img src="data/DE_figures/smear_M_d16.png" width="49%" />
   <img src="data/DE_figures/smear_M_d18.png" width="49%" />
+</p>
+
+Females:
+
+<p float="left">
+  <img src="data/DE_figures/smear_F_d14.png" width="49%" />
+  <img src="data/DE_figures/smear_F_d16.png" width="49%" />
+  <img src="data/DE_figures/smear_F_d18.png" width="49%" />
 </p>
 
 </details>
@@ -151,13 +174,21 @@ I also check which genes are DE in only one or both lines for the day contrast. 
 
 #### Number of differentially expressed genes between day18 and mean(day14+day16)
 
+*Males*: Most of the DE genes are shared between line 1 (small males) and line 3 (large males), supporting the hypothesis that the difference between the lines is mostly in day 14 and 16, and that the larvae start a common preparation for pupation around day 18.
+
 | `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | Downregulated | 388           | 488           | Downregulated | 311           | 438           |
 | no difference | 9010          | 8174          | no difference | 9172          | 8309          |
 | Upregulated   | 1238          | 1974          | Upregulated   | 1153          | 1889          |
 
-Most of the DE genes are shared between line 1 (small males) and line 3 (large males), supporting the hypothesis that the difference between the lines is mostly in day 14 and 16, and that the larvae start a common preparation for pupation around day 18.
+*Females*:
+
+| `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 84            | 43            | Downregulated | 0             | 10            |
+| no difference | 9536          | 9439          | no difference | 9656          | 9571          |
+| Upregulated   | 36            | 174           | Upregulated   | 0             | 75            |
 
 <details>
 <summary>Toggle down for venn diagramm</summary>
