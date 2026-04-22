@@ -225,6 +225,8 @@ Females:
 
 I will also look at DE genes in time points that are the same or different in the small and large males. The line-DE genes are mostly different between day 18 and day 14/16, which agrees with previous results. Between day 14 and day 16, most genes are exclusively DE in day 16.
 
+#### Males
+
 <details>
 <summary>Day 14 and day 16 overlap</summary>
 
@@ -263,5 +265,49 @@ I will also look at DE genes in time points that are the same or different in th
 | both          | 48            |
 | d16 exclusive | 424           |
 | d18 exclusive | 25            |
+
+</details>
+
+
+#### Females
+
+<details>
+<summary>Day 14 and day 16 overlap</summary>
+
+<p float="left">
+  <img src="data/DE_figures/DE_F_line_overlap_day14_16.png" width="75%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 67            |
+| d14 exclusive | 36            |
+| d16 exclusive | 8             |
+
+</details>
+
+<details>
+<summary>Day 14/day 16 and day 18 overlap</summary>
+
+<p float="left">
+  <img src="data/DE_figures/DE_F_line_overlap_day14_18.png" width="75%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 60            |
+| d14 exclusive | 37            |
+| d18 exclusive | 15            |
+
+
+<p float="left">
+  <img src="data/DE_figures/DE_F_line_overlap_day16_18.png" width="75%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 75            |
+| d16 exclusive | 22            |
+| d18 exclusive | 28            |
 
 </details>
