@@ -26,7 +26,7 @@ library(VennDiagram)
 library(dplyr)
 ```
 
-## prepare data with all samples
+# prepare data with all samples
 ```{r}
 in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
 out_norm_counts <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
@@ -67,18 +67,23 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
 ## normalize by library sizes
   y <- calcNormFactors(y)
 
+```
+
+plot MDS
+```{r}
 short_rownames <- c("1-14-M","1-14-F","1-14-M","1-14-M","1-14-F","1-14-M","1-14-M","1-14-M","1-14-M","1-14-F","1-14-M","1-14-M","1-14-M","1-16-M","1-16-M","1-16-M","1-16-F","1-16-M","1-16-F","1-16-M","1-16-F","1-16-M","1-16-M","1-16-M","1-16-M","1-16-M","1-16-M","1-18-M","1-18-M","1-18-F","1-18-F","1-18-M","1-18-M","1-18-M","1-18-M","1-18-M","1-18-F","1-18-F","1-18-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-F","3-14-F","3-14-M","3-16-F","3-16-M","3-16-F","3-16-M","3-16-M","3-16-F","3-16-M","3-16-F","3-16-F","3-16-M","3-16-M","3-16-M","3-16-F","3-18-F","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-F","3-18-M","3-18-F","3-18-M","3-18-M","3-18-M","3-18-M")
 png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_and_females.png", width = 7, height = 6, units = "in", res = 300)
 plotMDS(y, labels = short_rownames, col=as.numeric(y$samples$group))
 title("MDS clustering of all samples")
 dev.off()
-## export normalized counts to file
+```
+
+Export normalized counts to file. See Python scripting for the PCA plots based on the counts
+```{r}
   log_norm_counts <- cpm(y,normalized.lib.sizes = TRUE,log = FALSE,prior.count = 1)
   write.table(log_norm_counts,file = out_norm_counts, sep = "\t",quote = FALSE)# ,col.names = NA)
   #### !!! manually add first header "geneID" to the file !!! ###
-  
 ```
-See Python scripting for the PCA plots
 
 
 # basic DE with only one sex
@@ -86,6 +91,8 @@ See Python scripting for the PCA plots
 I will start with DE analysis that involves only the males to get an idea of what is going on. 
 
 ## partition and prepare data
+
+The analysis can be run separately for males and females, if use_males=True then it's only males, and if False then it's only the females
 
 ```{r} 
 use_males<-FALSE
@@ -457,9 +464,118 @@ plot_DE_overlap(Res1 = qlfSL1[[1]], Res2 = qlfSL3[[1]], sig_p = 0.05, plot_name=
                 plot_title = lines_title)
 ```
 
+# Developmental sex differences
+
+I will see if there are sex differences in the different developmental stages within each line. Specify which line first.
 
 ```{r}
-
+use_SL1 <- FALSE
 ```
 
+```{r} 
+if (use_SL1){
+## filter count data to only include males 
+counts_M <- count_data[,grepl("-1-", colnames(count_data))]
+}else{
+## filter count data to only include females 
+counts_M <- count_data[,grepl("-3-", colnames(count_data))]
+}
 
+meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
+## adjust metadata
+meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
+# reorder so it's in the same order as the count data columns
+meta_data <- meta_data[names(counts_M),]
+# check assumptions, should be TRUE
+all(colnames(counts_M) %in% rownames(meta_data))
+
+# make sample groups that reflect line and day
+groups <- factor(paste(meta_data$sex, meta_data$day, sep="_"))
+# read data into data structure
+y <- DGEList(counts=counts_M, group=groups)
+
+## filter out low count genes
+keep <- filterByExpr(y, group=meta_data$sex, min.count=5, min.total.count=15)
+  y <- y[keep, , keep.lib.sizes=FALSE]
+  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
+  
+# normalize by library sizes
+y <- calcNormFactors(y)
+
+# estimate dispersion
+MM <- model.matrix(~0 + groups, data = y$samples)
+colnames(MM) <- c("F_14", "F_16", "F_18", "M_14",  "M_16", "M_18")
+rownames(MM) <- colnames(y)
+
+y <- estimateDisp(y, MM)
+plotBCV(y)
+
+if (use_SL1){
+short_rownames <- c("M_14","F_14","M_14","M_14","F_14","M_14","M_14","M_14","M_14","F_14","M_14","M_14","M_14","M_16","M_16","M_16","F_16","M_16","F_16","M_16","F_16","M_16","M_16","M_16","M_16","M_16","M_16","M_18","M_18","F_18","F_18","M_18","M_18","M_18","M_18","M_18","F_18","F_18","F_18")
+png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_SL1_only.png", width = 7, height = 6, units = "in", res = 300)
+plotMDS(y,  labels = short_rownames, col=as.numeric(y$samples$group))
+title("MDS clustering of SL1 samples")
+dev.off()
+}else{
+short_rownames <- c("M_14","M_14","F_14","M_14","M_14","F_14","M_14","F_14","M_14","M_14","F_14","M_14","F_14","F_14","M_14","F_16","M_16","F_16","M_16","M_16","F_16","M_16","F_16","F_16","M_16","M_16","M_16","F_16","F_18","M_18","M_18","M_18","M_18","M_18","M_18","M_18","F_18","M_18","F_18","M_18","M_18","M_18","M_18")
+png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_SL3_only.png", width = 7, height = 6, units = "in", res = 300)
+plotMDS(y,  labels = short_rownames, col=as.numeric(y$samples$group))
+title("MDS clustering of SL3 samples")
+dev.off() 
+}
+```
+
+I will use the same contrast analysis function as above and just give new constants
+
+```{r}
+my.contrasts <- makeContrasts(
+day14 =	F_14 - M_14, 
+day16 =	F_16 - M_16, 
+day18 = F_18 - M_18,
+levels=MM)
+
+if (use_SL1){
+d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day14_F-M.txt"
+d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL1_d14.png"
+d14_smear_title <- "SL1 samples day 14"
+}else{
+d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day14_F-M.txt"
+d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d14.png"
+d14_smear_title <- "SL3 samples day 14"
+}
+out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC F-M",smear_title=d14_smear_title)
+qlf14 <- out_14["qlf"]
+de14 <- out_14["de"]
+detags14 <- out_14["detags"]
+Tags14 <- out_14["Tags"]
+
+if (use_SL1){
+d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day16_F-M.txt"
+d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL1_d16.png"
+d16_smear_title <- "SL1 samples day 16"
+}else{
+d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day16_F-M.txt"
+d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d16.png"
+d16_smear_title <- "SL3 samples day 16"
+}
+out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC F-M",smear_title=d16_smear_title)
+qlf16 <- out_16["qlf"]
+de16 <- out_16["de"]
+detags16 <- out_16["detags"]
+Tags16 <- out_16["Tags"]
+
+if (use_SL1){
+d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day18_F-M.txt"
+d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL1_d18.png"
+d18_smear_title <- "SL1 samples day 18"
+}else{
+d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day18_F-M.txt"
+d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d18.png"
+d18_smear_title <- "SL3 samples day 18"
+}
+out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC F-M",smear_title=d18_smear_title)
+qlf18 <- out_18["qlf"]
+de18 <- out_18["de"]
+detags18 <- out_18["detags"]
+Tags18 <- out_18["Tags"]
+```

@@ -311,3 +311,54 @@ I will also look at DE genes in time points that are the same or different in th
 | d18 exclusive | 28            |
 
 </details>
+
+## Sex differences during development
+
+I will now split the data by line to see sex differences in expression during the development stages. 
+
+<details>
+<summary>MDS plots for SL1 and SL3</summary>
+
+<p float="left">
+  <img src="PhD_chapter4/data/DE_figures/MDS_SL1_only.png" width="49%" />
+  <img src="PhD_chapter4/data/DE_figures/MDS_SL3_only.png" width="49%" />
+</p>
+
+</details>
+
+The smear plots show greatly male-biased expression in all developmental stages. For the significant genes I have not implemented the LFC>1 filter because the larvae are sexually monomorphic.
+
+<details>
+<summary>smear plots for SL1</summary>
+
+<p float="left">
+  <img src="PhD_chapter4/data/DE_figures/smear_SL1_d14.png" width="49%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL1_d16.png" width="49%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL1_d18.png" width="49%" />
+</p>
+
+| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 465           | 872           | 1056          | Downregulated | 264           | 760           | 1008          |
+| no difference | 10523         | 10041         | 9870          | no difference | 10725         | 10183         | 9938          |
+| Upregulated   | 5             | 80            | 67            | Upregulated   | 4             | 50            | 47            |
+
+</details>
+
+<details>
+<summary>smear plots for SL3</summary>
+
+<p float="left">
+  <img src="PhD_chapter4/data/DE_figures/smear_SL3_d14.png" width="49%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL3_d16.png" width="49%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL3_d18.png" width="49%" />
+</p>
+
+| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 658           | 878           | 903           | Downregulated | 563           | 842           | 841           |
+| no difference | 9927          | 9646          | 9681          | no difference | 10022         | 9710          | 9744          |
+| Upregulated   | 2             | 63            | 3             | Upregulated   | 2             | 35            | 2             |
+
+</details>
+
