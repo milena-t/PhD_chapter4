@@ -362,3 +362,14 @@ The smear plots show greatly male-biased expression in all developmental stages.
 
 </details>
 
+For SL1 it seems that these DE genes are mostly the same ones in day 14 and 16, and shift slightly in day 18, and that for SL3 they have about the same overlap in all three developmental stages.
+
+<details>
+<summary>Venn diagramms for SL1 and SL3</summary>
+
+<p float="left">
+  <img src="PhD_chapter4/data/DE_figures/DE_days_SL1_venn.png" width="49%" />
+  <img src="PhD_chapter4/data/DE_figures/DE_days_SL3_venn.png" width="49%" />
+</p>
+
+</details>
