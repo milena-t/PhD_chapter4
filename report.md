@@ -109,21 +109,27 @@ I will use edgeR.
 
 ### 3.1 yTor expression
 
-After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. The autosomal Tor is expressed much higher than any y-linked copy
+After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. Since we know that yTor-C (orange) in SL1 is the closest to the SL3 yTor, it makes sense that it shows expression in SL1 and SL3, while yTor-A, which is more diverged from the SL3 yTor, does not map reads from these samples. Furthermore, yTor-C is also the closes to aTor, which likely explains the female samples, which are mismapped reads that only map to yTor-C and not yTor-A.
+
+The autosomal Tor `gene-30110` is expressed much higher than any y-linked copy, which makes sense since it is a highly conserved gene in the insulin signalling pathway. There seems to be no difference between SL1 and SL3.
 
 <details>
 <summary>normalized counts plots</summary> 
+
+`(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))`
 
 <p float="left">
   <img src="data/yTor_analysis/yTor_counts.png" width="49%" />
   <img src="data/yTor_analysis/all_Tor_counts.png" width="49%" />
 </p>
 
+The tick labels are according to this naming scheme: `SL`-`day`-`sample_ID`-`sex`.
+
 </details>
 
 ### 3.2 PCA plots
 
-PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which are the large (1) and small (3) males respectively. The days are day 14, 16, or 18 of larval development. When plotting all samples at once, the line is a clear separator, but not the day. Day 14 seems to be mostly to the left, but 16 and 18 are across the entire range. Separation by sex mostly shows the same results, line is the lagest difference and day 14 kind of separate but otherwise the age does not make a massive difference.
+PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which are the small (1) and large (3) males respectively. Intuitively, the tor copy number is reversed, with the small males in SL1 having three copies, and the large males in SL3 having only one. The days are day 14, 16, or 18 of larval development. 
 
 
 <div class="tab">
@@ -139,10 +145,11 @@ PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which
   <img src="data/DE_figures/PCA_sex_day_all_counts.png" width="32%" />
 </p>
 
+Line is a clear separator (left), but not day (right). Day 14 seems to be mostly to the left, but 16 and 18 are across the entire range. There is a trend of females being more to the left and males more to the right but it is not as nice of a separation as line.
+
 </div>
 
 <div id="Only one sex" class="tabcontent">
-
 
 <p float="left">
   <img src="data/DE_figures/PCA_M_day_line.png" width="32%" />
@@ -151,12 +158,12 @@ PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which
 
 Since we are interested in the male variation and the females are mostly control, we have much fewer female than male samples.
 
+line is the lagest difference, which is the same as when all samples are plotted. The days show a trend where day 18 is more to the left, 16 is intermediate, and 14 is to the right, but it is more of a gradual transition and not a clear separation. This makes sense since age is continuous, and we can only sample with limited precision, so it is likely that there is some age variation present within all the day categories that is represented here. (Except that one outlier in females (right) for SL3 day18 all the way on the right.)
+
 </div>
 
-I have also generated a MDS plot based on the edgeR data structure using `plotMDS()`, but they mostly show the same results as the PCA plots.
-
 <details>
-<summary>Toggle down for MDS plots</summary>
+<summary>I have also generated a MDS plot based on the edgeR data structure using plotMDS(), but they mostly show the same results as the PCA plots. Toggle down for MDS plots</summary>
 
 <p float="left">
   <img src="data/DE_figures/MDS_males_only.png" width="32%" />
@@ -173,36 +180,7 @@ I started the differential expression analysis with only samples from one sex at
 
 #### Number of differentially expressed genes between SL1 and SL3
 
-*Males*: Day 14 and 16 have more significantly differentially expressed genes in common than day 18. The DE genes here are identified with `decideTestsDGE`, while the table above is `topTags`, which is why I think the numbers don't match but I'm unsure what the exact difference is.
 
-
-| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 102           | 175           | 63            | Downregulated | 76            | 139           | 17            |
-| no difference | 10318         | 10147         | 10515         | no difference | 10368         | 10253         | 10574         |
-| Upregulated   | 216           | 314           | 58            | Upregulated   | 192           | 244           | 45            |
-
-
-*Females*: fewer DE genes than males which is good since they are not supposed to have any
-
-| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 20            | 53            | 88            | Downregulated | 6             | 19            | 32            |
-| no difference | 9546          | 9488          | 9467          | no difference | 9581          | 9553          | 9559          |
-| Upregulated   | 90            | 115           | 101           | Upregulated   | 69            | 115           | 65            |
-
-
-<details>
-<summary>Toggle down for venn diagramm</summary>
-
-Male samples (left) and female samples (right). 
-
-<p float="left">
-  <img src="data/DE_figures/DE_days_M_venn.png" width="20%" />
-  <img src="data/DE_figures/DE_days_F_venn.png" width="20%" />
-</p>
-
-</details>
 
 Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in `SL1`) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.
 
@@ -213,15 +191,41 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 
 <div id="males_lines_DE" class="tabcontent">
 
+<table>
+
+| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 102           | 175           | 63            | Downregulated | 76            | 139           | 17            |
+| no difference | 10318         | 10147         | 10515         | no difference | 10368         | 10253         | 10574         |
+| Upregulated   | 216           | 314           | 58            | Upregulated   | 192           | 244           | 45            |
+
+</table>
+
 <p float="left">
   <img src="data/DE_figures/smear_M_d14.png" width="32%" />
   <img src="data/DE_figures/smear_M_d16.png" width="32%" />
   <img src="data/DE_figures/smear_M_d18.png" width="32%" />
 </p>
 
+Day 14 and 16 have more significantly differentially expressed genes in common than day 18. In day 18, the larvae are close to pupation, which likely means that they are switching from gene expression related to grwoth and digestion to what they need for pupation instead, which is potentially not related to the Y-haplotype difference any more, resulting in less DE between the lines on day 18.
+
+<p float="left">
+  <img src="data/DE_figures/DE_days_M_venn.png" width="17%" />
+</p>
+
 </div>
 
 <div id="females_lines_DE" class="tabcontent">
+
+<table>
+
+| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 20            | 53            | 88            | Downregulated | 6             | 19            | 32            |
+| no difference | 9546          | 9488          | 9467          | no difference | 9581          | 9553          | 9559          |
+| Upregulated   | 90            | 115           | 101           | Upregulated   | 69            | 115           | 65            |
+
+</table>
 
 <p float="left">
   <img src="data/DE_figures/smear_F_d14.png" width="32%" />
@@ -229,24 +233,14 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
   <img src="data/DE_figures/smear_F_d18.png" width="32%" />
 </p>
 
-</div>
-
-I also check which genes are DE in only one or both lines for the day contrast. A lot of them are shared but there is a even more difference, most DE genes are exclusive to the large males, wich is about four times as many genes as are exclusive to the small males. 
-
-<details>
-<summary>Toggle down for plot and numbers</summary>
+Fewer DE genes than males which is good since they are not supposed to have any. Also, similar amounts of DE genes on day 14, 16, and 18, which is different from the male samples where day 18 is a clear outlier. This is nice since I hypothesize that that is because the line difference impacts day 14 and 16 more than 18, and therefore the DE genes here are not related to the growth differences between the lines that impact the males.
 
 <p float="left">
-  <img src="data/DE_figures/DE_day_overlap_SL1_SL3.png" width="32%" />
+  <img src="data/DE_figures/DE_days_F_venn.png" width="17%" />
 </p>
 
-| category      | num DE genes  |
-| ------------- | ------------- |
-| both          | 1984          |
-| SL1 exclusive | 502           |
-| SL3 exclusive | 1999          |
+</div>
 
-</details>
 
 
 #### Number of differentially expressed genes between day18 and mean(day14+day16)
@@ -260,19 +254,36 @@ In males, most of the DE genes are shared between line 1 (small males) and line 
 
 <div id="males_lines_DE_tables" class="tabcontent">
 
+<table>
+
 | `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
 | Downregulated | 388           | 488           | Downregulated | 311           | 438           |
 | no difference | 9010          | 8174          | no difference | 9172          | 8309          |
 | Upregulated   | 1238          | 1974          | Upregulated   | 1153          | 1889          |
 
+</table>
+
 <p float="left">
-  <img src="data/DE_figures/DE_lines_M_venn.png" width="25%" />
+  <img src="data/DE_figures/smear_M_SL1.png" width="32%" />
+  <img src="data/DE_figures/smear_M_SL3.png" width="32%" />
 </p>
+<p float="left">
+  <img src="data/DE_figures/DE_lines_M_venn.png" width="17%" />
+  <img src="data/DE_figures/DE_day_overlap_SL1_SL3.png" width="32%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 1984          |
+| SL1 exclusive | 502           |
+| SL3 exclusive | 1999          |
 
 </div>
 
 <div id="females_lines_DE_tables" class="tabcontent">
+
+<table>
 
 | `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
@@ -280,37 +291,29 @@ In males, most of the DE genes are shared between line 1 (small males) and line 
 | no difference | 9536          | 9439          | no difference | 9656          | 9571          |
 | Upregulated   | 36            | 174           | Upregulated   | 0             | 75            |
 
-<p float="left">
-  <img src="data/DE_figures/DE_lines_F_venn.png" width="25%" />
-</p>
-
-</div>
-
-
-Lots of genes are upregulated in day 18 compared to 14 and 16 as well.
-
-<div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_smear')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_smear')">females</button>
-</div>
-
-<div id="males_lines_DE_smear" class="tabcontent">
-
-<p float="left">
-  <img src="data/DE_figures/smear_M_SL1.png" width="32%" />
-  <img src="data/DE_figures/smear_M_SL3.png" width="32%" />
-</p>
-
-</div>
-
-<div id="females_lines_DE_smear" class="tabcontent">
+</table>
 
 <p float="left">
   <img src="data/DE_figures/smear_F_SL1.png" width="32%" />
   <img src="data/DE_figures/smear_F_SL3.png" width="32%" />
 </p>
 
+<p float="left">
+  <img src="data/DE_figures/DE_lines_F_venn.png" width="17%" />
+  <img src="data/DE_figures/DE_F_day_overlap_SL1_SL3.png" width="32%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 0             |
+| SL1 exclusive | 0             |
+| SL3 exclusive | 87            |
+
 </div>
+
+I also check which genes are DE in only one or both lines for the day18 - day14/16 contrast. The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. Before, I see that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3.
+
+
 
 
 I will also look at DE genes in time points that are the same or different in the small and large males. The line-DE genes are mostly different between day 18 and day 14/16, which agrees with previous results. Between day 14 and day 16, most genes are exclusively DE in day 16.
