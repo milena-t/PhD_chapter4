@@ -37,6 +37,8 @@ See `PhD_chapter4/RNA_mapping`.
 
 ## 3. DE analysis
 
+### 3.1 yTor expression
+
 I will use edgeR. After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. The autosomal Tor is expressed much higher than any y-linked copy
 
 <details>
@@ -49,7 +51,7 @@ I will use edgeR. After reading the data and filtering for minimum expression th
 
 </details>
 
-### PCA plots
+### 3.2 PCA plots
 
 PCAs are based on log-transformed normalized counts.
 
@@ -94,7 +96,7 @@ Males and females are kind of but not super clearly separated, but for only male
 
 </details>
 
-### Sex-separated samples 
+### 3.3 DE analysis of sex-separated samples 
 
 I started the differential expression analysis with only samples from one sex at a time. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`. I am trying both `glmLRT` and `glmQLFTest` to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from `glmQLFTest`.
 
@@ -139,17 +141,17 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 Males:
 
 <p float="left">
-  <img src="data/DE_figures/smear_M_d14.png" width="49%" />
-  <img src="data/DE_figures/smear_M_d16.png" width="49%" />
-  <img src="data/DE_figures/smear_M_d18.png" width="49%" />
+  <img src="data/DE_figures/smear_M_d14.png" width="32%" />
+  <img src="data/DE_figures/smear_M_d16.png" width="32%" />
+  <img src="data/DE_figures/smear_M_d18.png" width="32%" />
 </p>
 
 Females:
 
 <p float="left">
-  <img src="data/DE_figures/smear_F_d14.png" width="49%" />
-  <img src="data/DE_figures/smear_F_d16.png" width="49%" />
-  <img src="data/DE_figures/smear_F_d18.png" width="49%" />
+  <img src="data/DE_figures/smear_F_d14.png" width="32%" />
+  <img src="data/DE_figures/smear_F_d16.png" width="32%" />
+  <img src="data/DE_figures/smear_F_d18.png" width="32%" />
 </p>
 
 </details>
@@ -312,7 +314,7 @@ I will also look at DE genes in time points that are the same or different in th
 
 </details>
 
-## Sex differences during development
+### 3.4 DE analysis sex differences during development
 
 I will now split the data by line to see sex differences in expression during the development stages. 
 
@@ -326,15 +328,17 @@ I will now split the data by line to see sex differences in expression during th
 
 </details>
 
-The smear plots show greatly male-biased expression in all developmental stages. For the significant genes I have not implemented the LFC>1 filter because the larvae are sexually monomorphic.
+
+
+The smear plots show greatly male-biased expression in all developmental stages for both lines
 
 <details>
-<summary>smear plots for SL1</summary>
+<summary>smear plots and table for SL1</summary>
 
 <p float="left">
-  <img src="PhD_chapter4/data/DE_figures/smear_SL1_d14.png" width="49%" />
-  <img src="PhD_chapter4/data/DE_figures/smear_SL1_d16.png" width="49%" />
-  <img src="PhD_chapter4/data/DE_figures/smear_SL1_d18.png" width="49%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL1_d14.png" width="32%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL1_d16.png" width="32%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL1_d18.png" width="32%" />
 </p>
 
 | `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
@@ -346,12 +350,12 @@ The smear plots show greatly male-biased expression in all developmental stages.
 </details>
 
 <details>
-<summary>smear plots for SL3</summary>
+<summary>smear plots and table for SL3</summary>
 
 <p float="left">
-  <img src="PhD_chapter4/data/DE_figures/smear_SL3_d14.png" width="49%" />
-  <img src="PhD_chapter4/data/DE_figures/smear_SL3_d16.png" width="49%" />
-  <img src="PhD_chapter4/data/DE_figures/smear_SL3_d18.png" width="49%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL3_d14.png" width="32%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL3_d16.png" width="32%" />
+  <img src="PhD_chapter4/data/DE_figures/smear_SL3_d18.png" width="32%" />
 </p>
 
 | `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
@@ -371,5 +375,51 @@ For SL1 it seems that these DE genes are mostly the same ones in day 14 and 16, 
   <img src="PhD_chapter4/data/DE_figures/DE_days_SL1_venn.png" width="49%" />
   <img src="PhD_chapter4/data/DE_figures/DE_days_SL3_venn.png" width="49%" />
 </p>
+
+</details>
+
+Mostly the same genes are upregulated in males between all comparisons
+
+<details>
+<summary>Overlap scatterplot for SL1</summary>
+
+<p float="left">
+  <img src="PhD_chapter4/data/DE_figures/DE_SL1_sex_overlap_day14_16.png" width="32%" />
+  <img src="PhD_chapter4/data/DE_figures/DE_SL1_sex_overlap_day14_18.png" width="32%" />
+  <img src="PhD_chapter4/data/DE_figures/DE_SL1_sex_overlap_day16_18.png" width="32%" />
+</p>
+
+```
+"Both"   "day 14"   "day 16"
+ 257      581        12
+
+"Both"   "day 14"   "day 18"
+ 259      845        10
+
+"Both"   "day 16"   "day 18"
+ 746      358        92
+```
+
+</details>
+
+<details>
+<summary>Overlap scatterplot for SL3</summary>
+
+<p float="left">
+  <img src="PhD_chapter4/data/DE_figures/DE_SL3_sex_overlap_day14_16.png" width="32%" />
+  <img src="PhD_chapter4/data/DE_figures/DE_SL3_sex_overlap_day14_18.png" width="32%" />
+  <img src="PhD_chapter4/data/DE_figures/DE_SL3_sex_overlap_day16_18.png" width="32%" />
+</p>
+
+```
+"Both"   "day 14"   "day 16"
+ 535      376        37
+
+"Both"   "day 14"   "day 18"
+ 516      350        56
+
+"Both"   "day 16"   "day 18"
+ 769      97         142
+```
 
 </details>
