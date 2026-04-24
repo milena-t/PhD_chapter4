@@ -75,11 +75,77 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="differential-expression-analysis-on-larval-rnaseq-data">Differential expression analysis on Larval RNAseq data</h1>
+        <!-- Tab links -->
+<script>
+function openTab(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+} 
+
+
+
+
+</script>
+<style>
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+</style>
+<h1 id="differential-expression-analysis-on-larval-rnaseq-data">Differential expression analysis on Larval RNAseq data</h1>
 <h2 id="1-preprocessing-and-testing">1. Preprocessing and testing</h2>
 <p>This analysis is based on a lot of work to properly filter the data and compare mapping pipelines to handle the high rRNA contamination rate and multimapping issues.</p>
 <h3 id="11-rrna-filtering-and-other-reads-preprocessing">1.1 rRNA filtering and other reads preprocessing</h3>
-<p>This was done by Bianca Sarcani, all data here: <code>/Users/miltr339/work/PhD_code/PhD_chapter4/RNA_data_processing</code>. Basically:</p>
+<p>This was done by Bianca Sarcani, all data here: <code>RNA_data_processing</code>. Basically:</p>
 <ul>
 <li>filter rRNA reads with sortmeRNA and custom rRNA library (see back to Axel's work about generating the reference library)</li>
 <li>collapse lanes</li>
@@ -97,15 +163,16 @@
 </ul>
 </li>
 </ul>
-<p>From his results I made the choice to use Salmon-mapping, see <code>/Users/miltr339/work/PhD_code/PhD_chapter4/mapping_and_transcriptome</code>.</p>
+<p>From his results I made the choice to use STAR, see <code>mapping_and_transcriptome</code>. In short, with the new annotation the mapping rate is good enough with just STAR and not the complicated optimization algorithm that salmon uses.</p>
 <h3 id="13-ytor-annotation-manual-curation">1.3 yTor annotation manual curation</h3>
-<p>This work is based on the selection lines evaluated by Kaufmann <em>et al.</em> (<a href="https://doi.org/10.1093/molbev/msad167">link</a>), but I am using a different version of the <em>C. maculatus</em> annotation that does not have the gene structures of the Y TOR copy number variation. Therefore I lift these gene structures from the original annotation and transform the coordinates to match my superscaffolded version of the assembly/annotation, see <code>/Users/miltr339/work/PhD_code/PhD_chapter4/mTOR_annotation</code>.</p>
+<p>This work is based on the selection lines evaluated by Kaufmann <em>et al.</em> (<a href="https://doi.org/10.1093/molbev/msad167">link</a>), but I am using a different version of the <em>C. maculatus</em> annotation that does not have the gene structures of the Y TOR copy number variation. Therefore I lift these gene structures from the original annotation and transform the coordinates to match my superscaffolded version of the assembly/annotation, see <code>mTOR_annotation</code>.</p>
 <p>The genes are named <code>yTor-A</code>, <code>yTor-B</code>, and <code>yTor-C</code>, and the autosomal Tor is <code>transcript-30111</code>, or <code>gene-30110</code>.</p>
 <h2 id="2-star-mapping">2. STAR mapping</h2>
-<p>See <code>/Users/miltr339/work/PhD_code/PhD_chapter4/RNA_mapping</code>.</p>
+<p>See <code>RNA_mapping</code>.</p>
 <h2 id="3-de-analysis">3. DE analysis</h2>
+<p>I will use edgeR.</p>
 <h3 id="31-ytor-expression">3.1 yTor expression</h3>
-<p>I will use edgeR. After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. The autosomal Tor is expressed much higher than any y-linked copy</p>
+<p>After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. The autosomal Tor is expressed much higher than any y-linked copy</p>
 <details>
 <summary>normalized counts plots</summary> 
 <p float="left">
@@ -114,30 +181,30 @@
 </p>
 </details>
 <h3 id="32-pca-plots">3.2 PCA plots</h3>
-<p>PCAs are based on log-transformed normalized counts.</p>
-<details>
-<summary>Toggle down for PCA plots</summary>
-<p>Lines are SL1 and SL3 which are the large (1) and small (3) males respectively. The days are day 14, 16, or 18 of larval development.</p>
-<h4 id="all-samples">All samples</h4>
+<p>PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which are the large (1) and small (3) males respectively. The days are day 14, 16, or 18 of larval development. When plotting all samples at once, the line is a clear separator, but not the day. Day 14 seems to be mostly to the left, but 16 and 18 are across the entire range. Separation by sex mostly shows the same results, line is the lagest difference and day 14 kind of separate but otherwise the age does not make a massive difference.</p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'All samples')">All samples</button>
+  <button class="tablinks" onclick="openTab(event, 'Only one sex')">Only one sex</button>
+</div>
+<div id="All samples" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_line_all_counts.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_day_all_counts.png" width="32%" />
 </p>
-<p>When plotting all samples at once, the line is a clear separator, but the day not as clearly. Day 14 seems to be mostly to the left, but 16 and 18 are across the entire range.</p>
-<h4 id="only-males-or-only-females">Only males or only females</h4>
-<p>Since we are interested in the male variation and the females are mostly control, we have much fewer female than male samples.</p>
+</div>
+<div id="Only one sex" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_M_day_line.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_F_day_line.png" width="32%" />
 </p>
-<p>Mostly the same as above, line is the lagest difference and day 14 kind of separate but otherwise the age does not make a massive difference.</p>
-</details>
-<p>I have also generated a MDS plot based on the edgeR data structure using <code>plotMDS()</code></p>
+<p>Since we are interested in the male variation and the females are mostly control, we have much fewer female than male samples.</p>
+</div>
+<p>I have also generated a MDS plot based on the edgeR data structure using <code>plotMDS()</code>, but they mostly show the same results as the PCA plots.</p>
 <details>
 <summary>Toggle down for MDS plots</summary>
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_only.png" width="49%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_and_females.png" width="49%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_only.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_and_females.png" width="32%" />
 </p>
 <p>Males and females are kind of but not super clearly separated, but for only male samples, the SL1 and SL3 border is relatively clear.</p>
 </details>
@@ -242,31 +309,34 @@
 <summary>Toggle down for venn diagramm</summary>
 <p>Male samples (left) and female samples (right).</p>
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_M_venn.png" width="49%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_F_venn.png" width="49%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_M_venn.png" width="20%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_F_venn.png" width="20%" />
 </p>
 </details>
 <p>Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in <code>SL1</code>) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.</p>
-<details>
-<summary>Toggle down for smear plots</summary>
-<p>Males:</p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE')">females</button>
+</div>
+<div id="males_lines_DE" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d14.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d16.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d18.png" width="32%" />
 </p>
-<p>Females:</p>
+</div>
+<div id="females_lines_DE" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d14.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d16.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d18.png" width="32%" />
 </p>
-</details>
+</div>
 <p>I also check which genes are DE in only one or both lines for the day contrast. A lot of them are shared but there is a even more difference, most DE genes are exclusive to the large males, wich is about four times as many genes as are exclusive to the small males.</p>
 <details>
 <summary>Toggle down for plot and numbers</summary>
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_day_overlap_SL1_SL3.png" width="75%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_day_overlap_SL1_SL3.png" width="32%" />
 </p>
 <table>
 <thead>
@@ -292,7 +362,12 @@
 </table>
 </details>
 <h4 id="number-of-differentially-expressed-genes-between-day18-and-meanday14day16">Number of differentially expressed genes between day18 and mean(day14+day16)</h4>
-<p><em>Males</em>: Most of the DE genes are shared between line 1 (small males) and line 3 (large males), supporting the hypothesis that the difference between the lines is mostly in day 14 and 16, and that the larvae start a common preparation for pupation around day 18.</p>
+<p>In males, most of the DE genes are shared between line 1 (small males) and line 3 (large males), supporting the hypothesis that the difference between the lines is mostly in day 14 and 16, and that the larvae start a common preparation for pupation around day 18.</p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables')">females</button>
+</div>
+<div id="males_lines_DE_tables" class="tabcontent">
 <table>
 <thead>
 <tr>
@@ -331,7 +406,11 @@
 </tr>
 </tbody>
 </table>
-<p><em>Females</em>:</p>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_M_venn.png" width="25%" />
+</p>
+</div>
+<div id="females_lines_DE_tables" class="tabcontent">
 <table>
 <thead>
 <tr>
@@ -370,35 +449,42 @@
 </tr>
 </tbody>
 </table>
-<details>
-<summary>Toggle down for venn diagramm</summary>
-<p>Male samples (left) and female samples (right).</p>
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_M_venn.png" width="49%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_F_venn.png" width="49%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_F_venn.png" width="25%" />
 </p>
-</details>
+</div>
 <p>Lots of genes are upregulated in day 18 compared to 14 and 16 as well.</p>
-<details>
-<summary>Toggle down for smear plots</summary>
-<p>Males:</p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_smear')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_smear')">females</button>
+</div>
+<div id="males_lines_DE_smear" class="tabcontent">
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1.png" width="49%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3.png" width="49%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3.png" width="32%" />
 </p>
-<p>Females:</p>
+</div>
+<div id="females_lines_DE_smear" class="tabcontent">
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1.png" width="49%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3.png" width="49%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3.png" width="32%" />
 </p>
-</details>
+</div>
 <p>I will also look at DE genes in time points that are the same or different in the small and large males. The line-DE genes are mostly different between day 18 and day 14/16, which agrees with previous results. Between day 14 and day 16, most genes are exclusively DE in day 16.</p>
-<h4 id="males">Males</h4>
-<details>
-<summary>Day 14 and day 16 overlap</summary>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_day_DE')">females</button>
+</div>
+<!-- Tab content -->
+<div id="males_day_DE" class="tabcontent">
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_16.png" width="75%" />
+<img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_18.png" width="32%" />
+<img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day16_18.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_16.png" width="32%" />
 </p>
+<table>
+<tr><th>Day 14 and day 16 </th><th>Day 14 and day 18</th><th>Day 16 and day 18</th></tr>
+<tr><td>
 <table>
 <thead>
 <tr>
@@ -421,12 +507,7 @@
 </tr>
 </tbody>
 </table>
-</details>
-<details>
-<summary>Day 14/day 16 and day 18 overlap</summary>
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_18.png" width="75%" />
-</p>
+</td><td>
 <table>
 <thead>
 <tr>
@@ -449,9 +530,7 @@
 </tr>
 </tbody>
 </table>
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day16_18.png" width="75%" />
-</p>
+</td><td>
 <table>
 <thead>
 <tr>
@@ -474,13 +553,17 @@
 </tr>
 </tbody>
 </table>
-</details>
-<h4 id="females">Females</h4>
-<details>
-<summary>Day 14 and day 16 overlap</summary>
+</td></tr> </table>
+</div>
+<div id="females_day_DE" class="tabcontent">
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_16.png" width="75%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_16.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_18.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day16_18.png" width="32%" />
 </p>
+<table>
+<tr><th>Day 14 and day 16 </th><th>Day 14 and day 18</th><th>Day 16 and day 18</th></tr>
+<tr><td>
 <table>
 <thead>
 <tr>
@@ -503,12 +586,7 @@
 </tr>
 </tbody>
 </table>
-</details>
-<details>
-<summary>Day 14/day 16 and day 18 overlap</summary>
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_18.png" width="75%" />
-</p>
+</td><td>
 <table>
 <thead>
 <tr>
@@ -531,9 +609,7 @@
 </tr>
 </tbody>
 </table>
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day16_18.png" width="75%" />
-</p>
+</td><td>
 <table>
 <thead>
 <tr>
@@ -556,19 +632,23 @@
 </tr>
 </tbody>
 </table>
-</details>
+</td></tr> </table>
+</div>
 <h3 id="34-de-analysis-sex-differences-during-development">3.4 DE analysis sex differences during development</h3>
 <p>I will now split the data by line to see sex differences in expression during the development stages.</p>
 <details>
 <summary>MDS plots for SL1 and SL3</summary>
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_SL1_only.png" width="49%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_SL3_only.png" width="49%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_SL1_only.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_SL3_only.png" width="32%" />
 </p>
 </details>
-<p>The smear plots show greatly male-biased expression in all developmental stages for both lines</p>
-<details>
-<summary>smear plots and table for SL1</summary>
+<p>The smear plots show greatly male-biased expression in all developmental stages for both lines.</p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_smear')">SL3</button>
+</div>
+<div id="SL1_smear" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL1_d14.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL1_d16.png" width="32%" />
@@ -620,9 +700,11 @@
 </tr>
 </tbody>
 </table>
-</details>
-<details>
-<summary>smear plots and table for SL3</summary>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL1_venn.png" width="20%" />
+</p>
+</div>
+<div id="SL3_smear" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d14.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d16.png" width="32%" />
@@ -674,18 +756,17 @@
 </tr>
 </tbody>
 </table>
-</details>
-<p>For SL1 it seems that these DE genes are mostly the same ones in day 14 and 16, and shift slightly in day 18, and that for SL3 they have about the same overlap in all three developmental stages.</p>
-<details>
-<summary>Venn diagramms for SL1 and SL3</summary>
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL1_venn.png" width="49%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL3_venn.png" width="49%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL3_venn.png" width="20%" />
 </p>
-</details>
+</div>
+<p>For SL1 it seems that these DE genes are mostly the same ones in day 14 and 16, and shift slightly in day 18, and that for SL3 they have about the same overlap in all three developmental stages.</p>
 <p>Mostly the same genes are upregulated in males between all comparisons</p>
-<details>
-<summary>Overlap scatterplot for SL1</summary>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'SL1_overlap')">SL1</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_overlap')">SL3</button>
+</div>
+<div id="SL1_overlap" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL1_sex_overlap_day14_16.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL1_sex_overlap_day14_18.png" width="32%" />
@@ -700,9 +781,8 @@
 &quot;Both&quot;   &quot;day 16&quot;   &quot;day 18&quot;
  746      358        92
 </code></pre>
-</details>
-<details>
-<summary>Overlap scatterplot for SL3</summary>
+</div>
+<div id="SL3_overlap" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL3_sex_overlap_day14_16.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL3_sex_overlap_day14_18.png" width="32%" />
@@ -717,7 +797,8 @@
 &quot;Both&quot;   &quot;day 16&quot;   &quot;day 18&quot;
  769      97         142
 </code></pre>
-</details>
+</div>
+
         
         
     </body>
