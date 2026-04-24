@@ -165,7 +165,7 @@ function openTab(evt, cityName) {
 <p>This work is based on the selection lines evaluated by Kaufmann <em>et al.</em> (<a href="https://doi.org/10.1093/molbev/msad167">link</a>), but I am using a different version of the <em>C. maculatus</em> annotation that does not have the gene structures of the Y TOR copy number variation. Therefore I lift these gene structures from the original annotation and transform the coordinates to match my superscaffolded version of the assembly/annotation, see <code>mTOR_annotation</code>.</p>
 <p>The genes are named <code>yTor-A</code>, <code>yTor-B</code>, and <code>yTor-C</code>, and the autosomal Tor is <code>transcript-30111</code>, or <code>gene-30110</code>.</p>
 <h2 id="2-star-mapping">2. STAR mapping</h2>
-<p>See the <code>RNA_mapping</code> directory in this repository for mapping rate information. Mean uniquely mapped reads: 83.76% and mean multimapped reads: 9.74%.</p>
+<p>See the <code>RNA_mapping</code> directory in this repository for by-sample mapping rate information. Mean uniquely mapped reads: 83.76% and mean multimapped reads: 9.74%.</p>
 <h2 id="3-de-analysis">3. DE analysis</h2>
 <p>I will use edgeR.</p>
 <h3 id="31-ytor-expression">3.1 yTor expression</h3>
@@ -779,7 +779,7 @@ function openTab(evt, cityName) {
 </p>
 <p>About the same overlap in all three developmental stages.</p>
 </div>
-<p>Check for the sex-bias overlap in all pairwise comparisons between the days.</p>
+<p>Check for the sex-bias overlap in all pairwise comparisons between the days. TODO this does not match with above. below has more DE in general and also most genes are DE in day 14 and day 16/18 share more which is not the same as above where either 14 and 16 share more (SL1) or it is about equal (SL3). I think i may have the LFC&gt;1 condition inconsistently maybe? It doesn't match above either, but the discrepancy is not as bad. fuck R and its stupid defaults</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_overlap')">SL1</button>
   <button class="tablinks" onclick="openTab(event, 'SL3_overlap')">SL3</button>

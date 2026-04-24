@@ -464,7 +464,7 @@ About the same overlap in all three developmental stages.
 
 </div>
 
-Check for the sex-bias overlap in all pairwise comparisons between the days.
+Check for the sex-bias overlap in all pairwise comparisons between the days. TODO this does not match with above. below has more DE in general and also most genes are DE in day 14 and day 16/18 share more which is not the same as above where either 14 and 16 share more (SL1) or it is about equal (SL3). I think i may have the LFC>1 condition inconsistently maybe? It doesn't match above either, but the discrepancy is not as bad. fuck R and its stupid defaults
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_overlap')">SL1</button>
