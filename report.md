@@ -101,7 +101,7 @@ The genes are named `yTor-A`, `yTor-B`, and `yTor-C`, and the autosomal Tor is `
 
 ## 2. STAR mapping
 
-See `RNA_mapping`.
+See the `RNA_mapping` directory in this repository for by-sample mapping rate information. Mean uniquely mapped reads: 83.76% and mean multimapped reads: 9.74%. 
 
 ## 3. DE analysis
 
@@ -178,9 +178,7 @@ Males and females are kind of but not super clearly separated, but for only male
 
 I started the differential expression analysis with only samples from one sex at a time. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`. I am trying both `glmLRT` and `glmQLFTest` to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from `glmQLFTest`.
 
-#### Number of differentially expressed genes between SL1 and SL3
-
-
+#### Differential expression between SL1 and SL3
 
 Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in `SL1`) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.
 
@@ -241,82 +239,9 @@ Fewer DE genes than males which is good since they are not supposed to have any.
 
 </div>
 
+#### Differential expression between lines within each day
 
-
-#### Number of differentially expressed genes between day18 and mean(day14+day16)
-
-In males, most of the DE genes are shared between line 1 (small males) and line 3 (large males), supporting the hypothesis that the difference between the lines is mostly in day 14 and 16, and that the larvae start a common preparation for pupation around day 18.
-
-<div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables')">females</button>
-</div>
-
-<div id="males_lines_DE_tables" class="tabcontent">
-
-<table>
-
-| `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 388           | 488           | Downregulated | 311           | 438           |
-| no difference | 9010          | 8174          | no difference | 9172          | 8309          |
-| Upregulated   | 1238          | 1974          | Upregulated   | 1153          | 1889          |
-
-</table>
-
-<p float="left">
-  <img src="data/DE_figures/smear_M_SL1.png" width="32%" />
-  <img src="data/DE_figures/smear_M_SL3.png" width="32%" />
-</p>
-<p float="left">
-  <img src="data/DE_figures/DE_lines_M_venn.png" width="17%" />
-  <img src="data/DE_figures/DE_day_overlap_SL1_SL3.png" width="32%" />
-</p>
-
-| category      | num DE genes  |
-| ------------- | ------------- |
-| both          | 1984          |
-| SL1 exclusive | 502           |
-| SL3 exclusive | 1999          |
-
-</div>
-
-<div id="females_lines_DE_tables" class="tabcontent">
-
-<table>
-
-| `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 84            | 43            | Downregulated | 0             | 10            |
-| no difference | 9536          | 9439          | no difference | 9656          | 9571          |
-| Upregulated   | 36            | 174           | Upregulated   | 0             | 75            |
-
-</table>
-
-<p float="left">
-  <img src="data/DE_figures/smear_F_SL1.png" width="32%" />
-  <img src="data/DE_figures/smear_F_SL3.png" width="32%" />
-</p>
-
-<p float="left">
-  <img src="data/DE_figures/DE_lines_F_venn.png" width="17%" />
-  <img src="data/DE_figures/DE_F_day_overlap_SL1_SL3.png" width="32%" />
-</p>
-
-| category      | num DE genes  |
-| ------------- | ------------- |
-| both          | 0             |
-| SL1 exclusive | 0             |
-| SL3 exclusive | 87            |
-
-</div>
-
-I also check which genes are DE in only one or both lines for the day18 - day14/16 contrast. The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. Before, I see that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3.
-
-
-
-
-I will also look at DE genes in time points that are the same or different in the small and large males. The line-DE genes are mostly different between day 18 and day 14/16, which agrees with previous results. Between day 14 and day 16, most genes are exclusively DE in day 16.
+How do the lines differ for each developmental time point (also difference between day 14 and day 16)?
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
@@ -402,6 +327,78 @@ I will also look at DE genes in time points that are the same or different in th
 
 </div>
 
+
+#### Differential expression between day18 and mean(day14+day16)
+
+I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16. 
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables')">females</button>
+</div>
+
+<div id="males_lines_DE_tables" class="tabcontent">
+
+<table>
+
+| `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 388           | 488           | Downregulated | 311           | 438           |
+| no difference | 9010          | 8174          | no difference | 9172          | 8309          |
+| Upregulated   | 1238          | 1974          | Upregulated   | 1153          | 1889          |
+
+</table>
+
+<p float="left">
+  <img src="data/DE_figures/smear_M_SL1.png" width="32%" />
+  <img src="data/DE_figures/smear_M_SL3.png" width="32%" />
+</p>
+
+<p float="left">
+  <img src="data/DE_figures/DE_lines_M_venn.png" width="17%" />
+  <img src="data/DE_figures/DE_day_overlap_SL1_SL3.png" width="32%" />
+</p>
+
+The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. The last section shows that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3. 
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 1984          |
+| SL1 exclusive | 502           |
+| SL3 exclusive | 1999          |
+
+</div>
+
+<div id="females_lines_DE_tables" class="tabcontent">
+
+<table>
+
+| `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 84            | 43            | Downregulated | 0             | 10            |
+| no difference | 9536          | 9439          | no difference | 9656          | 9571          |
+| Upregulated   | 36            | 174           | Upregulated   | 0             | 75            |
+
+</table>
+
+<p float="left">
+  <img src="data/DE_figures/smear_F_SL1.png" width="32%" />
+  <img src="data/DE_figures/smear_F_SL3.png" width="32%" />
+</p>
+
+<p float="left">
+  <img src="data/DE_figures/DE_lines_F_venn.png" width="17%" />
+  <img src="data/DE_figures/DE_F_day_overlap_SL1_SL3.png" width="32%" />
+</p>
+
+| category      | num DE genes  |
+| ------------- | ------------- |
+| both          | 0             |
+| SL1 exclusive | 0             |
+| SL3 exclusive | 87            |
+
+</div>
+
 ### 3.4 DE analysis sex differences during development
 
 I will now split the data by line to see sex differences in expression during the development stages. 
@@ -416,9 +413,7 @@ I will now split the data by line to see sex differences in expression during th
 
 </details>
 
-
-
-The smear plots show greatly male-biased expression in all developmental stages for both lines.
+#### Differential expression between males and females
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1</button>
@@ -440,8 +435,10 @@ The smear plots show greatly male-biased expression in all developmental stages 
 | Upregulated   | 5             | 80            | 67            | Upregulated   | 4             | 50            | 47            |
 
 <p float="left">
-  <img src="data/DE_figures/DE_days_SL1_venn.png" width="20%" />
+  <img src="data/DE_figures/DE_days_SL1_venn.png" width="17%" />
 </p>
+
+These DE genes are mostly the same ones in day 14 and 16, and shift slightly in day 18.
 
 </div>
 
@@ -460,15 +457,14 @@ The smear plots show greatly male-biased expression in all developmental stages 
 | Upregulated   | 2             | 63            | 3             | Upregulated   | 2             | 35            | 2             |
 
 <p float="left">
-  <img src="data/DE_figures/DE_days_SL3_venn.png" width="20%" />
+  <img src="data/DE_figures/DE_days_SL3_venn.png" width="17%" />
 </p>
+
+About the same overlap in all three developmental stages.
 
 </div>
 
-For SL1 it seems that these DE genes are mostly the same ones in day 14 and 16, and shift slightly in day 18, and that for SL3 they have about the same overlap in all three developmental stages.
-
-
-Mostly the same genes are upregulated in males between all comparisons
+Check for the sex-bias overlap in all pairwise comparisons between the days.
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_overlap')">SL1</button>

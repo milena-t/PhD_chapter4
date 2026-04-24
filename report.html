@@ -165,7 +165,7 @@ function openTab(evt, cityName) {
 <p>This work is based on the selection lines evaluated by Kaufmann <em>et al.</em> (<a href="https://doi.org/10.1093/molbev/msad167">link</a>), but I am using a different version of the <em>C. maculatus</em> annotation that does not have the gene structures of the Y TOR copy number variation. Therefore I lift these gene structures from the original annotation and transform the coordinates to match my superscaffolded version of the assembly/annotation, see <code>mTOR_annotation</code>.</p>
 <p>The genes are named <code>yTor-A</code>, <code>yTor-B</code>, and <code>yTor-C</code>, and the autosomal Tor is <code>transcript-30111</code>, or <code>gene-30110</code>.</p>
 <h2 id="2-star-mapping">2. STAR mapping</h2>
-<p>See <code>RNA_mapping</code>.</p>
+<p>See the <code>RNA_mapping</code> directory in this repository for mapping rate information. Mean uniquely mapped reads: 83.76% and mean multimapped reads: 9.74%.</p>
 <h2 id="3-de-analysis">3. DE analysis</h2>
 <p>I will use edgeR.</p>
 <h3 id="31-ytor-expression">3.1 yTor expression</h3>
@@ -211,7 +211,7 @@ function openTab(evt, cityName) {
 </details>
 <h3 id="33-de-analysis-of-sex-separated-samples">3.3 DE analysis of sex-separated samples</h3>
 <p>I started the differential expression analysis with only samples from one sex at a time. The contrasts are within each day (14, 16, 18), and always <code>SL1 - SL3</code>. <code>SL1</code> are the small males (three Tor copies), and all genes identified as &quot;upregulated&quot; are higher expressed in <code>SL1</code>. I am trying both <code>glmLRT</code> and <code>glmQLFTest</code> to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from <code>glmQLFTest</code>.</p>
-<h4 id="number-of-differentially-expressed-genes-between-sl1-and-sl3">Number of differentially expressed genes between SL1 and SL3</h4>
+<h4 id="differential-expression-between-sl1-and-sl3">Differential expression between SL1 and SL3</h4>
 <p>Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in <code>SL1</code>) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males</button>
@@ -335,158 +335,8 @@ function openTab(evt, cityName) {
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_F_venn.png" width="17%" />
 </p>
 </div>
-<h4 id="number-of-differentially-expressed-genes-between-day18-and-meanday14day16">Number of differentially expressed genes between day18 and mean(day14+day16)</h4>
-<p>In males, most of the DE genes are shared between line 1 (small males) and line 3 (large males), supporting the hypothesis that the difference between the lines is mostly in day 14 and 16, and that the larvae start a common preparation for pupation around day 18.</p>
-<div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables')">females</button>
-</div>
-<div id="males_lines_DE_tables" class="tabcontent">
-<table>
-<table>
-<thead>
-<tr>
-<th><code>glmLRT</code></th>
-<th>Line 1</th>
-<th>Line 3</th>
-<th><code>glmQLFTest</code></th>
-<th>Line 1</th>
-<th>Line 3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>388</td>
-<td>488</td>
-<td>Downregulated</td>
-<td>311</td>
-<td>438</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>9010</td>
-<td>8174</td>
-<td>no difference</td>
-<td>9172</td>
-<td>8309</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>1238</td>
-<td>1974</td>
-<td>Upregulated</td>
-<td>1153</td>
-<td>1889</td>
-</tr>
-</tbody>
-</table>
-</table>
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1.png" width="32%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3.png" width="32%" />
-</p>
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_M_venn.png" width="17%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_day_overlap_SL1_SL3.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th>category</th>
-<th>num DE genes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>both</td>
-<td>1984</td>
-</tr>
-<tr>
-<td>SL1 exclusive</td>
-<td>502</td>
-</tr>
-<tr>
-<td>SL3 exclusive</td>
-<td>1999</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="females_lines_DE_tables" class="tabcontent">
-<table>
-<table>
-<thead>
-<tr>
-<th><code>glmLRT</code></th>
-<th>Line 1</th>
-<th>Line 3</th>
-<th><code>glmQLFTest</code></th>
-<th>Line 1</th>
-<th>Line 3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>84</td>
-<td>43</td>
-<td>Downregulated</td>
-<td>0</td>
-<td>10</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>9536</td>
-<td>9439</td>
-<td>no difference</td>
-<td>9656</td>
-<td>9571</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>36</td>
-<td>174</td>
-<td>Upregulated</td>
-<td>0</td>
-<td>75</td>
-</tr>
-</tbody>
-</table>
-</table>
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1.png" width="32%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3.png" width="32%" />
-</p>
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_F_venn.png" width="17%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_day_overlap_SL1_SL3.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th>category</th>
-<th>num DE genes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>both</td>
-<td>0</td>
-</tr>
-<tr>
-<td>SL1 exclusive</td>
-<td>0</td>
-</tr>
-<tr>
-<td>SL3 exclusive</td>
-<td>87</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>I also check which genes are DE in only one or both lines for the day18 - day14/16 contrast. The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. Before, I see that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3.</p>
-<p>I will also look at DE genes in time points that are the same or different in the small and large males. The line-DE genes are mostly different between day 18 and day 14/16, which agrees with previous results. Between day 14 and day 16, most genes are exclusively DE in day 16.</p>
+<h4 id="differential-expression-between-lines-within-each-day">Differential expression between lines within each day</h4>
+<p>How do the lines differ for each developmental time point (also difference between day 14 and day 16)?</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
   <button class="tablinks" onclick="openTab(event, 'females_day_DE')">females</button>
@@ -650,6 +500,157 @@ function openTab(evt, cityName) {
 </table>
 </td></tr> </table>
 </div>
+<h4 id="differential-expression-between-day18-and-meanday14day16">Differential expression between day18 and mean(day14+day16)</h4>
+<p>I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16.</p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables')">females</button>
+</div>
+<div id="males_lines_DE_tables" class="tabcontent">
+<table>
+<table>
+<thead>
+<tr>
+<th><code>glmLRT</code></th>
+<th>Line 1</th>
+<th>Line 3</th>
+<th><code>glmQLFTest</code></th>
+<th>Line 1</th>
+<th>Line 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>388</td>
+<td>488</td>
+<td>Downregulated</td>
+<td>311</td>
+<td>438</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>9010</td>
+<td>8174</td>
+<td>no difference</td>
+<td>9172</td>
+<td>8309</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>1238</td>
+<td>1974</td>
+<td>Upregulated</td>
+<td>1153</td>
+<td>1889</td>
+</tr>
+</tbody>
+</table>
+</table>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3.png" width="32%" />
+</p>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_M_venn.png" width="17%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_day_overlap_SL1_SL3.png" width="32%" />
+</p>
+<p>The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. The last section shows that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3.</p>
+<table>
+<thead>
+<tr>
+<th>category</th>
+<th>num DE genes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>both</td>
+<td>1984</td>
+</tr>
+<tr>
+<td>SL1 exclusive</td>
+<td>502</td>
+</tr>
+<tr>
+<td>SL3 exclusive</td>
+<td>1999</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="females_lines_DE_tables" class="tabcontent">
+<table>
+<table>
+<thead>
+<tr>
+<th><code>glmLRT</code></th>
+<th>Line 1</th>
+<th>Line 3</th>
+<th><code>glmQLFTest</code></th>
+<th>Line 1</th>
+<th>Line 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>84</td>
+<td>43</td>
+<td>Downregulated</td>
+<td>0</td>
+<td>10</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>9536</td>
+<td>9439</td>
+<td>no difference</td>
+<td>9656</td>
+<td>9571</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>36</td>
+<td>174</td>
+<td>Upregulated</td>
+<td>0</td>
+<td>75</td>
+</tr>
+</tbody>
+</table>
+</table>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3.png" width="32%" />
+</p>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_F_venn.png" width="17%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_day_overlap_SL1_SL3.png" width="32%" />
+</p>
+<table>
+<thead>
+<tr>
+<th>category</th>
+<th>num DE genes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>both</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SL1 exclusive</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SL3 exclusive</td>
+<td>87</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3 id="34-de-analysis-sex-differences-during-development">3.4 DE analysis sex differences during development</h3>
 <p>I will now split the data by line to see sex differences in expression during the development stages.</p>
 <details>
@@ -659,7 +660,7 @@ function openTab(evt, cityName) {
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_SL3_only.png" width="32%" />
 </p>
 </details>
-<p>The smear plots show greatly male-biased expression in all developmental stages for both lines.</p>
+<h4 id="differential-expression-between-males-and-females">Differential expression between males and females</h4>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1</button>
   <button class="tablinks" onclick="openTab(event, 'SL3_smear')">SL3</button>
@@ -717,8 +718,9 @@ function openTab(evt, cityName) {
 </tbody>
 </table>
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL1_venn.png" width="20%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL1_venn.png" width="17%" />
 </p>
+<p>These DE genes are mostly the same ones in day 14 and 16, and shift slightly in day 18.</p>
 </div>
 <div id="SL3_smear" class="tabcontent">
 <p float="left">
@@ -773,11 +775,11 @@ function openTab(evt, cityName) {
 </tbody>
 </table>
 <p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL3_venn.png" width="20%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL3_venn.png" width="17%" />
 </p>
+<p>About the same overlap in all three developmental stages.</p>
 </div>
-<p>For SL1 it seems that these DE genes are mostly the same ones in day 14 and 16, and shift slightly in day 18, and that for SL3 they have about the same overlap in all three developmental stages.</p>
-<p>Mostly the same genes are upregulated in males between all comparisons</p>
+<p>Check for the sex-bias overlap in all pairwise comparisons between the days.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_overlap')">SL1</button>
   <button class="tablinks" onclick="openTab(event, 'SL3_overlap')">SL3</button>
