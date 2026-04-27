@@ -191,18 +191,18 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 
 <table>
 
-| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 102           | 175           | 63            | Downregulated | 76            | 139           | 17            |
-| no difference | 10318         | 10147         | 10515         | no difference | 10368         | 10253         | 10574         |
-| Upregulated   | 216           | 314           | 58            | Upregulated   | 192           | 244           | 45            |
+| `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 94            | 210           | 19            |
+| no difference | 10326         | 10164         | 10563         |
+| Upregulated   | 216           | 262           | 54            |
 
 </table>
 
 <p float="left">
-  <img src="data/DE_figures/smear_M_d14.png" width="32%" />
-  <img src="data/DE_figures/smear_M_d16.png" width="32%" />
-  <img src="data/DE_figures/smear_M_d18.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_1-3_day14.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_1-3_day16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_1-3_day18.png" width="32%" />
 </p>
 
 Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 and 16 have more significantly differentially expressed genes in common than day 18. In day 18, the larvae are close to pupation, which likely means that they are switching from gene expression related to grwoth and digestion to what they need for pupation instead, which is potentially not related to the Y-haplotype difference any more, resulting in less DE between the lines on day 18.
@@ -217,18 +217,18 @@ Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 
 
 <table>
 
-| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 20            | 53            | 88            | Downregulated | 6             | 19            | 32            |
-| no difference | 9546          | 9488          | 9467          | no difference | 9581          | 9553          | 9559          |
-| Upregulated   | 90            | 115           | 101           | Upregulated   | 69            | 115           | 65            |
+| `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 6             | 19            | 32            |
+| no difference | 9581          | 9553          | 9559          |
+| Upregulated   | 69            | 115           | 65            |
 
 </table>
 
 <p float="left">
-  <img src="data/DE_figures/smear_F_d14.png" width="32%" />
-  <img src="data/DE_figures/smear_F_d16.png" width="32%" />
-  <img src="data/DE_figures/smear_F_d18.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_1-3_day14.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_1-3_day16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_1-3_day18.png" width="32%" />
 </p>
 
 Fewer DE genes than males which is good since they are not supposed to have any. Also, similar amounts of DE genes on day 14, 16, and 18, which is different from the male samples where day 18 is a clear outlier. This is nice since I hypothesize that that is because the line difference impacts day 14 and 16 more than 18, and therefore the DE genes here are not related to the growth differences between the lines that impact the males.
@@ -341,17 +341,17 @@ I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and S
 
 <table>
 
-| `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 388           | 488           | Downregulated | 311           | 438           |
-| no difference | 9010          | 8174          | no difference | 9172          | 8309          |
-| Upregulated   | 1238          | 1974          | Upregulated   | 1153          | 1889          |
+| `glmQLFTest`  | Line 1        | Line 3        |
+| ------------- | ------------- | ------------- |
+| Downregulated | 639           | 1271          |
+| no difference | 8150          | 6653          |
+| Upregulated   | 1850          | 2766          |
 
 </table>
 
 <p float="left">
-  <img src="data/DE_figures/smear_M_SL1.png" width="32%" />
-  <img src="data/DE_figures/smear_M_SL3.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL1.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL3.png" width="32%" />
 </p>
 
 <p float="left">
@@ -373,17 +373,17 @@ The fewest genes change in SL1 during this developmental transition, most genes 
 
 <table>
 
-| `glmLRT`      | Line 1        | Line 3        | `glmQLFTest`  | Line 1        | Line 3        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 84            | 43            | Downregulated | 0             | 10            |
-| no difference | 9536          | 9439          | no difference | 9656          | 9571          |
-| Upregulated   | 36            | 174           | Upregulated   | 0             | 75            |
+| `glmQLFTest`  | Line 1        | Line 3        |
+| ------------- | ------------- | ------------- |
+| Downregulated | 0             | 11            |
+| no difference | 9656          | 9569          |
+| Upregulated   | 0             | 76            |
 
 </table>
 
 <p float="left">
-  <img src="data/DE_figures/smear_F_SL1.png" width="32%" />
-  <img src="data/DE_figures/smear_F_SL3.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL1.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL3.png" width="32%" />
 </p>
 
 <p float="left">
@@ -423,16 +423,16 @@ I will now split the data by line to see sex differences in expression during th
 <div id="SL1_smear" class="tabcontent">
 
 <p float="left">
-  <img src="data/DE_figures/smear_SL1_d14.png" width="32%" />
-  <img src="data/DE_figures/smear_SL1_d16.png" width="32%" />
-  <img src="data/DE_figures/smear_SL1_d18.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL1_day14_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL1_day16_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL1_day18_F-M.png" width="32%" />
 </p>
 
-| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 465           | 872           | 1056          | Downregulated | 264           | 760           | 1008          |
-| no difference | 10523         | 10041         | 9870          | no difference | 10725         | 10183         | 9938          |
-| Upregulated   | 5             | 80            | 67            | Upregulated   | 4             | 50            | 47            |
+| `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 265           | 767           | 1039          |
+| no difference | 10724         | 10155         | 9889          |
+| Upregulated   | 4             | 71            | 65            |
 
 <p float="left">
   <img src="data/DE_figures/DE_days_SL1_venn.png" width="17%" />
@@ -445,16 +445,16 @@ These DE genes are mostly the same ones in day 14 and 16, and shift slightly in 
 <div id="SL3_smear" class="tabcontent">
 
 <p float="left">
-  <img src="data/DE_figures/smear_SL3_d14.png" width="32%" />
-  <img src="data/DE_figures/smear_SL3_d16.png" width="32%" />
-  <img src="data/DE_figures/smear_SL3_d18.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL3_day14_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL3_day16_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL3_day18_F-M.png" width="32%" />
 </p>
 
-| `glmLRT`      | Day 14        | Day 16        | Day 18        | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
-| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 658           | 878           | 903           | Downregulated | 563           | 842           | 841           |
-| no difference | 9927          | 9646          | 9681          | no difference | 10022         | 9710          | 9744          |
-| Upregulated   | 2             | 63            | 3             | Upregulated   | 2             | 35            | 2             |
+| `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 569           | 875           | 861           |
+| no difference | 10015         | 9676          | 9721          |
+| Upregulated   | 3             | 36            | 5             |
 
 <p float="left">
   <img src="data/DE_figures/DE_days_SL3_venn.png" width="17%" />
