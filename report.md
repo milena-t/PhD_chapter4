@@ -208,7 +208,7 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 and 16 have more significantly differentially expressed genes in common than day 18. In day 18, the larvae are close to pupation, which likely means that they are switching from gene expression related to grwoth and digestion to what they need for pupation instead, which is potentially not related to the Y-haplotype difference any more, resulting in less DE between the lines on day 18.
 
 <p float="left">
-  <img src="data/DE_figures/DE_days_M_venn.png" width="17%" />
+  <img src="data/DE_figures_python/Venn_males_age_by_line_bias.png" width="25%" />
 </p>
 
 </div>
@@ -234,7 +234,7 @@ Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 
 Fewer DE genes than males which is good since they are not supposed to have any. Also, similar amounts of DE genes on day 14, 16, and 18, which is different from the male samples where day 18 is a clear outlier. This is nice since I hypothesize that that is because the line difference impacts day 14 and 16 more than 18, and therefore the DE genes here are not related to the growth differences between the lines that impact the males.
 
 <p float="left">
-  <img src="data/DE_figures/DE_days_F_venn.png" width="17%" />
+  <img src="data/DE_figures_python/Venn_females_age_by_line_bias.png" width="25%" />
 </p>
 
 </div>
@@ -355,7 +355,7 @@ I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and S
 </p>
 
 <p float="left">
-  <img src="data/DE_figures/DE_lines_M_venn.png" width="17%" />
+  <img src="data/DE_figures_python/Venn_males_line_by_age_bias.png" width="25%" />
   <img src="data/DE_figures/DE_day_overlap_SL1_SL3.png" width="32%" />
 </p>
 
@@ -387,7 +387,7 @@ The fewest genes change in SL1 during this developmental transition, most genes 
 </p>
 
 <p float="left">
-  <img src="data/DE_figures/DE_lines_F_venn.png" width="17%" />
+  <img src="data/DE_figures_python/Venn_females_line_by_age_bias.png" width="25%" />
   <img src="data/DE_figures/DE_F_day_overlap_SL1_SL3.png" width="32%" />
 </p>
 
@@ -435,7 +435,7 @@ I will now split the data by line to see sex differences in expression during th
 | Upregulated   | 4             | 71            | 65            |
 
 <p float="left">
-  <img src="data/DE_figures/DE_days_SL1_venn.png" width="17%" />
+  <img src="data/DE_figures_python/Venn_SL1_age_by_sex_bias.png" width="25%" />
 </p>
 
 These DE genes are mostly the same ones in day 14 and 16, and shift slightly in day 18.
@@ -457,7 +457,7 @@ These DE genes are mostly the same ones in day 14 and 16, and shift slightly in 
 | Upregulated   | 3             | 36            | 5             |
 
 <p float="left">
-  <img src="data/DE_figures/DE_days_SL3_venn.png" width="17%" />
+  <img src="data/DE_figures_python/Venn_SL3_age_by_sex_bias.png" width="25%" />
 </p>
 
 About the same overlap in all three developmental stages.

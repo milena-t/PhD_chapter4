@@ -5,6 +5,7 @@ I will use the tables in data made with the topTags() function with no filtering
 
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib_venn import venn2,venn3
 
 
 def get_tables(username = "miltr339"):
@@ -70,6 +71,7 @@ def get_tables(username = "miltr339"):
 def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC"):
     """
     replicate smear-plot from R, logCPM by logFC, significance highlighted in red
+    return the number of up/downregulated and no difference genes
     """
     df = pd.read_csv(table_path, sep="\t", skiprows=0)
     
@@ -130,6 +132,51 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     return out_dict
 
 
+def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filename = "venn_diagram.png", venn_title = ""):
+    """
+    plot a venn diagram of two or three lists of DE genes from R 
+    showing the number of genes that are shared in all cases
+    """
+    if len(tables_dict) !=2 and len(tables_dict) != 3:
+        raise RuntimeError(f"list should have only 2 or 3 elements but it has has length {len(tables_dict)}! \n{tables_dict}")
+    
+    sig_geneIDs_lists = {table_title : [] for table_title in tables_dict.keys()}
+    for table_title,table_path in tables_dict.items():
+        df = pd.read_csv(table_path, sep="\t", skiprows=0)
+        
+        df_sig = df.loc[df['FDR'] < p_sig]
+        if min_LFC>0:
+            df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
+        sig_geneIDs_lists[table_title] = set(df_sig["Gene"].tolist())
+        
+    subsets = [id_list for id_list in sig_geneIDs_lists.values()]
+    labels = [id_lab for id_lab in sig_geneIDs_lists.keys()]
+
+    fs = 15 # fontsize
+    if len(tables_dict)==2:
+        v = venn2(subsets=subsets, set_labels=labels)
+    elif len(tables_dict)==3:
+        v = venn3(subsets=subsets, set_labels=labels)
+    for text in v.set_labels:
+        try:
+            text.set_fontsize(fs)
+        except:
+            pass
+    for text in v.subset_labels:
+        try:
+            text.set_fontsize(fs)
+        except:
+            pass
+
+    plt.title(venn_title, fontsize = fs)
+    plt.tight_layout()
+    plt.savefig(venn_filename, dpi = 300, transparent = True)
+    print(f"plot saved in current working directory as: {venn_filename}")
+    
+    plt.clf()
+    plt.cla()
+    plt.close()
+
 
 
 if __name__ == "__main__":
@@ -138,19 +185,100 @@ if __name__ == "__main__":
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
     
-    for separation, seps_dict in table_paths.items():
-        print(f"\n=========================== {separation} ===========================")
-        for category, paths_dict in seps_dict.items():
-            print(f"\n ------------------- {category} -------------------")
 
-            numbers = {}
-            for contrast, table_path in paths_dict.items():
-                print(f"{separation}:{category} --> contrast: {contrast}")
-                table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
-                smear_name = f"{out_path_figs}/smear_{table_name}.png"
-                smear_title = contrast_plot_titles[contrast]
-    
-                smear_nums = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title)
-                numbers[smear_title] = smear_nums
-    
-            print(numbers)
+    ############################################
+    ######### MAKE ALL THE SMEAR PLOTS #########
+    ############################################
+    if False:
+        for separation, seps_dict in table_paths.items():
+            print(f"\n=========================== {separation} ===========================")
+            for category, paths_dict in seps_dict.items():
+                print(f"\n ------------------- {category} -------------------")
+
+                numbers = {}
+                for contrast, table_path in paths_dict.items():
+                    print(f"{separation}:{category} --> contrast: {contrast}")
+                    table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
+                    smear_name = f"{out_path_figs}/smear_{table_name}.png"
+                    smear_title = contrast_plot_titles[contrast]
+        
+                    smear_nums = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title)
+                    numbers[smear_title] = smear_nums
+        
+                print(numbers)
+
+    ############################################
+    ######## MAKE ALL THE VENN DIAGRAMS ########
+    ############################################
+    if False:
+        venn_sets = {
+            "sex_separated" : {
+                "females" : {
+                    "age by line bias" :["SL1_14 - SL3_14","SL1_16 - SL3_16","SL1_18 - SL3_18"],
+                    "line by age bias" : ["SL1_18 - (SL1_14+SL1_16)/2","SL3_18 - (SL3_14+SL3_16)/2"]
+                },
+                "males" : {
+                    "age by line bias" : ["SL1_14 - SL3_14","SL1_16 - SL3_16","SL1_18 - SL3_18"],
+                    "line by age bias" : ["SL1_18 - (SL1_14+SL1_16)/2","SL3_18 - (SL3_14+SL3_16)/2"]
+                }
+            },
+            "line_separated" : {
+                "SL1" : {"age by sex bias" : ["F_14 - M_14","F_16 - M_16","F_18 - M_18"]},
+                "SL3" : {"age by sex bias" : ["F_14 - M_14","F_16 - M_16","F_18 - M_18"]}
+            }
+        }
+        for separation, seps_dict in table_paths.items():
+            print(f"\n=========================== {separation} ===========================")
+            for category, paths_dict in seps_dict.items():
+                print(f"\n ------------------- {category} -------------------")
+
+                for venn_cat, venn_contrasts_list in venn_sets[separation][category].items():
+                    print(f"{venn_cat} : {venn_contrasts_list}")
+                    venn_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in venn_contrasts_list}
+                    venn_filename_ = venn_cat.replace(" ", "_")
+                    venn_filename = f"{out_path_figs}/Venn_{category}_{venn_filename_}.png"
+                    venn_title = f"sig. DE genes overlap ({category})\n{venn_cat}"
+                    plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title)
+
+    ############################################
+    ######## MAKE ALL THE SB COMPARISONS #######
+    ############################################
+
+    if True:
+        LFC_comp_sets = {
+            "sex_separated" : {
+                "females" : {
+                    "day 14 vs. day 16 line bias" : ["SL1_14 - SL3_14","SL1_16 - SL3_16"],
+                    "day 14 vs. day 18 line bias" : ["SL1_14 - SL3_14","SL1_18 - SL3_18"],
+                    "day 16 vs. day 16 line bias" : ["SL1_16 - SL3_16","SL1_18 - SL3_18"],
+                    "line by age bias" : ["SL1_18 - (SL1_14+SL1_16)/2","SL3_18 - (SL3_14+SL3_16)/2"]
+                },
+                "males" : {
+                    "day 14 vs. day 16 line bias" : ["SL1_14 - SL3_14","SL1_16 - SL3_16"],
+                    "day 14 vs. day 18 line bias" : ["SL1_14 - SL3_14","SL1_18 - SL3_18"],
+                    "day 16 vs. day 16 line bias" : ["SL1_16 - SL3_16","SL1_18 - SL3_18"],
+                    "line by age bias" : ["SL1_18 - (SL1_14+SL1_16)/2","SL3_18 - (SL3_14+SL3_16)/2"]
+                }
+            },
+            "line_separated" : {
+                "SL1" : {
+                    "day 14 vs. day 16 sex bias" : ["F_14 - M_14","F_16 - M_16"],
+                    "day 14 vs. day 18 sex bias" : ["F_14 - M_14","F_18 - M_18"],
+                    "day 16 vs. day 18 sex bias" : ["F_16 - M_16","F_18 - M_18"],
+                },
+                "SL3" : {
+                    "day 14 vs. day 16 sex bias" : ["F_14 - M_14","F_16 - M_16"],
+                    "day 14 vs. day 18 sex bias" : ["F_14 - M_14","F_18 - M_18"],
+                    "day 16 vs. day 18 sex bias" : ["F_16 - M_16","F_18 - M_18"],
+                }
+            }
+        }
+
+        for separation, seps_dict in table_paths.items():
+            print(f"\n=========================== {separation} ===========================")
+            for category, paths_dict in seps_dict.items():
+                print(f"\n ------------------- {category} -------------------")
+
+                for LFC_cat, LFC_contrasts_list in LFC_comp_sets[separation][category].items():
+                    print(f"{LFC_cat} : {LFC_contrasts_list}")
+                    LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in LFC_contrasts_list}
