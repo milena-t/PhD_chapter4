@@ -205,7 +205,7 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
   <img src="data/DE_figures/smear_M_d18.png" width="32%" />
 </p>
 
-Day 14 and 16 have more significantly differentially expressed genes in common than day 18. In day 18, the larvae are close to pupation, which likely means that they are switching from gene expression related to grwoth and digestion to what they need for pupation instead, which is potentially not related to the Y-haplotype difference any more, resulting in less DE between the lines on day 18.
+Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 and 16 have more significantly differentially expressed genes in common than day 18. In day 18, the larvae are close to pupation, which likely means that they are switching from gene expression related to grwoth and digestion to what they need for pupation instead, which is potentially not related to the Y-haplotype difference any more, resulting in less DE between the lines on day 18.
 
 <p float="left">
   <img src="data/DE_figures/DE_days_M_venn.png" width="17%" />

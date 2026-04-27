@@ -165,7 +165,7 @@ line_1 = SL1_18 - (SL1_14+SL1_16)/2,
 line_3 = SL3_18 - (SL3_14+SL3_16)/2,
 levels=MM)
 
-contrast_analysis <- function(y,MM,contrast, table_name, smear_name, smear_ylab, smear_title){
+contrast_analysis <- function(y,MM,contrast, table_name, smear_name, smear_ylab, smear_title, lfc_min){
   
   fit <- glmFit(y, MM)
   lrt <- glmLRT(fit, contrast=contrast)
@@ -183,13 +183,13 @@ contrast_analysis <- function(y,MM,contrast, table_name, smear_name, smear_ylab,
   print("--------------------------------------------")
   
   ## make output table
-  Tags <- topTags(qlf, n=Inf, p.value=0.05)						
+  Tags <- topTags(qlf, n=Inf, p.value=1)						
   Tags <- Tags$table
   Tags$Gene <- rownames(Tags)
   write.table(Tags, file=table_name, sep="\t")	
   
   ## make smear plot
-  de<-decideTestsDGE(qlf, p.value=0.05, lfc=1) 
+  de<-decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min) 
   detags <- rownames(y)[as.logical(de)]
   png(smear_name, width = 6, height = 4, units = "in", res = 300)
   plotSmear(qlf, de.tags=detags, smearWidth=0.1, smooth.scatter=F, xlim=c(), ylab=smear_ylab, main = smear_title)
@@ -211,7 +211,7 @@ d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day1
 d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d14.png"
 d14_smear_title <- "Female samples day 14"
 }
-out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d14_smear_title)
+out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d14_smear_title, lfc_min = 0)
 qlf14 <- out_14["qlf"]
 de14 <- out_14["de"]
 detags14 <- out_14["detags"]
@@ -226,7 +226,7 @@ d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day1
 d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d16.png"
 d16_smear_title <- "Female samples day 16"
 }
-out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d16_smear_title)
+out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d16_smear_title, lfc_min = 0)
 qlf16 <- out_16["qlf"]
 de16 <- out_16["de"]
 detags16 <- out_16["detags"]
@@ -241,7 +241,7 @@ d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day1
 d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d18.png"
 d18_smear_title <- "Female samples day 18"
 }
-out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d18_smear_title)
+out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d18_smear_title, lfc_min = 0)
 qlf18 <- out_18["qlf"]
 de18 <- out_18["de"]
 detags18 <- out_18["detags"]
@@ -256,7 +256,7 @@ line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1.tx
 line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1.png"
 line1_smear_title <- "Female samples line 1"
 }
-out_SL1 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line1_smear_title)
+out_SL1 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line1_smear_title, lfc_min = 0)
 qlfSL1 <- out_SL1["qlf"]
 deSL1 <- out_SL1["de"]
 detagsSL1 <- out_SL1["detags"]
@@ -271,7 +271,7 @@ line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3.tx
 line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3.png"
 line3_smear_title <- "Female samples line 3"
 }
-out_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line3_smear_title)
+out_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line3_smear_title, lfc_min = 0)
 qlfSL3 <- out_SL3["qlf"]
 deSL3 <- out_SL3["de"]
 detagsSL3 <- out_SL3["detags"]
@@ -469,7 +469,7 @@ plot_DE_overlap(Res1 = qlfSL1[[1]], Res2 = qlfSL3[[1]], sig_p = 0.05, plot_name=
 I will see if there are sex differences in the different developmental stages within each line. Specify which line first.
 
 ```{r}
-use_SL1 <- TRUE
+use_SL1 <- FALSE
 ```
 
 ```{r} 
@@ -545,7 +545,7 @@ d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day14_
 d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d14.png"
 d14_smear_title <- "SL3 samples day 14"
 }
-out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC F-M",smear_title=d14_smear_title)
+out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC F-M",smear_title=d14_smear_title, lfc_min = 0)
 qlf14 <- out_14["qlf"]
 de14 <- out_14["de"]
 detags14 <- out_14["detags"]
@@ -560,7 +560,7 @@ d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day16_
 d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d16.png"
 d16_smear_title <- "SL3 samples day 16"
 }
-out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC F-M",smear_title=d16_smear_title)
+out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC F-M",smear_title=d16_smear_title, lfc_min = 0)
 qlf16 <- out_16["qlf"]
 de16 <- out_16["de"]
 detags16 <- out_16["detags"]
@@ -575,7 +575,7 @@ d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day18_
 d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d18.png"
 d18_smear_title <- "SL3 samples day 18"
 }
-out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC F-M",smear_title=d18_smear_title)
+out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC F-M",smear_title=d18_smear_title, lfc_min = 0)
 qlf18 <- out_18["qlf"]
 de18 <- out_18["de"]
 detags18 <- out_18["detags"]
