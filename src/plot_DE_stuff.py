@@ -178,6 +178,102 @@ def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filenam
     plt.close()
 
 
+def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = ""):
+    """ 
+    plot a scatterplot of sig. DE genes with LFC values
+    """
+    if len(tables_dict) !=2 :
+        raise RuntimeError(f"list should have only 2 elements but it has has length {len(tables_dict)}! \n{tables_dict}")
+    
+    sig_geneIDs_lists = {table_title : [] for table_title in tables_dict.keys()}
+    tables_df = {table_title : [] for table_title in tables_dict.keys()}
+    tables_df_all = {table_title : [] for table_title in tables_dict.keys()}
+
+    for table_title,table_path in tables_dict.items():
+        df = pd.read_csv(table_path, sep="\t", skiprows=0)
+        tables_df_all[table_title] = df
+
+        df_sig = df.loc[df['FDR'] < p_sig]
+        if min_LFC>0:
+            df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
+        
+        tables_df[table_title] = df_sig
+        sig_geneIDs_lists[table_title] = df_sig["Gene"].tolist()
+
+    table_a,table_b = tables_dict.keys()
+    set_a = set(sig_geneIDs_lists[table_a])
+    set_b = set(sig_geneIDs_lists[table_b])
+
+    lists = {
+        "shared" : list(set_a & set_b),
+        table_a : list(set_a - set_b),
+        table_b : list(set_b - set_a)
+        }
+
+    fig, ax = plt.subplots(1,1, figsize=(13, 13)) 
+    fs = 35
+    point_size_factor = 8
+    ps = fs*point_size_factor # point size
+
+    sig_colors = ["#BD351E","#EA882C"] # red , orange
+    colors_dict = {table_title : sig_colors[i] for i,table_title in enumerate(tables_dict.keys())}
+    colors_dict["shared"] = "#3C7FA7" # blue
+
+    for cat in [table_a,table_b,"shared"]:
+        for geneID in lists[cat]:
+            try:
+                x = tables_df_all[table_a].loc[geneID,"logFC"]
+            except:
+                x = 0
+                print(geneID)
+            try:
+                y = tables_df_all[table_b].loc[geneID,"logFC"]
+            except:
+                y = 0
+                print(geneID)
+            ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
+
+    ax.set_xlabel(f"logFC {table_a}", fontsize = fs)
+    ax.set_ylabel(f"logFC {table_b}", fontsize = fs)
+    ax.tick_params(axis='x', labelsize=fs*0.9)
+    ax.tick_params(axis='y', labelsize=fs*0.9)
+    ax.set_title(LFC_title, fontsize = fs*1.25)
+
+    min_yline,max_yline = ax.get_ylim()
+    min_xline,max_xline = ax.get_xlim()
+    min_yline = min_yline-0.5
+    max_yline = max_yline+0.5
+    min_xline = min_xline-0.5
+    max_xline = max_xline+0.5
+    if min_LFC == 0:
+        ax.hlines(y=1, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.hlines(y=-1, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.vlines(x=1, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.vlines(x=-1, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+    else:
+        ax.hlines(y=min_LFC, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.hlines(y=-1*min_LFC, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.vlines(x=min_LFC, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.vlines(x=-1*min_LFC, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+    
+    ax.hlines(y=0, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor, linestyle = ":", color="#2F3E1D",zorder=0)
+    ax.vlines(x=0, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor, linestyle = ":", color="#2F3E1D",zorder=0)
+    
+    ## make legend points
+    for cat in [table_a,table_b,"shared"]:
+        ax.scatter(1000,1000,color = colors_dict[cat], s=ps, alpha = 0.75, label = cat)
+    
+    ax.set_ylim([min_yline,max_yline])
+    ax.set_xlim([min_xline,max_xline])
+
+    plt.legend(fontsize = fs*0.8, title ="gene sig. in", title_fontsize = fs*0.8)
+    plt.tight_layout()
+    plt.savefig(LFC_filename, dpi = 300, transparent = True)
+    print(f"plot saved in current working directory as: {LFC_filename}")
+
+    lengths = { key : len(val) for key,val in lists.items()}
+    return(lengths)
+
 
 if __name__ == "__main__":
 
@@ -281,4 +377,18 @@ if __name__ == "__main__":
 
                 for LFC_cat, LFC_contrasts_list in LFC_comp_sets[separation][category].items():
                     print(f"{LFC_cat} : {LFC_contrasts_list}")
+                    LFC_filename_ = LFC_cat.replace(" ", "_").replace(".", "")
+                    LFC_filename = f"{out_path_figs}/LFC_scatter_{category}_{LFC_filename_}.png"
                     LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in LFC_contrasts_list}
+
+                    if "line bias" in LFC_cat:
+                        title = f"{category}: contrast SL1 - SL3"
+                    elif "sex bias" in LFC_cat:
+                        title = f"{category}: female - male"
+                    elif "age bias" in LFC_cat:
+                        title = f"{category}: day 18 - mean(day 14, day 16)"
+                    else:
+                        title = LFC_cat
+
+                    numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = title)
+                    print(f"\t{numbers}")

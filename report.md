@@ -253,9 +253,9 @@ How do the lines differ for each developmental time point (also difference betwe
 
 
 <p float="left">
-<img src="data/DE_figures/DE_line_overlap_day14_18.png" width="32%" />
-<img src="data/DE_figures/DE_line_overlap_day16_18.png" width="32%" />
-  <img src="data/DE_figures/DE_line_overlap_day14_16.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_males_day_14_vs_day_16_line_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_males_day_14_vs_day_18_line_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_males_day_16_vs_day_16_line_bias.png" width="32%" />
 </p>
 
 <table>
@@ -292,9 +292,9 @@ How do the lines differ for each developmental time point (also difference betwe
 
 
 <p float="left">
-  <img src="data/DE_figures/DE_F_line_overlap_day14_16.png" width="32%" />
-  <img src="data/DE_figures/DE_F_line_overlap_day14_18.png" width="32%" />
-  <img src="data/DE_figures/DE_F_line_overlap_day16_18.png" width="32%" />
+  <img src="data/DE_figures/LFC_scatter_females_day_14_vs_day_16_line_bias.png" width="32%" />
+  <img src="data/DE_figures/LFC_scatter_females_day_14_vs_day_18_line_bias.png" width="32%" />
+  <img src="data/DE_figures/LFC_scatter_females_day_16_vs_day_16_line_bias.png" width="32%" />
 </p>
 
 <table>
@@ -356,7 +356,7 @@ I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and S
 
 <p float="left">
   <img src="data/DE_figures_python/Venn_males_line_by_age_bias.png" width="25%" />
-  <img src="data/DE_figures/DE_day_overlap_SL1_SL3.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_males_line_by_age_bias.png" width="25%" />
 </p>
 
 The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. The last section shows that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3. 
@@ -388,7 +388,7 @@ The fewest genes change in SL1 during this developmental transition, most genes 
 
 <p float="left">
   <img src="data/DE_figures_python/Venn_females_line_by_age_bias.png" width="25%" />
-  <img src="data/DE_figures/DE_F_day_overlap_SL1_SL3.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_females_line_by_age_bias.png" width="25%" />
 </p>
 
 | category      | num DE genes  |
@@ -475,20 +475,15 @@ Check for the sex-bias overlap in all pairwise comparisons between the days. TOD
 
 
 <p float="left">
-  <img src="data/DE_figures/DE_SL1_sex_overlap_day14_16.png" width="32%" />
-  <img src="data/DE_figures/DE_SL1_sex_overlap_day14_18.png" width="32%" />
-  <img src="data/DE_figures/DE_SL1_sex_overlap_day16_18.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_SL1_day_14_vs_day_16_sex_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_SL1_day_14_vs_day_18_sex_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_SL1_day_16_vs_day_18_sex_bias.png" width="32%" />
 </p>
 
 ```
-"Both"   "day 14"   "day 16"
- 257      581        12
-
-"Both"   "day 14"   "day 18"
- 259      845        10
-
-"Both"   "day 16"   "day 18"
- 746      358        92
+day 14 vs. day 16 sex bias : {'shared': 257, 'day 14': 12, 'day 16': 581}
+day 14 vs. day 18 sex bias : {'shared': 259, 'day 14': 10, 'day 18': 845}
+day 16 vs. day 18 sex bias : {'shared': 746, 'day 16': 92, 'day 18': 358}
 ```
 
 </div>
@@ -496,20 +491,15 @@ Check for the sex-bias overlap in all pairwise comparisons between the days. TOD
 <div id="SL3_overlap" class="tabcontent">
 
 <p float="left">
-  <img src="data/DE_figures/DE_SL3_sex_overlap_day14_16.png" width="32%" />
-  <img src="data/DE_figures/DE_SL3_sex_overlap_day14_18.png" width="32%" />
-  <img src="data/DE_figures/DE_SL3_sex_overlap_day16_18.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_SL3_day_14_vs_day_16_sex_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_SL3_day_14_vs_day_18_sex_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_SL3_day_16_vs_day_18_sex_bias.png" width="32%" />
 </p>
 
 ```
-"Both"   "day 14"   "day 16"
- 535      376        37
-
-"Both"   "day 14"   "day 18"
- 516      350        56
-
-"Both"   "day 16"   "day 18"
- 769      97         142
+day 14 vs. day 16 sex bias : {'shared': 535, 'day 14': 37, 'day 16': 376}
+day 14 vs. day 18 sex bias : {'shared': 516, 'day 14': 56, 'day 18': 350}
+day 16 vs. day 18 sex bias : {'shared': 769, 'day 16': 142, 'day 18': 97}
 ```
 
 </div>
