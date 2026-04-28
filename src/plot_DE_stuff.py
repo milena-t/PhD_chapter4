@@ -188,7 +188,7 @@ def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filenam
 
 
 
-def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = ""):
+def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs =[]):
     """ 
     plot a scatterplot of sig. DE genes with LFC values
     """
@@ -241,7 +241,10 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
             except:
                 y = 0
                 print(geneID)
-            ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
+            if geneID in excl_geneIDs:
+                ax.scatter(x,y,color = colors_dict[cat], s=ps*1.5, alpha = 0.75, marker="1")
+            else:
+                ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
 
     ax.set_xlabel(f"logFC {table_a}", fontsize = fs)
     ax.set_ylabel(f"logFC {table_b}", fontsize = fs)
@@ -272,6 +275,8 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     ## make legend points
     for cat in [table_a,table_b,"shared"]:
         ax.scatter(1000,1000,color = colors_dict[cat], s=ps, alpha = 0.75, label = cat)
+    if len(excl_geneIDs)>0:
+        ax.scatter(1000,1000,color = "#474747", s=ps*1.5, alpha = 0.75, label = "also DE\nin females", marker="1")
     
     ax.set_ylim([min_yline,max_yline])
     ax.set_xlim([min_xline,max_xline])
@@ -355,7 +360,7 @@ if __name__ == "__main__":
                     plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title)
 
     ## compare if the same genes are DE between lines in males as in females
-    if True:
+    if False:
         venn_sets = {
             "sex_separated" : {
                 "day14" : {
@@ -393,7 +398,7 @@ if __name__ == "__main__":
     ######## MAKE ALL THE SB COMPARISONS #######
     ############################################
 
-    if False:
+    if True:
         LFC_comp_sets = {
             "sex_separated" : {
                 "females" : {
@@ -423,6 +428,19 @@ if __name__ == "__main__":
             }
         }
 
+        def get_excl_genes_list(contrasts:list, contrast_plot_titles:dict, excl_line_bias_lists:dict):
+            excl_list = []
+            for contrast in contrasts:
+                day_ = contrast_plot_titles[contrast]
+                day = day_.replace(" ", "")
+                if day in  excl_line_bias_lists:
+                    excl_list.extend(excl_line_bias_lists[day])
+            # make unique
+            return list(set(excl_list))
+
+
+            
+
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
             for category, paths_dict in seps_dict.items():
@@ -432,7 +450,18 @@ if __name__ == "__main__":
                     print(f"{LFC_cat} : {LFC_contrasts_list}")
                     LFC_filename_ = LFC_cat.replace(" ", "_").replace(".", "")
                     LFC_filename = f"{out_path_figs}/LFC_scatter_{category}_{LFC_filename_}.png"
+
                     LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in LFC_contrasts_list}
+                    if category == "males":
+                        excl_geneIDs = get_excl_genes_list(contrasts = LFC_contrasts_list, contrast_plot_titles=contrast_plot_titles, excl_line_bias_lists=excl_line_bias_lists)
+                    else:
+                        excl_geneIDs = []
+                        
+                    if excl_geneIDs == []:
+                        print(f"no excluded genes")
+                        continue
+                    else:
+                        print(f"{len(excl_geneIDs)} excluded geneIDs")
 
                     if "line bias" in LFC_cat:
                         title = f"{category}: contrast SL1 - SL3"
@@ -443,5 +472,5 @@ if __name__ == "__main__":
                     else:
                         title = LFC_cat
 
-                    numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = title)
+                    numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = title, excl_geneIDs = excl_geneIDs)
                     print(f"\t{numbers}")

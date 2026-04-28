@@ -275,7 +275,7 @@ When comparing the genes that are DE between lines in the females to the ones in
 
 #### Differential expression between lines within each day
 
-How do the lines differ for each developmental time point (also difference between day 14 and day 16)?
+How do the lines differ for each developmental time point (also difference between day 14 and day 16)? (take shared DE in females into account).
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
@@ -326,9 +326,9 @@ How do the lines differ for each developmental time point (also difference betwe
 
 
 <p float="left">
-  <img src="data/DE_figures/LFC_scatter_females_day_14_vs_day_16_line_bias.png" width="32%" />
-  <img src="data/DE_figures/LFC_scatter_females_day_14_vs_day_18_line_bias.png" width="32%" />
-  <img src="data/DE_figures/LFC_scatter_females_day_16_vs_day_16_line_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_females_day_14_vs_day_16_line_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_females_day_14_vs_day_18_line_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_females_day_16_vs_day_16_line_bias.png" width="32%" />
 </p>
 
 <table>
