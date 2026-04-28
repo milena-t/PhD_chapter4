@@ -323,7 +323,7 @@ How do the lines differ for each developmental time point (also difference betwe
 
 </td></tr> </table>
 
-('shared with f' genes are genes that are both expressed and shared with f in both time points in the comparison)
+('shared with f' genes are genes that are shared with f in one or both time points in the comparison, so the numbers are a little higher than the lists above)
 
 </div>
 
@@ -367,7 +367,7 @@ How do the lines differ for each developmental time point (also difference betwe
 </div>
 
 
-#### Differential expression within lines between day18 and mean(day14+day16)
+#### Differential expression within lines between day18 and mean(day14,day16)
 
 I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16. 
 
@@ -398,7 +398,7 @@ I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and S
   <img src="data/DE_figures_python/LFC_scatter_males_line_by_age_bias.png" width="25%" />
 </p>
 
-The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. The last section shows that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3. The 'shared with f' list here is from the individual day contrasts, not the genes in the female-tab here.
+Upregulation means that genes get transcribed more for day 18. In general, SL3 has more change than SL1
 
 | category      | num DE genes  |
 | ------------- | ------------- |
@@ -451,7 +451,87 @@ In SL3, 74 of 87 DE genes in females are also DE in males, 13 are unique to fema
 
 </div>
 
-Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3
+Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3. To be sure that this is real I also do individual comparisons between all the days even though that is more difficult to interpret.
+
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days')">females</button>
+</div>
+
+<div id="males_lines_DE_tables_single_days" class="tabcontent">
+
+<table>
+
+<tr><th>SL1</th><th>SL3</th></tr>
+<tr><td>
+
+| `glmQLFTest`  | d18-d14       | d18-d16       | d14-d16       |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 1213          | 15            | 1487          |
+| no difference | 7086          | 10559         | 8257          |
+| Upregulated   | 2337          | 62            | 892           |
+
+</td><td>
+
+| `glmQLFTest`  | d18-d14       | d18-d16       | d14-d16       |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 1159          | 606           | 607           |
+| no difference | 7125          | 8956          | 9972          |
+| Upregulated   | 2352          | 1074          | 57            |
+
+</td><td> </table>
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_M_SL1_18_14.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL1_18_16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL1_14_16.png" width="32%" />
+</p>
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_M_SL3_18_14.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL3_18_16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL3_14_16.png" width="32%" />
+</p>
+
+</div>
+
+<div id="females_lines_DE_tables_single_days" class="tabcontent">
+
+<table>
+
+<tr><th>SL1</th><th>SL3</th></tr>
+<tr><td>
+
+| `glmQLFTest`  | d18-d14       | d18-d16       | d14-d16       |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 55            | 0             | 0             |
+| no difference | 9595          | 9656          | 9656          |
+| Upregulated   | 6             | 0             | 0             |
+
+</td><td>
+
+| `glmQLFTest`  | d18-d14       | d18-d16       | d14-d16       |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 30            | 1             | 2             |
+| no difference | 9558          | 9655          | 9653          |
+| Upregulated   | 68            | 0             | 1             |
+
+</td><td> </table>
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_F_SL1_18_14.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL1_18_16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL1_14_16.png" width="32%" />
+</p>
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_F_SL3_18_14.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL3_18_16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL3_14_16.png" width="32%" />
+</p>
+
+</div>
 
 ### 3.4 DE analysis sex differences during development
 

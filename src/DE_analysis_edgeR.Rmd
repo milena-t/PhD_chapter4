@@ -95,7 +95,7 @@ I will start with DE analysis that involves only the males to get an idea of wha
 The analysis can be run separately for males and females, if use_males=True then it's only males, and if False then it's only the females
 
 ```{r} 
-use_males<-FALSE
+use_males<-TRUE
 ```
 
 ```{r} 
@@ -162,7 +162,13 @@ day16 =	SL1_16 - SL3_16,
 day18 = SL1_18 - SL3_18,
 # compare 18 to the average of 14 and 16 in each line, since 18 is the most different
 line_1 = SL1_18 - (SL1_14+SL1_16)/2,
+line_1_18_14 = SL1_18 - SL1_14,
+line_1_14_16 = SL1_14 - SL1_16,
+line_1_18_16 = SL1_18 - SL1_16,
 line_3 = SL3_18 - (SL3_14+SL3_16)/2,
+line_3_18_14 = SL3_18 - SL3_14,
+line_3_18_16 = SL3_18 - SL3_16,
+line_3_14_16 = SL3_14 - SL3_16,
 levels=MM)
 
 contrast_analysis <- function(y,MM,contrast, table_name, smear_name, smear_ylab, smear_title, lfc_min){
@@ -278,6 +284,103 @@ detagsSL3 <- out_SL3["detags"]
 Tags_SL3 <- out_SL3["Tags"]
 ```
 
+extra control for the within-line day18-mean(day14,day16) contrast because it looks weird in the females
+```{r}
+if (use_males){
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3_18_14.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3_18_14.png"
+line3_smear_title <- "Male samples line 3"
+}else{
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3_18_14.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3_18_14.png"
+line3_smear_title <- "Female samples line 3"
+}
+out_SL3_18_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3_18_14"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - d14",smear_title=line3_smear_title, lfc_min = 0)
+qlfSL3_18_14 <- out_SL3_18_14["qlf"]
+deSL3_18_14 <- out_SL3_18_14["de"]
+detagsSL3_18_14 <- out_SL3_18_14["detags"]
+Tags_SL3_18_14 <- out_SL3_18_14["Tags"]
+
+
+if (use_males){
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3_18_16.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3_18_16.png"
+line3_smear_title <- "Male samples line 3"
+}else{
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3_18_16.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3_18_16.png"
+line3_smear_title <- "Female samples line 3"
+}
+out_SL3_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3_18_16"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - d16",smear_title=line3_smear_title, lfc_min = 0)
+qlfSL3_18_16 <- out_SL3_18_16["qlf"]
+deSL3_18_16 <- out_SL3_18_16["de"]
+detagsSL3_18_16 <- out_SL3_18_16["detags"]
+Tags_SL3_18_16 <- out_SL3_18_16["Tags"]
+
+if (use_males){
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3_14_16.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3_14_16.png"
+line3_smear_title <- "Male samples line 3"
+}else{
+line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3_14_16.txt"
+line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3_14_16.png"
+line3_smear_title <- "Female samples line 3"
+}
+out_SL3_14_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3_14_16"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d14 - d16",smear_title=line3_smear_title, lfc_min = 0)
+qlfSL3_14_16 <- out_SL3_14_16["qlf"]
+deSL3_14_16 <- out_SL3_14_16["de"]
+detagsSL3_14_16 <- out_SL3_14_16["detags"]
+Tags_SL3_14_16 <- out_SL3_14_16["Tags"]
+
+
+if (use_males){
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1_14_16.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1_14_16.png"
+line1_smear_title <- "Male samples line 1"
+}else{
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1_14_16.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1_14_16.png"
+line1_smear_title <- "Female samples line 1"
+}
+out_SL1_14_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_14_16"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d14 - d16",smear_title=line1_smear_title, lfc_min = 0)
+qlfSL1_14_16 <- out_SL1_14_16["qlf"]
+deSL1_14_16 <- out_SL1_14_16["de"]
+detagsSL1_14_16 <- out_SL1_14_16["detags"]
+Tags_SL1_14_16 <- out_SL1_14_16["Tags"]
+
+
+if (use_males){
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1_18_14.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1_18_14.png"
+line1_smear_title <- "Male samples line 1"
+}else{
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1_18_14.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1_18_14.png"
+line1_smear_title <- "Female samples line 1"
+}
+out_SL1_18_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_18_14"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - d14",smear_title=line1_smear_title, lfc_min = 0)
+qlfSL1_18_14 <- out_SL1_18_14["qlf"]
+deSL1_18_14 <- out_SL1_18_14["de"]
+detagsSL1_18_14 <- out_SL1_18_14["detags"]
+Tags_SL1_18_14 <- out_SL1_18_14["Tags"]
+
+
+if (use_males){
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1_18_16.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1_18_16.png"
+line1_smear_title <- "Male samples line 1"
+}else{
+line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1_18_16.txt"
+line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1_18_16.png"
+line1_smear_title <- "Female samples line 1"
+}
+out_SL1_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_18_16"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - d16",smear_title=line1_smear_title, lfc_min = 0)
+qlfSL1_18_16 <- out_SL1_18_16["qlf"]
+deSL1_18_16 <- out_SL1_18_16["de"]
+detagsSL1_18_16 <- out_SL1_18_16["detags"]
+Tags_SL1_18_16 <- out_SL1_18_16["Tags"]
+
+```
 ### Venn diagram
 
 General venn diagramm for overlap of differentially expressed genes in either direction between the days

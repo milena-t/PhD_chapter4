@@ -6,7 +6,7 @@ I will use the tables in data made with the topTags() function with no filtering
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib_venn import venn2,venn3
-
+import math
 
 def get_tables(username = "miltr339"):
     """
@@ -25,6 +25,12 @@ def get_tables(username = "miltr339"):
                 "SL1_18 - SL3_18" : f"{tables_dir}DE_genes_F_1-3_day18.txt",
                 "SL1_18 - (SL1_14+SL1_16)/2" : f"{tables_dir}DE_genes_F_SL1.txt", 
                 "SL3_18 - (SL3_14+SL3_16)/2" : f"{tables_dir}DE_genes_F_SL3.txt", 
+                "SL1_18 - SL1_14" : f"{tables_dir}DE_genes_F_SL1_18_14.txt",
+                "SL1_18 - SL1_16" : f"{tables_dir}DE_genes_F_SL1_18_16.txt",
+                "SL1_14 - SL1_16" : f"{tables_dir}DE_genes_F_SL1_14_16.txt",
+                "SL3_18 - SL3_14" : f"{tables_dir}DE_genes_F_SL3_18_14.txt",
+                "SL3_18 - SL3_16" : f"{tables_dir}DE_genes_F_SL3_18_16.txt",
+                "SL3_14 - SL3_16" : f"{tables_dir}DE_genes_F_SL3_14_16.txt",
             },
             "males" : {
                 "SL1_14 - SL3_14" : f"{tables_dir}DE_genes_M_1-3_day14.txt",
@@ -32,6 +38,12 @@ def get_tables(username = "miltr339"):
                 "SL1_18 - SL3_18" : f"{tables_dir}DE_genes_M_1-3_day18.txt",
                 "SL1_18 - (SL1_14+SL1_16)/2" : f"{tables_dir}DE_genes_M_SL1.txt",
                 "SL3_18 - (SL3_14+SL3_16)/2" : f"{tables_dir}DE_genes_M_SL3.txt",
+                "SL1_18 - SL1_14" : f"{tables_dir}DE_genes_M_SL1_18_14.txt",
+                "SL1_18 - SL1_16" : f"{tables_dir}DE_genes_M_SL1_18_16.txt",
+                "SL1_14 - SL1_16" : f"{tables_dir}DE_genes_M_SL1_14_16.txt",
+                "SL3_18 - SL3_14" : f"{tables_dir}DE_genes_M_SL3_18_14.txt",
+                "SL3_18 - SL3_16" : f"{tables_dir}DE_genes_M_SL3_18_16.txt",
+                "SL3_14 - SL3_16" : f"{tables_dir}DE_genes_M_SL3_14_16.txt",
             }
         },
         "line_separated" : {
@@ -52,18 +64,17 @@ def get_tables(username = "miltr339"):
         "SL1_14 - SL3_14" : f"day 14",
         "SL1_16 - SL3_16" : f"day 16",
         "SL1_18 - SL3_18" : f"day 18",
-        "SL1_18 - (SL1_14+SL1_16)/2" : f"SL1", 
-        "SL3_18 - (SL3_14+SL3_16)/2" : f"SL3", 
-        "SL1_14 - SL3_14" : f"day 14",
-        "SL1_16 - SL3_16" : f"day 16",
-        "SL1_18 - SL3_18" : f"day 18",
         "SL1_18 - (SL1_14+SL1_16)/2" : f"SL1",
         "SL3_18 - (SL3_14+SL3_16)/2" : f"SL3",
-        "F_14 - M_14" : f"day 14",
-        "F_16 - M_16" : f"day 16",
         "F_18 - M_18" : f"day 18",
         "F_14 - M_14" : f"day 14",
         "F_16 - M_16" : f"day 16",
+        "SL1_18 - SL1_14" : f"SL1",
+        "SL1_18 - SL1_16" : f"SL1",
+        "SL1_14 - SL1_16" : f"SL1",
+        "SL3_18 - SL3_14" : f"SL3",
+        "SL3_18 - SL3_16" : f"SL3",
+        "SL3_14 - SL3_16" : f"SL3",
     }
     return out_dict,contrast_plot_titles
 
@@ -94,7 +105,10 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     ax.scatter(df_sig["logCPM"], df_sig["logFC"], color = cols["sig"], alpha=1, s=ps)
     
     if "SL" in contrast and "/2" not in contrast:
-        label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
+        if "SL1" in contrast and "SL3" in contrast:
+            label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
+        else:
+            label_contrast = contrast.replace("SL1_", "day ").replace("SL3_", "day ")    
     elif "F" in contrast:
         label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
     else:
@@ -113,11 +127,16 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     else:
         ax.hlines(y=1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
         ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+    
     ax.set_xlim([min_line,max_line])
     
     plt.tight_layout()
+    fig.subplots_adjust(left=0.125) # or whatever
     plt.savefig(smear_plot_name, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {smear_plot_name}")
+    plt.clf()
+    plt.cla()
+    plt.close()
 
     # numbers for table
     upreg = df_sig.loc[df_sig['logFC'] > 0]
@@ -288,6 +307,9 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     plt.tight_layout()
     plt.savefig(LFC_filename, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {LFC_filename}")
+    plt.clf()
+    plt.cla()
+    plt.close()
 
     lengths = { key : len(val) for key,val in lists.items()}
     return(lengths)
@@ -311,12 +333,11 @@ if __name__ == "__main__":
     ############################################
     ######### MAKE ALL THE SMEAR PLOTS #########
     ############################################
-    if False:
+    if True:
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
-
                 numbers = {}
                 for contrast, table_path in paths_dict.items():
                     print(f"{separation}:{category} --> contrast: {contrast}")
@@ -434,7 +455,7 @@ if __name__ == "__main__":
     ######## MAKE ALL THE SB COMPARISONS #######
     ############################################
 
-    if True:
+    if False:
         LFC_comp_sets = {
             "sex_separated" : {
                 "females" : {

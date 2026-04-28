@@ -419,7 +419,7 @@ function openTab(evt, cityName) {
 </tbody>
 </table>
 </td></tr> </table>
-<p>('shared with f' genes are genes that are both expressed and shared with f in both time points in the comparison)</p>
+<p>('shared with f' genes are genes that are shared with f in one or both time points in the comparison, so the numbers are a little higher than the lists above)</p>
 </div>
 <div id="females_day_DE" class="tabcontent">
 <p float="left">
@@ -500,7 +500,7 @@ function openTab(evt, cityName) {
 </table>
 </td></tr> </table>
 </div>
-<h4 id="differential-expression-within-lines-between-day18-and-meanday14day16">Differential expression within lines between day18 and mean(day14+day16)</h4>
+<h4 id="differential-expression-within-lines-between-day18-and-meanday14day16">Differential expression within lines between day18 and mean(day14,day16)</h4>
 <p>I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males</button>
@@ -543,7 +543,7 @@ function openTab(evt, cityName) {
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/Venn_males_line_by_age_bias.png" width="25%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_males_line_by_age_bias.png" width="25%" />
 </p>
-<p>The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. The last section shows that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3. The 'shared with f' list here is from the individual day contrasts, not the genes in the female-tab here.</p>
+<p>Upregulation means that genes get transcribed more for day 18. In general, SL3 has more change than SL1</p>
 <table>
 <thead>
 <tr>
@@ -638,7 +638,165 @@ function openTab(evt, cityName) {
 </code></pre>
 </details>
 </div>
-<p>Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3</p>
+<p>Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3. To be sure that this is real I also do individual comparisons between all the days even though that is more difficult to interpret.</p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days')">females</button>
+</div>
+<div id="males_lines_DE_tables_single_days" class="tabcontent">
+<table>
+<tr><th>SL1</th><th>SL3</th></tr>
+<tr><td>
+<table>
+<thead>
+<tr>
+<th><code>glmQLFTest</code></th>
+<th>d18-d14</th>
+<th>d18-d16</th>
+<th>d14-d16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>1213</td>
+<td>15</td>
+<td>1487</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>7086</td>
+<td>10559</td>
+<td>8257</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>2337</td>
+<td>62</td>
+<td>892</td>
+</tr>
+</tbody>
+</table>
+</td><td>
+<table>
+<thead>
+<tr>
+<th><code>glmQLFTest</code></th>
+<th>d18-d14</th>
+<th>d18-d16</th>
+<th>d14-d16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>1159</td>
+<td>606</td>
+<td>607</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>7125</td>
+<td>8956</td>
+<td>9972</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>2352</td>
+<td>1074</td>
+<td>57</td>
+</tr>
+</tbody>
+</table>
+</td><td> </table>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL1_18_14.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL1_18_16.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL1_14_16.png" width="32%" />
+</p>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL3_18_14.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL3_18_16.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL3_14_16.png" width="32%" />
+</p>
+</div>
+<div id="females_lines_DE_tables_single_days" class="tabcontent">
+<table>
+<tr><th>SL1</th><th>SL3</th></tr>
+<tr><td>
+<table>
+<thead>
+<tr>
+<th><code>glmQLFTest</code></th>
+<th>d18-d14</th>
+<th>d18-d16</th>
+<th>d14-d16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>55</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>9595</td>
+<td>9656</td>
+<td>9656</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>6</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</td><td>
+<table>
+<thead>
+<tr>
+<th><code>glmQLFTest</code></th>
+<th>d18-d14</th>
+<th>d18-d16</th>
+<th>d14-d16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>30</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>9558</td>
+<td>9655</td>
+<td>9653</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>68</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</td><td> </table>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL1_18_14.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL1_18_16.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL1_14_16.png" width="32%" />
+</p>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL3_18_14.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL3_18_16.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL3_14_16.png" width="32%" />
+</p>
+</div>
 <h3 id="34-de-analysis-sex-differences-during-development">3.4 DE analysis sex differences during development</h3>
 <p>I will now split the data by line to see sex differences in expression during the development stages.</p>
 <details>
