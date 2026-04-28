@@ -333,7 +333,7 @@ function openTab(evt, cityName) {
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_males_day_14_vs_day_16_line_bias.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_males_day_14_vs_day_18_line_bias.png" width="32%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_males_day_16_vs_day_16_line_bias.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_males_day_16_vs_day_18_line_bias.png" width="32%" />
 </p>
 <table>
 <tr><th>Day 14 and day 16 </th><th>Day 14 and day 18</th><th>Day 16 and day 18</th></tr>
@@ -425,7 +425,7 @@ function openTab(evt, cityName) {
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_females_day_14_vs_day_16_line_bias.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_females_day_14_vs_day_18_line_bias.png" width="32%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_females_day_16_vs_day_16_line_bias.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_females_day_16_vs_day_18_line_bias.png" width="32%" />
 </p>
 <table>
 <tr><th>Day 14 and day 16 </th><th>Day 14 and day 18</th><th>Day 16 and day 18</th></tr>
@@ -500,7 +500,7 @@ function openTab(evt, cityName) {
 </table>
 </td></tr> </table>
 </div>
-<h4 id="differential-expression-between-day18-and-meanday14day16">Differential expression between day18 and mean(day14+day16)</h4>
+<h4 id="differential-expression-within-lines-between-day18-and-meanday14day16">Differential expression within lines between day18 and mean(day14+day16)</h4>
 <p>I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males</button>
@@ -543,7 +543,7 @@ function openTab(evt, cityName) {
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/Venn_males_line_by_age_bias.png" width="25%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_males_line_by_age_bias.png" width="25%" />
 </p>
-<p>The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. The last section shows that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3.</p>
+<p>The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. The last section shows that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3. The 'shared with f' list here is from the individual day contrasts, not the genes in the female-tab here.</p>
 <table>
 <thead>
 <tr>
@@ -607,7 +607,9 @@ function openTab(evt, cityName) {
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/Venn_females_line_by_age_bias.png" width="25%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/LFC_scatter_females_line_by_age_bias.png" width="25%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/Venn_SL3_f_vs_m.png" width="25%" />
 </p>
+<p>In SL3, 74 of 87 DE genes in females are also DE in males, 13 are unique to females.</p>
 <table>
 <thead>
 <tr>
@@ -630,7 +632,13 @@ function openTab(evt, cityName) {
 </tr>
 </tbody>
 </table>
+<details>
+<summary>74 genes DE in SL3 in m and f</summary>
+<pre><code>'gene-99775', 'gene-40274', 'gene-304827', 'gene-92346', 'gene-306335', 'gene-285669', 'gene-120763', 'gene-2286', 'gene-97407', 'gene-232392', 'gene-328941', 'gene-166511', 'gene-39692', 'gene-384091', 'gene-74686', 'gene-122220', 'gene-218723', 'gene-414353', 'gene-312890', 'gene-153482', 'gene-39770', 'gene-132340', 'gene-253632', 'gene-378608', 'gene-206556', 'gene-336703', 'gene-21229', 'gene-166391', 'gene-120784', 'gene-87502', 'gene-317372', 'gene-73253', 'gene-211196', 'gene-9548', 'gene-60190', 'gene-234650', 'gene-410057', 'gene-121262', 'gene-100036', 'gene-227137', 'gene-75744', 'gene-279912', 'gene-343203', 'gene-233901', 'gene-163028', 'gene-238407', 'gene-39680', 'gene-198700', 'gene-231228', 'gene-410209', 'gene-143368', 'gene-388261', 'gene-30328', 'gene-226944', 'gene-334263', 'gene-130081', 'gene-47823', 'gene-228519', 'gene-350792', 'gene-277340', 'gene-182683', 'gene-60151', 'gene-206576', 'gene-202718', 'gene-130096', 'gene-377275', 'gene-244780', 'gene-288834', 'gene-189246', 'gene-48535', 'gene-205011', 'gene-253157', 'gene-62891', 'gene-69698'
+</code></pre>
+</details>
 </div>
+<p>Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3</p>
 <h3 id="34-de-analysis-sex-differences-during-development">3.4 DE analysis sex differences during development</h3>
 <p>I will now split the data by line to see sex differences in expression during the development stages.</p>
 <details>
