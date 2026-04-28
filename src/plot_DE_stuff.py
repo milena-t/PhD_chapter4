@@ -452,27 +452,24 @@ if __name__ == "__main__":
                     LFC_filename = f"{out_path_figs}/LFC_scatter_{category}_{LFC_filename_}.png"
 
                     LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in LFC_contrasts_list}
-                    if category == "males":
-                        excl_geneIDs = get_excl_genes_list(contrasts = LFC_contrasts_list, contrast_plot_titles=contrast_plot_titles, excl_line_bias_lists=excl_line_bias_lists)
-                    else:
-                        excl_geneIDs = []
-
+                    excl_geneIDs = get_excl_genes_list(contrasts = LFC_contrasts_list, contrast_plot_titles=contrast_plot_titles, excl_line_bias_lists=excl_line_bias_lists)
+                    
                     if "line bias" in LFC_cat:
                         title = f"{category}: contrast SL1 - SL3"
                     elif "sex bias" in LFC_cat:
                         title = f"{category}: female - male"
                     elif "age bias" in LFC_cat:
                         title = f"{category}: day 18 - mean(day 14, day 16)"
-                        if category == "males":
-                            all_IDs = []
-                            for geneIDs in excl_line_bias_lists.values():
-                                all_IDs.extend(geneIDs)
-                            excl_geneIDs = list(set(all_IDs)) # use all lists since we use all time points
+                        all_IDs = []
+                        for geneIDs in excl_line_bias_lists.values():
+                            all_IDs.extend(geneIDs)
+                        excl_geneIDs = list(set(all_IDs)) # use all lists since we use all time points
                     else:
                         title = LFC_cat
 
                     if excl_geneIDs == []:
                         print(f"no excluded genes")
+                        continue
                     else:
                         print(f"{len(excl_geneIDs)} excluded geneIDs")
 
