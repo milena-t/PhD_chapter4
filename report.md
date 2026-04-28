@@ -273,9 +273,9 @@ When comparing the genes that are DE between lines in the females to the ones in
 
 </div>
 
-#### Differential expression between lines within each day
 
-How do the lines differ for each developmental time point (also difference between day 14 and day 16)? (take shared DE in females into account).
+
+##### Scatterplots of pairwise comparisons
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
@@ -451,8 +451,10 @@ In SL3, 74 of 87 DE genes in females are also DE in males, 13 are unique to fema
 
 </div>
 
-Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3. To be sure that this is real I also do individual comparisons between all the days even though that is more difficult to interpret.
 
+#### Differential expression within lines with all pairwise day comparisons
+
+Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3. To be sure that this is real I also do individual comparisons between all the days even though that is more difficult to interpret.
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males</button>
@@ -494,6 +496,8 @@ Males have a massive change in gene regulation, both up- and down between day 18
   <img src="data/DE_figures_python/smear_M_SL3_14_16.png" width="32%" />
 </p>
 
+in SL1, the difference is more between day 14 and day 16/18, since the day 18 - day 16 plot has only very few DE genes. In SL3, the difference is more between day 18 and day14/16, since the day14/16 plot has the least DE genes. Maybe this means that SL1 starts preparation for pupation between day 14 and 16? There is no clear indication for SL3, which has larger individuals, so maybe it is even earlier? Note that this does not show a morphological change yet, the earliest individuals show a start of pupation only at day 18 (did we sequence those then?).
+
 </div>
 
 <div id="females_lines_DE_tables_single_days" class="tabcontent">
@@ -521,15 +525,17 @@ Males have a massive change in gene regulation, both up- and down between day 18
 
 <p float="left">
   <img src="data/DE_figures_python/smear_F_SL1_18_14.png" width="32%" />
-  <img src="data/DE_figures_python/smear_F_SL1_18_16.png" width="32%" />
   <img src="data/DE_figures_python/smear_F_SL1_14_16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL1_18_16.png" width="32%" />
 </p>
 
 <p float="left">
   <img src="data/DE_figures_python/smear_F_SL3_18_14.png" width="32%" />
-  <img src="data/DE_figures_python/smear_F_SL3_18_16.png" width="32%" />
   <img src="data/DE_figures_python/smear_F_SL3_14_16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL3_18_16.png" width="32%" />
 </p>
+
+Only difference between day 14 and 18, no other developmental cues? Do only the males do special stuff before pupation?
 
 </div>
 
@@ -546,6 +552,7 @@ I will now split the data by line to see sex differences in expression during th
 </p>
 
 </details>
+
 
 #### Differential expression between males and females
 
@@ -572,7 +579,7 @@ I will now split the data by line to see sex differences in expression during th
   <img src="data/DE_figures_python/Venn_SL1_age_by_sex_bias.png" width="25%" />
 </p>
 
-These DE genes are mostly the same ones in day 14 and 16, and shift slightly in day 18.
+Day 14 has the least sex differences, which is when they are for sure still in larval development. Above, I speculate that SL1 starts pupation (preparation) at day 16, which is when sex differences can first be introduced, so it makes sense that the sex-bias (mostly only male-bias) increases during those days. The venn-diagramm shows that day 16 and 18 mostly have the same DE genes.
 
 </div>
 
@@ -594,11 +601,14 @@ These DE genes are mostly the same ones in day 14 and 16, and shift slightly in 
   <img src="data/DE_figures_python/Venn_SL3_age_by_sex_bias.png" width="25%" />
 </p>
 
-About the same overlap in all three developmental stages.
+A similar trend as SL1 but not as strong, more genes are already sex-biased on day 14. The male-bias is more severe. This supports the speculation that the larger SL3 individuals start preparation for pupation even earlier (above shows that in SL1, day 16/18 is clearly very similar, while 14/16 and 16/18 differ a lot, maybe indicating a major developmental milestone before day 16. In SL3 all pairwise day comparisons are very different, and we do not see the same milestone. So this means it either happens earlier or later, and these results indicate earlier). 
 
 </div>
 
-Check for the sex-bias overlap in all pairwise comparisons between the days. TODO this does not match with above. below has more DE in general and also most genes are DE in day 14 and day 16/18 share more which is not the same as above where either 14 and 16 share more (SL1) or it is about equal (SL3). I think i may have the LFC>1 condition inconsistently maybe? It doesn't match above either, but the discrepancy is not as bad. fuck R and its stupid defaults
+
+##### Scatterplots of pairwise comparisons
+
+Since we are explicitly checking for sex-bias, it makes no sense to highlight genes with shared sex-bias in SL1 and SL3 for example, so I exclude the highlight here.
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_overlap')">SL1</button>
@@ -609,32 +619,35 @@ Check for the sex-bias overlap in all pairwise comparisons between the days. TOD
 
 
 <p float="left">
-  <img src="data/DE_figures_python/LFC_scatter_SL1_day_14_vs_day_16_sex_bias.png" width="32%" />
   <img src="data/DE_figures_python/LFC_scatter_SL1_day_14_vs_day_18_sex_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_SL1_day_14_vs_day_16_sex_bias.png" width="32%" />
   <img src="data/DE_figures_python/LFC_scatter_SL1_day_16_vs_day_18_sex_bias.png" width="32%" />
 </p>
 
-```
-day 14 vs. day 16 sex bias : {'shared': 257, 'day 14': 12, 'day 16': 581}
-day 14 vs. day 18 sex bias : {'shared': 259, 'day 14': 10, 'day 18': 845}
-day 16 vs. day 18 sex bias : {'shared': 746, 'day 16': 92, 'day 18': 358}
-```
+
+|               | Day 14 - Day 16 | Day 14 - Day 18 | Day 16 - Day 18 |
+| ------------- | --------------- | --------------- | --------------- |
+| shared        | 257             | 259             | 746             |
+| younger only  | 12              | 10              | 92              |
+| older only    | 581             | 845             | 358             |
+
 
 </div>
 
 <div id="SL3_overlap" class="tabcontent">
 
 <p float="left">
-  <img src="data/DE_figures_python/LFC_scatter_SL3_day_14_vs_day_16_sex_bias.png" width="32%" />
   <img src="data/DE_figures_python/LFC_scatter_SL3_day_14_vs_day_18_sex_bias.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_SL3_day_14_vs_day_16_sex_bias.png" width="32%" />
   <img src="data/DE_figures_python/LFC_scatter_SL3_day_16_vs_day_18_sex_bias.png" width="32%" />
 </p>
 
-```
-day 14 vs. day 16 sex bias : {'shared': 535, 'day 14': 37, 'day 16': 376}
-day 14 vs. day 18 sex bias : {'shared': 516, 'day 14': 56, 'day 18': 350}
-day 16 vs. day 18 sex bias : {'shared': 769, 'day 16': 142, 'day 18': 97}
-```
+
+|               | Day 14 - Day 16 | Day 14 - Day 18 | Day 16 - Day 18 |
+| ------------- | --------------- | --------------- | --------------- |
+| shared        | 535             | 516             | 769             |
+| younger only  | 37              | 56              | 142             |
+| older only    | 376             | 350             | 97              |
 
 </div>
 

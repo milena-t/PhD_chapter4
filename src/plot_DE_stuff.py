@@ -248,6 +248,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     colors_dict = {table_title : sig_colors[i] for i,table_title in enumerate(tables_dict.keys())}
     colors_dict["shared"] = "#3C7FA7" # blue
 
+    excl_counter = { cat : 0 for cat in [table_a,table_b,"shared"]}
     for cat in [table_a,table_b,"shared"]:
         for geneID in lists[cat]:
             try:
@@ -261,6 +262,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
                 y = 0
                 print(geneID)
             if geneID in excl_geneIDs:
+                excl_counter[cat]+=1
                 ax.scatter(x,y,color = colors_dict[cat], s=ps*1.5, alpha = 1, marker="1")
             else:
                 ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
@@ -294,10 +296,12 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     ## make legend points
     for cat in [table_a,table_b,"shared"]:
         ax.scatter(1000,1000,color = colors_dict[cat], s=ps, alpha = 0.75, label = cat)
-    if len(excl_geneIDs)>0:
-        shared_lab = "also DE\nin females"
+    
+    if excl_geneIDs != []:
         if "females" in LFC_filename:
             shared_lab = "also DE\nin males"
+        else:
+            shared_lab = "also DE\nin females"
         ax.scatter(1000,1000,color = "#666666", s=ps*1.5, alpha = 1, label = shared_lab, marker="1")
     
     ax.set_ylim([min_yline,max_yline])
@@ -306,6 +310,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     plt.legend(fontsize = fs*0.8, title ="gene sig. in", title_fontsize = fs*0.8)
     plt.tight_layout()
     plt.savefig(LFC_filename, dpi = 300, transparent = True)
+    print(f"genes excluded due to shared sex-bias: {excl_counter}")
     print(f"plot saved in current working directory as: {LFC_filename}")
     plt.clf()
     plt.cla()
@@ -333,7 +338,7 @@ if __name__ == "__main__":
     ############################################
     ######### MAKE ALL THE SMEAR PLOTS #########
     ############################################
-    if True:
+    if False:
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
             for category, paths_dict in seps_dict.items():
@@ -455,7 +460,7 @@ if __name__ == "__main__":
     ######## MAKE ALL THE SB COMPARISONS #######
     ############################################
 
-    if False:
+    if True:
         LFC_comp_sets = {
             "sex_separated" : {
                 "females" : {
@@ -500,6 +505,7 @@ if __name__ == "__main__":
 
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
+
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
@@ -511,6 +517,10 @@ if __name__ == "__main__":
                     LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in LFC_contrasts_list}
                     excl_geneIDs = get_excl_genes_list(contrasts = LFC_contrasts_list, contrast_plot_titles=contrast_plot_titles, excl_line_bias_lists=excl_line_bias_lists)
                     
+                    if separation == "line_separated":
+                        # when looking at sex bias explicitly (within each line) it makes no sense to exclude genes based on shared sex-bias
+                        excl_geneIDs = []
+
                     if "line bias" in LFC_cat:
                         title = f"{category}: contrast SL1 - SL3"
                     elif "sex bias" in LFC_cat:
@@ -522,7 +532,6 @@ if __name__ == "__main__":
 
                     if excl_geneIDs == []:
                         print(f"no excluded genes")
-                        continue
                     else:
                         print(f"{len(excl_geneIDs)} excluded geneIDs")
 
