@@ -404,13 +404,13 @@ if __name__ == "__main__":
                 "females" : {
                     "day 14 vs. day 16 line bias" : ["SL1_14 - SL3_14","SL1_16 - SL3_16"],
                     "day 14 vs. day 18 line bias" : ["SL1_14 - SL3_14","SL1_18 - SL3_18"],
-                    "day 16 vs. day 16 line bias" : ["SL1_16 - SL3_16","SL1_18 - SL3_18"],
+                    "day 16 vs. day 18 line bias" : ["SL1_16 - SL3_16","SL1_18 - SL3_18"],
                     "line by age bias" : ["SL1_18 - (SL1_14+SL1_16)/2","SL3_18 - (SL3_14+SL3_16)/2"]
                 },
                 "males" : {
                     "day 14 vs. day 16 line bias" : ["SL1_14 - SL3_14","SL1_16 - SL3_16"],
                     "day 14 vs. day 18 line bias" : ["SL1_14 - SL3_14","SL1_18 - SL3_18"],
-                    "day 16 vs. day 16 line bias" : ["SL1_16 - SL3_16","SL1_18 - SL3_18"],
+                    "day 16 vs. day 18 line bias" : ["SL1_16 - SL3_16","SL1_18 - SL3_18"],
                     "line by age bias" : ["SL1_18 - (SL1_14+SL1_16)/2","SL3_18 - (SL3_14+SL3_16)/2"]
                 }
             },
