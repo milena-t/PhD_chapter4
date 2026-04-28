@@ -105,15 +105,15 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     ax.tick_params(axis='y', labelsize=fs*0.9)
     ax.set_title(title, fontsize = fs*1.25)
 
-    min_line = min(df["logCPM"])
-    max_line = max(df["logCPM"])
+    min_line = min(df["logCPM"])-0.25
+    max_line = max(df["logCPM"])+0.25
     if min_LFC > 0:
         ax.hlines(y=min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
         ax.hlines(y=-1*min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
     else:
         ax.hlines(y=1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
         ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-    ax.set_xlim([min_line-0.25,max_line+0.25])
+    ax.set_xlim([min_line,max_line])
     
     plt.tight_layout()
     plt.savefig(smear_plot_name, dpi = 300, transparent = True)
@@ -132,7 +132,7 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     return out_dict
 
 
-def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filename = "venn_diagram.png", venn_title = ""):
+def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filename = "venn_diagram.png", venn_title = "", get_shared_list = False, plot=True):
     """
     plot a venn diagram of two or three lists of DE genes from R 
     showing the number of genes that are shared in all cases
@@ -152,30 +152,40 @@ def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filenam
     subsets = [id_list for id_list in sig_geneIDs_lists.values()]
     labels = [id_lab for id_lab in sig_geneIDs_lists.keys()]
 
-    fs = 15 # fontsize
-    if len(tables_dict)==2:
-        v = venn2(subsets=subsets, set_labels=labels)
-    elif len(tables_dict)==3:
-        v = venn3(subsets=subsets, set_labels=labels)
-    for text in v.set_labels:
-        try:
-            text.set_fontsize(fs)
-        except:
-            pass
-    for text in v.subset_labels:
-        try:
-            text.set_fontsize(fs)
-        except:
-            pass
+    if plot: 
+        fs = 15 # fontsize
+        if len(tables_dict)==2:
+            v = venn2(subsets=subsets, set_labels=labels)
+        elif len(tables_dict)==3:
+            v = venn3(subsets=subsets, set_labels=labels)
+        for text in v.set_labels:
+            try:
+                text.set_fontsize(fs)
+            except:
+                pass
+        for text in v.subset_labels:
+            try:
+                text.set_fontsize(fs)
+            except:
+                pass
 
-    plt.title(venn_title, fontsize = fs)
-    plt.tight_layout()
-    plt.savefig(venn_filename, dpi = 300, transparent = True)
-    print(f"plot saved in current working directory as: {venn_filename}")
+        plt.title(venn_title, fontsize = fs)
+        plt.tight_layout()
+        plt.savefig(venn_filename, dpi = 300, transparent = True)
+        print(f"plot saved in current working directory as: {venn_filename}")
+        
+        plt.clf()
+        plt.cla()
+        plt.close()
     
-    plt.clf()
-    plt.cla()
-    plt.close()
+    if get_shared_list:
+        if len(tables_dict)==2:
+            intersection = set(subsets[0]) & set(subsets[1])
+            return intersection
+        elif len(tables_dict)==3:
+            print(f"only return overlap list for two-way comparison! TODO implement if you want three")
+            return None
+
 
 
 def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = ""):
@@ -281,6 +291,12 @@ if __name__ == "__main__":
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
     
+    ### genes that are line-biased in both males and females (should be excluded from male analysis since they can't be related to the Y-haplotype)
+    excl_line_bias_lists = {
+        "day14" : ['gene-428738', 'gene-224697', 'gene-222350', 'gene-428765', 'gene-222600', 'gene-224875', 'gene-241001', 'gene-430032', 'gene-220028', 'gene-222486', 'gene-241055', 'gene-224357', 'gene-226245', 'gene-225738', 'gene-224968', 'gene-222531', 'gene-430263', 'gene-224201', 'gene-225107', 'gene-225236', 'gene-225140', 'gene-224227', 'gene-390616', 'gene-225709', 'gene-225325', 'gene-222332', 'gene-222519', 'gene-430314', 'gene-120952', 'gene-240871', 'gene-224860', 'gene-326873', 'gene-240929', 'gene-80359', 'gene-84970', 'gene-322912', 'gene-326849', 'gene-81427', 'gene-323148', 'gene-322927', 'gene-224782', 'gene-218529', 'gene-224743', 'gene-240623', 'gene-222383', 'gene-225173', 'gene-222365', 'gene-222344', 'gene-237881', 'gene-430068', 'gene-224956', 'gene-225720', 'gene-224682', 'gene-431701', 'gene-222555', 'gene-224896', 'gene-403809', 'gene-240910', 'gene-323803', 'gene-390956', 'gene-430080', 'gene-225635', 'gene-240833', 'gene-224593', 'gene-241126', 'gene-225030', 'gene-240691', 'gene-391222', 'gene-90157'],
+        "day16" : ['gene-224697', 'gene-222600', 'gene-224875', 'gene-241001', 'gene-220028', 'gene-222486', 'gene-224357', 'gene-224968', 'gene-222159', 'gene-323148', 'gene-223773', 'gene-224782', 'gene-240623', 'gene-225173', 'gene-222344', 'gene-225720', 'gene-431701', 'gene-222555', 'gene-323803', 'gene-225635', 'gene-430080', 'gene-87700', 'gene-330102', 'gene-225030', 'gene-223419', 'gene-90157', 'gene-241262', 'gene-428738', 'gene-222350', 'gene-428765', 'gene-224079', 'gene-225325', 'gene-222332', 'gene-430314', 'gene-120952', 'gene-223491', 'gene-84970', 'gene-322927', 'gene-237881', 'gene-430068', 'gene-224956', 'gene-224682', 'gene-224896', 'g14784', 'gene-240833', 'gene-240691', 'gene-286545', 'gene-223318', 'gene-124877', 'gene-225738', 'gene-222531', 'gene-430263', 'gene-407280', 'gene-225140', 'gene-224227', 'gene-225709', 'gene-224890', 'gene-80359', 'gene-322912', 'gene-227370', 'gene-224743', 'gene-406796', 'gene-240910', 'gene-390956', 'gene-391222', 'gene-430032', 'gene-229506', 'gene-241055', 'gene-226245', 'gene-225107', 'gene-224201', 'gene-225236', 'gene-390616', 'gene-282853', 'gene-222519', 'gene-240871', 'gene-224860', 'gene-326873', 'gene-240929', 'gene-326849', 'gene-222383', 'gene-222365', 'gene-403809', 'gene-224593', 'gene-241126', 'gene-222746', 'gene-238407'],
+        "day18" : ['gene-428738', 'gene-224697', 'gene-224875', 'gene-241055', 'gene-223758', 'gene-430263', 'gene-225236', 'gene-225325', 'gene-301479', 'gene-120952', 'gene-223491', 'gene-224860', 'gene-223773', 'gene-240623', 'gene-406796', 'gene-225720', 'gene-238849', 'gene-227308', 'gene-240833', 'gene-224593', 'gene-240691'],
+    }
 
     ############################################
     ######### MAKE ALL THE SMEAR PLOTS #########
@@ -306,6 +322,8 @@ if __name__ == "__main__":
     ############################################
     ######## MAKE ALL THE VENN DIAGRAMS ########
     ############################################
+    
+    ## standard sets matching the tabs in the html
     if False:
         venn_sets = {
             "sex_separated" : {
@@ -336,11 +354,46 @@ if __name__ == "__main__":
                     venn_title = f"sig. DE genes overlap ({category})\n{venn_cat}"
                     plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title)
 
+    ## compare if the same genes are DE between lines in males as in females
+    if True:
+        venn_sets = {
+            "sex_separated" : {
+                "day14" : {
+                    "females" : ["SL1_14 - SL3_14"],
+                    "males" : ["SL1_14 - SL3_14"]
+                },
+                "day16" : {
+                    "females" : ["SL1_16 - SL3_16"],
+                    "males" : ["SL1_16 - SL3_16"]
+                },
+                "day18" : {
+                    "females" : ["SL1_18 - SL3_18"],
+                    "males" : ["SL1_18 - SL3_18"]
+                },
+            }
+        }
+        for separation, days_dict in venn_sets.items():
+            print(f"\n=========================== {separation} ===========================")
+            for day, sexes_contrasts_dict in days_dict.items():
+                print(f"\n ------------------- {day} -------------------")
+
+                venn_paths_dict = {}
+                for sex, venn_contrasts_list in sexes_contrasts_dict.items():
+                    print(f"{sex} : {venn_contrasts_list}")
+
+                    venn_paths_dict[sex] = table_paths[separation][sex][venn_contrasts_list[0]]
+                
+                venn_filename = f"{out_path_figs}/Venn_{day}_f_vs_m.png"
+                day_ = day.replace("day", "day ")
+                venn_title = f"sig. DE genes overlap ({day_})\nfemales and males"
+                shared_list = plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title, get_shared_list=True)
+                print(shared_list)
+
     ############################################
     ######## MAKE ALL THE SB COMPARISONS #######
     ############################################
 
-    if True:
+    if False:
         LFC_comp_sets = {
             "sex_separated" : {
                 "females" : {

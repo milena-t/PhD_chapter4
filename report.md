@@ -105,7 +105,7 @@ See the `RNA_mapping` directory in this repository for by-sample mapping rate in
 
 ## 3. DE analysis
 
-I will use edgeR. 
+I will use edgeR to get the logFC of all comparisons of interest below, but the plotting is done in python. 
 
 ### 3.1 yTor expression
 
@@ -205,7 +205,7 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
   <img src="data/DE_figures_python/smear_M_1-3_day18.png" width="32%" />
 </p>
 
-Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 and 16 have more significantly differentially expressed genes in common than day 18. In day 18, the larvae are close to pupation, which likely means that they are switching from gene expression related to grwoth and digestion to what they need for pupation instead, which is potentially not related to the Y-haplotype difference any more, resulting in less DE between the lines on day 18.
+Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 and 16 have more significantly differentially expressed genes than day 18. In day 18, the larvae are close to pupation, which could mean that they are switching from gene expression related to grwoth and digestion to what they need for pupation instead, which is not related to the Y-haplotype difference any more, resulting in less DE between the lines on day 18.
 
 <p float="left">
   <img src="data/DE_figures_python/Venn_males_age_by_line_bias.png" width="25%" />
@@ -231,11 +231,45 @@ Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 
   <img src="data/DE_figures_python/smear_F_1-3_day18.png" width="32%" />
 </p>
 
-Fewer DE genes than males which is good since they are not supposed to have any. Also, similar amounts of DE genes on day 14, 16, and 18, which is different from the male samples where day 18 is a clear outlier. This is nice since I hypothesize that that is because the line difference impacts day 14 and 16 more than 18, and therefore the DE genes here are not related to the growth differences between the lines that impact the males.
+Fewer DE genes than males in day 14 and 16, and similar number in day 18. Within females, similar amounts of DE genes on day 14, 16, and 18, which is different from the male samples where day 18 is a clear outlier. This supports the hypothesis that this is caused by the line difference in growth which impacts day 14 and 16 more than 18, and therefore the DE genes here are not related to the growth differences between the lines that impact the males.
 
 <p float="left">
   <img src="data/DE_figures_python/Venn_females_age_by_line_bias.png" width="25%" />
+  <img src="data/DE_figures_python/Venn_day14_f_vs_m.png" width="24%" />
+  <img src="data/DE_figures_python/Venn_day16_f_vs_m.png" width="24%" />
+  <img src="data/DE_figures_python/Venn_day18_f_vs_m.png" width="24%" />
 </p>
+
+When comparing the genes that are DE between lines in the females to the ones in the males, we find that they are mostly a subset of the male ones in day 14 and day 16, and only start to diverge in day 18. These are probably not differences mediated by the Y-chromosome haplotype, and therefore should be excluded when comparing lines. Lists are below (toggle):
+
+<details>
+<summary>Day 14 (69 genes)</summary>
+
+```
+'gene-428738', 'gene-224697', 'gene-222350', 'gene-428765', 'gene-222600', 'gene-224875', 'gene-241001', 'gene-430032', 'gene-220028', 'gene-222486', 'gene-241055', 'gene-224357', 'gene-226245', 'gene-225738', 'gene-224968', 'gene-222531', 'gene-430263', 'gene-224201', 'gene-225107', 'gene-225236', 'gene-225140', 'gene-224227', 'gene-390616', 'gene-225709', 'gene-225325', 'gene-222332', 'gene-222519', 'gene-430314', 'gene-120952', 'gene-240871', 'gene-224860', 'gene-326873', 'gene-240929', 'gene-80359', 'gene-84970', 'gene-322912', 'gene-326849', 'gene-81427', 'gene-323148', 'gene-322927', 'gene-224782', 'gene-218529', 'gene-224743', 'gene-240623', 'gene-222383', 'gene-225173', 'gene-222365', 'gene-222344', 'gene-237881', 'gene-430068', 'gene-224956', 'gene-225720', 'gene-224682', 'gene-431701', 'gene-222555', 'gene-224896', 'gene-403809', 'gene-240910', 'gene-323803', 'gene-390956', 'gene-430080', 'gene-225635', 'gene-240833', 'gene-224593', 'gene-241126', 'gene-225030', 'gene-240691', 'gene-391222', 'gene-90157'
+```
+
+</details>
+
+<details>
+<summary>Day 16 (87 genes)</summary>
+
+```
+'gene-224697', 'gene-222600', 'gene-224875', 'gene-241001', 'gene-220028', 'gene-222486', 'gene-224357', 'gene-224968', 'gene-222159', 'gene-323148', 'gene-223773', 'gene-224782', 'gene-240623', 'gene-225173', 'gene-222344', 'gene-225720', 'gene-431701', 'gene-222555', 'gene-323803', 'gene-225635', 'gene-430080', 'gene-87700', 'gene-330102', 'gene-225030', 'gene-223419', 'gene-90157', 'gene-241262', 'gene-428738', 'gene-222350', 'gene-428765', 'gene-224079', 'gene-225325', 'gene-222332', 'gene-430314', 'gene-120952', 'gene-223491', 'gene-84970', 'gene-322927', 'gene-237881', 'gene-430068', 'gene-224956', 'gene-224682', 'gene-224896', 'g14784', 'gene-240833', 'gene-240691', 'gene-286545', 'gene-223318', 'gene-124877', 'gene-225738', 'gene-222531', 'gene-430263', 'gene-407280', 'gene-225140', 'gene-224227', 'gene-225709', 'gene-224890', 'gene-80359', 'gene-322912', 'gene-227370', 'gene-224743', 'gene-406796', 'gene-240910', 'gene-390956', 'gene-391222', 'gene-430032', 'gene-229506', 'gene-241055', 'gene-226245', 'gene-225107', 'gene-224201', 'gene-225236', 'gene-390616', 'gene-282853', 'gene-222519', 'gene-240871', 'gene-224860', 'gene-326873', 'gene-240929', 'gene-326849', 'gene-222383', 'gene-222365', 'gene-403809', 'gene-224593', 'gene-241126', 'gene-222746', 'gene-238407'
+```
+
+</details>
+
+<details>
+<summary>Day 18 (21 genes)</summary>
+
+```
+'gene-428738', 'gene-224697', 'gene-224875', 'gene-241055', 'gene-223758', 'gene-430263', 'gene-225236', 'gene-225325', 'gene-301479', 'gene-120952', 'gene-223491', 'gene-224860', 'gene-223773', 'gene-240623', 'gene-406796', 'gene-225720', 'gene-238849', 'gene-227308', 'gene-240833', 'gene-224593', 'gene-240691'
+```
+
+</details>
+
+
 
 </div>
 
