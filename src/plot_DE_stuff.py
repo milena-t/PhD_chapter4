@@ -250,7 +250,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     ax.set_ylabel(f"logFC {table_b}", fontsize = fs)
     ax.tick_params(axis='x', labelsize=fs*0.9)
     ax.tick_params(axis='y', labelsize=fs*0.9)
-    ax.set_title(LFC_title, fontsize = fs*1.25)
+    ax.set_title(LFC_title, fontsize = fs)
 
     min_yline,max_yline = ax.get_ylim()
     min_xline,max_xline = ax.get_xlim()
@@ -456,12 +456,6 @@ if __name__ == "__main__":
                         excl_geneIDs = get_excl_genes_list(contrasts = LFC_contrasts_list, contrast_plot_titles=contrast_plot_titles, excl_line_bias_lists=excl_line_bias_lists)
                     else:
                         excl_geneIDs = []
-                        
-                    if excl_geneIDs == []:
-                        print(f"no excluded genes")
-                        continue
-                    else:
-                        print(f"{len(excl_geneIDs)} excluded geneIDs")
 
                     if "line bias" in LFC_cat:
                         title = f"{category}: contrast SL1 - SL3"
@@ -469,8 +463,18 @@ if __name__ == "__main__":
                         title = f"{category}: female - male"
                     elif "age bias" in LFC_cat:
                         title = f"{category}: day 18 - mean(day 14, day 16)"
+                        if category == "males":
+                            all_IDs = []
+                            for geneIDs in excl_line_bias_lists.values():
+                                all_IDs.extend(geneIDs)
+                            excl_geneIDs = list(set(all_IDs)) # use all lists since we use all time points
                     else:
                         title = LFC_cat
+
+                    if excl_geneIDs == []:
+                        print(f"no excluded genes")
+                    else:
+                        print(f"{len(excl_geneIDs)} excluded geneIDs")
 
                     numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = title, excl_geneIDs = excl_geneIDs)
                     print(f"\t{numbers}")

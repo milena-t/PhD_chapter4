@@ -301,6 +301,7 @@ How do the lines differ for each developmental time point (also difference betwe
 | both          | 176           |
 | d14 exclusive | 134           |
 | d16 exclusive | 296           |
+| shared with f | 89            |
 
 </td><td>
 
@@ -309,6 +310,7 @@ How do the lines differ for each developmental time point (also difference betwe
 | both          | 47            |
 | d14 exclusive | 263           |
 | d18 exclusive | 26            |
+| shared with f | 76            |
 
 </td><td>
 
@@ -317,8 +319,11 @@ How do the lines differ for each developmental time point (also difference betwe
 | both          | 48            |
 | d16 exclusive | 424           |
 | d18 exclusive | 25            |
+| shared with f | 91            |
 
 </td></tr> </table>
+
+('shared with f' genes are genes that are both expressed and shared with f in both time points in the comparison)
 
 </div>
 
@@ -393,13 +398,14 @@ I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and S
   <img src="data/DE_figures_python/LFC_scatter_males_line_by_age_bias.png" width="25%" />
 </p>
 
-The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. The last section shows that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3. 
+The fewest genes change in SL1 during this developmental transition, most genes change for both lines or only SL3. The last section shows that for day 14 and day 16, more genes are significantly upregulated in SL1 compared to SL3. The 'shared with f' list here is from the individual day contrasts, not the genes in the female-tab here.
 
 | category      | num DE genes  |
 | ------------- | ------------- |
 | both          | 1984          |
 | SL1 exclusive | 502           |
 | SL3 exclusive | 1999          |
+| shared with f | 93            |
 
 </div>
 

@@ -323,7 +323,7 @@ function openTab(evt, cityName) {
 </details>
 </div>
 <h4 id="differential-expression-between-lines-within-each-day">Differential expression between lines within each day</h4>
-<p>How do the lines differ for each developmental time point (also difference between day 14 and day 16)?</p>
+<p>How do the lines differ for each developmental time point (also difference between day 14 and day 16)? (take shared DE in females into account).</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
   <button class="tablinks" onclick="openTab(event, 'females_day_DE')">females</button>
@@ -358,6 +358,10 @@ function openTab(evt, cityName) {
 <td>d16 exclusive</td>
 <td>296</td>
 </tr>
+<tr>
+<td>shared with f</td>
+<td>89</td>
+</tr>
 </tbody>
 </table>
 </td><td>
@@ -380,6 +384,10 @@ function openTab(evt, cityName) {
 <tr>
 <td>d18 exclusive</td>
 <td>26</td>
+</tr>
+<tr>
+<td>shared with f</td>
+<td>76</td>
 </tr>
 </tbody>
 </table>
@@ -404,9 +412,14 @@ function openTab(evt, cityName) {
 <td>d18 exclusive</td>
 <td>25</td>
 </tr>
+<tr>
+<td>shared with f</td>
+<td>91</td>
+</tr>
 </tbody>
 </table>
 </td></tr> </table>
+<p>('shared with f' genes are genes that are both expressed and shared with f in both time points in the comparison)</p>
 </div>
 <div id="females_day_DE" class="tabcontent">
 <p float="left">
@@ -550,6 +563,10 @@ function openTab(evt, cityName) {
 <tr>
 <td>SL3 exclusive</td>
 <td>1999</td>
+</tr>
+<tr>
+<td>shared with f</td>
+<td>93</td>
 </tr>
 </tbody>
 </table>
