@@ -242,7 +242,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
                 y = 0
                 print(geneID)
             if geneID in excl_geneIDs:
-                ax.scatter(x,y,color = colors_dict[cat], s=ps*1.5, alpha = 0.75, marker="1")
+                ax.scatter(x,y,color = colors_dict[cat], s=ps*1.5, alpha = 1, marker="1")
             else:
                 ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
 
@@ -276,7 +276,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     for cat in [table_a,table_b,"shared"]:
         ax.scatter(1000,1000,color = colors_dict[cat], s=ps, alpha = 0.75, label = cat)
     if len(excl_geneIDs)>0:
-        ax.scatter(1000,1000,color = "#474747", s=ps*1.5, alpha = 0.75, label = "also DE\nin females", marker="1")
+        ax.scatter(1000,1000,color = "#666666", s=ps*1.5, alpha = 1, label = "also DE\nin females", marker="1")
     
     ax.set_ylim([min_yline,max_yline])
     ax.set_xlim([min_xline,max_xline])
