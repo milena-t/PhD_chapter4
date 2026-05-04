@@ -5,11 +5,7 @@ date: "2026-03-27"
 output: html_document
 ---
 
-# Make LogFC tables for all contrasts and data partitions
-
-I will separate the data three times: by sex, line and day to avoid having to fit a three-way interaction.
-
-### load libraries
+## load libraries
 ```{r}
 # install all dependencies
 if (FALSE){
@@ -30,9 +26,7 @@ library(VennDiagram)
 library(dplyr)
 ```
 
-## prepare data with all samples
-
-Only split after this
+# prepare data with all samples
 ```{r}
 in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
 out_norm_counts <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
@@ -387,6 +381,191 @@ detagsSL1_18_16 <- out_SL1_18_16["detags"]
 Tags_SL1_18_16 <- out_SL1_18_16["Tags"]
 
 ```
+### Venn diagram
+
+General venn diagramm for overlap of differentially expressed genes in either direction between the days
+```{r}
+library(VennDiagram)
+
+if(use_males){
+venn_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_M_venn.png"
+}else{
+venn_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_F_venn.png"
+}
+DE_genes <- list(d14 = unlist(detags14), d16 = unlist(detags16), d18 = unlist(detags18))
+venn_plot <- venn.diagram(DE_genes, 
+                          filename = venn_name, 
+                          # output
+                          imagetype="png",
+                          height = 720,
+                          width = 720,
+                          resolution = 300,
+                          compression = "lzw",
+                          # circles
+                          fill = c("#DE8F6E", "#2D93AD", "#88AB75"),
+                          lwd = 2,
+                          lty = 'blank',
+                          # Numbers
+                          cex = .8,
+                          main.fontface = "bold",
+                          main.fontfamily = "sans",
+                          fontface = "bold",
+                          fontfamily = "sans",
+                          cat.cex = 0.8,
+                          cat.fontface = "bold",
+                          cat.default.pos = "outer",
+                          cat.pos = c(-27, 27, 135),
+                          cat.dist = c(0.055, 0.055, 0.085),
+                          cat.fontfamily = "sans",
+                          rotation = 1,
+                          main="DE genes (q=0.05)",
+                          disable.logging = TRUE)
+
+if(use_males){
+venn_name_lines <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_M_venn.png"
+}else{
+venn_name_lines <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_lines_F_venn.png"
+}
+DE_genes_lines <- list(smallY = unlist(detagsSL1), largeY = unlist(detagsSL3))
+venn_plot <- venn.diagram(DE_genes_lines, 
+                          filename = venn_name_lines, 
+                          # output
+                          imagetype="png",
+                          height = 720,
+                          width = 720,
+                          resolution = 300,
+                          compression = "lzw",
+                          # circles
+                          fill = c("#DE8F6E", "#2D93AD"),
+                          lwd = 2,
+                          lty = 'blank',
+                          # Numbers
+                          cex = .8,
+                          main.fontface = "bold",
+                          main.fontfamily = "sans",
+                          fontface = "bold",
+                          fontfamily = "sans",
+                          cat.cex = 0.8,
+                          cat.fontface = "bold",
+                          cat.default.pos = "outer",
+                          cat.pos = c(-27, 27),
+                          cat.dist = c(0.03, 0.01),
+                          cat.fontfamily = "sans",
+                          main="DE genes (q=0.05)",
+                          disable.logging = TRUE)
+```
+
+## plot sex bias overlap
+
+Plot genes showing DE in any combination of two contrasts
+
+```{r}
+plot_DE_overlap <- function(Res1,Res2, sig_p,plot_name, label1, label2, xlabel,ylabel,plot_title){
+  
+  Tags1 <- topTags(Res1, n=Inf)
+  Tags2 <- topTags(Res2, n=Inf)
+  abdg <- Tags1$table	
+  htg <- Tags2$table
+  abdg$gene <- row.names(abdg)
+  htg$gene <- row.names(htg)
+  
+  df <- merge(abdg, htg, by="gene", all=T)
+  df <- subset(df, FDR.x<sig_p | FDR.y<sig_p )
+  dim(df)
+  df$category <- ifelse((df$FDR.x < sig_p) & (df$FDR.y > sig_p), label2, 
+		             ifelse((df$FDR.x > sig_p) & (df$FDR.y < sig_p), label1, 
+		             ifelse((df$FDR.x < sig_p) & (df$FDR.y < sig_p),"Both", 0)))
+  
+  print(plot_title)
+  counts <- df |> count(category)
+  print(counts$category)
+  print(counts$n)
+  print("-----------------------------------")
+  
+  abdLogFC <- df[,c("logFC.x")] # Take only the logFC
+  htLogFC <- df[,c("logFC.y")]
+  abdLogFC <- as.numeric(abdLogFC)
+  htLogFC <- as.numeric(htLogFC)
+  
+  col_vec <- setNames(
+    c("#F2933A", "#4d7298", "#b82946"),
+    c(label1, "Both", label2)
+  )
+  
+  category <- df[,c("category")]
+  newDF <- as.data.frame(cbind(abdLogFC, htLogFC))	
+  newDF$category <- as.factor(category)
+
+  g = ggplot(data= newDF, aes(x= htLogFC, y= abdLogFC)) + 
+    geom_point(aes(colour=factor(category)), alpha=0.6, size=1.75) + 
+   	scale_color_manual(values = col_vec, name ="Differential expression (q<0.05)") +
+    xlab(xlabel) + ylab(ylabel) + 
+   	ggtitle(plot_title) + 
+   	geom_hline(aes(yintercept=0), colour="#990000", linetype="dashed") + 
+   	geom_vline(aes(xintercept=0), colour="#990000", linetype="dashed") +  
+   	geom_hline(aes(yintercept=1), colour="darkgrey", linetype ="dashed") + 
+   	geom_hline(aes(yintercept=-1), colour="darkgrey", linetype ="dashed") + 
+   	geom_vline(aes(xintercept =1), colour="darkgrey", linetype ="dashed") + 
+   	geom_vline(aes(xintercept =-1), colour="darkgrey", linetype="dashed") +
+   	theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), 
+    panel.background = element_blank(), axis.line = element_line(colour = "black")) 
+  ggsave(filename = plot_name, width = 6, height = 4, units = "in", plot = g)
+}
+```
+
+DE between SL1 vs. SL3 and DE in both, for day 14 and day 16
+```{r}
+if (use_males){
+day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_16.png"
+day14_16_title <- "differential expression between SL1 and SL3 males"
+}else{
+day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_16.png"
+day14_16_title <- "differential expression between SL1 and SL3 females"
+}
+plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf16[[1]], sig_p = 0.05, plot_name=day14_16_name,
+                label1 = "day 14", label2 = "day 16", 
+                xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 16" ,
+                plot_title = day14_16_title)
+
+if(use_males){
+day14_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day14_18.png"
+day14_18_title <-  "differential expression between SL1 and SL3 males"
+}else{
+day14_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day14_18.png"
+day14_18_title <-  "differential expression between SL1 and SL3 females"
+}
+plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day14_18_name,
+                label1 = "day 14", label2 = "day 18", 
+                xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 18" ,
+                plot_title = day14_18_title)
+
+if(use_males){
+day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_line_overlap_day16_18.png"  
+day16_18_title <- "differential expression between SL1 and SL3 males"
+}else{
+day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_line_overlap_day16_18.png"
+day16_18_title <- "differential expression between SL1 and SL3 females"
+}
+plot_DE_overlap(Res1 = qlf16[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day16_18_name,
+                label1 = "day 16", label2 = "day 18", 
+                xlabel = "LFC SL1-SL3 day 16",ylabel = "LFC SL1-SL3 day 18" ,
+                plot_title = day16_18_title)
+```
+
+DE between mean(day14,day16) and day 18, for SL1 and SL3
+```{r}
+if(use_males){
+lines_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_day_overlap_SL1_SL3.png"
+lines_title <- "differential expression between d18 and mean(d14,d16) males"
+}else{
+lines_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_F_day_overlap_SL1_SL3.png"
+lines_title <- "differential expression between d18 and mean(d14,d16) females"
+}
+plot_DE_overlap(Res1 = qlfSL1[[1]], Res2 = qlfSL3[[1]], sig_p = 0.05, plot_name=lines_name,
+                label1 = "SL3 (large Y)", label2 = "SL1 (small Y)", 
+                xlabel = "LFC d18-mean(d14,d16) SL1",ylabel = "LFC d18-mean(d14,d16) SL3" ,
+                plot_title = lines_title)
+```
 
 # Developmental sex differences
 
@@ -506,3 +685,86 @@ detags18 <- out_18["detags"]
 Tags18 <- out_18["Tags"]
 ```
 
+Create venn diagramm to see if the same genes are DE in the lines or different ones
+
+```{r}
+library(VennDiagram)
+
+if(use_SL1){
+venn_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL1_venn.png"
+main_title <- "DE genes in SL1"
+}else{
+venn_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_days_SL3_venn.png"
+main_title <- "DE genes in SL3"
+}
+DE_genes <- list(d14 = unlist(detags14), d16 = unlist(detags16), d18 = unlist(detags18))
+venn_plot <- venn.diagram(DE_genes, 
+                          filename = venn_name, 
+                          # output
+                          imagetype="png",
+                          height = 720,
+                          width = 720,
+                          resolution = 300,
+                          compression = "lzw",
+                          # circles
+                          fill = c("#DE8F6E", "#2D93AD", "#88AB75"),
+                          lwd = 2,
+                          lty = 'blank',
+                          # Numbers
+                          cex = .8,
+                          main.fontface = "bold",
+                          main.fontfamily = "sans",
+                          fontface = "bold",
+                          fontfamily = "sans",
+                          cat.cex = 0.8,
+                          cat.fontface = "bold",
+                          cat.default.pos = "outer",
+                          cat.pos = c(-27, 27, 135),
+                          cat.dist = c(0.055, 0.055, 0.085),
+                          cat.fontfamily = "sans",
+                          rotation = 1,
+                          main=main_title,
+                          disable.logging = TRUE)
+
+```
+
+Plot sex-bias overlap with the same function as defined above
+
+```{r}
+if (use_SL1){
+day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL1_sex_overlap_day14_16.png"
+day14_16_title <- "DE between males and females in SL1"
+}else{
+day14_16_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL3_sex_overlap_day14_16.png"
+day14_16_title <- "DE between males and females in SL3"
+}
+plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf16[[1]], sig_p = 0.05, plot_name=day14_16_name,
+                label1 = "day 14", label2 = "day 16", 
+                xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 16" ,
+                plot_title = day14_16_title)
+
+if (use_SL1){
+day14_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL1_sex_overlap_day14_18.png"
+day14_18_title <- "DE between males and females in SL1"
+}else{
+day14_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL3_sex_overlap_day14_18.png"
+day14_18_title <- "DE between males and females in SL3"
+}
+plot_DE_overlap(Res1 = qlf14[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day14_18_name,
+                label1 = "day 14", label2 = "day 18", 
+                xlabel = "LFC SL1-SL3 day 14",ylabel = "LFC SL1-SL3 day 18" ,
+                plot_title = day14_18_title)
+
+if (use_SL1){
+day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL1_sex_overlap_day16_18.png"
+day16_18_title <- "DE between males and females in SL1"
+}else{
+day16_18_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/DE_SL3_sex_overlap_day16_18.png"
+day16_18_title <- "DE between males and females in SL3"
+}
+plot_DE_overlap(Res1 = qlf16[[1]], Res2 = qlf18[[1]], sig_p = 0.05, plot_name=day16_18_name,
+                label1 = "day 16", label2 = "day 18", 
+                xlabel = "LFC SL1-SL3 day 16",ylabel = "LFC SL1-SL3 day 18" ,
+                plot_title = day16_18_title)
+
+```
