@@ -1,8 +1,9 @@
 #!/bin/bash -l
-#SBATCH -A uppmax2025-2-148
-#SBATCH -p core
-#SBATCH -n 1
-#SBATCH -t 2:30:00
+#SBATCH -A uppmax2026-1-8
+#SBATCH -c 1
+#SBATCH --mem=20G
+#SBATCH -t 2-10:00:00
+#SBATCH --mail-type=ALL
 #SBATCH -J repeatmasking
 #SBATCH -o repeatmasking.log
 #SBATCH --mail-type=ALL
@@ -42,7 +43,8 @@ ASSEMBLY=$1
 LIBRARIES_DIR=$2
 SPECIES_IDENT=$3
 
-# bash /proj/naiss2023-6-65/Milena/Y_L_assembly_annotation/Cmac_y_L_assembly.fna /proj/naiss2023-6-65/Milena/Y_L_assembly_annotation/Cmac_y_L_repeat_families Cmac_y_L /proj/naiss2023-6-65/Milena/chapter4/PhD_chapter4/bash/repeatmasking.sh
+# sbatch /proj/naiss2023-6-65/Milena/chapter4/PhD_chapter4/bash/repeatmasking.sh /proj/naiss2023-6-65/Milena/Y_L_assembly_annotation/Cmac_y_L_assembly.fna /proj/naiss2023-6-65/Milena/Y_L_assembly_annotation/Cmac_y_L_repeat_families Cmac_y_L 
+# sbatch /proj/naiss2023-6-65/Milena/chapter4/PhD_chapter4/bash/repeatmasking.sh Cmac_y_L_assembly.fna Cmac_y_L_repeat_families Cmac_y_L 
 
 ## make custom repeat library based on the species assembly
 # RepeatModeler uses a NCBI BLASTDB as input to the repeat modeling pipeline, BuildDatabase is a wrapper to make this database for all future steps
