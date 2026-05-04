@@ -11,9 +11,9 @@
 # Philipp thesis pdf page 154 repeatmasker settings: -xsmall -s -u -engine ncbi -gff
 # /proj/naiss2023-6-65/Milena/annotation_pipeline
 
-module load RepeatModeler/2.0.4
-module load RepeatMasker/4.1.5
-module load samtools/1.20
+module load RepeatModeler/2.0.7-foss-2024a
+module load RepeatMasker/4.2.1-foss-2024a
+module load SAMtools/1.22.1-GCC-13.3.0
 
 
 """
@@ -42,7 +42,7 @@ ASSEMBLY=$1
 LIBRARIES_DIR=$2
 SPECIES_IDENT=$3
 
-# bash /proj/naiss2023-6-65/Milena/Y_L_assembly_annotation/Cmac_y_L_assembly.fna /proj/naiss2023-6-65/Milena/Y_L_assembly_annotation/Cmac_y_L_repeat_families Cmac_y_L 
+# bash /proj/naiss2023-6-65/Milena/Y_L_assembly_annotation/Cmac_y_L_assembly.fna /proj/naiss2023-6-65/Milena/Y_L_assembly_annotation/Cmac_y_L_repeat_families Cmac_y_L /proj/naiss2023-6-65/Milena/chapter4/PhD_chapter4/bash/repeatmasking.sh
 
 ## make custom repeat library based on the species assembly
 # RepeatModeler uses a NCBI BLASTDB as input to the repeat modeling pipeline, BuildDatabase is a wrapper to make this database for all future steps
