@@ -178,6 +178,8 @@ Males and females are kind of but not super clearly separated, but for only male
 
 I started the differential expression analysis with only samples from one sex at a time. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`. I am trying both `glmLRT` and `glmQLFTest` to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from `glmQLFTest`.
 
+In all contrasts, genes that are differentially expressed in both females and males between the lines are excluded from the smear plots (see venn-diagram overlaps). 
+
 #### Differential expression between SL1 and SL3
 
 Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in `SL1`) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.
@@ -193,9 +195,9 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 
 | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
 | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 94            | 210           | 19            |
+| Downregulated | 93            | 199           | 16            |
 | no difference | 10326         | 10164         | 10563         |
-| Upregulated   | 216           | 262           | 54            |
+| Upregulated   | 148           | 186           | 36            |
 
 </table>
 
@@ -219,11 +221,12 @@ Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 
 
 | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
 | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 6             | 19            | 32            |
+| Downregulated | 5             | 8             | 29            |
 | no difference | 9581          | 9553          | 9559          |
-| Upregulated   | 69            | 115           | 65            |
+| Upregulated   | 1             | 8             | 47            |
 
 </table>
+
 
 <p float="left">
   <img src="data/DE_figures_python/smear_F_1-3_day14.png" width="32%" />

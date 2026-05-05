@@ -88,16 +88,24 @@ def get_tables(username = "miltr339"):
     return out_dict,contrast_plot_titles
 
 
-def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC"):
+def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC", excl_genes_list = [], x_axis = "logcpm"):
     """
     replicate smear-plot from R, logCPM by logFC, significance highlighted in red
     return the number of up/downregulated and no difference genes
     """
     df = pd.read_csv(table_path, sep="\t", skiprows=0)
-    
+    if len(excl_genes_list) >0:
+        old_len = df.shape[0]
+        df = df.drop(index=excl_genes_list, errors='ignore') # only drop existing labels, ignore the rest
+        new_len = df.shape[0]
+        print(f"\t{len(excl_genes_list)} genes dropped from excl_genes_list (gene number {old_len} -> {new_len})")
+
     cols = {"nonsig" : "#243742", "sig" : "#BD351E"}
 
-    fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
+    if  x_axis == "logcpm":
+        fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
+    elif x_axis == "fdr_p":
+        fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
     fs = 35
     point_size_factor = 5
     ps = fs*point_size_factor # point size
@@ -110,8 +118,12 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
         df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
         print(f"\tnum sig genes with LFC > {min_LFC}: {df_sig.shape[0]}")
 
-    ax.scatter(df_nonsig["logCPM"], df_nonsig["logFC"], color = cols["nonsig"], alpha=0.5, s=ps)
-    ax.scatter(df_sig["logCPM"], df_sig["logFC"], color = cols["sig"], alpha=1, s=ps)
+    if  x_axis == "logcpm":
+        ax.scatter(df_nonsig["logCPM"], df_nonsig["logFC"], color = cols["nonsig"], alpha=0.5, s=ps)
+        ax.scatter(df_sig["logCPM"], df_sig["logFC"], color = cols["sig"], alpha=1, s=ps)
+    elif x_axis == "fdr_p":
+        ax.scatter(df_nonsig["logFC"], df_nonsig["FDR"], color = cols["nonsig"], alpha=0.5, s=ps)
+        ax.scatter(df_sig["logFC"], df_sig["FDR"], color = cols["sig"], alpha=1, s=ps)
     
     if "SL" in contrast and "/2" not in contrast:
         if "SL1" in contrast and "SL3" in contrast:
@@ -122,23 +134,37 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
         label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
     else:
         label_contrast = contrast.replace("SL1", "day").replace("SL3", "day")
-    ax.set_ylabel(f"logFC ({label_contrast})", fontsize = fs)
-    ax.set_xlabel(f"log CPM", fontsize = fs)
+    if  x_axis == "logcpm":
+        ax.set_ylabel(f"logFC ({label_contrast})", fontsize = fs)
+        ax.set_xlabel(f"log CPM", fontsize = fs)
+    elif x_axis == "fdr_p":
+        ax.set_xlabel(f"logFC ({label_contrast})", fontsize = fs)
+        ax.set_ylabel(f"FDR p-value", fontsize = fs)
+        ax.yaxis.set_inverted(True) 
     ax.tick_params(axis='x', labelsize=fs*0.9)
     ax.tick_params(axis='y', labelsize=fs*0.9)
     ax.set_title(title, fontsize = fs*1.25)
 
-    min_line = min(df["logCPM"])-0.25
-    max_line = max(df["logCPM"])+0.25
-    if min_LFC > 0:
-        ax.hlines(y=min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-        ax.hlines(y=-1*min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-    else:
-        ax.hlines(y=1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-        ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+    if  x_axis == "logcpm":
+        min_line = min(df["logCPM"])-0.25
+        max_line = max(df["logCPM"])+0.25
+        if min_LFC > 0:
+            ax.hlines(y=min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+            ax.hlines(y=-1*min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+        else:
+            ax.hlines(y=1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+            ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+        ax.set_xlim([min_line,max_line])
+    elif x_axis == "fdr_p":
+        pass
+        # min_line = min(df["logFC"])
+        # max_line = max(df["logFC"])
+        # ax.vlines(x=0, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+        # ax.set_xlim([min_line,max_line])
     
-    ax.set_xlim([min_line,max_line])
-    
+
+    if x_axis == "fdr_p":
+        smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
     plt.tight_layout()
     fig.subplots_adjust(left=0.125) # or whatever
     plt.savefig(smear_plot_name, dpi = 300, transparent = True)
@@ -149,11 +175,16 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
 
     # numbers for table
     upreg = df_sig.loc[df_sig['logFC'] > 0]
-    upreg = upreg.shape[0]
+    # upreg = upreg.shape[0]
+    upreg = upreg["Gene"].tolist()
     downreg = df_sig.loc[df_sig['logFC'] < 0]
-    downreg = downreg.shape[0]
-    all_rows = df.shape[0]
-    nodiff = all_rows - upreg - downreg
+    # downreg = downreg.shape[0]
+    downreg = downreg["Gene"].tolist()
+    # all_rows = df.shape[0]
+    # nodiff = all_rows - upreg - downreg
+    df_nonsig = df.drop(index=downreg, errors='ignore')
+    df_nonsig = df_nonsig.drop(index=upreg, errors='ignore')
+    nodiff = df_nonsig["Gene"].tolist()
 
     out_dict = {"Downregulated" : downreg, "no difference" : nodiff,  "Upregulated" : upreg}
 
@@ -350,18 +381,31 @@ if __name__ == "__main__":
     if True:
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
+            lists = {}
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
                 numbers = {}
+                lists[category] = {}
                 for contrast, table_path in paths_dict.items():
                     print(f"{separation}:{category} --> contrast: {contrast}")
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"
                     smear_title = contrast_plot_titles[contrast]
+
+                    excl_list = []
+                    excl_list_name = smear_title.replace(" ","")
+                    if excl_list_name in excl_line_bias_lists:
+                        excl_list = excl_line_bias_lists[excl_list_name]
+                        print(f"\texcluding genes from list '{excl_list_name}'")
         
-                    smear_nums = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title)
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p")
+                    # Downlist = smear_lists["Downregulated"]
+                    # Uplist = smear_lists["Upregulated"]
+                    # print(f"\t * Downregulated : {Downlist}\n\t * Upregulated : {Uplist}")
+                    smear_nums = {gene_set : len(gene_list) for gene_set,gene_list in smear_lists.items()}
                     numbers[smear_title] = smear_nums
-        
+                    lists[category][smear_title] = smear_lists
+
                 print(numbers)
 
     ############################################
