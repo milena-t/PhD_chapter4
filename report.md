@@ -185,8 +185,10 @@ In all contrasts, genes that are differentially expressed in both females and ma
 Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in `SL1`) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.
 
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE')">females</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males (Smear plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE')">females (Smear plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_volcano')">males (Volcano plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_volcano')">females (Volcano plots)</button>
 </div>
 
 <div id="males_lines_DE" class="tabcontent">
@@ -272,9 +274,38 @@ When comparing the genes that are DE between lines in the females to the ones in
 
 </details>
 
+</div>
 
+
+
+
+<div id="males_lines_DE_volcano" class="tabcontent">
+
+
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_M_1-3_day14_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_1-3_day16_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_1-3_day18_volcano.png" width="32%" />
+</p>
+For venn-diagrams see smear plots
 
 </div>
+
+<div id="females_lines_DE_volcano" class="tabcontent">
+
+
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_F_1-3_day14_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_1-3_day16_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_1-3_day18_volcano.png" width="32%" />
+</p>
+
+For venn-diagrams see smear plots
+
+</div>
+
 
 
 
@@ -373,8 +404,10 @@ When comparing the genes that are DE between lines in the females to the ones in
 ##### Interaction of line by day effects
 
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females</button>
+  <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males (Smear plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females (Smear plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_line_day_DE_volcano')">males (Volcano plots)</button>
+<button class="tablinks" onclick="openTab(event, 'females_line_day_DE_volcano')">females (Volcano plots)</button>
 </div>
 
 <div id="males_line_day_DE" class="tabcontent">
@@ -409,13 +442,51 @@ Interaction line by day: only one gene is significantly DE when the day contrast
 
 </div>
 
+
+<div id="males_line_day_DE_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_M_SL_1_3_14_16_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL_1_3_18_14_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL_1_3_18_16_volcano.png" width="32%" />
+</p>
+
+Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.
+
+```
+(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+```
+
+</div>
+
+<div id="females_line_day_DE_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_F_SL_1_3_14_16_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL_1_3_18_14_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL_1_3_18_16_volcano.png" width="32%" />
+</p>
+
+Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.
+
+```
+(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+```
+
+</div>
+
+
+
+
 #### Differential expression within lines between day18 and mean(day14,day16)
 
 I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16. 
 
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables')">females</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables')">females (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_volcano')">males (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_volcano')">females (Volcano plot)</button>
 </div>
 
 <div id="males_lines_DE_tables" class="tabcontent">
@@ -494,13 +565,41 @@ In SL3, 74 of 87 DE genes in females are also DE in males, 13 are unique to fema
 </div>
 
 
+<div id="males_lines_DE_tables_volcano" class="tabcontent">
+
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_M_SL1_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL3_volcano.png" width="32%" />
+</p>
+
+
+</div>
+
+<div id="females_lines_DE_tables_volcano" class="tabcontent">
+
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_F_SL1_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL3_volcano.png" width="32%" />
+</p>
+
+
+</div>
+
+
+
+
+
 #### Differential expression within lines with all pairwise day comparisons
 
 Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3. To be sure that this is real I also do individual comparisons between all the days even though that is more difficult to interpret.
 
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days')">females</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days')">females (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days_volcano')">males (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days_volcano')">females (Volcano plot)</button>
 </div>
 
 <div id="males_lines_DE_tables_single_days" class="tabcontent">
@@ -581,6 +680,42 @@ Only difference between day 14 and 18, no other developmental cues? Do only the 
 
 </div>
 
+
+<div id="males_lines_DE_tables_single_days_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_M_SL1_18_14_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL1_18_16_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL1_14_16_volcano.png" width="32%" />
+</p>
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_M_SL3_18_14_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL3_18_16_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL3_14_16_volcano.png" width="32%" />
+</p>
+
+</div>
+
+<div id="females_lines_DE_tables_single_days_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_F_SL1_18_14_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL1_14_16_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL1_18_16_volcano.png" width="32%" />
+</p>
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_F_SL3_18_14_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL3_14_16_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL3_18_16_volcano.png" width="32%" />
+</p>
+
+
+</div>
+
+
+
 ### 3.4 DE analysis sex differences during development
 
 I will now split the data by line to see sex differences in expression during the development stages. 
@@ -599,8 +734,10 @@ I will now split the data by line to see sex differences in expression during th
 #### Differential expression between males and females
 
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1</button>
-  <button class="tablinks" onclick="openTab(event, 'SL3_smear')">SL3</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_smear')">SL3 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_volcano')">SL1 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_volcano')">SL3 (Volcano plot)</button>
 </div>
 
 <div id="SL1_smear" class="tabcontent">
@@ -644,6 +781,29 @@ Day 14 has the least sex differences, which is when they are for sure still in l
 </p>
 
 A similar trend as SL1 but not as strong, more genes are already sex-biased on day 14. The male-bias is more severe. This supports the speculation that the larger SL3 individuals start preparation for pupation even earlier (above shows that in SL1, day 16/18 is clearly very similar, while 14/16 and 16/18 differ a lot, maybe indicating a major developmental milestone before day 16. In SL3 all pairwise day comparisons are very different, and we do not see the same milestone. So this means it either happens earlier or later, and these results indicate earlier). 
+
+</div>
+
+
+
+<div id="SL1_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_SL1_day14_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL1_day16_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL1_day18_F-M_volcano.png" width="32%" />
+</p>
+
+
+</div>
+
+<div id="SL3_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_SL3_day14_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL3_day16_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL3_day18_F-M_volcano.png" width="32%" />
+</p>
 
 </div>
 

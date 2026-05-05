@@ -398,7 +398,7 @@ if __name__ == "__main__":
                         excl_list = excl_line_bias_lists[excl_list_name]
                         print(f"\texcluding genes from list '{excl_list_name}'")
         
-                    # smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p")
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p")
                     smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm")
                     # Downlist = smear_lists["Downregulated"]
                     # Uplist = smear_lists["Upregulated"]

@@ -211,11 +211,14 @@ function openTab(evt, cityName) {
 </details>
 <h3 id="33-de-analysis-of-sex-separated-samples">3.3 DE analysis of sex-separated samples</h3>
 <p>I started the differential expression analysis with only samples from one sex at a time. The contrasts are within each day (14, 16, 18), and always <code>SL1 - SL3</code>. <code>SL1</code> are the small males (three Tor copies), and all genes identified as &quot;upregulated&quot; are higher expressed in <code>SL1</code>. I am trying both <code>glmLRT</code> and <code>glmQLFTest</code> to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from <code>glmQLFTest</code>.</p>
+<p>In all contrasts, genes that are differentially expressed in both females and males between the lines are excluded from the smear plots (see venn-diagram overlaps).</p>
 <h4 id="differential-expression-between-sl1-and-sl3">Differential expression between SL1 and SL3</h4>
 <p>Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in <code>SL1</code>) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.</p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE')">females</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males (Smear plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE')">females (Smear plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_volcano')">males (Volcano plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_volcano')">females (Volcano plots)</button>
 </div>
 <div id="males_lines_DE" class="tabcontent">
 <table>
@@ -231,9 +234,9 @@ function openTab(evt, cityName) {
 <tbody>
 <tr>
 <td>Downregulated</td>
-<td>94</td>
-<td>210</td>
-<td>19</td>
+<td>93</td>
+<td>199</td>
+<td>16</td>
 </tr>
 <tr>
 <td>no difference</td>
@@ -243,9 +246,9 @@ function openTab(evt, cityName) {
 </tr>
 <tr>
 <td>Upregulated</td>
-<td>216</td>
-<td>262</td>
-<td>54</td>
+<td>148</td>
+<td>186</td>
+<td>36</td>
 </tr>
 </tbody>
 </table>
@@ -274,9 +277,9 @@ function openTab(evt, cityName) {
 <tbody>
 <tr>
 <td>Downregulated</td>
-<td>6</td>
-<td>19</td>
-<td>32</td>
+<td>5</td>
+<td>8</td>
+<td>29</td>
 </tr>
 <tr>
 <td>no difference</td>
@@ -286,9 +289,9 @@ function openTab(evt, cityName) {
 </tr>
 <tr>
 <td>Upregulated</td>
-<td>69</td>
-<td>115</td>
-<td>65</td>
+<td>1</td>
+<td>8</td>
+<td>47</td>
 </tr>
 </tbody>
 </table>
@@ -321,6 +324,22 @@ function openTab(evt, cityName) {
 <pre><code>'gene-428738', 'gene-224697', 'gene-224875', 'gene-241055', 'gene-223758', 'gene-430263', 'gene-225236', 'gene-225325', 'gene-301479', 'gene-120952', 'gene-223491', 'gene-224860', 'gene-223773', 'gene-240623', 'gene-406796', 'gene-225720', 'gene-238849', 'gene-227308', 'gene-240833', 'gene-224593', 'gene-240691'
 </code></pre>
 </details>
+</div>
+<div id="males_lines_DE_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_1-3_day14_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_1-3_day16_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_1-3_day18_volcano.png" width="32%" />
+</p>
+For venn-diagrams see smear plots
+</div>
+<div id="females_lines_DE_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_1-3_day14_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_1-3_day16_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_1-3_day18_volcano.png" width="32%" />
+</p>
+<p>For venn-diagrams see smear plots</p>
 </div>
 <h5 id="scatterplots-of-pairwise-comparisons">Scatterplots of pairwise comparisons</h5>
 <div class="tab">
@@ -501,8 +520,10 @@ function openTab(evt, cityName) {
 </div>
 <h5 id="interaction-of-line-by-day-effects">Interaction of line by day effects</h5>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females</button>
+  <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males (Smear plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females (Smear plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_line_day_DE_volcano')">males (Volcano plots)</button>
+<button class="tablinks" onclick="openTab(event, 'females_line_day_DE_volcano')">females (Volcano plots)</button>
 </div>
 <div id="males_line_day_DE" class="tabcontent">
 <p float="left">
@@ -524,11 +545,33 @@ function openTab(evt, cityName) {
 <pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
 </code></pre>
 </div>
+<div id="males_line_day_DE_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL_1_3_14_16_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL_1_3_18_14_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL_1_3_18_16_volcano.png" width="32%" />
+</p>
+<p>Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.</p>
+<pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+</code></pre>
+</div>
+<div id="females_line_day_DE_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL_1_3_14_16_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL_1_3_18_14_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL_1_3_18_16_volcano.png" width="32%" />
+</p>
+<p>Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.</p>
+<pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+</code></pre>
+</div>
 <h4 id="differential-expression-within-lines-between-day18-and-meanday14day16">Differential expression within lines between day18 and mean(day14,day16)</h4>
 <p>I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16.</p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables')">females</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables')">females (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_volcano')">males (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_volcano')">females (Volcano plot)</button>
 </div>
 <div id="males_lines_DE_tables" class="tabcontent">
 <table>
@@ -662,11 +705,25 @@ function openTab(evt, cityName) {
 </code></pre>
 </details>
 </div>
+<div id="males_lines_DE_tables_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL1_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL3_volcano.png" width="32%" />
+</p>
+</div>
+<div id="females_lines_DE_tables_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL1_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL3_volcano.png" width="32%" />
+</p>
+</div>
 <h4 id="differential-expression-within-lines-with-all-pairwise-day-comparisons">Differential expression within lines with all pairwise day comparisons</h4>
 <p>Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3. To be sure that this is real I also do individual comparisons between all the days even though that is more difficult to interpret.</p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days')">females</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days')">females (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days_volcano')">males (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days_volcano')">females (Volcano plot)</button>
 </div>
 <div id="males_lines_DE_tables_single_days" class="tabcontent">
 <table>
@@ -824,6 +881,30 @@ function openTab(evt, cityName) {
 </p>
 <p>Only difference between day 14 and 18, no other developmental cues? Do only the males do special stuff before pupation?</p>
 </div>
+<div id="males_lines_DE_tables_single_days_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL1_18_14_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL1_18_16_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL1_14_16_volcano.png" width="32%" />
+</p>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL3_18_14_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL3_18_16_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_M_SL3_14_16_volcano.png" width="32%" />
+</p>
+</div>
+<div id="females_lines_DE_tables_single_days_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL1_18_14_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL1_14_16_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL1_18_16_volcano.png" width="32%" />
+</p>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL3_18_14_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL3_14_16_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_F_SL3_18_16_volcano.png" width="32%" />
+</p>
+</div>
 <h3 id="34-de-analysis-sex-differences-during-development">3.4 DE analysis sex differences during development</h3>
 <p>I will now split the data by line to see sex differences in expression during the development stages.</p>
 <details>
@@ -835,8 +916,10 @@ function openTab(evt, cityName) {
 </details>
 <h4 id="differential-expression-between-males-and-females">Differential expression between males and females</h4>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1</button>
-  <button class="tablinks" onclick="openTab(event, 'SL3_smear')">SL3</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_smear')">SL3 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_volcano')">SL1 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_volcano')">SL3 (Volcano plot)</button>
 </div>
 <div id="SL1_smear" class="tabcontent">
 <p float="left">
@@ -919,6 +1002,20 @@ function openTab(evt, cityName) {
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/Venn_SL3_age_by_sex_bias.png" width="25%" />
 </p>
 <p>A similar trend as SL1 but not as strong, more genes are already sex-biased on day 14. The male-bias is more severe. This supports the speculation that the larger SL3 individuals start preparation for pupation even earlier (above shows that in SL1, day 16/18 is clearly very similar, while 14/16 and 16/18 differ a lot, maybe indicating a major developmental milestone before day 16. In SL3 all pairwise day comparisons are very different, and we do not see the same milestone. So this means it either happens earlier or later, and these results indicate earlier).</p>
+</div>
+<div id="SL1_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL1_day14_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL1_day16_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL1_day18_F-M_volcano.png" width="32%" />
+</p>
+</div>
+<div id="SL3_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day14_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day16_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day18_F-M_volcano.png" width="32%" />
+</p>
 </div>
 <h5 id="scatterplots-of-pairwise-comparisons-1">Scatterplots of pairwise comparisons</h5>
 <p>Since we are explicitly checking for sex-bias, it makes no sense to highlight genes with shared sex-bias in SL1 and SL3 for example, so I exclude the highlight here.</p>
