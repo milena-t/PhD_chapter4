@@ -31,6 +31,9 @@ def get_tables(username = "miltr339"):
                 "SL3_18 - SL3_14" : f"{tables_dir}DE_genes_F_SL3_18_14.txt",
                 "SL3_18 - SL3_16" : f"{tables_dir}DE_genes_F_SL3_18_16.txt",
                 "SL3_14 - SL3_16" : f"{tables_dir}DE_genes_F_SL3_14_16.txt",
+                "(SL1_18 - SL1_14) - (SL3_18 - SL3_14)" : f"{tables_dir}DE_genes_F_SL_1_3_18_14.txt",
+                "(SL1_14 - SL1_16) - (SL3_14 - SL3_16)" : f"{tables_dir}DE_genes_F_SL_1_3_14_16.txt",
+                "(SL1_18 - SL1_16) - (SL3_18 - SL3_16)" : f"{tables_dir}DE_genes_F_SL_1_3_18_16.txt",
             },
             "males" : {
                 "SL1_14 - SL3_14" : f"{tables_dir}DE_genes_M_1-3_day14.txt",
@@ -44,6 +47,9 @@ def get_tables(username = "miltr339"):
                 "SL3_18 - SL3_14" : f"{tables_dir}DE_genes_M_SL3_18_14.txt",
                 "SL3_18 - SL3_16" : f"{tables_dir}DE_genes_M_SL3_18_16.txt",
                 "SL3_14 - SL3_16" : f"{tables_dir}DE_genes_M_SL3_14_16.txt",
+                "(SL1_18 - SL1_14) - (SL3_18 - SL3_14)" : f"{tables_dir}DE_genes_M_SL_1_3_18_14.txt",
+                "(SL1_14 - SL1_16) - (SL3_14 - SL3_16)" : f"{tables_dir}DE_genes_M_SL_1_3_14_16.txt",
+                "(SL1_18 - SL1_16) - (SL3_18 - SL3_16)" : f"{tables_dir}DE_genes_M_SL_1_3_18_16.txt",
             }
         },
         "line_separated" : {
@@ -75,6 +81,9 @@ def get_tables(username = "miltr339"):
         "SL3_18 - SL3_14" : f"SL3",
         "SL3_18 - SL3_16" : f"SL3",
         "SL3_14 - SL3_16" : f"SL3",
+        "(SL1_18 - SL1_14) - (SL3_18 - SL3_14)" : f"SL1-SL3 by day 18-14",
+        "(SL1_14 - SL1_16) - (SL3_14 - SL3_16)" : f"SL1-SL3 by day 14-16",
+        "(SL1_18 - SL1_16) - (SL3_18 - SL3_16)" : f"SL1-SL3 by day 18-16",
     }
     return out_dict,contrast_plot_titles
 
@@ -338,7 +347,7 @@ if __name__ == "__main__":
     ############################################
     ######### MAKE ALL THE SMEAR PLOTS #########
     ############################################
-    if False:
+    if True:
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
             for category, paths_dict in seps_dict.items():
@@ -460,7 +469,7 @@ if __name__ == "__main__":
     ######## MAKE ALL THE SB COMPARISONS #######
     ############################################
 
-    if True:
+    if False:
         LFC_comp_sets = {
             "sex_separated" : {
                 "females" : {

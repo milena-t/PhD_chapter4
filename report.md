@@ -367,6 +367,45 @@ When comparing the genes that are DE between lines in the females to the ones in
 </div>
 
 
+##### Interaction of line by day effects
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females</button>
+</div>
+
+<div id="males_line_day_DE" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_M_SL_1_3_14_16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL_1_3_18_14.png" width="32%" />
+  <img src="data/DE_figures_python/smear_M_SL_1_3_18_16.png" width="32%" />
+</p>
+
+Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.
+
+```
+(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+```
+
+</div>
+
+<div id="females_line_day_DE" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_F_SL_1_3_14_16.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL_1_3_18_14.png" width="32%" />
+  <img src="data/DE_figures_python/smear_F_SL_1_3_18_16.png" width="32%" />
+</p>
+
+Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.
+
+```
+(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+```
+
+</div>
+
 #### Differential expression within lines between day18 and mean(day14,day16)
 
 I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16. 

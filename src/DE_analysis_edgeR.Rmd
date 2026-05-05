@@ -32,7 +32,7 @@ library(dplyr)
 
 ## prepare data with all samples
 
-Only split after this
+Load all data first and compute right library sizes. Only split after this for each subset when relevant
 ```{r}
 in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
 out_norm_counts <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
@@ -75,7 +75,9 @@ metadata <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/larvae_metadata.csv
 
 ```
 
-plot MDS
+### plot MDS
+
+Based on full data, to compare with PCA
 ```{r}
 short_rownames <- c("1-14-M","1-14-F","1-14-M","1-14-M","1-14-F","1-14-M","1-14-M","1-14-M","1-14-M","1-14-F","1-14-M","1-14-M","1-14-M","1-16-M","1-16-M","1-16-M","1-16-F","1-16-M","1-16-F","1-16-M","1-16-F","1-16-M","1-16-M","1-16-M","1-16-M","1-16-M","1-16-M","1-18-M","1-18-M","1-18-F","1-18-F","1-18-M","1-18-M","1-18-M","1-18-M","1-18-M","1-18-F","1-18-F","1-18-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-F","3-14-M","3-14-M","3-14-F","3-14-M","3-14-F","3-14-F","3-14-M","3-16-F","3-16-M","3-16-F","3-16-M","3-16-M","3-16-F","3-16-M","3-16-F","3-16-F","3-16-M","3-16-M","3-16-M","3-16-F","3-18-F","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-M","3-18-F","3-18-M","3-18-F","3-18-M","3-18-M","3-18-M","3-18-M")
 png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_and_females.png", width = 7, height = 6, units = "in", res = 300)
@@ -84,24 +86,27 @@ title("MDS clustering of all samples")
 dev.off()
 ```
 
-Export normalized counts to file. See Python scripting for the PCA plots based on the counts
+Export normalized counts to file. See Python scripting for the PCA plots based on the counts.
 ```{r}
   log_norm_counts <- cpm(y,normalized.lib.sizes = TRUE,log = FALSE,prior.count = 1)
-  write.table(log_norm_counts,file = out_norm_counts, sep = "\t",quote = FALSE)# ,col.names = NA)
-  #### !!! manually add first header "geneID" to the file !!! ###
+  write.table(log_norm_counts,file = out_norm_counts, sep = "\t",quote = FALSE)
 ```
 
 
 # basic DE with only one sex
 
-I will start with DE analysis that involves only the males to get an idea of what is going on. 
+I will partition the data to avoid having to handle a contrast with a three-way interaction. I will do first males and females separately to 
+look at line and age effects, then lines spearately to look at age and sex effects, and then days separately to look at sex and line effects.
 
-## partition and prepare data
+Since the females are supposed to be the same between both lines I hope to see minimal line difference when females are compared but that seems
+to not always be the case.
+
+## Males and Females separately
 
 The analysis can be run separately for males and females, if use_males=True then it's only males, and if False then it's only the females
 
 ```{r} 
-use_males<-TRUE
+use_males<-FALSE
 ```
 
 ```{r} 
@@ -141,8 +146,12 @@ colnames(MM) <- c("SL1_14", "SL1_16", "SL1_18", "SL3_14",  "SL3_16", "SL3_18")
 rownames(MM) <- colnames(y)
 
 y <- estimateDisp(y, MM)
-plotBCV(y)
+# plotBCV(y)
 
+```
+
+Plot MDS for the sex-separated samples
+```{r} 
 if (use_males){
 short_rownames <- c("1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-14","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-16","1-18","1-18","1-18","1-18","1-18","1-18","1-18","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-14","3-16","3-16","3-16","3-16","3-16","3-16","3-16","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18","3-18")
 png("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/MDS_males_only.png", width = 7, height = 6, units = "in", res = 300)
@@ -158,38 +167,32 @@ dev.off()
 }
 ```
 
-## Differential expression just one sex (determined in the above section)
+### Differential expression just one sex (determined in the above section)
 
-This is based on Elina's code and the edgeR manual. I will test several contrasts, where each contrast is SL1-SL3 within the same day. Additionally, since we know that day 14 and 16 are similar and 18 is different from both of them, I will specify the within-line contrasts to 18-mean(14,16).
+Contrasts are within day between line and pairwise comparisons within lines between days, as well as interactions of line-by-day.
+
 ```{r}
 my.contrasts <- makeContrasts(
 day14 =	SL1_14 - SL3_14, 
 day16 =	SL1_16 - SL3_16, 
 day18 = SL1_18 - SL3_18,
-# compare 18 to the average of 14 and 16 in each line, since 18 is the most different
-line_1 = SL1_18 - (SL1_14+SL1_16)/2,
 line_1_18_14 = SL1_18 - SL1_14,
 line_1_14_16 = SL1_14 - SL1_16,
 line_1_18_16 = SL1_18 - SL1_16,
-line_3 = SL3_18 - (SL3_14+SL3_16)/2,
 line_3_18_14 = SL3_18 - SL3_14,
 line_3_18_16 = SL3_18 - SL3_16,
 line_3_14_16 = SL3_14 - SL3_16,
+line_1_3_18_14 = (SL1_18 - SL1_14) - (SL3_18 - SL3_14),
+line_1_3_14_16 = (SL1_14 - SL1_16) - (SL3_14 - SL3_16),
+line_1_3_18_16 = (SL1_18 - SL1_16) - (SL3_18 - SL3_16),
 levels=MM)
 
-contrast_analysis <- function(y,MM,contrast, table_name, smear_name, smear_ylab, smear_title, lfc_min){
-  
-  fit <- glmFit(y, MM)
-  lrt <- glmLRT(fit, contrast=contrast)
-  de <- decideTestsDGE(lrt, p.value=0.05, lfc=1)
-  print("glmLRT")
-  print(smear_title)
-  print(summary(de))
+contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
   
   fit <- glmQLFit(y, MM)
   qlf <- glmQLFTest(fit, contrast=contrast)
-  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=1)
-  print("glmQLFTest")
+  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
+  print(contrast)
   print(summary(de_qlf))
   
   print("--------------------------------------------")
@@ -200,195 +203,115 @@ contrast_analysis <- function(y,MM,contrast, table_name, smear_name, smear_ylab,
   Tags$Gene <- rownames(Tags)
   write.table(Tags, file=table_name, sep="\t")	
   
-  ## make smear plot
-  de<-decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min) 
-  detags <- rownames(y)[as.logical(de)]
-  png(smear_name, width = 6, height = 4, units = "in", res = 300)
-  plotSmear(qlf, de.tags=detags, smearWidth=0.1, smooth.scatter=F, xlim=c(), ylab=smear_ylab, main = smear_title)
-  abline(h=c(-1, 1), col="blue")
-  dev.off()
-  
-  output <- list(qlf=qlf,de=de,detags=detags, Tags=Tags)
+  output <- list(qlf=qlf,Tags=Tags)
   return(output)
 }
-``` 
+
+```
+
+line contrasts for each day
 
 ```{r}
 if (use_males){
 d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day14.txt"
-d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d14.png"
-d14_smear_title <- "Male samples day 14"
 }else{
 d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day14.txt"
-d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d14.png"
-d14_smear_title <- "Female samples day 14"
 }
-out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d14_smear_title, lfc_min = 0)
-qlf14 <- out_14["qlf"]
-de14 <- out_14["de"]
-detags14 <- out_14["detags"]
-Tags14 <- out_14["Tags"]
+out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,lfc_min = 0)
 
 if (use_males){
 d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day16.txt"
-d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d16.png"
-d16_smear_title <- "Male samples day 16"
 }else{
 d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day16.txt"
-d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d16.png"
-d16_smear_title <- "Female samples day 16"
 }
-out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d16_smear_title, lfc_min = 0)
-qlf16 <- out_16["qlf"]
-de16 <- out_16["de"]
-detags16 <- out_16["detags"]
-Tags16 <- out_16["Tags"]
+out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,lfc_min = 0)
 
 if (use_males){
 d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_1-3_day18.txt"
-d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_d18.png"
-d18_smear_title <- "Male samples day 18"
 }else{
 d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_1-3_day18.txt"
-d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_d18.png"
-d18_smear_title <- "Female samples day 18"
 }
-out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC SL1-SL3",smear_title=d18_smear_title, lfc_min = 0)
-qlf18 <- out_18["qlf"]
-de18 <- out_18["de"]
-detags18 <- out_18["detags"]
-Tags18 <- out_18["Tags"]
-
-if (use_males){
-line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1.txt"
-line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1.png"
-line1_smear_title <- "Male samples line 1"
-}else{
-line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1.txt"
-line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1.png"
-line1_smear_title <- "Female samples line 1"
-}
-out_SL1 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line1_smear_title, lfc_min = 0)
-qlfSL1 <- out_SL1["qlf"]
-deSL1 <- out_SL1["de"]
-detagsSL1 <- out_SL1["detags"]
-Tags_SL1 <- out_SL1["Tags"]
-
-if (use_males){
-line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3.txt"
-line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3.png"
-line3_smear_title <- "Male samples line 3"
-}else{
-line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3.txt"
-line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3.png"
-line3_smear_title <- "Female samples line 3"
-}
-out_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - (d14+d16)/2",smear_title=line3_smear_title, lfc_min = 0)
-qlfSL3 <- out_SL3["qlf"]
-deSL3 <- out_SL3["de"]
-detagsSL3 <- out_SL3["detags"]
-Tags_SL3 <- out_SL3["Tags"]
+out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,lfc_min = 0)
 ```
 
-extra control for the within-line day18-mean(day14,day16) contrast because it looks weird in the females
+Pairwise day contrasts within each line
+
 ```{r}
 if (use_males){
 line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3_18_14.txt"
-line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3_18_14.png"
-line3_smear_title <- "Male samples line 3"
 }else{
 line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3_18_14.txt"
-line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3_18_14.png"
-line3_smear_title <- "Female samples line 3"
 }
-out_SL3_18_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3_18_14"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - d14",smear_title=line3_smear_title, lfc_min = 0)
-qlfSL3_18_14 <- out_SL3_18_14["qlf"]
-deSL3_18_14 <- out_SL3_18_14["de"]
-detagsSL3_18_14 <- out_SL3_18_14["detags"]
-Tags_SL3_18_14 <- out_SL3_18_14["Tags"]
+out_SL3_18_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3_18_14"],table_name=line3_table,lfc_min = 0)
 
 
 if (use_males){
 line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3_18_16.txt"
-line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3_18_16.png"
-line3_smear_title <- "Male samples line 3"
 }else{
 line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3_18_16.txt"
-line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3_18_16.png"
-line3_smear_title <- "Female samples line 3"
 }
-out_SL3_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3_18_16"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d18 - d16",smear_title=line3_smear_title, lfc_min = 0)
-qlfSL3_18_16 <- out_SL3_18_16["qlf"]
-deSL3_18_16 <- out_SL3_18_16["de"]
-detagsSL3_18_16 <- out_SL3_18_16["detags"]
-Tags_SL3_18_16 <- out_SL3_18_16["Tags"]
+out_SL3_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3_18_16"],table_name=line3_table,lfc_min = 0)
 
 if (use_males){
 line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL3_14_16.txt"
-line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL3_14_16.png"
-line3_smear_title <- "Male samples line 3"
 }else{
 line3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL3_14_16.txt"
-line3_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL3_14_16.png"
-line3_smear_title <- "Female samples line 3"
 }
-out_SL3_14_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3_14_16"],table_name=line3_table,smear_name=line3_smear_name,smear_ylab="logFC d14 - d16",smear_title=line3_smear_title, lfc_min = 0)
-qlfSL3_14_16 <- out_SL3_14_16["qlf"]
-deSL3_14_16 <- out_SL3_14_16["de"]
-detagsSL3_14_16 <- out_SL3_14_16["detags"]
-Tags_SL3_14_16 <- out_SL3_14_16["Tags"]
+out_SL3_14_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_3_14_16"],table_name=line3_table,lfc_min = 0)
 
 
 if (use_males){
 line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1_14_16.txt"
-line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1_14_16.png"
-line1_smear_title <- "Male samples line 1"
 }else{
 line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1_14_16.txt"
-line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1_14_16.png"
-line1_smear_title <- "Female samples line 1"
 }
-out_SL1_14_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_14_16"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d14 - d16",smear_title=line1_smear_title, lfc_min = 0)
-qlfSL1_14_16 <- out_SL1_14_16["qlf"]
-deSL1_14_16 <- out_SL1_14_16["de"]
-detagsSL1_14_16 <- out_SL1_14_16["detags"]
-Tags_SL1_14_16 <- out_SL1_14_16["Tags"]
+out_SL1_14_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_14_16"],table_name=line1_table,lfc_min = 0)
 
 
 if (use_males){
 line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1_18_14.txt"
-line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1_18_14.png"
-line1_smear_title <- "Male samples line 1"
 }else{
 line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1_18_14.txt"
-line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1_18_14.png"
-line1_smear_title <- "Female samples line 1"
 }
-out_SL1_18_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_18_14"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - d14",smear_title=line1_smear_title, lfc_min = 0)
-qlfSL1_18_14 <- out_SL1_18_14["qlf"]
-deSL1_18_14 <- out_SL1_18_14["de"]
-detagsSL1_18_14 <- out_SL1_18_14["detags"]
-Tags_SL1_18_14 <- out_SL1_18_14["Tags"]
+out_SL1_18_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_18_14"],table_name=line1_table,lfc_min = 0)
 
 
 if (use_males){
 line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL1_18_16.txt"
-line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_M_SL1_18_16.png"
-line1_smear_title <- "Male samples line 1"
 }else{
 line1_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL1_18_16.txt"
-line1_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_F_SL1_18_16.png"
-line1_smear_title <- "Female samples line 1"
 }
-out_SL1_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_18_16"],table_name=line1_table,smear_name=line1_smear_name,smear_ylab="logFC d18 - d16",smear_title=line1_smear_title, lfc_min = 0)
-qlfSL1_18_16 <- out_SL1_18_16["qlf"]
-deSL1_18_16 <- out_SL1_18_16["de"]
-detagsSL1_18_16 <- out_SL1_18_16["detags"]
-Tags_SL1_18_16 <- out_SL1_18_16["Tags"]
+out_SL1_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_18_16"],table_name=line1_table,lfc_min = 0)
 
 ```
 
-# Developmental sex differences
+Interaction line by age
+
+```{r}
+if (use_males){
+line1_3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL_1_3_18_14.txt"
+}else{
+line1_3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL_1_3_18_14.txt"
+}
+out_SL1_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_3_18_14"],table_name=line1_3_table,lfc_min = 0)
+
+if (use_males){
+line1_3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL_1_3_14_16.txt"
+}else{
+line1_3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL_1_3_14_16.txt"
+}
+out_SL1_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_3_14_16"],table_name=line1_3_table,lfc_min = 0)
+
+if (use_males){
+line1_3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_M_SL_1_3_18_16.txt"
+}else{
+line1_3_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_F_SL_1_3_18_16.txt"
+}
+out_SL1_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_1_3_18_16"],table_name=line1_3_table,lfc_min = 0)
+
+```
+
+## Developmental sex differences (split by line)
 
 I will see if there are sex differences in the different developmental stages within each line. Specify which line first.
 
@@ -462,47 +385,23 @@ levels=MM)
 
 if (use_SL1){
 d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day14_F-M.txt"
-d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL1_d14.png"
-d14_smear_title <- "SL1 samples day 14"
 }else{
 d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day14_F-M.txt"
-d14_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d14.png"
-d14_smear_title <- "SL3 samples day 14"
 }
-out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,smear_name=d14_smear_name,smear_ylab="logFC F-M",smear_title=d14_smear_title, lfc_min = 0)
-qlf14 <- out_14["qlf"]
-de14 <- out_14["de"]
-detags14 <- out_14["detags"]
-Tags14 <- out_14["Tags"]
+out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14"],table_name=d14_table,lfc_min = 0)
 
 if (use_SL1){
 d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day16_F-M.txt"
-d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL1_d16.png"
-d16_smear_title <- "SL1 samples day 16"
 }else{
 d16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day16_F-M.txt"
-d16_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d16.png"
-d16_smear_title <- "SL3 samples day 16"
 }
-out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,smear_name=d16_smear_name,smear_ylab="logFC F-M",smear_title=d16_smear_title, lfc_min = 0)
-qlf16 <- out_16["qlf"]
-de16 <- out_16["de"]
-detags16 <- out_16["detags"]
-Tags16 <- out_16["Tags"]
+out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16"],table_name=d16_table,lfc_min = 0)
 
 if (use_SL1){
 d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day18_F-M.txt"
-d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL1_d18.png"
-d18_smear_title <- "SL1 samples day 18"
 }else{
 d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day18_F-M.txt"
-d18_smear_name <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures/smear_SL3_d18.png"
-d18_smear_title <- "SL3 samples day 18"
 }
-out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,smear_name=d18_smear_name,smear_ylab="logFC F-M",smear_title=d18_smear_title, lfc_min = 0)
-qlf18 <- out_18["qlf"]
-de18 <- out_18["de"]
-detags18 <- out_18["detags"]
-Tags18 <- out_18["Tags"]
+out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,lfc_min = 0)
 ```
 

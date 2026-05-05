@@ -199,7 +199,7 @@ def get_y_information(username = "milena"):
 
 if __name__ == "__main__":
     
-    username = "milena"
+    username = "miltr339"
     count_files = get_counts_paths(username=username)
     ex_chromosomes,y_contigs,x_contigs = get_y_information(username=username)
     out_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis"
