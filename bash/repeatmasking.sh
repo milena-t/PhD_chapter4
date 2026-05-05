@@ -60,8 +60,6 @@ else
 fi
 
 
-
-
 ### combine repeatmodeler library and custom curated library from the Zooeco people
 # cat $CMAC_CURATED_REPEATS "$LIBRARIES_DIR/A_obt_repeats-families.fa" > $LIBRARIES_COMBINED
 
