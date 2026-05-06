@@ -1194,3 +1194,36 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/smear_day18_F-M_by_1-3_volcano.png" width="32%" />
 </p>
 </div>
+
+
+
+
+#### Overlap of DE scatterplots
+
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_scatter')">Day 14</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_scatter')">Day 16</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_scatter')">Day 18</button>
+</div>
+
+<div id="day14_scatter" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/LFC_scatter_day14_line_bias_by_sex.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_day14_sex_bias_by_line.png" width="32%" />
+</p>
+</div>
+
+<div id="day16_scatter" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/LFC_scatter_day16_line_bias_by_sex.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_day16_sex_bias_by_line.png" width="32%" />
+</p>
+</div>
+
+<div id="day18_scatter" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/LFC_scatter_day18_line_bias_by_sex.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_day18_sex_bias_by_line.png" width="32%" />
+</p>
+</div>
