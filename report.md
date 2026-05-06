@@ -1146,7 +1146,7 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 
 #### Interaction sex-bias by line-bias
 
-`(F_1 - M_1) - (F_3 - M_3)`: Female-biased in one line and male-biased in the other
+`(F_1 - M_1) - (F_3 - M_3)`: Female-biased in one line and male-biased in the other. Also plot a scatter of the genes significant in the interaction in the same scatter plot as above if they are significant.
 
 <span style="color:#BD351E;"><b>QUESTION: </b></span>What woud the biological interpretation of this be? Does it still make sense even though `F1-F3` should be 0 in all cases?
 
@@ -1162,6 +1162,8 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 <div id="day14_interaction_smear" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/smear_day14_F-M_by_1-3.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day14_line_bias.png" width="25%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day14_sex_bias.png" width="25%" />  
 </p>
 
 <details>
@@ -1186,12 +1188,16 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 <div id="day14_interaction_volcano" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/smear_day14_F-M_by_1-3_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day14_line_bias.png" width="25%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day14_sex_bias.png" width="25%" />
 </p>
 </div>
 
 <div id="day16_interaction_smear" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/smear_day16_F-M_by_1-3.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day16_line_bias.png" width="25%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day16_sex_bias.png" width="25%" />  
 </p>
 
 <details>
@@ -1216,12 +1222,16 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 <div id="day16_interaction_volcano" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/smear_day16_F-M_by_1-3_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day16_line_bias.png" width="25%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day16_sex_bias.png" width="25%" />
 </p>
 </div>
 
 <div id="day18_interaction_smear" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_F-M_by_1-3.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day18_line_bias.png" width="25%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day18_sex_bias.png" width="25%" />  
 </p>
 
 <details>
@@ -1246,6 +1256,8 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 <div id="day18_interaction_volcano" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_F-M_by_1-3_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day18_line_bias.png" width="25%" />
+  <img src="data/DE_figures_python/LFC_scatter_interaction_day18_sex_bias.png" width="25%" />
 </p>
 </div>
 
