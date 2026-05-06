@@ -1293,3 +1293,24 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/LFC_scatter_day18_sex_bias_by_line.png" width="32%" />
 </p>
 </div>
+
+## 4. Y expression quantification
+
+The median expression of X and Y linked genes in all samples with 95% standard error
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'y_median')">only Y</button>
+  <button class="tablinks" onclick="openTab(event, 'x_and_y_median')">Y and X</button>
+</div>
+
+<div id="y_median" class="tabcontent">
+<p float="left">
+  <img src="data/yTor_analysis/y_genes_mean_expression.png" width="75%" />
+</p>
+</div>
+
+<div id="x_and_y_median" class="tabcontent">
+<p float="left">
+  <img src="data/yTor_analysis/y_x_genes_mean_expression.png" width="75%" />
+</p>
+</div>

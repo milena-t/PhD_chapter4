@@ -169,7 +169,7 @@ def get_counts_paths(username = "milena"):
     }
     return counts_paths
 
-def get_y_information(username = "milena"):
+def get_y_information():
     sex_chromosomes_superscaffolded = { 
         "X" : ['scaffold_10','scaffold_14','scaffold_23','scaffold_31','scaffold_34','scaffold_83'],
         "Y" : ['scaffold_26','scaffold_48','scaffold_103','scaffold_112','scaffold_164']}

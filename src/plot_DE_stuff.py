@@ -302,10 +302,11 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
             full_size = df.shape[0]
             print(f"\t{table_title} : only including {len(incl_geneIDs)} from {full_size}")
             df = df[df["Gene"].isin(incl_geneIDs)]
-
-        tables_df_all[table_title] = df
-
+            # if including only a subset of genes don't filter for only significant ones, include everything
+        
         df_sig = df.loc[df['FDR'] < p_sig]
+        tables_df_all[table_title] = df
+        
         if min_LFC>0:
             df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
         
@@ -331,9 +332,15 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     sig_colors = ["#BD351E","#EA882C"] # red , orange
     colors_dict = {table_title : sig_colors[i] for i,table_title in enumerate(tables_dict.keys())}
     colors_dict["shared"] = "#3C7FA7" # blue
+    colors_dict["nonsig"] = "#4B3B47" # mauve shadow
 
-    excl_counter = { cat : 0 for cat in [table_a,table_b,"shared"]}
-    for cat in [table_a,table_b,"shared"]:
+    if len(incl_geneIDs) == 0:
+        excl_counter = { cat : 0 for cat in [table_a,table_b,"shared"]}
+    else:
+        excl_counter = { cat : 0 for cat in ["nonsig",table_a,table_b,"shared"]}
+        all_sig = lists['shared']+lists[table_a]+lists[table_b]
+        lists["nonsig"] = [geneID for geneID in incl_geneIDs if geneID not in all_sig]
+    for cat in excl_counter.keys():
         for geneID in lists[cat]:
             try:
                 x = tables_df_all[table_a].loc[geneID,"logFC"]
@@ -378,7 +385,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     ax.vlines(x=0, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor, linestyle = ":", color="#2F3E1D",zorder=0)
     
     ## make legend points
-    for cat in [table_a,table_b,"shared"]:
+    for cat in reversed(list(excl_counter.keys())):
         ax.scatter(1000,1000,color = colors_dict[cat], s=ps, alpha = 0.75, label = cat)
     
     if excl_geneIDs != []:
@@ -407,7 +414,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
 
 if __name__ == "__main__":
 
-    username = "miltr339"
+    username = "milena"
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
     
