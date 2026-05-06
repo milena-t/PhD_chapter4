@@ -1108,10 +1108,7 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 </table>
 </div>
 <h4 id="interaction-of-sex-by-day-effects">interaction of sex by day effects</h4>
-<p style="color: #BD351E">
-<b>QUESTION</b>
-</p>
-<p>What kind of interaction is sensible here? This is the only one I could come up with: <code>(F_18-M_18)-(F_14-M_14)</code> so the interaction highlights genes that are female biased in one time point and then male biased in the other.</p>
+<p><span style="color:#BD351E;"><b>QUESTION: </b></span>What kind of interaction is sensible here? This is the only one I could come up with: <code>(F_18-M_18)-(F_14-M_14)</code> so the interaction highlights genes that are female biased in one time point and then male biased in the other.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_interaction_smear')">SL1 (Smear plot)</button>
   <button class="tablinks" onclick="openTab(event, 'SL3_interaction_smear')">SL3 (Smear plot)</button>
@@ -1272,72 +1269,135 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 </div>
 <h3 id="35-de-analysis-of-sex-bias-in-lines">3.5 DE analysis of sex bias in lines</h3>
 <p>Data is split by day</p>
+<h4 id="differential-expression-between-males-and-females-1">Differential expression between males and females</h4>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'day14_smear')">Day 14 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day14_volcano')">Day 14 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_smear')">Day 16 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_volcano')">Day 16 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_smear')">Day 18 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_volcano')">Day 18 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_FM_smear')">Day 14 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_FM_volcano')">Day 14 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_FM_smear')">Day 16 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_FM_volcano')">Day 16 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_FM_smear')">Day 18 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_FM_volcano')">Day 18 (Volcano plot)</button>
 </div>
-<div id="day14_smear" class="tabcontent">
+<div id="day14_FM_smear" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_SL1_F-M.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_SL3_F-M.png" width="32%" />
 </p>
+</div>
+<div id="day14_FM_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_SL1_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_SL3_F-M_volcano.png" width="32%" />
+</p>
+</div>
+<div id="day16_FM_smear" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_SL1_F-M.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_SL3_F-M.png" width="32%" />
+</p>
+</div>
+<div id="day16_FM_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_SL1_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_SL3_F-M_volcano.png" width="32%" />
+</p>
+</div>
+<div id="day18_FM_smear" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_SL1_F-M.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_SL3_F-M.png" width="32%" />
+</p>
+</div>
+<div id="day18_FM_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_SL1_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
+</p>
+</div>
+<h4 id="differential-expression-between-sl1-and-sl3-1">Differential expression between SL1 and SL3</h4>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_smear')">Day 14 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_volcano')">Day 14 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_SL1-3_smear')">Day 16 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_SL1-3_volcano')">Day 16 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_SL1-3_smear')">Day 18 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_SL1-3_volcano')">Day 18 (Volcano plot)</button>
+</div>
+<div id="day14_SL1-3_smear" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_F_1-3.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_M_1-3.png" width="32%" />
 </p>
 </div>
-<div id="day14_volcano" class="tabcontent">
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_SL1_F-M_volcano.png" width="32%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_SL3_F-M_volcano.png" width="32%" />
-</p>
+<div id="day14_SL1-3_volcano" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_F_1-3_volcano.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_M_1-3_volcano.png" width="32%" />
 </p>
 </div>
-<div id="day16_smear" class="tabcontent">
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_SL1_F-M.png" width="32%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_SL3_F-M.png" width="32%" />
-</p>
+<div id="day16_SL1-3_smear" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_F_1-3.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_M_1-3.png" width="32%" />
 </p>
 </div>
-<div id="day16_volcano" class="tabcontent">
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_SL1_F-M_volcano.png" width="32%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_SL3_F-M_volcano.png" width="32%" />
-</p>
+<div id="day16_SL1-3_volcano" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_F_1-3_volcano.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_M_1-3_volcano.png" width="32%" />
 </p>
 </div>
-<div id="day18_smear" class="tabcontent">
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_SL1_F-M.png" width="32%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_SL3_F-M.png" width="32%" />
-</p>
+<div id="day18_SL1-3_smear" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_F_1-3.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_M_1-3.png" width="32%" />
 </p>
 </div>
-<div id="day18_volcano" class="tabcontent">
-<p float="left">
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_SL1_F-M_volcano.png" width="32%" />
-  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
-</p>
+<div id="day18_SL1-3_volcano" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_F_1-3_volcano.png" width="32%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_M_1-3_volcano.png" width="32%" />
+</p>
+</div>
+<h4 id="interaction-sex-bias-by-line-bias">Interaction sex-bias by line-bias</h4>
+<p><code>(F_1 - M_1) - (F_3 - M_3)</code>: Female-biased in one line and male-biased in the other</p>
+<p><span style="color:#BD351E;"><b>QUESTION: </b></span>Unsure if this interaction makes sense?</p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_interaction_smear')">Day 14 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_interaction_volcano')">Day 14 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_interaction_smear')">Day 16 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_interaction_volcano')">Day 16 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_interaction_smear')">Day 18 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_interaction_volcano')">Day 18 (Volcano plot)</button>
+</div>
+<div id="day14_interaction_smear" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_F-M_by_1-3.png" width="32%" />
+</p>
+</div>
+<div id="day14_interaction_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day14_F-M_by_1-3_volcano.png" width="32%" />
+</p>
+</div>
+<div id="day16_interaction_smear" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_F-M_by_1-3.png" width="32%" />
+</p>
+</div>
+<div id="day16_interaction_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day16_F-M_by_1-3_volcano.png" width="32%" />
+</p>
+</div>
+<div id="day18_interaction_smear" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_F-M_by_1-3.png" width="32%" />
+</p>
+</div>
+<div id="day18_interaction_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_day18_F-M_by_1-3_volcano.png" width="32%" />
 </p>
 </div>
 

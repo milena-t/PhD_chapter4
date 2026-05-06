@@ -863,12 +863,7 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 #### interaction of sex by day effects
 
-
-<p style="color: #BD351E">
-<b>QUESTION</b>
-</p>
-
-What kind of interaction is sensible here? This is the only one I could come up with: `(F_18-M_18)-(F_14-M_14)` so the interaction highlights genes that are female biased in one time point and then male biased in the other. 
+<span style="color:#BD351E;"><b>QUESTION: </b></span>What kind of interaction is sensible here? This is the only one I could come up with: `(F_18-M_18)-(F_14-M_14)` so the interaction highlights genes that are female biased in one time point and then male biased in the other. 
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_interaction_smear')">SL1 (Smear plot)</button>
@@ -956,21 +951,86 @@ What kind of interaction is sensible here? This is the only one I could come up 
 
 Data is split by day
 
+#### Differential expression between males and females
+
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'day14_smear')">Day 14 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day14_volcano')">Day 14 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_smear')">Day 16 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_volcano')">Day 16 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_smear')">Day 18 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_volcano')">Day 18 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_FM_smear')">Day 14 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_FM_volcano')">Day 14 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_FM_smear')">Day 16 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_FM_volcano')">Day 16 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_FM_smear')">Day 18 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_FM_volcano')">Day 18 (Volcano plot)</button>
 </div>
 
-<div id="day14_smear" class="tabcontent">
+<div id="day14_FM_smear" class="tabcontent">
 
 <p float="left">
   <img src="data/DE_figures_python/smear_day14_SL1_F-M.png" width="32%" />
   <img src="data/DE_figures_python/smear_day14_SL3_F-M.png" width="32%" />
 </p>
+
+</div>
+
+<div id="day14_FM_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day14_SL1_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day14_SL3_F-M_volcano.png" width="32%" />
+</p>
+
+</div>
+
+<div id="day16_FM_smear" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day16_SL1_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day16_SL3_F-M.png" width="32%" />
+</p>
+
+</div>
+
+<div id="day16_FM_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day16_SL1_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day16_SL3_F-M_volcano.png" width="32%" />
+</p>
+
+</div>
+
+<div id="day18_FM_smear" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day18_SL1_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day18_SL3_F-M.png" width="32%" />
+</p>
+
+</div>
+
+<div id="day18_FM_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day18_SL1_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
+</p>
+
+</div>
+
+
+
+#### Differential expression between SL1 and SL3
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_smear')">Day 14 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_volcano')">Day 14 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_SL1-3_smear')">Day 16 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_SL1-3_volcano')">Day 16 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_SL1-3_smear')">Day 18 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_SL1-3_volcano')">Day 18 (Volcano plot)</button>
+</div>
+
+<div id="day14_SL1-3_smear" class="tabcontent">
+
 <p float="left">
   <img src="data/DE_figures_python/smear_day14_F_1-3.png" width="32%" />
   <img src="data/DE_figures_python/smear_day14_M_1-3.png" width="32%" />
@@ -978,12 +1038,8 @@ Data is split by day
 
 </div>
 
-<div id="day14_volcano" class="tabcontent">
+<div id="day14_SL1-3_volcano" class="tabcontent">
 
-<p float="left">
-  <img src="data/DE_figures_python/smear_day14_SL1_F-M_volcano.png" width="32%" />
-  <img src="data/DE_figures_python/smear_day14_SL3_F-M_volcano.png" width="32%" />
-</p>
 <p float="left">
   <img src="data/DE_figures_python/smear_day14_F_1-3_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day14_M_1-3_volcano.png" width="32%" />
@@ -991,12 +1047,8 @@ Data is split by day
 
 </div>
 
-<div id="day16_smear" class="tabcontent">
+<div id="day16_SL1-3_smear" class="tabcontent">
 
-<p float="left">
-  <img src="data/DE_figures_python/smear_day16_SL1_F-M.png" width="32%" />
-  <img src="data/DE_figures_python/smear_day16_SL3_F-M.png" width="32%" />
-</p>
 <p float="left">
   <img src="data/DE_figures_python/smear_day16_F_1-3.png" width="32%" />
   <img src="data/DE_figures_python/smear_day16_M_1-3.png" width="32%" />
@@ -1004,12 +1056,8 @@ Data is split by day
 
 </div>
 
-<div id="day16_volcano" class="tabcontent">
+<div id="day16_SL1-3_volcano" class="tabcontent">
 
-<p float="left">
-  <img src="data/DE_figures_python/smear_day16_SL1_F-M_volcano.png" width="32%" />
-  <img src="data/DE_figures_python/smear_day16_SL3_F-M_volcano.png" width="32%" />
-</p>
 <p float="left">
   <img src="data/DE_figures_python/smear_day16_F_1-3_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day16_M_1-3_volcano.png" width="32%" />
@@ -1017,12 +1065,8 @@ Data is split by day
 
 </div>
 
-<div id="day18_smear" class="tabcontent">
+<div id="day18_SL1-3_smear" class="tabcontent">
 
-<p float="left">
-  <img src="data/DE_figures_python/smear_day18_SL1_F-M.png" width="32%" />
-  <img src="data/DE_figures_python/smear_day18_SL3_F-M.png" width="32%" />
-</p>
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_F_1-3.png" width="32%" />
   <img src="data/DE_figures_python/smear_day18_M_1-3.png" width="32%" />
@@ -1030,15 +1074,63 @@ Data is split by day
 
 </div>
 
-<div id="day18_volcano" class="tabcontent">
+<div id="day18_SL1-3_volcano" class="tabcontent">
 
-<p float="left">
-  <img src="data/DE_figures_python/smear_day18_SL1_F-M_volcano.png" width="32%" />
-  <img src="data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
-</p>
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_F_1-3_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day18_M_1-3_volcano.png" width="32%" />
 </p>
 
+</div>
+
+
+#### Interaction sex-bias by line-bias
+
+`(F_1 - M_1) - (F_3 - M_3)`: Female-biased in one line and male-biased in the other
+
+<span style="color:#BD351E;"><b>QUESTION: </b></span>Unsure if this interaction makes sense?
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_interaction_smear')">Day 14 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_interaction_volcano')">Day 14 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_interaction_smear')">Day 16 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_interaction_volcano')">Day 16 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_interaction_smear')">Day 18 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_interaction_volcano')">Day 18 (Volcano plot)</button>
+</div>
+
+<div id="day14_interaction_smear" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/smear_day14_F-M_by_1-3.png" width="32%" />
+</p>
+</div>
+
+<div id="day14_interaction_volcano" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/smear_day14_F-M_by_1-3_volcano.png" width="32%" />
+</p>
+</div>
+
+<div id="day16_interaction_smear" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/smear_day16_F-M_by_1-3.png" width="32%" />
+</p>
+</div>
+
+<div id="day16_interaction_volcano" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/smear_day16_F-M_by_1-3_volcano.png" width="32%" />
+</p>
+</div>
+
+<div id="day18_interaction_smear" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/smear_day18_F-M_by_1-3.png" width="32%" />
+</p>
+</div>
+
+<div id="day18_interaction_volcano" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/smear_day18_F-M_by_1-3_volcano.png" width="32%" />
+</p>
 </div>
