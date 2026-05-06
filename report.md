@@ -724,7 +724,7 @@ Only difference between day 14 and 18, no other developmental cues? Do only the 
 
 
 
-### 3.4 DE analysis sex differences during development
+### 3.4 DE analysis of line-separated samples
 
 I will now split the data by line to see sex differences in expression during the development stages. 
 
@@ -947,9 +947,9 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 </div>
 
-### 3.5 DE analysis of sex bias in lines
+### 3.5 DE analysis of day-separated samples
 
-Data is split by day
+Analyze line and sex differences.
 
 #### Differential expression between males and females
 
@@ -967,6 +967,7 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day14_SL1_F-M.png" width="32%" />
   <img src="data/DE_figures_python/smear_day14_SL3_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day14_sex_bias_by_line.png" width="25%" />
 </p>
 
 </div>
@@ -976,6 +977,7 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day14_SL1_F-M_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day14_SL3_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day14_sex_bias_by_line.png" width="25%" />
 </p>
 
 </div>
@@ -985,6 +987,7 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day16_SL1_F-M.png" width="32%" />
   <img src="data/DE_figures_python/smear_day16_SL3_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="25%" />
 </p>
 
 </div>
@@ -994,6 +997,7 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day16_SL1_F-M_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day16_SL3_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="25%" />
 </p>
 
 </div>
@@ -1003,6 +1007,7 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_SL1_F-M.png" width="32%" />
   <img src="data/DE_figures_python/smear_day18_SL3_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="25%" />
 </p>
 
 </div>
@@ -1012,6 +1017,7 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_SL1_F-M_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="25%" />
 </p>
 
 </div>
@@ -1019,6 +1025,8 @@ Data is split by day
 
 
 #### Differential expression between SL1 and SL3
+
+In Females, there should ideally be no line bias
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_smear')">Day 14 (Smear plot)</button>
@@ -1034,6 +1042,7 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day14_F_1-3.png" width="32%" />
   <img src="data/DE_figures_python/smear_day14_M_1-3.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day14_line_bias_by_sex.png" width="25%" />
 </p>
 
 </div>
@@ -1043,6 +1052,7 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day14_F_1-3_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day14_M_1-3_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day14_line_bias_by_sex.png" width="25%" />
 </p>
 
 </div>
@@ -1052,6 +1062,8 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day16_F_1-3.png" width="32%" />
   <img src="data/DE_figures_python/smear_day16_M_1-3.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day16_line_bias_by_sex.png" width="25%" />
+  
 </p>
 
 </div>
@@ -1061,6 +1073,8 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day16_F_1-3_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day16_M_1-3_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day16_line_bias_by_sex.png" width="25%" />
+  
 </p>
 
 </div>
@@ -1070,6 +1084,8 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_F_1-3.png" width="32%" />
   <img src="data/DE_figures_python/smear_day18_M_1-3.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day18_line_bias_by_sex.png" width="25%" />
+  
 </p>
 
 </div>
@@ -1079,6 +1095,8 @@ Data is split by day
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_F_1-3_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day18_M_1-3_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/Venn_day18_line_bias_by_sex.png" width="25%" />
+  
 </p>
 
 </div>
@@ -1088,7 +1106,7 @@ Data is split by day
 
 `(F_1 - M_1) - (F_3 - M_3)`: Female-biased in one line and male-biased in the other
 
-<span style="color:#BD351E;"><b>QUESTION: </b></span>Unsure if this interaction makes sense?
+<span style="color:#BD351E;"><b>QUESTION: </b></span>What woud the biological interpretation of this be?
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_interaction_smear')">Day 14 (Smear plot)</button>

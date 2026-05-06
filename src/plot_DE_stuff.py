@@ -283,7 +283,6 @@ def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filenam
             return None
 
 
-
 def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs =[]):
     """ 
     plot a scatterplot of sig. DE genes with LFC values
@@ -415,7 +414,7 @@ if __name__ == "__main__":
     ############################################
     ######### MAKE ALL THE SMEAR PLOTS #########
     ############################################
-    if True:
+    if False:
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
             lists = {}
@@ -456,7 +455,7 @@ if __name__ == "__main__":
     ############################################
     
     ## standard sets matching the tabs in the html
-    if False:
+    if True:
         venn_sets = {
             "sex_separated" : {
                 "females" : {
@@ -471,10 +470,28 @@ if __name__ == "__main__":
             "line_separated" : {
                 "SL1" : {"age by sex bias" : ["F_14 - M_14","F_16 - M_16","F_18 - M_18"]},
                 "SL3" : {"age by sex bias" : ["F_14 - M_14","F_16 - M_16","F_18 - M_18"]}
+            },
+            "day_separated" : {
+                "day14" : {
+                    "sex bias by line" : ["F_1 - M_1","F_3 - M_3"],
+                    "line bias by sex" : ["F_1 - F_3","M_1 - M_3"],
+                },
+                "day16" : {
+                    "sex bias by line" : ["F_1 - M_1","F_3 - M_3"],
+                    "line bias by sex" : ["F_1 - F_3","M_1 - M_3"],
+                    },
+                "day18" : {
+                    "sex bias by line" : ["F_1 - M_1","F_3 - M_3"],
+                    "line bias by sex" : ["F_1 - F_3","M_1 - M_3"],
+                    },
             }
         }
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
+
+            if "day" not in separation:
+                continue
+
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
