@@ -415,7 +415,7 @@ if __name__ == "__main__":
             },
         "day_separated" : {
             "day14" : ['gene-327441', 'gene-241001', 'gene-403652', 'gene-403851', 'gene-224860', 'gene-218086', 'gene-390956', 'gene-224682', 'gene-240910', 'gene-81551', 'gene-392224', 'gene-240983', 'gene-326825', 'gene-222519', 'gene-237881', 'gene-224968', 'gene-220544', 'gene-226245', 'gene-391198', 'gene-403818', 'gene-239553', 'gene-90157', 'gene-84970', 'gene-219019', 'gene-407253', 'gene-224845', 'gene-81640', 'gene-222383', 'gene-220249', 'gene-430080', 'gene-430044', 'gene-391222', 'gene-222365', 'gene-240833', 'gene-428765', 'gene-240691', 'gene-80359', 'gene-392248', 'gene-390678', 'gene-225629', 'gene-120952', 'gene-428756', 'gene-224956', 'gene-403809', 'gene-224227', 'gene-240935', 'gene-225720', 'gene-225140', 'gene-224614', 'gene-224357', 'gene-392159', 'gene-222531', 'gene-225325', 'gene-117712', 'gene-84949', 'gene-222344', 'gene-406796', 'gene-240929', 'gene-392290', 'gene-81599', 'gene-225107', 'gene-231925', 'gene-214979', 'gene-220028', 'gene-260693', 'gene-224277', 'gene-224250', 'gene-224782', 'gene-390616', 'gene-224593', 'gene-322912', 'gene-431701', 'gene-80466', 'gene-403706', 'gene-323148', 'gene-323803', 'gene-283443', 'gene-326909', 'gene-225173', 'gene-243308', 'gene-430068', 'gene-222430', 'gene-240871', 'gene-237318', 'gene-224697', 'gene-222332', 'gene-241126', 'gene-89234', 'gene-406468', 'gene-328764', 'gene-326810', 'gene-88715', 'gene-222486', 'gene-224743', 'gene-221953', 'gene-225635', 'gene-222501', 'gene-428738', 'gene-430032', 'gene-241108', 'gene-81572', 'gene-392186', 'gene-222555', 'gene-81427', 'gene-225738', 'gene-403700', 'gene-234575', 'gene-240623', 'gene-222350', 'gene-395080', 'gene-225236', 'gene-224201', 'gene-241055', 'gene-225709', 'gene-326873', 'gene-326849', 'gene-322927', 'gene-80484', 'gene-395143', 'gene-225030', 'gene-222600', 'gene-224875', 'gene-390637', 'gene-224307', 'gene-403583', 'gene-224896', 'gene-430263', 'gene-428747', 'gene-430314', 'gene-403902'],
-            "day16" : ['gene-327441', 'gene-241001', 'gene-403652', 'gene-403851', 'gene-224860', 'gene-218086', 'gene-390956', 'gene-224682', 'gene-240910', 'gene-81551', 'gene-392224', 'gene-240983', 'gene-326825', 'gene-222519', 'gene-237881', 'gene-224968', 'gene-220544', 'gene-226245', 'gene-391198', 'gene-403818', 'gene-239553', 'gene-90157', 'gene-84970', 'gene-219019', 'gene-407253', 'gene-224845', 'gene-81640', 'gene-222383', 'gene-220249', 'gene-430080', 'gene-430044', 'gene-391222', 'gene-222365', 'gene-240833', 'gene-428765', 'gene-240691', 'gene-80359', 'gene-392248', 'gene-390678', 'gene-225629', 'gene-120952', 'gene-428756', 'gene-224956', 'gene-403809', 'gene-224227', 'gene-240935', 'gene-225720', 'gene-225140', 'gene-224614', 'gene-224357', 'gene-392159', 'gene-222531', 'gene-225325', 'gene-117712', 'gene-84949', 'gene-222344', 'gene-406796', 'gene-240929', 'gene-392290', 'gene-81599', 'gene-225107', 'gene-231925', 'gene-214979', 'gene-220028', 'gene-260693', 'gene-224277', 'gene-224250', 'gene-224782', 'gene-390616', 'gene-224593', 'gene-322912', 'gene-431701', 'gene-80466', 'gene-403706', 'gene-323148', 'gene-323803', 'gene-283443', 'gene-326909', 'gene-225173', 'gene-243308', 'gene-430068', 'gene-222430', 'gene-240871', 'gene-237318', 'gene-224697', 'gene-222332', 'gene-241126', 'gene-89234', 'gene-406468', 'gene-328764', 'gene-326810', 'gene-88715', 'gene-222486', 'gene-224743', 'gene-221953', 'gene-225635', 'gene-222501', 'gene-428738', 'gene-430032', 'gene-241108', 'gene-81572', 'gene-392186', 'gene-222555', 'gene-81427', 'gene-225738', 'gene-403700', 'gene-234575', 'gene-240623', 'gene-222350', 'gene-395080', 'gene-225236', 'gene-224201', 'gene-241055', 'gene-225709', 'gene-326873', 'gene-326849', 'gene-322927', 'gene-80484', 'gene-395143', 'gene-225030', 'gene-222600', 'gene-224875', 'gene-390637', 'gene-224307', 'gene-403583', 'gene-224896', 'gene-430263', 'gene-428747', 'gene-430314', 'gene-403902'],
+            "day16" : ['gene-241001', 'gene-282746', 'gene-224860', 'gene-227308', 'gene-390956', 'gene-224682', 'gene-240910', 'gene-399475', 'gene-240983', 'gene-222519', 'gene-282458', 'gene-237881', 'gene-224968', 'gene-220544', 'gene-226245', 'gene-240860', 'gene-391198', 'gene-282524', 'gene-403818', 'gene-90157', 'gene-84970', 'gene-224845', 'gene-81640', 'gene-222383', 'gene-220249', 'gene-430080', 'gene-430044', 'gene-391222', 'gene-222365', 'gene-240833', 'gene-428765', 'gene-240691', 'gene-80359', 'gene-390678', 'gene-225629', 'gene-238849', 'gene-282620', 'gene-120952', 'gene-428756', 'gene-224956', 'gene-403809', 'gene-282853', 'gene-224227', 'gene-225720', 'gene-225140', 'gene-238407', 'gene-239506', 'gene-224357', 'gene-222531', 'gene-241682', 'gene-225325', 'gene-84949', 'gene-222344', 'gene-406796', 'gene-240929', 'gene-282551', 'gene-240638', 'gene-392290', 'gene-225158', 'gene-225107', 'gene-220028', 'gene-260693', 'gene-224277', 'gene-224782', 'gene-390616', 'gene-224593', 'gene-322912', 'gene-431701', 'gene-428113', 'gene-380466', 'gene-323148', 'gene-323803', 'gene-282665', 'gene-326909', 'gene-428104', 'gene-225173', 'gene-227370', 'gene-399317', 'gene-224890', 'gene-282347', 'gene-282784', 'gene-430068', 'gene-282491', 'gene-400393', 'gene-222430', 'gene-399484', 'gene-240871', 'gene-224697', 'gene-222332', 'gene-241126', 'gene-89234', 'gene-399424', 'gene-282362', 'g14784', 'gene-223491', 'gene-400384', 'gene-222486', 'gene-224743', 'gene-243299', 'gene-221953', 'gene-225635', 'gene-222501', 'gene-428738', 'gene-400402', 'gene-430032', 'gene-241108', 'gene-282398', 'gene-81572', 'gene-392186', 'gene-222555', 'gene-81427', 'gene-225738', 'gene-282701', 'gene-282886', 'gene-240623', 'gene-222159', 'gene-222350', 'gene-395080', 'gene-225236', 'gene-224201', 'gene-241055', 'gene-286545', 'gene-225709', 'gene-431030', 'gene-326849', 'gene-322927', 'gene-395143', 'gene-225030', 'gene-222600', 'gene-224875', 'gene-223773', 'gene-390637', 'gene-224307', 'gene-231854', 'gene-224896', 'gene-430263', 'gene-428747', 'gene-399270', 'gene-241262', 'gene-430314', 'gene-242512', 'gene-282590'],
             "day18" : [],
             },
     }
@@ -623,7 +623,7 @@ if __name__ == "__main__":
     ######## MAKE ALL THE SB COMPARISONS #######
     ############################################
 
-    if False:
+    if True:
         LFC_comp_sets = {
             "sex_separated" : {
                 "females" : {
@@ -650,6 +650,20 @@ if __name__ == "__main__":
                     "day 14 vs. day 18 sex bias" : ["F_14 - M_14","F_18 - M_18"],
                     "day 16 vs. day 18 sex bias" : ["F_16 - M_16","F_18 - M_18"],
                 }
+            },
+            "day_separated" : {
+                "day14" : {
+                    "sex bias by line" : ["F_1 - M_1","F_3 - M_3"],
+                    "line bias by sex" : ["F_1 - F_3","M_1 - M_3"],
+                },
+                "day16" : {
+                    "sex bias by line" : ["F_1 - M_1","F_3 - M_3"],
+                    "line bias by sex" : ["F_1 - F_3","M_1 - M_3"],
+                    },
+                "day18" : {
+                    "sex bias by line" : ["F_1 - M_1","F_3 - M_3"],
+                    "line bias by sex" : ["F_1 - F_3","M_1 - M_3"],
+                    },
             }
         }
 
@@ -663,11 +677,13 @@ if __name__ == "__main__":
             # make unique
             return list(set(excl_list))
 
-
             
 
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
+
+            if "day" not in separation:
+                continue
 
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
@@ -678,7 +694,11 @@ if __name__ == "__main__":
                     LFC_filename = f"{out_path_figs}/LFC_scatter_{category}_{LFC_filename_}.png"
 
                     LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in LFC_contrasts_list}
-                    excl_geneIDs = get_excl_genes_list(contrasts = LFC_contrasts_list, contrast_plot_titles=contrast_plot_titles, excl_line_bias_lists=excl_line_bias_lists)
+                    excl_line_bias = excl_line_bias_lists[separation]
+                    if "day" not in separation:
+                        excl_geneIDs = get_excl_genes_list(contrasts = LFC_contrasts_list, contrast_plot_titles=contrast_plot_titles, excl_line_bias_lists=excl_line_bias)
+                    else:
+                        excl_geneIDs = excl_line_bias[category]
                     
                     if separation == "line_separated":
                         # when looking at sex bias explicitly (within each line) it makes no sense to exclude genes based on shared sex-bias
