@@ -69,6 +69,29 @@ def get_tables(username = "miltr339"):
                 "(F_18 - M_18) - (F_14 - M_14)" : f"{tables_dir}DE_genes_SL3_day18_14_F-M.txt",
                 "(F_18 - M_18) - (F_16 - M_16)" : f"{tables_dir}DE_genes_SL3_day18_16_F-M.txt",
             }
+        },
+        "day_separated" : {
+            "day14" : {
+                "F_1 - M_1" : f"{tables_dir}DE_genes_day14_SL1_F-M.txt",
+                "F_3 - M_3" : f"{tables_dir}DE_genes_day14_SL3_F-M.txt",
+                "F_1 - F_3" : f"{tables_dir}DE_genes_day14_F_1-3.txt",
+                "M_1 - M_3" : f"{tables_dir}DE_genes_day14_M_1-3.txt",
+                "(F_1 - M_1) - (F_3 - M_3)" : f"{tables_dir}DE_genes_day14_F-M_by_1-3.txt",
+            },
+            "day16" : {
+                "F_1 - M_1" : f"{tables_dir}DE_genes_day16_SL1_F-M.txt",
+                "F_3 - M_3" : f"{tables_dir}DE_genes_day16_SL3_F-M.txt",
+                "F_1 - F_3" : f"{tables_dir}DE_genes_day16_F_1-3.txt",
+                "M_1 - M_3" : f"{tables_dir}DE_genes_day16_M_1-3.txt",
+                "(F_1 - M_1) - (F_3 - M_3)" : f"{tables_dir}DE_genes_day16_F-M_by_1-3.txt",
+            },
+            "day18" : {
+                "F_1 - M_1" : f"{tables_dir}DE_genes_day18_SL1_F-M.txt",
+                "F_3 - M_3" : f"{tables_dir}DE_genes_day18_SL3_F-M.txt",
+                "F_1 - F_3" : f"{tables_dir}DE_genes_day18_F_1-3.txt",
+                "M_1 - M_3" : f"{tables_dir}DE_genes_day18_M_1-3.txt",
+                "(F_1 - M_1) - (F_3 - M_3)" : f"{tables_dir}DE_genes_day18_F-M_by_1-3.txt",
+            },
         }
     }
 
@@ -93,6 +116,11 @@ def get_tables(username = "miltr339"):
         "(F_14 - M_14) - (F_16 - M_16)" : f"F-M by day 14-16",
         "(F_18 - M_18) - (F_14 - M_14)" : f"F-M by day 18-14",
         "(F_18 - M_18) - (F_16 - M_16)" : f"F-M by day 18-16",
+        "F_1 - M_1" : f"SL1",
+        "F_3 - M_3" : f"SL3",
+        "F_1 - F_3" : f"females",
+        "M_1 - M_3" : f"males",
+        "(F_1 - M_1) - (F_3 - M_3)" : f"F-M by SL1-SL3",
     }
     return out_dict,contrast_plot_titles
 
@@ -392,7 +420,7 @@ if __name__ == "__main__":
             print(f"\n=========================== {separation} ===========================")
             lists = {}
             
-            if "sex" in separation:
+            if "day" not in separation:
                 continue
 
             for category, paths_dict in seps_dict.items():
@@ -400,10 +428,6 @@ if __name__ == "__main__":
                 numbers = {}
                 lists[category] = {}
                 for contrast, table_path in paths_dict.items():
-                    
-                    if "(" not in contrast:
-                        continue # only do interactions
-                    
                     print(f"{separation}:{category} --> contrast: {contrast}")
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"
@@ -411,7 +435,8 @@ if __name__ == "__main__":
 
                     excl_list = []
                     excl_list_name = smear_title.replace(" ","")
-                    if excl_list_name in excl_line_bias_lists:
+                    if excl_list_name in excl_line_bias_lists and "day" not in separation:
+                        # only do the exclusion list when it's actually in a relevant contrast
                         excl_list = excl_line_bias_lists[excl_list_name]
                         print(f"\texcluding genes from list '{excl_list_name}'")
         

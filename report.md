@@ -952,3 +952,93 @@ What kind of interaction is sensible here? This is the only one I could come up 
 
 </div>
 
+### 3.5 DE analysis of sex bias in lines
+
+Data is split by day
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_smear')">Day 14 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_volcano')">Day 14 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_smear')">Day 16 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_volcano')">Day 16 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_smear')">Day 18 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_volcano')">Day 18 (Volcano plot)</button>
+</div>
+
+<div id="day14_smear" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day14_SL1_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day14_SL3_F-M.png" width="32%" />
+</p>
+<p float="left">
+  <img src="data/DE_figures_python/smear_day14_F_1-3.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day14_M_1-3.png" width="32%" />
+</p>
+
+</div>
+
+<div id="day14_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day14_SL1_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day14_SL3_F-M_volcano.png" width="32%" />
+</p>
+<p float="left">
+  <img src="data/DE_figures_python/smear_day14_F_1-3_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day14_M_1-3_volcano.png" width="32%" />
+</p>
+
+</div>
+
+<div id="day16_smear" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day16_SL1_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day16_SL3_F-M.png" width="32%" />
+</p>
+<p float="left">
+  <img src="data/DE_figures_python/smear_day16_F_1-3.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day16_M_1-3.png" width="32%" />
+</p>
+
+</div>
+
+<div id="day16_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day16_SL1_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day16_SL3_F-M_volcano.png" width="32%" />
+</p>
+<p float="left">
+  <img src="data/DE_figures_python/smear_day16_F_1-3_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day16_M_1-3_volcano.png" width="32%" />
+</p>
+
+</div>
+
+<div id="day18_smear" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day18_SL1_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day18_SL3_F-M.png" width="32%" />
+</p>
+<p float="left">
+  <img src="data/DE_figures_python/smear_day18_F_1-3.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day18_M_1-3.png" width="32%" />
+</p>
+
+</div>
+
+<div id="day18_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_day18_SL1_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
+</p>
+<p float="left">
+  <img src="data/DE_figures_python/smear_day18_F_1-3_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_day18_M_1-3_volcano.png" width="32%" />
+</p>
+
+</div>
