@@ -865,8 +865,10 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 
 <p style="color: #BD351E">
-<b>QUESTION</b> -> What kind of interaction is sensible here? This is the only one I could come up with
+<b>QUESTION</b>
 </p>
+
+What kind of interaction is sensible here? This is the only one I could come up with: `(F_18-M_18)-(F_14-M_14)` so the interaction highlights genes that are female biased in one time point and then male biased in the other. 
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_interaction_smear')">SL1 (Smear plot)</button>

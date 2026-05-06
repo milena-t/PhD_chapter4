@@ -436,3 +436,75 @@ d18_16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day
 }
 out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18_16"],table_name=d18_16_table,lfc_min = 0)
 ```
+
+## Line sex difference (split by day)
+
+Look at the sex-bias and line stuff by splitting the data by day
+
+```{r}
+day <- "14" # "14" or "16" or "18"
+```
+
+```{r} 
+day1 <- paste("-1-", day, sep="") # do it like this to not match the sample number, only the actual day
+day3 <- paste("-3-", day, sep="")
+counts_M <- count_data[, grepl(day1, colnames(count_data)) | grepl(day3, colnames(count_data))]
+
+meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
+## adjust metadata
+meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
+# reorder so it's in the same order as the count data columns
+meta_data <- meta_data[names(counts_M),]
+# check assumptions, should be TRUE
+all(colnames(counts_M) %in% rownames(meta_data))
+
+# make sample groups that reflect line and day
+groups <- factor(paste(meta_data$sex, meta_data$line, sep="_"))
+# read data into data structure
+y <- DGEList(counts=counts_M, group=groups)
+
+## filter out low count genes
+keep <- filterByExpr(y, group=meta_data$sex, min.count=5, min.total.count=15)
+  y <- y[keep, , keep.lib.sizes=FALSE]
+  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
+  
+# normalize by library sizes
+y <- calcNormFactors(y)
+
+# estimate dispersion
+MM <- model.matrix(~0 + groups, data = y$samples)
+colnames(MM) <- c("F_1", "F_3", "M_1", "M_3")
+rownames(MM) <- colnames(y)
+
+y <- estimateDisp(y, MM)
+# plotBCV(y)
+```
+
+I don't do the mds plot for these ones because it's weird with the sample names. maybe later at some point. Define contrasts next
+
+```{r}
+my.contrasts <- makeContrasts(
+line1 =	F_1 - M_1,
+line3 =	F_3 - M_3, 
+females = F_1 - F_3,
+males = M_1 - M_3,
+sex_line = (F_1 - M_1) - (F_3 - M_3),
+levels=MM)
+```
+
+```{r}
+SL1_table <- sprintf("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_SL1_F-M.txt", day)
+out_SL1 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line1"],table_name=SL1_table,lfc_min = 0)
+
+SL3_table <- sprintf("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_SL3_F-M.txt", day)
+out_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line3"],table_name=SL3_table,lfc_min = 0)
+
+females_table <- sprintf("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_F_1-3.txt", day)
+out_f <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"females"],table_name=females_table,lfc_min = 0)
+
+males_table <- sprintf("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_M_1-3.txt", day)
+out_m <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"males"],table_name=males_table,lfc_min = 0)
+
+interaction_table <- sprintf("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_F-M_by_1-3.txt", day)
+out_m <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"males"],table_name=interaction_table,lfc_min = 0)
+```
