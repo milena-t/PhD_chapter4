@@ -418,10 +418,10 @@ For venn-diagrams see smear plots
   <img src="data/DE_figures_python/smear_M_SL_1_3_18_16.png" width="32%" />
 </p>
 
-Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.
-
+Contrasts specified like this: (either option is fine, gives the exact same results)
 ```
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 ```
 
 </div>
@@ -433,11 +433,10 @@ Interaction line by day: only one gene is significantly DE when the day contrast
   <img src="data/DE_figures_python/smear_F_SL_1_3_18_14.png" width="32%" />
   <img src="data/DE_figures_python/smear_F_SL_1_3_18_16.png" width="32%" />
 </p>
-
-Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.
-
+Contrasts specified like this: (either option is fine, gives the exact same results)
 ```
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 ```
 
 </div>
@@ -451,10 +450,10 @@ Interaction line by day: only one gene is significantly DE when the day contrast
   <img src="data/DE_figures_python/smear_M_SL_1_3_18_16_volcano.png" width="32%" />
 </p>
 
-Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.
-
+Contrasts specified like this: (either option is fine, gives the exact same results)
 ```
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 ```
 
 </div>
@@ -467,14 +466,23 @@ Interaction line by day: only one gene is significantly DE when the day contrast
   <img src="data/DE_figures_python/smear_F_SL_1_3_18_16_volcano.png" width="32%" />
 </p>
 
-Interaction line by day: only one gene is significantly DE when the day contrast is 18-14.
-
+Contrasts specified like this: (either option is fine, gives the exact same results)
 ```
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 ```
 
 </div>
 
+<details>
+<summary>Interpretation of line:day interaction</summary>
+
+Interaction line by day: when genes are upregulated (in the line contrast) in one day and then downregulated in another day. These cases exist, see scatterplots above, but there is apparently none that overcome the significance threshold, only one gene is significantly DE when the day contrast is 18-14. 
+
+The original plan was to then plot the LFC of the day contrast for both lines for the genes that are significant in the interaction, so `LFC(SL1d18-SL1d14)` by `LFC(SL3d18-SL3d14)`.
+
+
+</details>
 
 
 
@@ -854,3 +862,6 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 </div>
 
 
+<p style="color: #BD351E">
+<b>QUESTION</b> -> What kind of interaction is sensible here? can I do pairwise day comparisons?
+</p>

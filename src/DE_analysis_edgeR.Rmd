@@ -106,7 +106,7 @@ to not always be the case.
 The analysis can be run separately for males and females, if use_males=True then it's only males, and if False then it's only the females
 
 ```{r} 
-use_males<-FALSE
+use_males<-TRUE
 ```
 
 ```{r} 
@@ -182,9 +182,9 @@ line_1_18_16 = SL1_18 - SL1_16,
 line_3_18_14 = SL3_18 - SL3_14,
 line_3_18_16 = SL3_18 - SL3_16,
 line_3_14_16 = SL3_14 - SL3_16,
-line_1_3_18_14 = (SL1_18 - SL1_14) - (SL3_18 - SL3_14),
-line_1_3_14_16 = (SL1_14 - SL1_16) - (SL3_14 - SL3_16),
-line_1_3_18_16 = (SL1_18 - SL1_16) - (SL3_18 - SL3_16),
+line_1_3_14_16 = (SL1_14 - SL3_14) - (SL1_16 - SL3_16),
+line_1_3_18_16 = (SL1_18 - SL3_18) - (SL1_16 - SL3_16),
+line_1_3_18_14 = (SL1_18 - SL3_18) - (SL1_14 - SL3_14),
 levels=MM)
 
 contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
@@ -355,7 +355,7 @@ colnames(MM) <- c("F_14", "F_16", "F_18", "M_14",  "M_16", "M_18")
 rownames(MM) <- colnames(y)
 
 y <- estimateDisp(y, MM)
-plotBCV(y)
+# plotBCV(y)
 ```
 
 ```{r} 
@@ -381,8 +381,15 @@ my.contrasts <- makeContrasts(
 day14 =	F_14 - M_14, 
 day16 =	F_16 - M_16, 
 day18 = F_18 - M_18,
+day14_16 = (F_14 - M_14) - (F_16 - M_16),
+day18_14 = (F_18 - M_18) - (F_14 - M_14),
+day18_16 = (F_18 - M_18) - (F_16 - M_16),
 levels=MM)
+```
 
+Within-day sex bias 
+
+```{r}
 if (use_SL1){
 d14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day14_F-M.txt"
 }else{
@@ -405,3 +412,27 @@ d18_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day18_
 out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18"],table_name=d18_table,lfc_min = 0)
 ```
 
+sex-bias by day-comparison interaction
+
+```{r}
+if (use_SL1){
+d14_16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day14_16_F-M.txt"
+}else{
+d14_16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day14_16_F-M.txt"
+}
+out_14 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14_16"],table_name=d14_16_table,lfc_min = 0)
+
+if (use_SL1){
+d18_14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day18_14_F-M.txt"
+}else{
+d18_14_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day18_14_F-M.txt"
+}
+out_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18_14"],table_name=d18_14_table,lfc_min = 0)
+
+if (use_SL1){
+d18_16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL1_day18_16_F-M.txt"
+}else{
+d18_16_table = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_SL3_day18_16_F-M.txt"
+}
+out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18_16"],table_name=d18_16_table,lfc_min = 0)
+```
