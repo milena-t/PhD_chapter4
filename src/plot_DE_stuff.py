@@ -57,11 +57,17 @@ def get_tables(username = "miltr339"):
                 "F_14 - M_14" : f"{tables_dir}DE_genes_SL1_day14_F-M.txt",
                 "F_16 - M_16" : f"{tables_dir}DE_genes_SL1_day16_F-M.txt",
                 "F_18 - M_18" : f"{tables_dir}DE_genes_SL1_day18_F-M.txt",
+                "(F_14 - M_14) - (F_16 - M_16)" : f"{tables_dir}DE_genes_SL1_day14_16_F-M.txt",
+                "(F_18 - M_18) - (F_14 - M_14)" : f"{tables_dir}DE_genes_SL1_day18_14_F-M.txt",
+                "(F_18 - M_18) - (F_16 - M_16)" : f"{tables_dir}DE_genes_SL1_day18_16_F-M.txt",
             },
             "SL3" : {
                 "F_14 - M_14" : f"{tables_dir}DE_genes_SL3_day14_F-M.txt",
                 "F_16 - M_16" : f"{tables_dir}DE_genes_SL3_day16_F-M.txt",
-                "F_18 - M_18" : f"{tables_dir}DE_genes_SL3_day18_F-M.txt"
+                "F_18 - M_18" : f"{tables_dir}DE_genes_SL3_day18_F-M.txt",
+                "(F_14 - M_14) - (F_16 - M_16)" : f"{tables_dir}DE_genes_SL3_day14_16_F-M.txt",
+                "(F_18 - M_18) - (F_14 - M_14)" : f"{tables_dir}DE_genes_SL3_day18_14_F-M.txt",
+                "(F_18 - M_18) - (F_16 - M_16)" : f"{tables_dir}DE_genes_SL3_day18_16_F-M.txt",
             }
         }
     }
@@ -84,6 +90,9 @@ def get_tables(username = "miltr339"):
         "(SL1_18 - SL1_14) - (SL3_18 - SL3_14)" : f"SL1-SL3 by day 18-14",
         "(SL1_14 - SL1_16) - (SL3_14 - SL3_16)" : f"SL1-SL3 by day 14-16",
         "(SL1_18 - SL1_16) - (SL3_18 - SL3_16)" : f"SL1-SL3 by day 18-16",
+        "(F_14 - M_14) - (F_16 - M_16)" : f"F-M by day 14-16",
+        "(F_18 - M_18) - (F_14 - M_14)" : f"F-M by day 18-14",
+        "(F_18 - M_18) - (F_16 - M_16)" : f"F-M by day 18-16",
     }
     return out_dict,contrast_plot_titles
 
@@ -130,7 +139,7 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
         else:
             label_contrast = contrast.replace("SL1_", "day ").replace("SL3_", "day ")    
-    elif "F" in contrast:
+    elif "F" in contrast and "(" not in contrast:
         label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
     else:
         label_contrast = contrast.replace("SL1", "day").replace("SL3", "day")
@@ -382,11 +391,19 @@ if __name__ == "__main__":
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
             lists = {}
+            
+            if "sex" in separation:
+                continue
+
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
                 numbers = {}
                 lists[category] = {}
                 for contrast, table_path in paths_dict.items():
+                    
+                    if "(" not in contrast:
+                        continue # only do interactions
+                    
                     print(f"{separation}:{category} --> contrast: {contrast}")
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"

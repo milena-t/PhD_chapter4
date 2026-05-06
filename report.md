@@ -309,7 +309,7 @@ For venn-diagrams see smear plots
 
 
 
-##### Scatterplots of pairwise comparisons
+#### Scatterplots of pairwise comparisons
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
@@ -401,7 +401,7 @@ For venn-diagrams see smear plots
 </div>
 
 
-##### Interaction of line by day effects
+#### Interaction of line by day effects
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males (Smear plots)</button>
@@ -816,7 +816,7 @@ A similar trend as SL1 but not as strong, more genes are already sex-biased on d
 </div>
 
 
-##### Scatterplots of pairwise comparisons
+#### Scatterplots of pairwise comparisons
 
 Since we are explicitly checking for sex-bias, it makes no sense to highlight genes with shared sex-bias in SL1 and SL3 for example, so I exclude the highlight here.
 
@@ -861,7 +861,92 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 </div>
 
+#### interaction of sex by day effects
+
 
 <p style="color: #BD351E">
-<b>QUESTION</b> -> What kind of interaction is sensible here? can I do pairwise day comparisons?
+<b>QUESTION</b> -> What kind of interaction is sensible here? This is the only one I could come up with
 </p>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'SL1_interaction_smear')">SL1 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_interaction_smear')">SL3 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_interaction_volcano')">SL1 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_interaction_volcano')">SL3 (Volcano plot)</button>
+</div>
+
+<div id="SL1_interaction_smear" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_SL1_day14_16_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL1_day18_14_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL1_day18_16_F-M.png" width="32%" />
+</p>
+
+`(F_14-M_14)-(F_16-M_16), (F_18-M_18)-(F_14-M_14), (F_18-M_18)-(F_16-M_16)`
+
+| `glmQLFTest`  | Day 14-16     | Day 18-14     | Day 18-16     |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 0             | 66            | 0             |
+| no difference | 10993         | 10926         | 10993         |
+| Upregulated   | 0             | 1             | 0             |
+
+</div>
+
+
+<div id="SL3_interaction_smear" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_SL3_day14_16_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL3_day18_14_F-M.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL3_day18_16_F-M.png" width="32%" />
+</p>
+
+`(F_14-M_14)-(F_16-M_16), (F_18-M_18)-(F_14-M_14), (F_18-M_18)-(F_16-M_16)`
+
+| `glmQLFTest`  | Day 14-16     | Day 18-14     | Day 18-16     |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 0             | 28            | 0             |
+| no difference | 10587         | 10553         | 10587         |
+| Upregulated   | 0             | 6             | 0             |
+
+</div>
+
+
+<div id="SL1_interaction_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_SL1_day14_16_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL1_day18_14_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL1_day18_16_F-M_volcano.png" width="32%" />
+</p>
+
+`(F_14-M_14)-(F_16-M_16), (F_18-M_18)-(F_14-M_14), (F_18-M_18)-(F_16-M_16)`
+
+| `glmQLFTest`  | Day 14-16     | Day 18-14     | Day 18-16     |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 0             | 66            | 0             |
+| no difference | 10993         | 10926         | 10993         |
+| Upregulated   | 0             | 1             | 0             |
+
+</div>
+
+
+<div id="SL3_interaction_volcano" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/smear_SL3_day14_16_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL3_day18_14_F-M_volcano.png" width="32%" />
+  <img src="data/DE_figures_python/smear_SL3_day18_16_F-M_volcano.png" width="32%" />
+</p>
+
+`(F_14-M_14)-(F_16-M_16), (F_18-M_18)-(F_14-M_14), (F_18-M_18)-(F_16-M_16)`
+
+| `glmQLFTest`  | Day 14-16     | Day 18-14     | Day 18-16     |
+| ------------- | ------------- | ------------- | ------------- |
+| Downregulated | 0             | 28            | 0             |
+| no difference | 10587         | 10553         | 10587         |
+| Upregulated   | 0             | 6             | 0             |
+
+</div>
+

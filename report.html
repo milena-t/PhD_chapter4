@@ -341,7 +341,7 @@ For venn-diagrams see smear plots
 </p>
 <p>For venn-diagrams see smear plots</p>
 </div>
-<h5 id="scatterplots-of-pairwise-comparisons">Scatterplots of pairwise comparisons</h5>
+<h4 id="scatterplots-of-pairwise-comparisons">Scatterplots of pairwise comparisons</h4>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
   <button class="tablinks" onclick="openTab(event, 'females_day_DE')">females</button>
@@ -518,7 +518,7 @@ For venn-diagrams see smear plots
 </table>
 </td></tr> </table>
 </div>
-<h5 id="interaction-of-line-by-day-effects">Interaction of line by day effects</h5>
+<h4 id="interaction-of-line-by-day-effects">Interaction of line by day effects</h4>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males (Smear plots)</button>
   <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females (Smear plots)</button>
@@ -1027,7 +1027,7 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day18_F-M_volcano.png" width="32%" />
 </p>
 </div>
-<h5 id="scatterplots-of-pairwise-comparisons-1">Scatterplots of pairwise comparisons</h5>
+<h4 id="scatterplots-of-pairwise-comparisons-1">Scatterplots of pairwise comparisons</h4>
 <p>Since we are explicitly checking for sex-bias, it makes no sense to highlight genes with shared sex-bias in SL1 and SL3 for example, so I exclude the highlight here.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_overlap')">SL1</button>
@@ -1107,9 +1107,169 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 </tbody>
 </table>
 </div>
+<h4 id="interaction-of-sex-by-day-effects">interaction of sex by day effects</h4>
 <p style="color: #BD351E">
-<b>QUESTION</b> -> What kind of interaction is sensible here? can I do pairwise day comparisons?
+<b>QUESTION</b> -> What kind of interaction is sensible here? This is the only one I could come up with
 </p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'SL1_interaction_smear')">SL1 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_interaction_smear')">SL3 (Smear plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_interaction_volcano')">SL1 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_interaction_volcano')">SL3 (Volcano plot)</button>
+</div>
+<div id="SL1_interaction_smear" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL1_day14_16_F-M.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL1_day18_14_F-M.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL1_day18_16_F-M.png" width="32%" />
+</p>
+<p><code>(F_14-M_14)-(F_16-M_16), (F_18-M_18)-(F_14-M_14), (F_18-M_18)-(F_16-M_16)</code></p>
+<table>
+<thead>
+<tr>
+<th><code>glmQLFTest</code></th>
+<th>Day 14-16</th>
+<th>Day 18-14</th>
+<th>Day 18-16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>0</td>
+<td>66</td>
+<td>0</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>10993</td>
+<td>10926</td>
+<td>10993</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="SL3_interaction_smear" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day14_16_F-M.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day18_14_F-M.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day18_16_F-M.png" width="32%" />
+</p>
+<p><code>(F_14-M_14)-(F_16-M_16), (F_18-M_18)-(F_14-M_14), (F_18-M_18)-(F_16-M_16)</code></p>
+<table>
+<thead>
+<tr>
+<th><code>glmQLFTest</code></th>
+<th>Day 14-16</th>
+<th>Day 18-14</th>
+<th>Day 18-16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>0</td>
+<td>28</td>
+<td>0</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>10587</td>
+<td>10553</td>
+<td>10587</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>0</td>
+<td>6</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="SL1_interaction_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL1_day14_16_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL1_day18_14_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL1_day18_16_F-M_volcano.png" width="32%" />
+</p>
+<p><code>(F_14-M_14)-(F_16-M_16), (F_18-M_18)-(F_14-M_14), (F_18-M_18)-(F_16-M_16)</code></p>
+<table>
+<thead>
+<tr>
+<th><code>glmQLFTest</code></th>
+<th>Day 14-16</th>
+<th>Day 18-14</th>
+<th>Day 18-16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>0</td>
+<td>66</td>
+<td>0</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>10993</td>
+<td>10926</td>
+<td>10993</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="SL3_interaction_volcano" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day14_16_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day18_14_F-M_volcano.png" width="32%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/smear_SL3_day18_16_F-M_volcano.png" width="32%" />
+</p>
+<p><code>(F_14-M_14)-(F_16-M_16), (F_18-M_18)-(F_14-M_14), (F_18-M_18)-(F_16-M_16)</code></p>
+<table>
+<thead>
+<tr>
+<th><code>glmQLFTest</code></th>
+<th>Day 14-16</th>
+<th>Day 18-14</th>
+<th>Day 18-16</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downregulated</td>
+<td>0</td>
+<td>28</td>
+<td>0</td>
+</tr>
+<tr>
+<td>no difference</td>
+<td>10587</td>
+<td>10553</td>
+<td>10587</td>
+</tr>
+<tr>
+<td>Upregulated</td>
+<td>0</td>
+<td>6</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+
         
         
     </body>
