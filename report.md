@@ -1296,6 +1296,8 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 
 ## 4. Y expression quantification
 
+### 4.1 median expression in all samples
+
 The median expression of X and Y linked genes in all samples with 95% standard error
 
 <div class="tab">
@@ -1312,5 +1314,28 @@ The median expression of X and Y linked genes in all samples with 95% standard e
 <div id="x_and_y_median" class="tabcontent">
 <p float="left">
   <img src="data/yTor_analysis/y_x_genes_mean_expression.png" width="75%" />
+</p>
+</div>
+
+### 4.2 DE of only genes on the Y chromosome
+
+I filtered the raw counts file `PhD_chapter4/data/gene_counts_standard.txt` to only have genes that are on the Y according to the annotation, which is 63. 
+
+<span style="color:#BD351E;"><b>QUESTION: </b></span>I am filtering this after normalization, because otherwise things get weird because it is so few genes. 
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'all_Y')">11 expressed y genes</button>
+  <button class="tablinks" onclick="openTab(event, 'low_y')">9 lowly expressed y genes</button>
+</div>
+
+<div id="all_Y" class="tabcontent">
+<p float="left">
+  <img src="data/yTor_analysis/y_expr_counts.png" width="75%" />
+</p>
+</div>
+
+<div id="low_y" class="tabcontent">
+<p float="left">
+  <img src="data/yTor_analysis/y_low_expr_counts.png" width="75%" />
 </p>
 </div>
