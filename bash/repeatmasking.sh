@@ -2,7 +2,7 @@
 #SBATCH -A uppmax2026-1-8
 #SBATCH -c 1
 #SBATCH --mem=20G
-#SBATCH -t 2-10:00:00
+#SBATCH -t 5-10:00:00
 #SBATCH --mail-type=ALL
 #SBATCH -J repeatmasking
 #SBATCH -o repeatmasking.log
