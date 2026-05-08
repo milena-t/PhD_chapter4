@@ -68,8 +68,8 @@ echo "working in: $(pwd)"
 
 # link braker.sif file
 ln -s /proj/naiss2023-6-65/Milena/annotation_pipeline/braker3.sif braker3.sif
-# link proteinfasta
-ln -s $PROTEIN_DATA ${wd}/orthodb_proteinfasta.fa
+# get proteinfasta dir
+PROT_DIR="$(dirname "${PROTEIN_DATA}")"
 
 # check if the augustus_config direcotry exists,
 # export AUGUSTUS_CONFIG_PATH=${wd}/augustus_config
@@ -110,7 +110,7 @@ if [ $# -eq 5 ]; then
     echo "FASTA_IDS = ${FASTA_IDS}"
     FASTA_dir=$5
     echo "FASTA_dir = ${FASTA_dir}"
-    singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
+    singularity exec -B ${wd}:${wd} -B ${PROT_DIR}:${PROT_DIR} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
         --prot_seq ${wd}/orthodb_proteinfasta.fa \
         --rnaseq_sets_ids=$FASTA_IDS \
