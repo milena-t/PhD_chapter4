@@ -484,7 +484,8 @@ The original plan was to then plot the LFC of the day contrast for both lines fo
 
 </details>
 
-
+<details>
+<summary>(OLD) Differential expression within lines between day18 and mean(day14,day16)</summary>
 
 #### Differential expression within lines between day18 and mean(day14,day16)
 
@@ -596,7 +597,7 @@ In SL3, 74 of 87 DE genes in females are also DE in males, 13 are unique to fema
 </div>
 
 
-
+</details>
 
 
 #### Differential expression within lines with all pairwise day comparisons
@@ -722,6 +723,29 @@ Only difference between day 14 and 18, no other developmental cues? Do only the 
 
 </div>
 
+
+#### Upsetplots of sig DE genes overlap within males and females
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Males_upset')">Males</button>
+  <button class="tablinks" onclick="openTab(event, 'Females_upset')">Females</button>
+</div>
+
+<div id="Males_upset" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_sex_separated_males.png" width="60%" />
+</p>
+
+</div>
+
+<div id="Females_upset" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_sex_separated_females.png" width="30%" />
+</p>
+
+</div>
 
 
 ### 3.4 DE analysis of line-separated samples
@@ -946,10 +970,35 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 </div>
 
+
+#### Upsetplots of sig DE genes overlap within SL1 and SL3
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'SL1_upset')">SL1</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_upset')">SL3</button>
+</div>
+
+<div id="SL1_upset" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_line_separated_SL1.png" width="30%" />
+</p>
+
+</div>
+
+<div id="SL3_upset" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_line_separated_SL3.png" width="30%" />
+</p>
+
+</div>
+
+
+
 ### 3.5 DE analysis of day-separated samples
 
 Analyze line and sex differences.
-
 
 
 #### Differential expression between SL1 and SL3
@@ -1290,6 +1339,34 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/LFC_scatter_day18_sex_bias_by_line.png" width="32%" />
 </p>
 </div>
+
+#### Upsetplot of sig DE genes between lines and sexes
+
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_upset')">Day 14</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_upset')">Day 16</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_upset')">Day 18</button>
+</div>
+
+<div id="day14_upset" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_day_separated_day14.png" width="32%" />
+</p>
+</div>
+
+<div id="day16_upset" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_day_separated_day16.png" width="32%" />
+</p>
+</div>
+
+<div id="day18_upset" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_day_separated_day18.png" width="32%" />
+</p>
+</div>
+
 
 ## 4. Y expression quantification
 

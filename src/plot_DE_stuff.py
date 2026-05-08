@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib_venn import venn2,venn3
 import math
+import upsetplot
 
 def get_tables(username = "miltr339"):
     """
@@ -125,10 +126,12 @@ def get_tables(username = "miltr339"):
     return out_dict,contrast_plot_titles
 
 
-def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC", excl_genes_list = [], x_axis = "logcpm"):
+def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC", excl_genes_list = [], x_axis = "logcpm", plot = True):
     """
     replicate smear-plot from R, logCPM by logFC, significance highlighted in red
     return the number of up/downregulated and no difference genes
+    the x_axis can be set to logCPM which is a smear plot or to fdr_p which is a volcano plot
+    if no plot is generated (plot=False) only the list of sig genes is returned
     """
     df = pd.read_csv(table_path, sep="\t", skiprows=0)
     if len(excl_genes_list) >0:
@@ -139,11 +142,6 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
 
     cols = {"nonsig" : "#243742", "sig" : "#BD351E"}
 
-    if  x_axis == "logcpm":
-        fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
-    elif x_axis == "fdr_p":
-        fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
-        df['FDR_volc'] = df['FDR'].transform(lambda x: math.log10(x))
     fs = 35
     point_size_factor = 5
     ps = fs*point_size_factor # point size
@@ -156,60 +154,67 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
         df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
         print(f"\tnum sig genes with LFC > {min_LFC}: {df_sig.shape[0]}")
 
-    if  x_axis == "logcpm":
-        ax.scatter(df_nonsig["logCPM"], df_nonsig["logFC"], color = cols["nonsig"], alpha=0.5, s=ps)
-        ax.scatter(df_sig["logCPM"], df_sig["logFC"], color = cols["sig"], alpha=1, s=ps)
-    elif x_axis == "fdr_p":
-        ax.scatter(df_nonsig["logFC"], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps)
-        ax.scatter(df_sig["logFC"], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps)
-    
-    if "SL" in contrast and "/2" not in contrast:
-        if "SL1" in contrast and "SL3" in contrast:
+    if plot:
+        if  x_axis == "logcpm":
+            fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
+        elif x_axis == "fdr_p":
+            fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
+            df['FDR_volc'] = df['FDR'].transform(lambda x: math.log10(x))
+
+        if  x_axis == "logcpm":
+            ax.scatter(df_nonsig["logCPM"], df_nonsig["logFC"], color = cols["nonsig"], alpha=0.5, s=ps)
+            ax.scatter(df_sig["logCPM"], df_sig["logFC"], color = cols["sig"], alpha=1, s=ps)
+        elif x_axis == "fdr_p":
+            ax.scatter(df_nonsig["logFC"], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps)
+            ax.scatter(df_sig["logFC"], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps)
+        
+        if "SL" in contrast and "/2" not in contrast:
+            if "SL1" in contrast and "SL3" in contrast:
+                label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
+            else:
+                label_contrast = contrast.replace("SL1_", "day ").replace("SL3_", "day ")    
+        elif "F" in contrast and "(" not in contrast:
             label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
         else:
-            label_contrast = contrast.replace("SL1_", "day ").replace("SL3_", "day ")    
-    elif "F" in contrast and "(" not in contrast:
-        label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
-    else:
-        label_contrast = contrast.replace("SL1", "day").replace("SL3", "day")
-    if  x_axis == "logcpm":
-        ax.set_ylabel(f"logFC ({label_contrast})", fontsize = fs)
-        ax.set_xlabel(f"log CPM", fontsize = fs)
-    elif x_axis == "fdr_p":
-        ax.set_xlabel(f"logFC ({label_contrast})", fontsize = fs)
-        ax.set_ylabel(f"log10  FDR p-value", fontsize = fs)
-        ax.yaxis.set_inverted(True) 
-    ax.tick_params(axis='x', labelsize=fs*0.9)
-    ax.tick_params(axis='y', labelsize=fs*0.9)
-    ax.set_title(title, fontsize = fs*1.25)
+            label_contrast = contrast.replace("SL1", "day").replace("SL3", "day")
+        if  x_axis == "logcpm":
+            ax.set_ylabel(f"logFC ({label_contrast})", fontsize = fs)
+            ax.set_xlabel(f"log CPM", fontsize = fs)
+        elif x_axis == "fdr_p":
+            ax.set_xlabel(f"logFC ({label_contrast})", fontsize = fs)
+            ax.set_ylabel(f"log10  FDR p-value", fontsize = fs)
+            ax.yaxis.set_inverted(True) 
+        ax.tick_params(axis='x', labelsize=fs*0.9)
+        ax.tick_params(axis='y', labelsize=fs*0.9)
+        ax.set_title(title, fontsize = fs*1.25)
 
-    if  x_axis == "logcpm":
-        min_line = min(df["logCPM"])-0.25
-        max_line = max(df["logCPM"])+0.25
-        if min_LFC > 0:
-            ax.hlines(y=min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-            ax.hlines(y=-1*min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-        else:
-            ax.hlines(y=1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-            ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-        ax.set_xlim([min_line,max_line])
-    elif x_axis == "fdr_p":
-        pass
-        # min_line = min(df["logFC"])
-        # max_line = max(df["logFC"])
-        # ax.vlines(x=0, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-        # ax.set_xlim([min_line,max_line])
-    
+        if  x_axis == "logcpm":
+            min_line = min(df["logCPM"])-0.25
+            max_line = max(df["logCPM"])+0.25
+            if min_LFC > 0:
+                ax.hlines(y=min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                ax.hlines(y=-1*min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+            else:
+                ax.hlines(y=1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+            ax.set_xlim([min_line,max_line])
+        elif x_axis == "fdr_p":
+            pass
+            # min_line = min(df["logFC"])
+            # max_line = max(df["logFC"])
+            # ax.vlines(x=0, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+            # ax.set_xlim([min_line,max_line])
+        
 
-    if x_axis == "fdr_p":
-        smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
-    plt.tight_layout()
-    fig.subplots_adjust(left=0.125) # or whatever
-    plt.savefig(smear_plot_name, dpi = 300, transparent = True)
-    print(f"plot saved in current working directory as: {smear_plot_name}")
-    plt.clf()
-    plt.cla()
-    plt.close()
+        if x_axis == "fdr_p":
+            smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
+        plt.tight_layout()
+        fig.subplots_adjust(left=0.125) # or whatever
+        plt.savefig(smear_plot_name, dpi = 300, transparent = True)
+        print(f"plot saved in current working directory as: {smear_plot_name}")
+        plt.clf()
+        plt.cla()
+        plt.close()
 
     # numbers for table
     upreg = df_sig.loc[df_sig['logFC'] > 0]
@@ -413,6 +418,21 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     return(lengths)
 
 
+def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = ""):
+    """
+    make an upseetplot of sig DE genes within each data separation
+    """
+    data = upsetplot.from_contents(geneIDs_dict)
+    upsetplot.UpSet(data, subset_size="count", sort_by="cardinality", show_counts=True).plot()
+
+    plt.title(plot_title)
+    plt.savefig(plot_filename, dpi = 300, transparent = True)
+    print(f"plot saved in current working directory as: {plot_filename}")
+    plt.clf()
+    plt.cla()
+    plt.close()
+
+
 if __name__ == "__main__":
 
     username = "miltr339"
@@ -442,15 +462,19 @@ if __name__ == "__main__":
     ######### MAKE ALL THE SMEAR PLOTS #########
     ############################################
     if True:
+
+        make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+        if make_upset:
+            plot=False
+
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
-            lists = {}
 
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
                 numbers = {}
-                lists[category] = {}
+                sig_DE_genes = {}
                 for contrast, table_path in paths_dict.items():
                     
                     print(f"{separation}:{category} --> contrast: {contrast}")
@@ -470,20 +494,31 @@ if __name__ == "__main__":
                         print(f"\texcluding genes from list '{excl_list_name}'")
         
                     # smear plot
-                    # smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm")
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot)
                     # volcano plot
-                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p")
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot)
                     
                     if False:
                         Downlist = smear_lists["Downregulated"]
                         Uplist = smear_lists["Upregulated"]
                         print(f"\t * Downregulated : {Downlist}\n\t * Upregulated : {Uplist}")
+                    else:
+                        DE_list = smear_lists["Downregulated"]+smear_lists["Upregulated"]
 
                     smear_nums = {gene_set : len(gene_list) for gene_set,gene_list in smear_lists.items()}
                     numbers[smear_title] = smear_nums
-                    lists[category][smear_title] = smear_lists
+
+                    if "(" not in contrast:
+                        # don't include interactions in upset plot
+                        sig_DE_genes[smear_title] = DE_list
 
                 print(numbers)
+                if make_upset:
+                    ## upsetplot within each separation
+                    plot_title = f"{separation}: {category}\nsig. DE genes overlap"
+                    plot_sig_gene_overlap(sig_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_{category}.png", plot_title = plot_title)
+
+            
 
     ############################################
     ######## MAKE ALL THE VENN DIAGRAMS ########
