@@ -52,14 +52,14 @@ else
     echo "created directory: $home_wd"
 fi
 
-export wd=${SNIC_TMP}/${SPECIES}
+export wd=${TMPDIR}/${SPECIES}
 #ASSEMBLY_MASKED=/proj/naiss2023-6-65/Milena/coleoptera_sequences/c_chinensis/chinensis_from_uppmax.fasta.masked
 
 if [ -d ${wd} ]; then
     echo "Working directory in temporary directory already exists: ${wd}"
 else
     mkdir $wd
-    echo "created directory in SNIC_TMP: $wd"
+    echo "created directory in TMPDIR: $wd"
 fi
 
 cd $wd
@@ -140,7 +140,7 @@ fi
 
 
 
-echo "move SNIC_TMP directory to our storage"
+echo "move TMPDIR directory to our storage"
 
 if [ -d ${home_wd}/braker ]; then
   rm -r ${home_wd}/braker
