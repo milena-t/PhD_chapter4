@@ -78,9 +78,9 @@ else
     module load AUGUSTUS/3.5.0-gfbf-2024a # so that the source command works
     cp -dR --preserve=mode,timestamps --no-preserve=ownership $AUGUSTUS_CONFIG_PATH AUGUSTUS_config
     chmod -R +w AUGUSTUS_config
+    module unload AUGUSTUS/3.5.0-gfbf-2024a # same as above, some weird shit with conflicting perl versions
     export AUGUSTUS_CONFIG_PATH=$PWD/AUGUSTUS_config
     AUGUSTUS_CONFIG_PATH=$PWD/AUGUSTUS_config
-    module unload AUGUSTUS/3.5.0-gfbf-2024a # same as above, some weird shit with conflicting perl versions
     echo "augustus config path in the function: ${AUGUSTUS_CONFIG_PATH}"
 fi
 
