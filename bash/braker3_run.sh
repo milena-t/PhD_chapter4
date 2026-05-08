@@ -62,14 +62,14 @@ else
 fi
 
 cd $wd
-
+echo "working in: $(pwd)"
 
 
 # link braker.sif file
 ln -s /proj/naiss2023-6-65/Milena/annotation_pipeline/braker3.sif braker3.sif
 
 # check if the augustus_config direcotry exists,
-export AUGUSTUS_CONFIG_PATH=${wd}/augustus_config
+# export AUGUSTUS_CONFIG_PATH=${wd}/augustus_config
 if [ -d ${wd}/augustus_config ]; then
     echo "Augustus_config already exists: ${wd}/augustus_config/species"
 else
