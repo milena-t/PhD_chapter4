@@ -3,6 +3,13 @@
 # this script takes input variables:
 # $1 (first after the script name) is the name of the species and also the output directory that will be created
 # $2 is the absolute path to the masked assembly of that species
+# $3 protein reference data such as orthodb arthropoda
+# optional:
+# $4 SRR numbers or sample IDs
+# $5 if sample IDs then DIR in which they are stored
+# see https://github.com/Gaius-Augustus/BRAKER#braker-with-rna-seq-data for details
+
+########!! DO NOT USE SYMLINKS OR THE SINGULARITY CONTAINER WON'T FIND THE DATA!!!
 
 # example run:
 # sbatch --job-name="C_septempunctata" --output="C_septempunctata_braker.out" /proj/naiss2023-6-65/Milena/annotation_pipeline/braker3_singularity_all_species_proteinseqs.sh C_septempunctata assembly_genomic.fna
@@ -127,7 +134,7 @@ elif [ $# -eq 4 ]; then
     SRA_IDS=$4
     singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
-        --prot_seq ${wd}/orthodb_proteinfasta.fa \
+        --prot_seq $PROTEIN_DATA \
         --rnaseq_sets_ids=$SRA_IDS \
         --threads 20 \
         --GENEMARK_PATH=${ETP}/gmes \
@@ -136,7 +143,7 @@ elif [ $# -eq 4 ]; then
 else
     singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
-        --prot_seq ${wd}/orthodb_proteinfasta.fa \
+        --prot_seq $PROTEIN_DATA \
         --threads 20 \
         --GENEMARK_PATH=${ETP}/gmes \
         --AUGUSTUS_CONFIG_PATH=${wd}/AUGUSTUS_config \
