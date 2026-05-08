@@ -10,7 +10,9 @@ sbatch --job-name="Cmac_LOME_DE" --output="Cmac_LOME_diverse.out" -t 5-00:00:00 
 /proj/naiss2023-6-65/Milena/annotation_pipeline/only_orthodb_annotation/C_maculatus_superscaffolded/assembly_genomic.fna.masked \
 $ORTHODB_ARTHROPODA \
 ERR12383247_trimmed,ERR12383253_trimmed,ERR12383273_trimmed,ERR12383281_trimmed,ERR12383299_trimmed,ERR12383251_trimmed,ERR12383316_trimmed,ERR12383270_trimmed,ERR12383276_trimmed,ERR12383296_trimmed,ERR12383303_trimmed,WJ-3841-1-14-9-M_S376,WJ-3841-1-16-20-M_S431,WJ-3841-3-14-17-M_S411,WJ-3841-3-16-11-M_S365 \
-/proj/naiss2023-6-65/Milena/chapter4/annotation/Lome_annot_new_RNAseq/Cmac_Lome_RNA/
+/proj/naiss2023-6-65/Sebastian/data/rna_data_kaufmann_2024_dominance/results/fastp_multiqc/,/proj/naiss2023-6-65/Milena/chapter4/Bianca/dedupplicated_reads/
+
+# /proj/naiss2023-6-65/Milena/chapter4/annotation/Lome_annot_new_RNAseq/Cmac_Lome_RNA/
 
 # for SAMPLE in "Sample_WJ-3841-1-14-9-M" "Sample_WJ-3841-1-16-20-M" "Sample_WJ-3841-3-14-17-M" "Sample_WJ-3841-3-16-11-M"; do READS="${SAMPLE#Sample_}"; ll /proj/naiss2023-6-65/Milena/chapter4/Bianca/dedupplicated_reads/${READS}*  ;  done
 # for SAMPLE in $(ls) ; do echo $SAMPLE ; S1="${SAMPLE/_001/}" ; S2="${S1/R/}"; mv $SAMPLE $S2 ;done
