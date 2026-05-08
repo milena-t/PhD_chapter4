@@ -68,6 +68,8 @@ echo "working in: $(pwd)"
 
 # link braker.sif file
 ln -s /proj/naiss2023-6-65/Milena/annotation_pipeline/braker3.sif braker3.sif
+# link proteinfasta
+ln -s $PROTEIN_DATA ${wd}/orthodb_proteinfasta.fa
 
 # check if the augustus_config direcotry exists,
 # export AUGUSTUS_CONFIG_PATH=${wd}/augustus_config
@@ -110,7 +112,7 @@ if [ $# -eq 5 ]; then
     echo "FASTA_dir = ${FASTA_dir}"
     singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
-        --prot_seq $PROTEIN_DATA \
+        --prot_seq ${wd}/orthodb_proteinfasta.fa \
         --rnaseq_sets_ids=$FASTA_IDS \
         --rnaseq_sets_dirs=$FASTA_dir \
         --threads 20 \
@@ -122,7 +124,7 @@ elif [ $# -eq 4 ]; then
     SRA_IDS=$4
     singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
-        --prot_seq $PROTEIN_DATA \
+        --prot_seq ${wd}/orthodb_proteinfasta.fa \
         --rnaseq_sets_ids=$SRA_IDS \
         --threads 20 \
         --GENEMARK_PATH=${ETP}/gmes \
@@ -131,7 +133,7 @@ elif [ $# -eq 4 ]; then
 else
     singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
-        --prot_seq $PROTEIN_DATA \
+        --prot_seq ${wd}/orthodb_proteinfasta.fa \
         --threads 20 \
         --GENEMARK_PATH=${ETP}/gmes \
         --AUGUSTUS_CONFIG_PATH=${wd}/AUGUSTUS_config \
