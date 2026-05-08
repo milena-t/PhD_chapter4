@@ -92,9 +92,9 @@ export ETP=/sw/bioinfo/GeneMark-ETP/1.02-20231213-dd8b37b/rackham/bin
 # there should not already be an existing braker output directory in the working directory, otherwise there will be an error that it can't create the genemark-es ouptut file
 if [ -d ${wd}/braker ]; then
   rm -r ${wd}/braker
-  echo "removed preexisting output directory at: ${wd}/braker"
+  echo "removed preexisting output directory at: ${wd}/braker, proceed with new braker run from scratch"
 else
-  echo "no existing directory at: ${wd}/braker, proceed"
+  echo "no existing directory at: ${wd}/braker, proceed with braker run from scratch"
 fi
 
 
@@ -114,7 +114,7 @@ if [ $# -eq 5 ]; then
         --GENEMARK_PATH=${ETP}/gmes \
         --AUGUSTUS_CONFIG_PATH=${wd}/augustus_config \
         --useexisting
-if [ $# -eq 4 ]; then
+elif [ $# -eq 4 ]; then
     echo "You have included a third command line argument that is assumed to contain SRA-ids for species-specific RNAseq data"
     SRA_IDS=$4
     singularity exec -B ${wd}:${wd} braker3.sif braker.pl \

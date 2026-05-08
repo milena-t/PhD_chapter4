@@ -7,7 +7,8 @@ cd $LOME_DIR
 
 sbatch --job-name="Cmac_LOME_DE" --output="Cmac_LOME_diverse.out" -t 5-00:00:00 \
 /proj/naiss2023-6-65/Milena/chapter4/PhD_chapter4/bash/braker3_run.sh Cmac_Lome_diverse ${LOME_DIR}/assembly_genomic.fna.masked \
-$ORTHODB_ARTHROPODA ERR12383247,ERR12383253_trimmed,ERR12383273_trimmed,ERR12383281_trimmed,ERR12383299_trimmed,ERR12383251_trimmed,ERR12383316_trimmed,ERR12383270_trimmed,ERR12383276_trimmed,ERR12383296_trimmed,ERR12383303_trimmed,Sample_WJ-3841-1-14-9-M_S376,Sample_WJ-3841-1-16-20-M_S431,Sample_WJ-3841-3-14-17-M_S411,Sample_WJ-3841-3-16-11-M_S365 \
+$ORTHODB_ARTHROPODA \
+ERR12383247_trimmed,ERR12383253_trimmed,ERR12383273_trimmed,ERR12383281_trimmed,ERR12383299_trimmed,ERR12383251_trimmed,ERR12383316_trimmed,ERR12383270_trimmed,ERR12383276_trimmed,ERR12383296_trimmed,ERR12383303_trimmed,Sample_WJ-3841-1-14-9-M_S376,Sample_WJ-3841-1-16-20-M_S431,Sample_WJ-3841-3-14-17-M_S411,Sample_WJ-3841-3-16-11-M_S365 \
 /proj/naiss2023-6-65/Milena/chapter4/annotation/Lome_annot_new_RNAseq/Cmac_Lome_RNA/
 
 # for SAMPLE in "Sample_WJ-3841-1-14-9-M" "Sample_WJ-3841-1-16-20-M" "Sample_WJ-3841-3-14-17-M" "Sample_WJ-3841-3-16-11-M"; do READS="${SAMPLE#Sample_}"; ll /proj/naiss2023-6-65/Milena/chapter4/Bianca/dedupplicated_reads/${READS}*  ;  done
