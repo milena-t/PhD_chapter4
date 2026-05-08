@@ -863,7 +863,6 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 #### interaction of sex by day effects
 
-<span style="color:#BD351E;"><b>QUESTION: </b></span>What kind of interaction is sensible here? This is the only one I could come up with: `(F_18-M_18)-(F_14-M_14)` so the interaction highlights genes that are female biased in one time point and then male biased in the other. 
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_interaction_smear')">SL1 (Smear plot)</button>
@@ -1148,8 +1147,6 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 
 `(F_1 - M_1) - (F_3 - M_3)`: Female-biased in one line and male-biased in the other. Also plot a scatter of the genes significant in the interaction in the same scatter plot as above if they are significant.
 
-<span style="color:#BD351E;"><b>QUESTION: </b></span>What woud the biological interpretation of this be? Does it still make sense even though `F1-F3` should be 0 in all cases?
-
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_interaction_smear')">Day 14 (Smear plot)</button>
   <button class="tablinks" onclick="openTab(event, 'day14_interaction_volcano')">Day 14 (Volcano plot)</button>
@@ -1320,8 +1317,6 @@ The median expression of X and Y linked genes in all samples with 95% standard e
 ### 4.2 DE of only genes on the Y chromosome
 
 I filtered the raw counts file `PhD_chapter4/data/gene_counts_standard.txt` to only have genes that are on the Y according to the annotation, which is 63. 
-
-<span style="color:#BD351E;"><b>QUESTION: </b></span>I am filtering this after normalization, because otherwise things get weird because it is so few genes. 
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'all_Y')">11 expressed y genes</button>
