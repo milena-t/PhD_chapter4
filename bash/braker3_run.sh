@@ -108,14 +108,14 @@ if [ $# -eq 5 ]; then
     echo "FASTA_IDS = ${FASTA_IDS}"
     FASTA_dir=$5
     echo "FASTA_dir = ${FASTA_dir}"
-    singularity exec -B ${wd}:/scratch/${SPECIES} braker3.sif braker.pl \
+    singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
         --prot_seq $PROTEIN_DATA \
         --rnaseq_sets_ids=$FASTA_IDS \
         --rnaseq_sets_dirs=$FASTA_dir \
         --threads 20 \
         --GENEMARK_PATH=${ETP}/gmes \
-        --AUGUSTUS_CONFIG_PATH=${wd}/augustus_config \
+        --AUGUSTUS_CONFIG_PATH=${wd}/AUGUSTUS_config \
         --useexisting
 elif [ $# -eq 4 ]; then
     echo "You have included a third command line argument that is assumed to contain SRA-ids for species-specific RNAseq data"
@@ -126,7 +126,7 @@ elif [ $# -eq 4 ]; then
         --rnaseq_sets_ids=$SRA_IDS \
         --threads 20 \
         --GENEMARK_PATH=${ETP}/gmes \
-        --AUGUSTUS_CONFIG_PATH=${wd}/augustus_config \
+        --AUGUSTUS_CONFIG_PATH=${wd}/AUGUSTUS_config \
         --useexisting
 else
     singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
@@ -134,7 +134,7 @@ else
         --prot_seq $PROTEIN_DATA \
         --threads 20 \
         --GENEMARK_PATH=${ETP}/gmes \
-        --AUGUSTUS_CONFIG_PATH=${wd}/augustus_config \
+        --AUGUSTUS_CONFIG_PATH=${wd}/AUGUSTUS_config \
         --useexisting
 fi
 
