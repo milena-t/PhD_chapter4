@@ -38,6 +38,7 @@ SPECIES=$1
 ASSEMBLY_MASKED=$2
 PROTEIN_DATA=$3
 # $4 is optional for RNA reference data by SRR number 
+# $5 is optional if local fastq files are used in $4 and you specify a directory
 
 
 # run the script from this directory. It's species-specific
@@ -100,6 +101,19 @@ fi
 # old header:
 # singularity exec -B ${PWD}:${PWD} braker3.sif braker.pl \
 # new: Bind the working directory to ensure it's accessible within the container
+if [ $# -eq 5 ]; then
+    echo "You have included a third command line argument that is assumed to contain fasta-ids for species-specific RNAseq data, as well as the directory in which these are stored"
+    FASTA_IDS=$4
+    FASTA_dir=$5
+    singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
+        --genome=${ASSEMBLY_MASKED} \
+        --prot_seq $PROTEIN_DATA \
+        --rnaseq_sets_ids=$SRA_IDS \
+        --rnaseq_sets_dirs=$FASTA_dir \
+        --threads 20 \
+        --GENEMARK_PATH=${ETP}/gmes \
+        --AUGUSTUS_CONFIG_PATH=${wd}/augustus_config \
+        --useexisting
 if [ $# -eq 4 ]; then
     echo "You have included a third command line argument that is assumed to contain SRA-ids for species-specific RNAseq data"
     SRA_IDS=$4
