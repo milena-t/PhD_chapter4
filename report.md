@@ -1127,7 +1127,7 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_SL1_F-M.png" width="32%" />
   <img src="data/DE_figures_python/smear_day18_SL3_F-M.png" width="32%" />
-  <img src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="25%" />
+  <img src="data/DE_figures_python/Venn_day18_sex_bias_by_line.png" width="25%" />
 </p>
 
 </div>
@@ -1137,7 +1137,7 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 <p float="left">
   <img src="data/DE_figures_python/smear_day18_SL1_F-M_volcano.png" width="32%" />
   <img src="data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
-  <img src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="25%" />
+  <img src="data/DE_figures_python/Venn_day18_sex_bias_by_line.png" width="25%" />
 </p>
 
 </div>
@@ -1332,6 +1332,9 @@ I filtered the raw counts file `PhD_chapter4/data/gene_counts_standard.txt` to o
 <p float="left">
   <img src="data/yTor_analysis/y_expr_counts.png" width="75%" />
 </p>
+
+`gene-372264` is annotated as nucleic acid binding, the other one has no functional annotation.
+
 </div>
 
 <div id="low_y" class="tabcontent">
@@ -1339,3 +1342,5 @@ I filtered the raw counts file `PhD_chapter4/data/gene_counts_standard.txt` to o
   <img src="data/yTor_analysis/y_low_expr_counts.png" width="75%" />
 </p>
 </div>
+
+Thoughts about the annotation: unsure how BRAKER handles multimapping internally? this is all unuqiely mapped reads. maybe high multimapping makes gene prediction more difficult, resulting in fewer genes in the first place? 
