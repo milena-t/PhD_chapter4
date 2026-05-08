@@ -104,7 +104,9 @@ fi
 if [ $# -eq 5 ]; then
     echo "You have included a third command line argument that is assumed to contain fasta-ids for species-specific RNAseq data, as well as the directory in which these are stored"
     FASTA_IDS=$4
+    echo "FASTA_IDS = ${FASTA_IDS}"
     FASTA_dir=$5
+    echo "FASTA_dir = ${FASTA_dir}"
     singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
         --prot_seq $PROTEIN_DATA \
