@@ -81,7 +81,7 @@ else
     module unload AUGUSTUS/3.5.0-gfbf-2024a # same as above, some weird shit with conflicting perl versions
     export AUGUSTUS_CONFIG_PATH=$PWD/AUGUSTUS_config
     AUGUSTUS_CONFIG_PATH=$PWD/AUGUSTUS_config
-    echo "augustus config path in the function: ${AUGUSTUS_CONFIG_PATH}"
+    echo "augustus config path: ${AUGUSTUS_CONFIG_PATH}"
 fi
 
 # export PROTEIN_REF_ALL_SPECIES=/proj/naiss2023-6-65/Milena/annotation_pipeline/all_proteinrefs_annotation/orthoDB_and_species_proteins.fa
@@ -108,7 +108,7 @@ if [ $# -eq 5 ]; then
     echo "FASTA_IDS = ${FASTA_IDS}"
     FASTA_dir=$5
     echo "FASTA_dir = ${FASTA_dir}"
-    singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
+    singularity exec -B ${wd}:/scratch/${SPECIES} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
         --prot_seq $PROTEIN_DATA \
         --rnaseq_sets_ids=$FASTA_IDS \
