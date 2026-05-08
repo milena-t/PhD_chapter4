@@ -113,7 +113,7 @@ if [ $# -eq 5 ]; then
     echo "FASTA_IDS = ${FASTA_IDS}"
     FASTA_dir=$5
     echo "FASTA_dir = ${FASTA_dir}"
-    singularity exec -B ${wd}:${wd} -B ${PROT_DIR}:${PROT_DIR} -B ${ASS_DIR}:${ASS_DIR} braker3.sif braker.pl \
+    singularity exec -B ${wd}:${wd} -B ${PROT_DIR}:${PROT_DIR} -B ${ASS_DIR}:${ASS_DIR} -B ${FASTA_dir}:${FASTA_dir} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
         --prot_seq $PROTEIN_DATA \
         --rnaseq_sets_ids=$FASTA_IDS \
