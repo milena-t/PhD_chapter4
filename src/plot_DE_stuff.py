@@ -522,14 +522,15 @@ if __name__ == "__main__":
 
                     if "(" not in contrast:
                         # don't include interactions in upset plot
-                        sig_DE_genes[smear_title] = DE_list
+                        sig_DE_genes[contrast] = DE_list
                         sep_DE_genes[f"{category}: {contrast}"] = DE_list
 
                 print(numbers)
                 if make_upset:
                     ## upsetplot within each separation
-                    plot_title = f"{separation}: {category}\nsig. DE genes overlap"
-                    plot_sig_gene_overlap(sig_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_{category}.png", plot_title = plot_title)
+                    min_overlap = 15
+                    plot_title = f"{separation}: all categories\nsig. DE genes overlap (min. overlap size: {min_overlap})"
+                    plot_sig_gene_overlap(sig_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap)
 
             if make_upset:
                 ## upsetplot for each contrast between separations
