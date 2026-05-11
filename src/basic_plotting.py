@@ -8,7 +8,7 @@ import numpy as np
 from scipy import stats
 
 
-def plot_counts(counts_table:str, geneIDs_list:list, outfile_name:str, y_label="normalized counts", mean_per_sample=False):
+def plot_counts(counts_table:str, geneIDs_list:list, outfile_name:str, y_label="normalized counts", mean_per_sample=False, remove_females = False):
     """
     plot the counts of the geneIDs in all samples
     except samples where all samples have zero counts
@@ -38,6 +38,9 @@ def plot_counts(counts_table:str, geneIDs_list:list, outfile_name:str, y_label="
         if sum(sample_counts) > 0:
             nonzero_samples.append(sample)
     print(f"out of {len(headers)} there are {len(nonzero_samples)} samples that have at least one count in one gene!")# \n{nonzero_samples}")
+    if remove_females:
+        nonzero_samples = [sample for sample in nonzero_samples if "-F" not in sample]
+        print(f"remove female samples! {len(nonzero_samples)} samples left.")
 
     ### plotting
     fig, ax = plt.subplots(1,1, figsize=(20, 10)) # for more than three rows
@@ -118,17 +121,26 @@ if __name__ == "__main__":
     username = "miltr339"
     counts_file = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
 
-    if False:
-        # all TOR
-        yTor_IDs = ["yTor-A", "yTor-B", "yTor-C","gene-30110"]
-        yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/all_Tor_counts.png"
-        plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot)
-        # only yTOR
-        yTor_IDs = ["yTor-A", "yTor-B", "yTor-C"]
-        yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/yTor_counts.png"
-        plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot)
-
     if True:
+        yTor_IDs = ["yTor-all","gene-30110"]
+        yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/merged_yTor_aTor_counts.png"
+        plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot, remove_females=True)
+
+        yTor_IDs = ["yTor-all"]
+        yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/merged_yTor_counts.png"
+        plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot, remove_females=True)
+        if False:
+            ## split yTor lists
+            # all TOR
+            yTor_IDs = ["yTor-A", "yTor-B", "yTor-C","gene-30110"]
+            yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/all_Tor_counts.png"
+            plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot)
+            # only yTOR
+            yTor_IDs = ["yTor-A", "yTor-B", "yTor-C"]
+            yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/yTor_counts.png"
+            plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot)
+
+    if False:
         # all Y expressed
         y_expr = ["gene-371805","yTor-A","gene-371844","yTor-C","gene-371913","gene-371922","gene-371957","gene-372053","gene-372068","gene-372216","gene-372264"]
         y_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/y_expr_counts.png"

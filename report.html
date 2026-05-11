@@ -171,15 +171,27 @@ function openTab(evt, cityName) {
 <h3 id="31-ytor-expression">3.1 yTor expression</h3>
 <p>After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. Since we know that yTor-C (orange) in SL1 is the closest to the SL3 yTor, it makes sense that it shows expression in SL1 and SL3, while yTor-A, which is more diverged from the SL3 yTor, does not map reads from these samples. Furthermore, yTor-C is also the closes to aTor, which likely explains the female samples, which are mismapped reads that only map to yTor-C and not yTor-A.</p>
 <p>The autosomal Tor <code>gene-30110</code> is expressed much higher than any y-linked copy, which makes sense since it is a highly conserved gene in the insulin signalling pathway. There seems to be no difference between SL1 and SL3.</p>
-<details>
-<summary>normalized counts plots</summary> 
-<p><code>(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))</code></p>
+<h4 id="normalized-counts-plots">Normalized counts plots</h4>
+<p>Since we hypothesize that the phenotypic difference is related with differences in Tor expression dosage, I will manually merge the read counts of yTor-A, B and C into one yTor-all for the DE analysis.</p>
+<p>The phylogenetic relationship is this: <code>(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))</code> (with yTor-C being the one also in SL# and the closest to aTor) and the tick labels are according to this naming scheme: <code>SL</code>-<code>day</code>-<code>sample_ID</code>-<code>sex</code>.</p>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'yTor_split')">yTor split into A,B,C</button>
+  <button class="tablinks" onclick="openTab(event, 'yTor_merged')">yTor merged</button>
+</div>
+<div id="yTor_split" class="tabcontent">
+<p>Only show samples that have nonzero expression!</p>
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/yTor_analysis/yTor_counts.png" width="49%" />
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/yTor_analysis/all_Tor_counts.png" width="49%" />
 </p>
-<p>The tick labels are according to this naming scheme: <code>SL</code>-<code>day</code>-<code>sample_ID</code>-<code>sex</code>.</p>
-</details>
+</div>
+<div id="yTor_merged" class="tabcontent">
+<p>Only show samples that have nonzero expression! Female samples removed even if they show expression.</p>
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/yTor_analysis/merged_yTor_counts.png" width="49%" />
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/yTor_analysis/merged_yTor_aTor_counts.png" width="49%" />
+</p>
+</div>
 <h3 id="32-pca-plots">3.2 PCA plots</h3>
 <p>PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which are the small (1) and large (3) males respectively. Intuitively, the tor copy number is reversed, with the small males in SL1 having three copies, and the large males in SL3 having only one. The days are day 14, 16, or 18 of larval development.</p>
 <div class="tab">

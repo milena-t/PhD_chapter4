@@ -113,19 +113,38 @@ After reading the data and filtering for minimum expression thresholds, yTor-A a
 
 The autosomal Tor `gene-30110` is expressed much higher than any y-linked copy, which makes sense since it is a highly conserved gene in the insulin signalling pathway. There seems to be no difference between SL1 and SL3.
 
-<details>
-<summary>normalized counts plots</summary> 
+#### Normalized counts plots
 
-`(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))`
+Since we hypothesize that the phenotypic difference is related with differences in Tor expression dosage, I will manually merge the read counts of yTor-A, B and C into one yTor-all for the DE analysis.
+
+The phylogenetic relationship is this: `(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))` (with yTor-C being the one also in SL# and the closest to aTor) and the tick labels are according to this naming scheme: `SL`-`day`-`sample_ID`-`sex`.
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'yTor_split')">yTor split into A,B,C</button>
+  <button class="tablinks" onclick="openTab(event, 'yTor_merged')">yTor merged</button>
+</div>
+
+<div id="yTor_split" class="tabcontent">
+
+Only show samples that have nonzero expression!
 
 <p float="left">
   <img src="data/yTor_analysis/yTor_counts.png" width="49%" />
   <img src="data/yTor_analysis/all_Tor_counts.png" width="49%" />
 </p>
 
-The tick labels are according to this naming scheme: `SL`-`day`-`sample_ID`-`sex`.
+</div>
 
-</details>
+<div id="yTor_merged" class="tabcontent">
+
+Only show samples that have nonzero expression! Female samples removed even if they show expression.
+
+<p float="left">
+  <img src="data/yTor_analysis/merged_yTor_counts.png" width="49%" />
+  <img src="data/yTor_analysis/merged_yTor_aTor_counts.png" width="49%" />
+</p>
+
+</div>
 
 ### 3.2 PCA plots
 
