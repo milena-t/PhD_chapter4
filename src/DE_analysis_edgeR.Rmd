@@ -35,7 +35,8 @@ library(dplyr)
 Load either whole gene set, or filtered to only include X or Y genes.
 
 ```{r}
-in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
+# in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
+in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard_merge_yTor.txt"
 outdir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/"
 
 # in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard_only_Y.txt"
@@ -49,8 +50,8 @@ Load all data first and compute right library sizes. Only split by sample after 
 
 ```{r}
 
-out_norm_counts sprintf<-%s ("gene_counts_normalized_nolog.tsv", outdir)
-metadata sprintf<-%s ("larvae_metadata.csv", outdir)
+out_norm_counts <- sprintf("%sgene_counts_normalized_nolog.tsv", outdir)
+metadata <- sprintf("%slarvae_metadata.csv", outdir)
 
 ## load data
   count_data <- read.csv(in_filename, header = TRUE, sep = "\t",comment.char = "#", check.names = FALSE)
@@ -150,7 +151,7 @@ to not always be the case.
 The analysis can be run separately for males and females, if use_males=True then it's only males, and if False then it's only the females
 
 ```{r} 
-use_males<-TRUE
+use_males<-FALSE
 ```
 
 ```{r} 
