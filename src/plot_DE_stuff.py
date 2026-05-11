@@ -521,14 +521,16 @@ if __name__ == "__main__":
                         DE_list = smear_lists["Downregulated"]+smear_lists["Upregulated"]
 
                     smear_nums = {gene_set : len(gene_list) for gene_set,gene_list in smear_lists.items()}
-                    numbers[smear_title] = smear_nums
+                    numbers[contrast] = smear_nums
 
                     if "(" not in contrast:
                         # don't include interactions in upset plot
                         sig_DE_genes[contrast] = DE_list
                         sep_DE_genes[f"{category}: {contrast}"] = DE_list
 
-                print(numbers)
+                for contrast, number in numbers.items():
+                    print(f"\tNUMBERS SUMMARY:")
+                    print(f"\t{contrast} : {number}")
                 if make_upset:
                     ## upsetplot within each separation
                     min_overlap = 15

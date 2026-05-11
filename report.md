@@ -216,9 +216,9 @@ Additionally, in day 14 and day 16, there is a larger number of upregulated (hig
 
 | `glmQLFTest`  | Day 14        | Day 16        | Day 18        |
 | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 93            | 199           | 16            |
+| Downregulated | 93            | 200           | 16            |
 | no difference | 10326         | 10164         | 10563         |
-| Upregulated   | 148           | 186           | 36            |
+| Upregulated   | 149           | 186           | 36            |
 
 </table>
 
@@ -443,6 +443,16 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 ```
 
+<table>
+
+| `glmQLFTest`  | SL1(18-14)-SL3(18-14) | SL1(14-16)-SL3(14-16) | SL1(18-16)-SL3(18-16) |
+| ------------- | --------------------- | --------------------- | --------------------- |
+| Downregulated | 1                     | 0                     | 0                     |
+| no difference | 10636                 | 10637                 | 10636                 |
+| Upregulated   | 0                     | 0                     | 1                     |
+
+</table>
+
 </div>
 
 <div id="females_line_day_DE" class="tabcontent">
@@ -457,6 +467,16 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 ```
+
+<table>
+
+| `glmQLFTest`  | SL1(18-14)-SL3(18-14) | SL1(14-16)-SL3(14-16) | SL1(18-16)-SL3(18-16) |
+| ------------- | --------------------- | --------------------- | --------------------- |
+| Downregulated | 1                     | 0                     | 0                     |
+| no difference | 9655                  | 9656                  | 9656                  |
+| Upregulated   | 0                     | 0                     | 0                     |
+
+</table>
 
 </div>
 
@@ -475,6 +495,16 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 ```
 
+<table>
+
+| `glmQLFTest`  | SL1(18-14)-SL3(18-14) | SL1(14-16)-SL3(14-16) | SL1(18-16)-SL3(18-16) |
+| ------------- | --------------------- | --------------------- | --------------------- |
+| Downregulated | 1                     | 0                     | 0                     |
+| no difference | 10636                 | 10637                 | 10636                 |
+| Upregulated   | 0                     | 0                     | 1                     |
+
+</table>
+
 </div>
 
 <div id="females_line_day_DE_volcano" class="tabcontent">
@@ -490,6 +520,16 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 ```
+
+<table>
+
+| `glmQLFTest`  | SL1(18-14)-SL3(18-14) | SL1(14-16)-SL3(14-16) | SL1(18-16)-SL3(18-16) |
+| ------------- | --------------------- | --------------------- | --------------------- |
+| Downregulated | 1                     | 0                     | 0                     |
+| no difference | 9655                  | 9656                  | 9656                  |
+| Upregulated   | 0                     | 0                     | 0                     |
+
+</table>
 
 </div>
 
@@ -640,7 +680,7 @@ Males have a massive change in gene regulation, both up- and down between day 18
 | `glmQLFTest`  | d18-d14       | d18-d16       | d14-d16       |
 | ------------- | ------------- | ------------- | ------------- |
 | Downregulated | 1213          | 15            | 1487          |
-| no difference | 7086          | 10559         | 8257          |
+| no difference | 7087          | 10560         | 8258          |
 | Upregulated   | 2337          | 62            | 892           |
 
 </td><td>
@@ -648,8 +688,8 @@ Males have a massive change in gene regulation, both up- and down between day 18
 | `glmQLFTest`  | d18-d14       | d18-d16       | d14-d16       |
 | ------------- | ------------- | ------------- | ------------- |
 | Downregulated | 1159          | 606           | 607           |
-| no difference | 7125          | 8956          | 9972          |
-| Upregulated   | 2352          | 1074          | 57            |
+| no difference | 7127          | 8956          | 9973          |
+| Upregulated   | 2351          | 1074          | 57            |
 
 </td><td> </table>
 
@@ -678,9 +718,9 @@ in SL1, the difference is more between day 14 and day 16/18, since the day 18 - 
 
 | `glmQLFTest`  | d18-d14       | d18-d16       | d14-d16       |
 | ------------- | ------------- | ------------- | ------------- |
-| Downregulated | 55            | 0             | 0             |
-| no difference | 9595          | 9656          | 9656          |
-| Upregulated   | 6             | 0             | 0             |
+| Downregulated | 0             | 0             | 0             |
+| no difference | 9656          | 9656          | 9656          |
+| Upregulated   | 0             | 0             | 0             |
 
 </td><td>
 
@@ -1059,6 +1099,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/Venn_day14_line_bias_by_sex.png" width="25%" />
 </p>
 
+| `glmQLFTest`  | F1-F3         | M1-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 11            | 160           |
+| no difference | 10370         | 10097         |
+| Upregulated   | 17            | 141           |
+
 <details>
 <summary>130 DE genes shared between males and females (excluded from plots, toggle down to see list)</summary>
 
@@ -1077,6 +1123,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/smear_day14_M_1-3_volcano.png" width="32%" />
   <img src="data/DE_figures_python/Venn_day14_line_bias_by_sex.png" width="25%" />
 </p>
+
+| `glmQLFTest`  | F1-F3         | M1-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 11            | 160           |
+| no difference | 10370         | 10097         |
+| Upregulated   | 17            | 141           |
 
 <details>
 <summary>130 DE genes shared between males and females (excluded from plots, toggle down to see list)</summary>
@@ -1098,6 +1150,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   
 </p>
 
+| `glmQLFTest`  | F1-F3         | M1-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 6             | 173           |
+| no difference | 10415         | 10161         |
+| Upregulated   | 21            | 108           |
+
 <details>
 <summary>142 DE genes shared between males and females (excluded from plots, toggle down to see list)</summary>
 
@@ -1117,6 +1175,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/Venn_day16_line_bias_by_sex.png" width="25%" />
   
 </p>
+
+| `glmQLFTest`  | F1-F3         | M1-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 6             | 173           |
+| no difference | 10415         | 10161         |
+| Upregulated   | 21            | 108           |
 
 <details>
 <summary>142 DE genes shared between males and females (excluded from plots, toggle down to see list)</summary>
@@ -1138,6 +1202,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   
 </p>
 
+| `glmQLFTest`  | F1-F3         | M1-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 6             | 3             |
+| no difference | 11193         | 11190         |
+| Upregulated   | 5             | 11            |
+
 </div>
 
 <div id="day18_SL1-3_volcano" class="tabcontent">
@@ -1148,6 +1218,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/Venn_day18_line_bias_by_sex.png" width="25%" />
   
 </p>
+
+| `glmQLFTest`  | F1-F3         | M1-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 6             | 3             |
+| no difference | 11193         | 11190         |
+| Upregulated   | 5             | 11            |
 
 </div>
 
@@ -1175,6 +1251,13 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/Venn_day14_sex_bias_by_line.png" width="25%" />
 </p>
 
+| `glmQLFTest`  | F1-M1         | F3-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 154           | 510           |
+| no difference | 10236         | 9884          |
+| Upregulated   | 8             | 4             |
+
+
 </div>
 
 <div id="day14_FM_volcano" class="tabcontent">
@@ -1184,6 +1267,13 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/smear_day14_SL3_F-M_volcano.png" width="32%" />
   <img src="data/DE_figures_python/Venn_day14_sex_bias_by_line.png" width="25%" />
 </p>
+
+| `glmQLFTest`  | F1-M1         | F3-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 154           | 510           |
+| no difference | 10236         | 9884          |
+| Upregulated   | 8             | 4             |
+
 
 </div>
 
@@ -1195,6 +1285,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="25%" />
 </p>
 
+| `glmQLFTest`  | F1-M1         | F3-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 692           | 781           |
+| no difference | 9713          | 9625          |
+| Upregulated   | 37            | 36            |
+
 </div>
 
 <div id="day16_FM_volcano" class="tabcontent">
@@ -1204,6 +1300,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/smear_day16_SL3_F-M_volcano.png" width="32%" />
   <img src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="25%" />
 </p>
+
+| `glmQLFTest`  | F1-M1         | F3-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 692           | 781           |
+| no difference | 9713          | 9625          |
+| Upregulated   | 37            | 36            |
 
 </div>
 
@@ -1215,6 +1317,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/Venn_day18_sex_bias_by_line.png" width="25%" />
 </p>
 
+| `glmQLFTest`  | F1-M1         | F3-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 1044          | 843           |
+| no difference | 10141         | 10359         |
+| Upregulated   | 19            | 2             |
+
 </div>
 
 <div id="day18_FM_volcano" class="tabcontent">
@@ -1224,6 +1332,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
   <img src="data/DE_figures_python/Venn_day18_sex_bias_by_line.png" width="25%" />
 </p>
+
+| `glmQLFTest`  | F1-M1         | F3-M3         |
+| ------------- | ------------- | ------------- |
+| Downregulated | 1044          | 843           |
+| no difference | 10141         | 10359         |
+| Upregulated   | 19            | 2             |
 
 </div>
 
@@ -1249,22 +1363,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/LFC_scatter_interaction_day14_sex_bias.png" width="25%" />  
 </p>
 
-<details>
-<summary>gene IDs list</summary>
+| `glmQLFTest`  | (F_1 - M_1) - (F_3 - M_3) |
+| ------------- | ------------------------- |
+| Downregulated | 160                       |
+| no difference | 10097                     |
+| Upregulated   | 141                       |
 
-* Downregulated (160)
-
-```
-['gene-124877', 'gene-124865', 'gene-239506', 'gene-223773', 'gene-224079', 'gene-223758', 'gene-424750', 'gene-223491', 'gene-371957', 'gene-127740', 'gene-429522', 'gene-90190', 'gene-87554', 'gene-426056', 'gene-231854', 'gene-230270', 'gene-288660', 'gene-232048', 'gene-220055', 'gene-77070', 'gene-290138', 'gene-120832', 'gene-39545', 'gene-286732', 'gene-130096', 'gene-241328', 'gene-218301', 'gene-76019', 'gene-166391', 'gene-130081', 'gene-38977', 'gene-231604', 'gene-223318', 'gene-39692', 'gene-158197', 'gene-414353', 'gene-241268', 'gene-266875', 'gene-222737', 'gene-88032', 'gene-115312', 'gene-372264', 'gene-122220', 'gene-288356', 'gene-70385', 'gene-204669', 'gene-268146', 'gene-374892', 'gene-375015', 'gene-406510', 'gene-326329', 'gene-407355', 'gene-327787', 'gene-210277', 'gene-125867', 'gene-223419', 'gene-346228', 'gene-143368', 'gene-39770', 'gene-414838', 'gene-161821', 'gene-125638', 'gene-39680', 'gene-75424', 'gene-78574', 'gene-149137', 'gene-217258', 'gene-210286', 'gene-53501', 'gene-240397', 'gene-336688', 'gene-95461', 'gene-100036', 'gene-71572', 'gene-227137', 'gene-236155', 'gene-241262', 'gene-336088', 'gene-351784', 'gene-263126', 'gene-188501', 'gene-127607', 'gene-6017', 'gene-223599', 'gene-24347', 'gene-73885', 'gene-302994', 'gene-215608', 'gene-62772', 'gene-266887', 'gene-391847', 'gene-223554', 'gene-246615', 'gene-289849', 'gene-60429', 'gene-229506', 'gene-233901', 'gene-124680', 'gene-244661', 'gene-69775', 'gene-272401', 'gene-89057', 'gene-286545', 'gene-124766', 'gene-346500', 'gene-2467', 'gene-83083', 'gene-89798', 'gene-2286', 'gene-333750', 'gene-311581', 'gene-406519', 'gene-67440', 'gene-241193', 'gene-161848', 'gene-283197', 'gene-223791', 'gene-72046', 'gene-85294', 'g11517', 'gene-241506', 'gene-224028', 'gene-129852', 'gene-335551', 'gene-223088', 'gene-73754', 'gene-39533', 'gene-266297', 'gene-218529', 'gene-323550', 'gene-250391', 'gene-377275', 'gene-83830', 'gene-425122', 'gene-68813', 'gene-57335', 'gene-269058', 'gene-238320', 'gene-347681', 'gene-215430', 'gene-53269', 'gene-31110', 'gene-68612', 'gene-212020', 'gene-55557', 'gene-223285', 'gene-280630', 'gene-211847', 'gene-271655', 'gene-406603', 'gene-277078', 'gene-203445', 'gene-77109', 'gene-120964', 'gene-7268', 'gene-179860', 'gene-62891', 'gene-77835', 'gene-30328', 'gene-127773']
-```
-
-* Upregulated (140)
-
-```
-['gene-227308', 'gene-224369', 'gene-225158', 'gene-221012', 'g14784', 'gene-125210', 'gene-224890', 'gene-238849', 'gene-403878', 'gene-120660', 'gene-237378', 'gene-119161', 'gene-241682', 'gene-243630', 'gene-218813', 'gene-421265', 'gene-84577', 'gene-370643', 'gene-240602', 'gene-227370', 'gene-240860', 'gene-5731', 'gene-330102', 'gene-217099', 'gene-48714', 'gene-81750', 'gene-370487', 'gene-90428', 'gene-395158', 'gene-217443', 'gene-371230', 'gene-303243', 'gene-124377', 'gene-68558', 'gene-370842', 'gene-215103', 'gene-62927', 'gene-301479', 'gene-370323', 'gene-64491', 'gene-227284', 'gene-118620', 'gene-221469', 'gene-417051', 'gene-250269', 'gene-370562', 'gene-333008', 'gene-392350', 'gene-82722', 'gene-264249', 'gene-81581', 'gene-407735', 'gene-73288', 'gene-272192', 'gene-262796', 'gene-81518', 'gene-226254', 'gene-57617', 'gene-408949', 'gene-120070', 'gene-81458', 'gene-398993', 'gene-81476', 'gene-334677', 'gene-421549', 'gene-370595', 'gene-425532', 'gene-241841', 'gene-81675', 'gene-118985', 'gene-81418', 'gene-65889', 'gene-88458', 'gene-240638', 'g11957', 'gene-80415', 'gene-87700', 'gene-225355', 'gene-76284', 'gene-401486', 'gene-227071', 'gene-399223', 'gene-263313', 'gene-313589', 'gene-288413', 'gene-166814', 'gene-237857', 'gene-65163', 'gene-87487', 'gene-229515', 'gene-219157', 'gene-350813', 'gene-234256', 'gene-64470', 'gene-57689', 'gene-263588', 'gene-242691', 'gene-294364', 'gene-400426', 'gene-222159', 'gene-268137', 'gene-88092', 'gene-324340', 'gene-262046', 'gene-90524', 'g5814', 'gene-410993', 'gene-399203', 'gene-215313', 'gene-358397', 'gene-361221', 'gene-417093', 'gene-261982', 'gene-378262', 'gene-131338', 'gene-77588', 'gene-152204', 'gene-26634', 'gene-58495', 'gene-221504', 'g1591', 'gene-392536', 'gene-407714', 'gene-370967', 'gene-266345', 'gene-153689', 'gene-125849', 'gene-5187', 'gene-331395', 'gene-55887', 'gene-130632', 'gene-73160', 'gene-263597', 'gene-331896', 'gene-271117', 'gene-59093', 'gene-431030', 'gene-397251', 'gene-283696', 'gene-119684']
-```
-
-</details>
 
 </div>
 
@@ -1274,6 +1378,13 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/LFC_scatter_interaction_day14_line_bias.png" width="25%" />
   <img src="data/DE_figures_python/LFC_scatter_interaction_day14_sex_bias.png" width="25%" />
 </p>
+
+| `glmQLFTest`  | (F_1 - M_1) - (F_3 - M_3) |
+| ------------- | ------------------------- |
+| Downregulated | 160                       |
+| no difference | 10097                     |
+| Upregulated   | 141                       |
+
 </div>
 
 <div id="day16_interaction_smear" class="tabcontent">
@@ -1283,22 +1394,11 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/LFC_scatter_interaction_day16_sex_bias.png" width="25%" />  
 </p>
 
-<details>
-<summary>gene IDs list</summary>
-
- * Downregulated (173)
-
-```
-['gene-424768', 'gene-263126', 'gene-240397', 'gene-424750', 'gene-211137', 'gene-243753', 'gene-215596', 'gene-63245', 'gene-223722', 'gene-428089', 'gene-54363', 'gene-424726', 'gene-87554', 'gene-223758', 'gene-55869', 'gene-90190', 'gene-223419', 'gene-223734', 'gene-367523', 'gene-42302', 'gene-113411', 'gene-14276', 'gene-217473', 'gene-7220', 'gene-63617', 'gene-424863', 'gene-229506', 'gene-6223', 'gene-34632', 'gene-119402', 'gene-312890', 'gene-69401', 'gene-241506', 'gene-23181', 'gene-127607', 'gene-336178', 'gene-8365', 'gene-38885', 'gene-328746', 'gene-388769', 'gene-86738', 'gene-14252', 'gene-231493', 'gene-125638', 'gene-393138', 'gene-279676', 'gene-221980', 'gene-407280', 'gene-68612', 'gene-152989', 'gene-104371', 'gene-234686', 'gene-271655', 'gene-336688', 'gene-241856', 'gene-306977', 'gene-127740', 'gene-233883', 'gene-57335', 'gene-38977', 'gene-85401', 'gene-353013', 'gene-269365', 'gene-346228', 'gene-201605', 'gene-127849', 'gene-205849', 'gene-152165', 'gene-431362', 'gene-313040', 'gene-174594', 'gene-294618', 'gene-128145', 'gene-228118', 'gene-88032', 'gene-32436', 'gene-424896', 'gene-124877', 'gene-231604', 'gene-420308', 'gene-149557', 'gene-327074', 'gene-426056', 'gene-223318', 'gene-283260', 'gene-223512', 'gene-230270', 'gene-80062', 'gene-279912', 'gene-231540', 'gene-333603', 'gene-116902', 'gene-410561', 'gene-259467', 'gene-183665', 'gene-240184', 'gene-367095', 'gene-424914', 'gene-195335', 'gene-345135', 'gene-351334', 'gene-254128', 'gene-222737', 'gene-277218', 'gene-23163', 'gene-23042', 'gene-48598', 'gene-68000', 'gene-185170', 'gene-402875', 'gene-197114', 'gene-421566', 'gene-233485', 'gene-268996', 'gene-272072', 'gene-30322', 'gene-55240', 'gene-39933', 'gene-405355', 'gene-402536', 'gene-241238', 'gene-310012', 'gene-333433', 'gene-282008', 'gene-255088', 'gene-324223', 'gene-17262', 'gene-30595', 'gene-90918', 'gene-279975', 'gene-321078', 'gene-327616', 'gene-254639', 'gene-372264', 'gene-101822', 'gene-266887', 'gene-174585', 'gene-246732', 'gene-286289', 'gene-21635', 'gene-287310', 'gene-275750', 'gene-362311', 'gene-64360', 'gene-425173', 'gene-232048', 'gene-196966', 'gene-428194', 'gene-89219', 'gene-268975', 'gene-55252', 'gene-183393', 'gene-182960', 'gene-329366', 'gene-6199', 'gene-269228', 'gene-222746', 'gene-336348', 'gene-289528', 'gene-14156', 'gene-369289', 'gene-228465', 'gene-117360', 'gene-16790', 'gene-218421', 'gene-188158', 'gene-286744', 'gene-270896', 'gene-428071', 'gene-360503', 'gene-330422', 'gene-58752', 'gene-220788']
-```
-	 
-  * Upregulated (108)
-
-```
-['gene-240602', 'gene-24185', 'gene-24290', 'gene-23840', 'gene-23597', 'gene-24203', 'gene-24120', 'gene-24132', 'gene-23538', 'gene-423321', 'gene-87700', 'gene-24088', 'gene-24221', 'gene-390687', 'gene-24278', 'gene-24167', 'gene-13404', 'gene-23514', 'gene-407253', 'gene-326882', 'gene-23365', 'gene-15763', 'gene-23689', 'gene-428729', 'gene-23413', 'gene-23834', 'gene-327441', 'gene-23893', 'gene-392224', 'gene-23884', 'gene-240935', 'gene-80466', 'gene-421265', 'gene-120660', 'gene-428774', 'gene-24052', 'gene-90307', 'gene-24079', 'gene-122692', 'gene-417051', 'gene-282611', 'gene-403700', 'gene-224250', 'gene-282641', 'gene-328764', 'gene-27466', 'gene-370842', 'gene-84577', 'gene-219019', 'gene-410366', 'gene-400426', 'gene-214979', 'gene-403652', 'gene-227164', 'gene-326810', 'gene-130665', 'gene-9713', 'gene-17601', 'gene-12075', 'gene-218086', 'gene-84224', 'gene-237372', 'gene-219157', 'gene-326873', 'gene-329410', 'gene-403706', 'gene-81551', 'gene-245743', 'gene-81599', 'gene-411056', 'gene-127707', 'gene-395158', 'gene-431788', 'gene-217099', 'gene-80484', 'gene-403851', 'gene-23911', 'gene-370550', 'gene-81675', 'g2779', 'gene-215563', 'gene-392159', 'gene-224369', 'gene-90503', 'gene-24914', 'gene-216914', 'gene-81418', 'gene-370643', 'gene-15918', 'gene-237351', 'gene-81476', 'gene-81581', 'gene-285127', 'gene-222242', 'gene-125849', 'gene-349163', 'gene-227137', 'gene-282437', 'gene-13124', 'gene-17046', 'gene-10767', 'gene-225355', 'gene-237857', 'gene-119684', 'gene-16667', 'gene-81458', 'gene-80415', 'gene-326825']
-```
-
-</details>
+| `glmQLFTest`  | (F_1 - M_1) - (F_3 - M_3) |
+| ------------- | ------------------------- |
+| Downregulated | 173                       |
+| no difference | 10161                     |
+| Upregulated   | 108                       |
 
 </div>
 
@@ -1308,6 +1408,13 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/LFC_scatter_interaction_day16_line_bias.png" width="25%" />
   <img src="data/DE_figures_python/LFC_scatter_interaction_day16_sex_bias.png" width="25%" />
 </p>
+
+| `glmQLFTest`  | (F_1 - M_1) - (F_3 - M_3) |
+| ------------- | ------------------------- |
+| Downregulated | 173                       |
+| no difference | 10161                     |
+| Upregulated   | 108                       |
+
 </div>
 
 <div id="day18_interaction_smear" class="tabcontent">
@@ -1317,22 +1424,11 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/LFC_scatter_interaction_day18_sex_bias.png" width="25%" />  
 </p>
 
-<details>
-<summary>gene IDs list</summary>
-
-* Downregulated (3)
-
-```
-['gene-428071', 'gene-233410', 'gene-428104']
-```
-
-* Upregulated (11)
-
-```
-['gene-396259', 'gene-395158', 'gene-224875', 'gene-395143', 'gene-90157', 'gene-224860', 'gene-428738', 'gene-395080', 'gene-224697', 'gene-301479', 'gene-242595']
-```
-
-</details>
+| `glmQLFTest`  | (F_1 - M_1) - (F_3 - M_3) |
+| ------------- | ------------------------- |
+| Downregulated | 3                         |
+| no difference | 11190                     |
+| Upregulated   | 11                        |
 
 </div>
 
@@ -1342,6 +1438,13 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/LFC_scatter_interaction_day18_line_bias.png" width="25%" />
   <img src="data/DE_figures_python/LFC_scatter_interaction_day18_sex_bias.png" width="25%" />
 </p>
+
+| `glmQLFTest`  | (F_1 - M_1) - (F_3 - M_3) |
+| ------------- | ------------------------- |
+| Downregulated | 3                         |
+| no difference | 11190                     |
+| Upregulated   | 11                        |
+
 </div>
 
 
