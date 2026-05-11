@@ -463,11 +463,15 @@ if __name__ == "__main__":
 
             
     ############################################
-    ######### MAKE ALL THE SMEAR PLOTS #########
+    ######### MAKE ALL THE SMEAR PLOTS ######### # or upset plots 
     ############################################
-    if True:
+    
+    ############
+    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    ###########
 
-        make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    if True:
+        
         if make_upset:
             plot=False
 
