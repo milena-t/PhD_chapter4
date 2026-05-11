@@ -729,6 +729,7 @@ Only difference between day 14 and 18, no other developmental cues? Do only the 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'Males_upset')">Males</button>
   <button class="tablinks" onclick="openTab(event, 'Females_upset')">Females</button>
+  <button class="tablinks" onclick="openTab(event, 'sexes_upset')">Both sexes</button>
 </div>
 
 <div id="Males_upset" class="tabcontent">
@@ -743,6 +744,14 @@ Only difference between day 14 and 18, no other developmental cues? Do only the 
 
 <p float="left">
   <img src="data/DE_figures_python/upsetplot_sex_separated_females.png" width="30%" />
+</p>
+
+</div>
+
+<div id="sexes_upset" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_sex_separated_all_categories.png" width="75%" />
 </p>
 
 </div>
@@ -976,6 +985,7 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_upset')">SL1</button>
   <button class="tablinks" onclick="openTab(event, 'SL3_upset')">SL3</button>
+  <button class="tablinks" onclick="openTab(event, 'lines_upset')">Both lines</button>
 </div>
 
 <div id="SL1_upset" class="tabcontent">
@@ -990,6 +1000,14 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 <p float="left">
   <img src="data/DE_figures_python/upsetplot_line_separated_SL3.png" width="30%" />
+</p>
+
+</div>
+
+<div id="lines_upset" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_line_separated_all_categories.png" width="40%" />
 </p>
 
 </div>
@@ -1347,6 +1365,7 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <button class="tablinks" onclick="openTab(event, 'day14_upset')">Day 14</button>
   <button class="tablinks" onclick="openTab(event, 'day16_upset')">Day 16</button>
   <button class="tablinks" onclick="openTab(event, 'day18_upset')">Day 18</button>
+  <button class="tablinks" onclick="openTab(event, 'all_upset')">All days</button>
 </div>
 
 <div id="day14_upset" class="tabcontent">
@@ -1364,6 +1383,12 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 <div id="day18_upset" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/upsetplot_day_separated_day18.png" width="32%" />
+</p>
+</div>
+
+<div id="all_upset" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="40%" />
 </p>
 </div>
 

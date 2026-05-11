@@ -418,14 +418,18 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     return(lengths)
 
 
-def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = ""):
+def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = "", min_overlap = 0):
     """
     make an upseetplot of sig DE genes within each data separation
     """
     data = upsetplot.from_contents(geneIDs_dict)
-    upsetplot.UpSet(data, subset_size="count", sort_by="cardinality", show_counts=True).plot()
+    if min_overlap>0:
+        upsetplot.UpSet(data, subset_size="count", show_counts=True, min_subset_size=min_overlap, sort_by="cardinality", sort_categories_by="input").plot()
+    else:
+        upsetplot.UpSet(data, subset_size="count", sort_by="cardinality", show_counts=True, min_subset_size=min_overlap).plot()
 
     plt.title(plot_title)
+    plt.tight_layout()
     plt.savefig(plot_filename, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {plot_filename}")
     plt.clf()
@@ -470,11 +474,15 @@ if __name__ == "__main__":
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
 
+            # for upsetplot
+            sep_DE_genes = {}
+
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
                 numbers = {}
                 sig_DE_genes = {}
+                
                 for contrast, table_path in paths_dict.items():
                     
                     print(f"{separation}:{category} --> contrast: {contrast}")
@@ -511,6 +519,7 @@ if __name__ == "__main__":
                     if "(" not in contrast:
                         # don't include interactions in upset plot
                         sig_DE_genes[smear_title] = DE_list
+                        sep_DE_genes[f"{category}: {contrast}"] = DE_list
 
                 print(numbers)
                 if make_upset:
@@ -518,6 +527,11 @@ if __name__ == "__main__":
                     plot_title = f"{separation}: {category}\nsig. DE genes overlap"
                     plot_sig_gene_overlap(sig_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_{category}.png", plot_title = plot_title)
 
+            if make_upset:
+                ## upsetplot for each contrast between separations
+                min_overlap = 15
+                plot_title = f"{separation}: all categories\nsig. DE genes overlap (min. overlap size: {min_overlap})"
+                plot_sig_gene_overlap(sep_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_all_categories.png", plot_title = plot_title, min_overlap = min_overlap)
             
 
     ############################################
