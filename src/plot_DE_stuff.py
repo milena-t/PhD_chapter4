@@ -146,6 +146,8 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     point_size_factor = 5
     ps = fs*point_size_factor # point size
     
+    if x_axis == "fdr_p":
+        df['FDR_volc'] = df['FDR'].transform(lambda x: math.log10(x))
     ### plot the unsignificant first so they are below and the significant ones are above
     df_nonsig = df.loc[df['FDR'] >= p_sig]
     df_sig = df.loc[df['FDR'] < p_sig]
@@ -159,7 +161,6 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
         elif x_axis == "fdr_p":
             fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
-            df['FDR_volc'] = df['FDR'].transform(lambda x: math.log10(x))
 
         if  x_axis == "logcpm":
             ax.scatter(df_nonsig["logCPM"], df_nonsig["logFC"], color = cols["nonsig"], alpha=0.5, s=ps)
@@ -467,13 +468,15 @@ if __name__ == "__main__":
     ############################################
     
     ############
-    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ###########
 
     if True:
         
         if make_upset:
             plot=False
+        else:
+            plot=True
 
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
