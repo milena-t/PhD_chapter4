@@ -135,7 +135,7 @@ if __name__ == "__main__":
     username = "miltr339"
     counts_file = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
 
-    if True:
+    if False:
         yTor_IDs = {"yTor-all":"yTor","gene-30110":"aTor"}
         yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/merged_yTor_aTor_counts.png"
         plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot, remove_females=True)
@@ -158,11 +158,12 @@ if __name__ == "__main__":
         MSL2_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/MSL2_counts.png"
         plot_counts(counts_table=counts_file, geneIDs_list=MSL2_IDs, outfile_name=MSL2_plot)
 
-    if False:
+    if True:
         # all Y expressed
-        y_expr = ["gene-371805","yTor-A","gene-371844","yTor-C","gene-371913","gene-371922","gene-371957","gene-372053","gene-372068","gene-372216","gene-372264"]
+        y_expr = ["gene-371805","gene-371844","gene-371889","gene-371913","gene-371922","gene-371957","gene-372053","gene-372068","gene-372216","gene-372264","yTor-all"]
         y_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/y_expr_counts.png"
         plot_counts(counts_table=counts_file, geneIDs_list=y_expr, outfile_name=y_plot)
-        y_expr = ["gene-371805","yTor-A","gene-371844","yTor-C","gene-371913","gene-371922","gene-371957","gene-372053","gene-372216"]
+        # remove highly expressed genes
+        y_expr = ["gene-371805","gene-371844","gene-371889","gene-371913","gene-371922","gene-371957","gene-372053","gene-372216","yTor-all"]
         y_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/y_low_expr_counts.png"
         plot_counts(counts_table=counts_file, geneIDs_list=y_expr, outfile_name=y_plot)
