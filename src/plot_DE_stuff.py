@@ -469,6 +469,8 @@ if __name__ == "__main__":
     
     ############
     make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    # TODO add option to save focal gene sets into lists for GO term enrichment with topGO
+    # https://bioconductor.org/packages//release/bioc/vignettes/topGO/inst/doc/topGO_manual.html
     ###########
 
     if False:
