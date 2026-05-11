@@ -153,12 +153,12 @@ if __name__ == "__main__":
             yTor_IDs = ["yTor-A", "yTor-B", "yTor-C"]
             yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/yTor_counts.png"
             plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot)
-    if False:
-        MSL2_IDs = {"gene-371922" : "Y-copy","gene-343165": "A-copy"} # Y-copy,A-copy
+    if True:
+        MSL2_IDs = {"gene-371922" : "Y-MSL2","gene-343165": "A-MSL2"} # Y-copy,A-copy
         MSL2_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/MSL2_counts.png"
         plot_counts(counts_table=counts_file, geneIDs_list=MSL2_IDs, outfile_name=MSL2_plot)
 
-    if True:
+    if False:
         # all Y expressed
         y_expr = ["gene-371805","gene-371844","gene-371889","gene-371913","gene-371922","gene-371957","gene-372053","gene-372068","gene-372216","gene-372264","yTor-all"]
         y_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/y_expr_counts.png"
