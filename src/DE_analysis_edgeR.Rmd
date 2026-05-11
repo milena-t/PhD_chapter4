@@ -74,6 +74,7 @@ metadata <- sprintf("%slarvae_metadata.csv", outdir)
   y <- DGEList(counts=count_data, group=groups)
   #dim(y)
   #[1] 15700    82
+
 ## filter out low count genes
   # minimum count of 5 in at least some samples, and a minimum total count of 15 across all samples 
   # min.prop=0 so that the yTors stay even though they are only expressed in SL1-M

@@ -8,11 +8,12 @@ import numpy as np
 from scipy import stats
 
 
-def plot_counts(counts_table:str, geneIDs_list:list, outfile_name:str, y_label="normalized counts", mean_per_sample=False, remove_females = False):
+def plot_counts(counts_table:str, geneIDs_list, outfile_name:str, y_label="normalized counts", mean_per_sample=False, remove_females = False):
     """
     plot the counts of the geneIDs in all samples
     except samples where all samples have zero counts
     if mean_per_sample, plot the mean counts for every sample with standard error
+    if geneIDs_list is a dict with {geneID : legend_name} then the legend will be printed with the proper legend name and not the geneID 
     """
     assert len(geneIDs_list)>0
     counts_df = pd.read_csv(counts_table, sep="\t", index_col=0)
@@ -20,6 +21,13 @@ def plot_counts(counts_table:str, geneIDs_list:list, outfile_name:str, y_label="
     headers = counts_df.columns.tolist()
     gene_counts = {}
     nonexpressed = []
+    if type(geneIDs_list) == dict:
+        usedict_labels = True
+        geneIDs_dict = geneIDs_list
+        geneIDs_list = list(geneIDs_list.keys())
+    else:
+        usedict_labels = False
+
     for geneID in geneIDs_list:
         try:
             counts_dict = counts_df.loc[geneID].to_dict()
@@ -50,16 +58,17 @@ def plot_counts(counts_table:str, geneIDs_list:list, outfile_name:str, y_label="
     lw=2
     linest = ":"
 
+    # sort nonzero samples
+    females = [sample for sample in nonzero_samples if "-F_" in sample]
+    f1 = [sample for sample in females if "-1-" in sample]
+    f3 = [sample for sample in females if "-3-" in sample]
+    males = [sample for sample in nonzero_samples if "-M_" in sample]
+    m1 = [sample for sample in males if "-1-" in sample]
+    m3 = [sample for sample in males if "-3-" in sample]
+    nonzero_samples_sorted = f1+f3+m1+m3
+    assert len(nonzero_samples) == len(nonzero_samples_sorted)
+    
     if mean_per_sample:
-        # sort nonzero samples
-        females = [sample for sample in nonzero_samples if "-F_" in sample]
-        f1 = [sample for sample in females if "-1-" in sample]
-        f3 = [sample for sample in females if "-3-" in sample]
-        males = [sample for sample in nonzero_samples if "-M_" in sample]
-        m1 = [sample for sample in males if "-1-" in sample]
-        m3 = [sample for sample in males if "-3-" in sample]
-        nonzero_samples_sorted = f1+f3+m1+m3
-        assert len(nonzero_samples) == len(nonzero_samples_sorted)
 
         ## make medians and standard errors
         medians_dict = [0.0 for sample in nonzero_samples_sorted]
@@ -96,15 +105,20 @@ def plot_counts(counts_table:str, geneIDs_list:list, outfile_name:str, y_label="
 
     
     else:
-
-        for geneID,sample_counts in gene_counts.items():
-            y_vec = [sample_counts[sample] for sample in nonzero_samples]
-            ax.plot(nonzero_samples, y_vec,"-o",label=geneID)
+        
+        if usedict_labels:
+            for geneID,sample_counts in gene_counts.items():
+                y_vec = [sample_counts[sample] for sample in nonzero_samples_sorted]
+                ax.plot(nonzero_samples_sorted, y_vec,"-o", label = geneIDs_dict[geneID])
+        else:
+            for geneID,sample_counts in gene_counts.items():
+                y_vec = [sample_counts[sample] for sample in nonzero_samples_sorted]
+                ax.plot(nonzero_samples_sorted, y_vec,"-o",label=geneID)
     
-        ax.set_xticklabels([sample.replace("WJ-3841-","").split("_")[0] for sample in nonzero_samples])
+        ax.set_xticklabels([sample.replace("WJ-3841-","").split("_")[0] for sample in nonzero_samples_sorted])
         plt.legend(fontsize=fs)
 
-        tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in nonzero_samples ]
+        tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in nonzero_samples_sorted ]
         for tick_label, color in zip(ax.get_xticklabels(), tick_cols):
             tick_label.set_color(color)
     
@@ -122,7 +136,7 @@ if __name__ == "__main__":
     counts_file = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
 
     if True:
-        yTor_IDs = ["yTor-all","gene-30110"]
+        yTor_IDs = {"yTor-all":"yTor","gene-30110":"aTor"}
         yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/merged_yTor_aTor_counts.png"
         plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot, remove_females=True)
 
@@ -139,6 +153,10 @@ if __name__ == "__main__":
             yTor_IDs = ["yTor-A", "yTor-B", "yTor-C"]
             yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/yTor_counts.png"
             plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot)
+    if False:
+        MSL2_IDs = {"gene-371922" : "Y-copy","gene-343165": "A-copy"} # Y-copy,A-copy
+        MSL2_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/MSL2_counts.png"
+        plot_counts(counts_table=counts_file, geneIDs_list=MSL2_IDs, outfile_name=MSL2_plot)
 
     if False:
         # all Y expressed

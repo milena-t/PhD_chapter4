@@ -1563,3 +1563,16 @@ I filtered the raw counts file `PhD_chapter4/data/gene_counts_standard.txt` to o
 </div>
 
 Thoughts about the annotation: unsure how BRAKER handles multimapping internally? this is all unuqiely mapped reads. maybe high multimapping makes gene prediction more difficult, resulting in fewer genes in the first place? 
+
+#### MSL2
+
+MSL2 is a gene that controls dosage compensation in drosophila, there's a copy on `scaffold_26` (y-linked) in Cmac which is expressed at comparable levels to the autosomal one (multimapping?)
+
+<details>
+<summary>Toggle down for plot</summary>
+
+<p float="left">
+  <img src="data/yTor_analysis/MSL2_counts.png" width="75%" />
+</p>
+
+</details>

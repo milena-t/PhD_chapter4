@@ -468,7 +468,7 @@ if __name__ == "__main__":
     ############################################
     
     ############
-    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ###########
 
     if True:
@@ -528,9 +528,10 @@ if __name__ == "__main__":
                         sig_DE_genes[contrast] = DE_list
                         sep_DE_genes[f"{category}: {contrast}"] = DE_list
 
-                for contrast, number in numbers.items():
-                    print(f"\tNUMBERS SUMMARY:")
-                    print(f"\t{contrast} : {number}")
+                if plot:
+                    for contrast, number in numbers.items():
+                        print(f"\tNUMBERS SUMMARY:")
+                        print(f"\t{contrast} : {number}")
                 if make_upset:
                     ## upsetplot within each separation
                     min_overlap = 15
