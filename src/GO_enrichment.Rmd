@@ -7,7 +7,8 @@ output: html_document
 
 # GO term enrichment on the significant gene sets 
 
-I have lists of significantly DE genes in all contrasts. This is the same as the GO enrichment for chapter3
+I have lists of significantly DE genes in all contrasts. This is the same as the GO enrichment for chapter3.
+Detailed documentation is here: https://rdrr.io/bioc/topGO/f/inst/doc/topGO.pdf
 
 ## Install libraries
 
@@ -24,6 +25,7 @@ BiocManager::install("ViSEAGO")
 library(topGO)
 library(plyr)
 library(ViSEAGO)
+library(stringr)
 ```
 
 ## read input files
@@ -32,8 +34,22 @@ annotation and background gene set
 
 ```{r}
 annotation_path="/Users/miltr339/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs" # created from the eggnogmapper output with /Users/miltr339/work/PhD_code/PhD_chapter4/src/make_annot_with_geneIDs.py
-annot_header = c("query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs")
-annotation = read.csv(annotation_path, sep="\t", comment.char = "#", header=FALSE, col.names = annot_header)
+
+make_annotation_df_from_eggnog <- function(annotation_path){
+
+    annot_header = c("query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs")
+    annotation = read.csv(annotation_path, sep="\t", comment.char = "#", header=FALSE, col.names = annot_header)
+    background_geneIDs <- annotation$query
+    # prepare for input
+    valid <- !is.na(annotation$GOs) & annotation$GOs != "-"
+    annotation_df <- strsplit(annotation$GOs[valid], ",")
+    names(annotation_df) <- annotation$query[valid]
+
+    return(annotation_df)
+}
+
+annotation_df <- make_annotation_df_from_eggnog(annotation_path)
+
 ```
 
 lists of significant geneIDs for all contrasts
@@ -42,88 +58,68 @@ lists of significant geneIDs for all contrasts
 indir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
 # sex separated
 ## females
-sig_list <- sprintf("%s/sig_DE_list_F_1-3_day14.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_1-3_day16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_1-3_day18.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL1.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL1_14_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL1_18_14.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL1_18_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL3_14_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL3_18_14.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL3_18_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL_1_3_14_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL_1_3_18_14.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_F_SL_1_3_18_16.txt",indir)
+sex_sep_F <- c(sprintf("%s/sig_DE_list_F_1-3_day14.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day16.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day18.txt",indir),sprintf("%s/sig_DE_list_F_SL1.txt",indir),sprintf("%s/sig_DE_list_F_SL1_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3.txt",indir),sprintf("%s/sig_DE_list_F_SL3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_16.txt",indir))
 ## males
-sig_list <- sprintf("%s/sig_DE_list_M_1-3_day14.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_1-3_day16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_1-3_day18.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL1.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL1_14_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL1_18_14.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL1_18_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL3_14_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL3_18_14.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL3_18_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL_1_3_14_16.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL_1_3_18_14.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_M_SL_1_3_18_16.txt",indir)
+sex_sep_M <- c(sprintf("%s/sig_DE_list_M_1-3_day14.txt",indir),sprintf("%s/sig_DE_list_M_1-3_day16.txt",indir),sprintf("%s/sig_DE_list_M_1-3_day18.txt",indir),sprintf("%s/sig_DE_list_M_SL1.txt",indir),sprintf("%s/sig_DE_list_M_SL1_14_16.txt",indir),sprintf("%s/sig_DE_list_M_SL1_18_14.txt",indir),sprintf("%s/sig_DE_list_M_SL1_18_16.txt",indir),sprintf("%s/sig_DE_list_M_SL3.txt",indir),sprintf("%s/sig_DE_list_M_SL3_14_16.txt",indir),sprintf("%s/sig_DE_list_M_SL3_18_14.txt",indir),sprintf("%s/sig_DE_list_M_SL3_18_16.txt",indir),sprintf("%s/sig_DE_list_M_SL_1_3_14_16.txt",indir),sprintf("%s/sig_DE_list_M_SL_1_3_18_14.txt",indir),sprintf("%s/sig_DE_list_M_SL_1_3_18_16.txt",indir))
 
 # line separated
 ## SL1
-sig_list <- sprintf("%s/sig_DE_list_SL1_day14_16_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL1_day14_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL1_day16_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL1_day18_14_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL1_day18_16_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL1_day18_F-M.txt",indir)
+line_sep_SL1 <- c(sprintf("%s/sig_DE_list_SL1_day14_16_F-M.txt",indir),sprintf("%s/sig_DE_list_SL1_day14_F-M.txt",indir),sprintf("%s/sig_DE_list_SL1_day16_F-M.txt",indir),sprintf("%s/sig_DE_list_SL1_day18_14_F-M.txt",indir),sprintf("%s/sig_DE_list_SL1_day18_16_F-M.txt",indir),sprintf("%s/sig_DE_list_SL1_day18_F-M.txt",indir))
 ## SL3
-sig_list <- sprintf("%s/sig_DE_list_SL3_day14_16_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL3_day14_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL3_day16_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL3_day18_14_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL3_day18_16_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_SL3_day18_F-M.txt",indir)
+line_sep_SL3 <- c(sprintf("%s/sig_DE_list_SL3_day14_16_F-M.txt",indir),sprintf("%s/sig_DE_list_SL3_day14_F-M.txt",indir),sprintf("%s/sig_DE_list_SL3_day16_F-M.txt",indir),sprintf("%s/sig_DE_list_SL3_day18_14_F-M.txt",indir),sprintf("%s/sig_DE_list_SL3_day18_16_F-M.txt",indir),sprintf("%s/sig_DE_list_SL3_day18_F-M.txt",indir))
 
 # day separated
-## day14
-sig_list <- sprintf("%s/sig_DE_list_day14_F-M_by_1-3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day14_F_1-3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day14_M_1-3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day14_SL1_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day14_SL3_F-M.txt",indir)
+## day 14
+day_sep_d14 <- c(sprintf("%s/sig_DE_list_day14_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day14_SL3_F-M.txt",indir))
 ## day 16
-sig_list <- sprintf("%s/sig_DE_list_day16_F-M_by_1-3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day16_F_1-3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day16_M_1-3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day16_SL1_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day16_SL3_F-M.txt",indir)
+day_sep_d16 <- c(sprintf("%s/sig_DE_list_day16_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day16_SL3_F-M.txt",indir))
 ## day 18
-sig_list <- sprintf("%s/sig_DE_list_day18_F-M_by_1-3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day18_F_1-3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day18_M_1-3.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day18_SL1_F-M.txt",indir)
-sig_list <- sprintf("%s/sig_DE_list_day18_SL3_F-M.txt",indir)
+day_sep_d18 <- c(sprintf("%s/sig_DE_list_day18_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day18_SL3_F-M.txt",indir))
 ```
 
-make into proper genelist that topGO can use
+## run enrichment
+
+make GO enrichment object for each contrast
 ```{r}
-make_gene_list <- function(input_df){
-  geneList <- factor(as.integer(input_df$pos_sel))
-  names(geneList) <- input_df$geneID
-  return(geneList)
+
+GO_enrichment_analysis <- function(sig_infile, annotation_df){
+  # prepare input data
+  sig_df <- read.csv(sig_infile, sep=",", header=TRUE)
+  geneList <- factor(as.integer(sig_df$sig_DE))
+  names(geneList) <- sig_df$geneID
+  ## downsample annotation to only include genes in the current test
+  counts <- count(geneList)
+  sigs_num <- length(geneList[geneList==1])
+
+  ## only run if there are at least 10 significantly differentially expressed genes!
+  if (sigs_num > 9){
+    gene2GO <- annotation_df[names(annotation_df) %in% names(geneList)]
+    ## create topGO object
+    # ontology = BP means that it's all biological process level GOs
+    GOdata <- new("topGOdata", ontology = "BP", allGenes = geneList, annot = annFUN.gene2GO, gene2GO = gene2GO)
+    # run enrichment test
+    result <- runTest(GOdata, algorithm = "elim", statistic = "fisher")
+    ## about the "elim" algorithm from the documentation: "Here one computes the p-value of a GO term conditioned on the neighbouring terms. The tests are therefore not independent and the multiple testing theory does not directly apply. We like to interpret the p-values returned by these methods as corrected or not affected by multiple testing."
+    allRes <- GenTable(GOdata,classicFisher = result,orderBy = "classicFisher",topNodes = 1000)
+    # write to outfile
+    outfile_name <- str_replace(sig_infile, "sig_DE_list_", "GO_enrichment_")
+    write.csv(allRes, outfile_name, row.names=TRUE)
+    return(allRes)
+  }
 }
-
-enrichment_list <- make_gene_list(sig_list)
 ```
 
-### Make into topGO data structure: 
-start with making the enrichment geneIDs lists into the required named vectors 
-(since I have binary categories and not p-values as expected, the data frames have values that are 1 if the gene is positively selected and 0 otherwise)
+loop through all lists
 ```{r}
-sig_list = strsplit(readLines(sig_infile), ",")[[1]]
+
+for (sig_list in sex_sep_F){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
+for (sig_list in sex_sep_M){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
+
+for (sig_list in line_sep_SL1){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
+for (sig_list in line_sep_SL3){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
+
+for (sig_list in day_sep_d14){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
+for (sig_list in day_sep_d16){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
+for (sig_list in day_sep_d18){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
 
 ```
