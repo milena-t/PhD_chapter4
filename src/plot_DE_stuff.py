@@ -467,15 +467,17 @@ if __name__ == "__main__":
     ######### MAKE ALL THE SMEAR PLOTS ######### # or upset plots 
     ############################################
     
+    # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
-    # TODO add option to save focal gene sets into lists for GO term enrichment with topGO
-    # https://bioconductor.org/packages//release/bioc/vignettes/topGO/inst/doc/topGO_manual.html
-    ###########
+    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    ############
+    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
+    ############
 
-    if False:
+    if True:
         
-        if make_upset:
+        if make_upset or make_list_outfiles:
             plot=False
         else:
             plot=True
@@ -521,6 +523,14 @@ if __name__ == "__main__":
                         print(f"\t * Downregulated : {Downlist}\n\t * Upregulated : {Uplist}")
                     else:
                         DE_list = smear_lists["Downregulated"]+smear_lists["Upregulated"]
+
+                    if make_list_outfiles:
+                        sig_list_outfile = table_path.split("/")[-1].replace("DE_genes_", "sig_DE_list_")
+                        sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
+                        with open(sig_list_outfile, "w") as sig_list_file:
+                            DE_string = ",".join(DE_list)
+                            sig_list_file.write(DE_string)
+                        print(f" * list of sig DE genes written to: {sig_list_outfile}")
 
                     smear_nums = {gene_set : len(gene_list) for gene_set,gene_list in smear_lists.items()}
                     numbers[contrast] = smear_nums
@@ -802,7 +812,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if True:
+    if False:
         sig_IDs_list = {
             "day_separated" : {
                 "day14" : ['gene-124877', 'gene-124865', 'gene-239506', 'gene-223773', 'gene-224079', 'gene-223758', 'gene-424750', 'gene-223491', 'gene-371957', 'gene-127740', 'gene-429522', 'gene-90190', 'gene-87554', 'gene-426056', 'gene-231854', 'gene-230270', 'gene-288660', 'gene-232048', 'gene-220055', 'gene-77070', 'gene-290138', 'gene-120832', 'gene-39545', 'gene-286732', 'gene-130096', 'gene-241328', 'gene-218301', 'gene-76019', 'gene-166391', 'gene-130081', 'gene-38977', 'gene-231604', 'gene-223318', 'gene-39692', 'gene-158197', 'gene-414353', 'gene-241268', 'gene-266875', 'gene-222737', 'gene-88032', 'gene-115312', 'gene-372264', 'gene-122220', 'gene-288356', 'gene-70385', 'gene-204669', 'gene-268146', 'gene-374892', 'gene-375015', 'gene-406510', 'gene-326329', 'gene-407355', 'gene-327787', 'gene-210277', 'gene-125867', 'gene-223419', 'gene-346228', 'gene-143368', 'gene-39770', 'gene-414838', 'gene-161821', 'gene-125638', 'gene-39680', 'gene-75424', 'gene-78574', 'gene-149137', 'gene-217258', 'gene-210286', 'gene-53501', 'gene-240397', 'gene-336688', 'gene-95461', 'gene-100036', 'gene-71572', 'gene-227137', 'gene-236155', 'gene-241262', 'gene-336088', 'gene-351784', 'gene-263126', 'gene-188501', 'gene-127607', 'gene-6017', 'gene-223599', 'gene-24347', 'gene-73885', 'gene-302994', 'gene-215608', 'gene-62772', 'gene-266887', 'gene-391847', 'gene-223554', 'gene-246615', 'gene-289849', 'gene-60429', 'gene-229506', 'gene-233901', 'gene-124680', 'gene-244661', 'gene-69775', 'gene-272401', 'gene-89057', 'gene-286545', 'gene-124766', 'gene-346500', 'gene-2467', 'gene-83083', 'gene-89798', 'gene-2286', 'gene-333750', 'gene-311581', 'gene-406519', 'gene-67440', 'gene-241193', 'gene-161848', 'gene-283197', 'gene-223791', 'gene-72046', 'gene-85294', 'g11517', 'gene-241506', 'gene-224028', 'gene-129852', 'gene-335551', 'gene-223088', 'gene-73754', 'gene-39533', 'gene-266297', 'gene-218529', 'gene-323550', 'gene-250391', 'gene-377275', 'gene-83830', 'gene-425122', 'gene-68813', 'gene-57335', 'gene-269058', 'gene-238320', 'gene-347681', 'gene-215430', 'gene-53269', 'gene-31110', 'gene-68612', 'gene-212020', 'gene-55557', 'gene-223285', 'gene-280630', 'gene-211847', 'gene-271655', 'gene-406603', 'gene-277078', 'gene-203445', 'gene-77109', 'gene-120964', 'gene-7268', 'gene-179860', 'gene-62891', 'gene-77835', 'gene-30328', 'gene-127773','gene-227308', 'gene-224369', 'gene-225158', 'gene-221012', 'g14784', 'gene-125210', 'gene-224890', 'gene-238849', 'gene-403878', 'gene-120660', 'gene-237378', 'gene-119161', 'gene-241682', 'gene-243630', 'gene-218813', 'gene-421265', 'gene-84577', 'gene-370643', 'gene-240602', 'gene-227370', 'gene-240860', 'gene-5731', 'gene-330102', 'gene-217099', 'gene-48714', 'gene-81750', 'gene-370487', 'gene-90428', 'gene-395158', 'gene-217443', 'gene-371230', 'gene-303243', 'gene-124377', 'gene-68558', 'gene-370842', 'gene-215103', 'gene-62927', 'gene-301479', 'gene-370323', 'gene-64491', 'gene-227284', 'gene-118620', 'gene-221469', 'gene-417051', 'gene-250269', 'gene-370562', 'gene-333008', 'gene-392350', 'gene-82722', 'gene-264249', 'gene-81581', 'gene-407735', 'gene-73288', 'gene-272192', 'gene-262796', 'gene-81518', 'gene-226254', 'gene-57617', 'gene-408949', 'gene-120070', 'gene-81458', 'gene-398993', 'gene-81476', 'gene-334677', 'gene-421549', 'gene-370595', 'gene-425532', 'gene-241841', 'gene-81675', 'gene-118985', 'gene-81418', 'gene-65889', 'gene-88458', 'gene-240638', 'g11957', 'gene-80415', 'gene-87700', 'gene-225355', 'gene-76284', 'gene-401486', 'gene-227071', 'gene-399223', 'gene-263313', 'gene-313589', 'gene-288413', 'gene-166814', 'gene-237857', 'gene-65163', 'gene-87487', 'gene-229515', 'gene-219157', 'gene-350813', 'gene-234256', 'gene-64470', 'gene-57689', 'gene-263588', 'gene-242691', 'gene-294364', 'gene-400426', 'gene-222159', 'gene-268137', 'gene-88092', 'gene-324340', 'gene-262046', 'gene-90524', 'g5814', 'gene-410993', 'gene-399203', 'gene-215313', 'gene-358397', 'gene-361221', 'gene-417093', 'gene-261982', 'gene-378262', 'gene-131338', 'gene-77588', 'gene-152204', 'gene-26634', 'gene-58495', 'gene-221504', 'g1591', 'gene-392536', 'gene-407714', 'gene-370967', 'gene-266345', 'gene-153689', 'gene-125849', 'gene-5187', 'gene-331395', 'gene-55887', 'gene-130632', 'gene-73160', 'gene-263597', 'gene-331896', 'gene-271117', 'gene-59093', 'gene-431030', 'gene-397251', 'gene-283696', 'gene-119684'],

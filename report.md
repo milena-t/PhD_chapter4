@@ -117,7 +117,7 @@ The autosomal Tor `gene-30110` is expressed much higher than any y-linked copy, 
 
 Since we hypothesize that the phenotypic difference is related with differences in Tor expression dosage, I will manually merge the read counts of yTor-A, B and C into one yTor-all for the DE analysis.
 
-The phylogenetic relationship is this: `(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))` (with yTor-C being the one also in SL# and the closest to aTor) and the tick labels are according to this naming scheme: `SL`-`day`-`sample_ID`-`sex`.
+The phylogenetic relationship is this: `(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))` (with yTor-C being the one also in SL3 and the closest to aTor) and the tick labels are according to this naming scheme: `SL`-`day`-`sample_ID`-`sex`.
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'yTor_split')">yTor split into A,B,C</button>
