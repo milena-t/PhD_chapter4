@@ -529,7 +529,7 @@ if __name__ == "__main__":
                         sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
                         with open(sig_list_outfile, "w") as sig_list_file:
                             DE_string = ",".join(DE_list)
-                            sig_list_file.write(DE_string)
+                            sig_list_file.write(f"{DE_string}\n") # needs the newline character so that R can read the list right
                         print(f" * list of sig DE genes written to: {sig_list_outfile}")
 
                     smear_nums = {gene_set : len(gene_list) for gene_set,gene_list in smear_lists.items()}

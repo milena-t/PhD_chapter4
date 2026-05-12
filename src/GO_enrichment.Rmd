@@ -1,0 +1,43 @@
+---
+title: "DE_analysis"
+author: "Milena Trabert"
+date: "2026-03-27"
+output: html_document
+---
+
+# GO term enrichment on the significant gene sets 
+
+I have lists of significantly DE genes in all contrasts
+
+## Install libraries
+
+```{r}
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install()
+BiocManager::install("topGO")
+BiocManager::install("GO.db")
+BiocManager::install("ViSEAGO")
+```
+
+```{r}
+library(topGO)
+library(plyr)
+library(ViSEAGO)
+```
+
+## read input files
+
+annotation
+
+```{r}
+annotation_path="/Users/miltr339/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations"
+annot_header = c("query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs")
+annotation = read.csv(annotation_path, sep="\t", comment.char = "#", header=FALSE, col.names = annot_header)
+```
+
+```{r}
+setwd("/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists")
+sig_DE_list_M_1_3_day14 = strsplit(readLines("sig_DE_list_M_1-3_day14.txt"), ",")[[1]]
+
+```
