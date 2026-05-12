@@ -99,6 +99,8 @@ This work is based on the selection lines evaluated by Kaufmann *et al.* ([link]
 
 The genes are named `yTor-A`, `yTor-B`, and `yTor-C`, and the autosomal Tor is `transcript-30111`, or `gene-30110`.
 
+The annotation is then functionally annotated using eggnog and the resulting functional annotation is used for GO-term enrichment analysis with topGO in R.
+
 ## 2. STAR mapping
 
 See the `RNA_mapping` directory in this repository for by-sample mapping rate information. Mean uniquely mapped reads: 83.76% and mean multimapped reads: 9.74%. 
@@ -816,6 +818,39 @@ Only difference between day 14 and 18, no other developmental cues? Do only the 
 </div>
 
 
+#### Upsetplots of sig enriched GO-terms overlap within males and females
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Males_GO')">Males</button>
+  <button class="tablinks" onclick="openTab(event, 'Females_GO')">Females</button>
+  <button class="tablinks" onclick="openTab(event, 'sexes_GO')">Both sexes</button>
+</div>
+
+<div id="Males_GO" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males.png" width="60%" />
+</p>
+
+</div>
+
+<div id="Females_GO" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_females.png" width="30%" />
+</p>
+
+</div>
+
+<div id="sexes_GO" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all.png" width="75%" />
+</p>
+
+</div>
+
+
 ### 3.4 DE analysis of line-separated samples
 
 I will now split the data by line to see sex differences in expression during the development stages. 
@@ -1071,6 +1106,38 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 </div>
 
+
+#### Upsetplots of sig enriched GO-terms overlap within SL1 and SL3
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'SL1_GO')">SL1</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_GO')">SL3</button>
+  <button class="tablinks" onclick="openTab(event, 'lines_GO')">Both lines</button>
+</div>
+
+<div id="SL1_GO" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1.png" width="30%" />
+</p>
+
+</div>
+
+<div id="SL3_GO" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3.png" width="30%" />
+</p>
+
+</div>
+
+<div id="lines_GO" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_all.png" width="40%" />
+</p>
+
+</div>
 
 
 ### 3.5 DE analysis of day-separated samples
@@ -1511,6 +1578,41 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 <div id="all_upset" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="40%" />
+</p>
+</div>
+
+
+#### Upsetplot of sig enriched GO-terms between lines and sexes
+
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_GO')">Day 14</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_GO')">Day 16</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_GO')">Day 18</button>
+  <button class="tablinks" onclick="openTab(event, 'all_GO')">All days</button>
+</div>
+
+<div id="day14_GO" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14.png" width="32%" />
+</p>
+</div>
+
+<div id="day16_GO" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16.png" width="32%" />
+</p>
+</div>
+
+<div id="day18_GO" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18.png" width="32%" />
+</p>
+</div>
+
+<div id="all_GO" class="tabcontent">
+<p float="left">
+  <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_all.png" width="65%" />
 </p>
 </div>
 

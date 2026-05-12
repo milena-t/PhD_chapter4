@@ -484,9 +484,7 @@ if __name__ == "__main__":
 
         for separation, seps_dict in table_paths.items():
             print(f"\n=========================== {separation} ===========================")
-
-            if "line" not in separation:
-                continue
+            
             # for upsetplot
             sep_DE_genes = {}
 

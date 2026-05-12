@@ -164,6 +164,7 @@ function openTab(evt, cityName) {
 <h3 id="13-ytor-annotation-manual-curation">1.3 yTor annotation manual curation</h3>
 <p>This work is based on the selection lines evaluated by Kaufmann <em>et al.</em> (<a href="https://doi.org/10.1093/molbev/msad167">link</a>), but I am using a different version of the <em>C. maculatus</em> annotation that does not have the gene structures of the Y TOR copy number variation. Therefore I lift these gene structures from the original annotation and transform the coordinates to match my superscaffolded version of the assembly/annotation, see <code>mTOR_annotation</code>.</p>
 <p>The genes are named <code>yTor-A</code>, <code>yTor-B</code>, and <code>yTor-C</code>, and the autosomal Tor is <code>transcript-30111</code>, or <code>gene-30110</code>.</p>
+<p>The annotation is then functionally annotated using eggnog and the resulting functional annotation is used for GO-term enrichment analysis with topGO in R.</p>
 <h2 id="2-star-mapping">2. STAR mapping</h2>
 <p>See the <code>RNA_mapping</code> directory in this repository for by-sample mapping rate information. Mean uniquely mapped reads: 83.76% and mean multimapped reads: 9.74%.</p>
 <h2 id="3-de-analysis">3. DE analysis</h2>
@@ -173,7 +174,7 @@ function openTab(evt, cityName) {
 <p>The autosomal Tor <code>gene-30110</code> is expressed much higher than any y-linked copy, which makes sense since it is a highly conserved gene in the insulin signalling pathway. There seems to be no difference between SL1 and SL3.</p>
 <h4 id="normalized-counts-plots">Normalized counts plots</h4>
 <p>Since we hypothesize that the phenotypic difference is related with differences in Tor expression dosage, I will manually merge the read counts of yTor-A, B and C into one yTor-all for the DE analysis.</p>
-<p>The phylogenetic relationship is this: <code>(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))</code> (with yTor-C being the one also in SL# and the closest to aTor) and the tick labels are according to this naming scheme: <code>SL</code>-<code>day</code>-<code>sample_ID</code>-<code>sex</code>.</p>
+<p>The phylogenetic relationship is this: <code>(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))</code> (with yTor-C being the one also in SL3 and the closest to aTor) and the tick labels are according to this naming scheme: <code>SL</code>-<code>day</code>-<code>sample_ID</code>-<code>sex</code>.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'yTor_split')">yTor split into A,B,C</button>
   <button class="tablinks" onclick="openTab(event, 'yTor_merged')">yTor merged</button>
@@ -1079,6 +1080,27 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/upsetplot_sex_separated_all_categories.png" width="75%" />
 </p>
 </div>
+<h4 id="upsetplots-of-sig-enriched-go-terms-overlap-within-males-and-females">Upsetplots of sig enriched GO-terms overlap within males and females</h4>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'Males_GO')">Males</button>
+  <button class="tablinks" onclick="openTab(event, 'Females_GO')">Females</button>
+  <button class="tablinks" onclick="openTab(event, 'sexes_GO')">Both sexes</button>
+</div>
+<div id="Males_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males.png" width="60%" />
+</p>
+</div>
+<div id="Females_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_females.png" width="30%" />
+</p>
+</div>
+<div id="sexes_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all.png" width="75%" />
+</p>
+</div>
 <h3 id="34-de-analysis-of-line-separated-samples">3.4 DE analysis of line-separated samples</h3>
 <p>I will now split the data by line to see sex differences in expression during the development stages.</p>
 <details>
@@ -1449,6 +1471,27 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 <div id="lines_upset" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/upsetplot_line_separated_all_categories.png" width="40%" />
+</p>
+</div>
+<h4 id="upsetplots-of-sig-enriched-go-terms-overlap-within-sl1-and-sl3">Upsetplots of sig enriched GO-terms overlap within SL1 and SL3</h4>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'SL1_GO')">SL1</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_GO')">SL3</button>
+  <button class="tablinks" onclick="openTab(event, 'lines_GO')">Both lines</button>
+</div>
+<div id="SL1_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1.png" width="30%" />
+</p>
+</div>
+<div id="SL3_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3.png" width="30%" />
+</p>
+</div>
+<div id="lines_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_all.png" width="40%" />
 </p>
 </div>
 <h3 id="35-de-analysis-of-day-separated-samples">3.5 DE analysis of day-separated samples</h3>
@@ -2121,6 +2164,33 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 <div id="all_upset" class="tabcontent">
 <p float="left">
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="40%" />
+</p>
+</div>
+<h4 id="upsetplot-of-sig-enriched-go-terms-between-lines-and-sexes">Upsetplot of sig enriched GO-terms between lines and sexes</h4>
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_GO')">Day 14</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_GO')">Day 16</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_GO')">Day 18</button>
+  <button class="tablinks" onclick="openTab(event, 'all_GO')">All days</button>
+</div>
+<div id="day14_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14.png" width="32%" />
+</p>
+</div>
+<div id="day16_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16.png" width="32%" />
+</p>
+</div>
+<div id="day18_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18.png" width="32%" />
+</p>
+</div>
+<div id="all_GO" class="tabcontent">
+<p float="left">
+  <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_all.png" width="65%" />
 </p>
 </div>
 <h2 id="4-y-expression-quantification">4. Y expression quantification</h2>
