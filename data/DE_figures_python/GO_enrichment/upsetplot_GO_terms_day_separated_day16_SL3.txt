@@ -1,0 +1,45 @@
+GO:0046692	sperm competition
+GO:0007638	mechanosensory behavior
+GO:0060179	male mating behavior
+GO:0007602	phototransduction
+GO:0032981	mitochondrial respiratory chain complex I assembly
+GO:0007054	spindle assembly involved in male meiosis I
+GO:0010996	response to auditory stimulus
+GO:0046939	OBSOLETE
+GO:0006165	OBSOLETE
+GO:0042593	glucose homeostasis
+GO:0045433	male courtship behavior, veined wing generated song production
+GO:0016545	male courtship behavior, veined wing vibration
+GO:0048065	male courtship behavior, veined wing extension
+GO:0050912	detection of chemical stimulus involved in sensory perception of taste
+GO:0050913	sensory perception of bitter taste
+GO:0008049	male courtship behavior
+GO:0007619	courtship behavior
+GO:0050907	detection of chemical stimulus involved in sensory perception
+GO:0016319	mushroom body development
+GO:0051443	positive regulation of ubiquitin-protein transferase activity
+GO:0098655	monoatomic cation transmembrane transport
+GO:0006812	monoatomic cation transport
+GO:0009142	nucleoside triphosphate biosynthetic process
+GO:0009132	nucleoside diphosphate metabolic process
+GO:0009631	cold acclimation
+GO:0003333	amino acid transmembrane transport
+GO:0007283	spermatogenesis
+GO:0016056	G protein-coupled opsin signaling pathway
+GO:0072525	pyridine-containing compound biosynthetic process
+GO:0009593	detection of chemical stimulus
+GO:0033500	carbohydrate homeostasis
+GO:0099111	microtubule-based transport
+GO:0034220	monoatomic ion transmembrane transport
+GO:0006747	FAD biosynthetic process
+GO:0042726	flavin-containing compound metabolic process
+GO:0042727	flavin-containing compound biosynthetic process
+GO:0010752	OBSOLETE
+GO:0010753	OBSOLETE
+GO:0051039	OBSOLETE
+GO:0031223	auditory behavior
+GO:0046443	FAD metabolic process
+GO:0072387	flavin adenine dinucleotide metabolic process
+GO:0072388	flavin adenine dinucleotide biosynthetic process
+GO:0009409	response to cold
+GO:0015980	energy derivation by oxidation of organic compounds

@@ -1,0 +1,38 @@
+GO:0060271	cilium assembly
+GO:0018094	protein polyglycylation
+GO:0050982	detection of mechanical stimulus
+GO:0036159	inner dynein arm assembly
+GO:0006165	OBSOLETE
+GO:0006839	mitochondrial transport
+GO:0035082	axoneme assembly
+GO:0046034	ATP metabolic process
+GO:0009167	purine ribonucleoside monophosphate metabolic process
+GO:0006123	mitochondrial electron transport, cytochrome c to oxygen
+GO:0031146	SCF-dependent proteasomal ubiquitin-dependent protein catabolic process
+GO:0046692	sperm competition
+GO:0071260	cellular response to mechanical stimulus
+GO:0007618	mating
+GO:0098655	monoatomic cation transmembrane transport
+GO:1902475	L-alpha-amino acid transmembrane transport
+GO:0015807	L-amino acid transport
+GO:0006730	one-carbon metabolic process
+GO:0016082	synaptic vesicle priming
+GO:0071266	'de novo' L-methionine biosynthetic process
+GO:0019343	OBSOLETE
+GO:0019346	transsulfuration
+GO:0016052	carbohydrate catabolic process
+GO:0032981	mitochondrial respiratory chain complex I assembly
+GO:0072525	pyridine-containing compound biosynthetic process
+GO:0035092	sperm DNA condensation
+GO:0000209	protein polyubiquitination
+GO:0048515	spermatid differentiation
+GO:1902600	proton transmembrane transport
+GO:0007638	mechanosensory behavior
+GO:0042866	pyruvate biosynthetic process
+GO:0043687	post-translational protein modification
+GO:0006096	glycolytic process
+GO:0006757	OBSOLETE
+GO:0043090	amino acid import
+GO:0051443	positive regulation of ubiquitin-protein transferase activity
+GO:0006750	glutathione biosynthetic process
+GO:0009166	nucleotide catabolic process

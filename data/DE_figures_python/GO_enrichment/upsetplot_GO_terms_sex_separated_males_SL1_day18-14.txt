@@ -1,0 +1,65 @@
+GO:0045132	meiotic chromosome segregation
+GO:0007094	mitotic spindle assembly checkpoint signaling
+GO:0046395	carboxylic acid catabolic process
+GO:0030730	triglyceride storage
+GO:0019752	carboxylic acid metabolic process
+GO:0007135	meiosis II
+GO:0010032	meiotic chromosome condensation
+GO:0007143	female meiotic nuclear division
+GO:0072655	OBSOLETE
+GO:0010457	centriole-centriole cohesion
+GO:0006520	amino acid metabolic process
+GO:0007127	meiosis I
+GO:0051567	OBSOLETE
+GO:0042542	response to hydrogen peroxide
+GO:0035721	intraciliary retrograde transport
+GO:0009067	aspartate family amino acid biosynthetic process
+GO:0009086	OBSOLETE
+GO:0000097	sulfur amino acid biosynthetic process
+GO:0043039	tRNA aminoacylation
+GO:0044706	multi-multicellular organism process
+GO:0007320	insemination
+GO:0046692	sperm competition
+GO:0061982	meiosis I cell cycle process
+GO:0006473	protein acetylation
+GO:0051304	chromosome separation
+GO:0009308	amine metabolic process
+GO:0006641	triglyceride metabolic process
+GO:0043038	amino acid activation
+GO:0007056	spindle assembly involved in female meiosis
+GO:0018393	internal peptidyl-lysine acetylation
+GO:0018394	peptidyl-lysine acetylation
+GO:0006475	internal protein amino acid acetylation
+GO:0032787	monocarboxylic acid metabolic process
+GO:0043543	protein acylation
+GO:0009062	fatty acid catabolic process
+GO:0016042	lipid catabolic process
+GO:0090522	vesicle tethering involved in exocytosis
+GO:0038001	paracrine signaling
+GO:0034284	response to monosaccharide
+GO:0042436	indole-containing compound catabolic process
+GO:0044771	meiotic cell cycle phase transition
+GO:0006359	regulation of transcription by RNA polymerase III
+GO:0099022	vesicle tethering
+GO:0046184	aldehyde biosynthetic process
+GO:0009452	7-methylguanosine RNA capping
+GO:1904666	regulation of ubiquitin protein ligase activity
+GO:0090169	regulation of spindle assembly
+GO:0051307	meiotic chromosome separation
+GO:0072329	monocarboxylic acid catabolic process
+GO:0010889	regulation of triglyceride storage
+GO:0007147	female meiosis II
+GO:0072530	purine-containing compound transmembrane transport
+GO:0071688	striated muscle myosin thick filament assembly
+GO:0045143	homologous chromosome segregation
+GO:0006723	cuticle hydrocarbon biosynthetic process
+GO:0120251	hydrocarbon biosynthetic process
+GO:0120252	hydrocarbon metabolic process
+GO:0006066	alcohol metabolic process
+GO:0051306	mitotic sister chromatid separation
+GO:0007076	mitotic chromosome condensation
+GO:0045448	mitotic cell cycle, embryonic
+GO:0044458	motile cilium assembly
+GO:0007527	adult somatic muscle development
+GO:0006555	L-methionine metabolic process
+GO:0006605	protein targeting

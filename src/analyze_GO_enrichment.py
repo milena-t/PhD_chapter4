@@ -5,8 +5,7 @@ Analyze the significantly enriched GO terms in all the contrasts
 import pandas as pd
 import upsetplot
 import matplotlib.pyplot as plt
-import go3
-
+from goatools.obo_parser import GODag
 
 def get_tables(username="miltr339"):
     """
@@ -173,22 +172,38 @@ def plot_enriched_GO_overlap(GO_Terms_dict:dict, plot_filename:str, plot_title  
         plt.close()
     else:
         # make a table that gives a GO term list of all the contrasts of interest as they appear in the upsetplot
-        table_filename = plot_filename.replace(".png", ".txt")
         membership_cols = data.index.names
         df = data.reset_index()
+        table_filename = plot_filename.replace(".png", f".txt")
         with open(table_filename, "w") as table_out:
-            for subset_name , contrasts_list in contrasts_of_interest.items():
 
+            for subset_name , contrasts_list in contrasts_of_interest.items():
+                
                 ## get intersection GO list
                 intersection = df[df[contrasts_list].all(axis=1) & (df[membership_cols].sum(axis=1) == len(contrasts_list))] # all contrasts_list are true & sum of all is the same length as contrasts_list (therefore all others must be false)
                 intersection = intersection["id"].tolist()
 
-                ## write to table
+                ## write to table with functions
+                table_filename_func = plot_filename.replace(".png", f"_{subset_name}.txt")
+                GO_list = []
+                for GO_term in intersection:
+                    try:
+                        go_name = go[GO_term].name 
+                    except:
+                        go_name = "OBSOLETE" # obsolete go terms are not read into 'go' and therefore should be skipped
+                    GO_list.append(f"{GO_term}\t{go_name}\n")
+                with open(table_filename_func, "w") as table_out_func:
+                    for GO_line in GO_list:
+                        table_out_func.write(GO_line)
+
+                ## write just lists to summary outfile
                 print(f"\t - {subset_name} : {len(intersection)} GO:terms")
-                intersection_string = ",".join(intersection)
                 contrasts_string = " AND ".join(contrasts_list)
+                intersection_string = ",".join(intersection)
                 outfile_line = f"{subset_name}\t{contrasts_string}\t{intersection_string}\n"
                 table_out.write(outfile_line)
+
+        
         print(f"GO:terms of specified intersections saved as: {table_filename}")
 
 
@@ -203,13 +218,12 @@ if __name__ == "__main__":
     plot = False
 
     ### TODO analyze go enrichment
-    # either: REVIGO online tool: http://revigo.irb.hr/
-    # or: GO3 library: https://go3.readthedocs.io/en/latest/examples.html
-    #   * requires a GAF file https://geneontology.org/docs/go-annotation-file-gaf-format-2.2/ unsure if i have that
-    #   * unsure what to do now
-    # if plot==False:
-    #     go3.load_go_terms("")
-    #     annots = go3.load_gaf(f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs")
+    # get functional information about GO terms
+    if plot==False:
+        print(f"read GO-terms definitions...")
+        go = GODag("go-basic.obo")
+        print(f"...done!")
+        
 
     if True:
         for separation, seps_dict in go_tables_paths.items():

@@ -1,0 +1,96 @@
+GO:0045824	negative regulation of innate immune response
+GO:0106074	aminoacyl-tRNA metabolism involved in translational fidelity
+GO:0005975	carbohydrate metabolic process
+GO:0009074	aromatic amino acid family catabolic process
+GO:1990001	OBSOLETE
+GO:0006432	phenylalanyl-tRNA aminoacylation
+GO:0045475	locomotor rhythm
+GO:0015936	coenzyme A metabolic process
+GO:0015937	coenzyme A biosynthetic process
+GO:0009145	purine nucleoside triphosphate biosynthetic process
+GO:0009206	purine ribonucleoside triphosphate biosynthetic process
+GO:0009260	ribonucleotide biosynthetic process
+GO:0046390	ribose phosphate biosynthetic process
+GO:0009201	ribonucleoside triphosphate biosynthetic process
+GO:0009253	peptidoglycan catabolic process
+GO:0000270	peptidoglycan metabolic process
+GO:1903580	positive regulation of ATP metabolic process
+GO:0006606	protein import into nucleus
+GO:0051170	import into nucleus
+GO:0042306	regulation of protein import into nucleus
+GO:1904589	regulation of protein import
+GO:0009126	purine nucleoside monophosphate metabolic process
+GO:0045197	establishment or maintenance of epithelial cell apical/basal polarity
+GO:0046822	regulation of nucleocytoplasmic transport
+GO:0006027	glycosaminoglycan catabolic process
+GO:0009065	OBSOLETE
+GO:1900544	positive regulation of purine nucleotide metabolic process
+GO:0045981	positive regulation of nucleotide metabolic process
+GO:0034504	protein localization to nucleus
+GO:0009161	OBSOLETE
+GO:0046662	regulation of egg-laying behavior
+GO:0006913	nucleocytoplasmic transport
+GO:0051169	nuclear transport
+GO:1905114	OBSOLETE
+GO:0048878	chemical homeostasis
+GO:0070936	protein K48-linked ubiquitination
+GO:0002812	biosynthetic process of antibacterial peptides active against Gram-negative bacteria
+GO:0002813	regulation of biosynthetic process of antibacterial peptides active against Gram-negative bacteria
+GO:0009123	nucleoside monophosphate metabolic process
+GO:1903327	negative regulation of tRNA metabolic process
+GO:1902370	regulation of tRNA catabolic process
+GO:1902371	negative regulation of tRNA catabolic process
+GO:1902321	methyl-branched fatty acid biosynthetic process
+GO:0060561	apoptotic process involved in morphogenesis
+GO:1902337	OBSOLETE
+GO:1902339	positive regulation of apoptotic process involved in morphogenesis
+GO:1903461	Okazaki fragment processing involved in mitotic DNA replication
+GO:0071934	thiamine transmembrane transport
+GO:0006021	inositol biosynthetic process
+GO:0097089	methyl-branched fatty acid metabolic process
+GO:0014703	oscillatory muscle contraction
+GO:0006566	L-threonine metabolic process
+GO:0006567	L-threonine catabolic process
+GO:0006554	OBSOLETE
+GO:0006558	L-phenylalanine metabolic process
+GO:0006559	L-phenylalanine catabolic process
+GO:0006528	asparagine metabolic process
+GO:0006530	L-asparagine catabolic process
+GO:0006539	OBSOLETE
+GO:0036415	regulation of tRNA stability
+GO:0036416	tRNA stabilization
+GO:0032775	OBSOLETE
+GO:0046952	ketone body catabolic process
+GO:1902221	OBSOLETE
+GO:1902222	OBSOLETE
+GO:0046946	OBSOLETE
+GO:0046948	OBSOLETE
+GO:0007374	posterior midgut invagination
+GO:0034514	mitochondrial unfolded protein response
+GO:1990545	mitochondrial thiamine pyrophosphate transmembrane transport
+GO:0035261	external genitalia morphogenesis
+GO:0019264	OBSOLETE
+GO:0033501	OBSOLETE
+GO:0015888	thiamine transport
+GO:0048094	male pigmentation
+GO:1901862	negative regulation of muscle tissue development
+GO:0006127	glycerol-3-phosphate shuttle
+GO:0030974	thiamine pyrophosphate transmembrane transport
+GO:1901569	fatty acid derivative catabolic process
+GO:0003010	voluntary skeletal muscle contraction
+GO:0033345	OBSOLETE
+GO:0045843	negative regulation of striated muscle tissue development
+GO:0002814	negative regulation of biosynthetic process of antibacterial peptides active against Gram-negative bacteria
+GO:1902616	O-acyl-L-carnitine transmembrane transport
+GO:0048635	negative regulation of muscle organ development
+GO:1900180	regulation of protein localization to nucleus
+GO:0009185	ribonucleoside diphosphate metabolic process
+GO:0018991	egg-laying behavior
+GO:0009179	purine ribonucleoside diphosphate metabolic process
+GO:0009135	purine nucleoside diphosphate metabolic process
+GO:0120305	regulation of pigmentation
+GO:0048070	regulation of developmental pigmentation
+GO:0044281	small molecule metabolic process
+GO:0043648	dicarboxylic acid metabolic process
+GO:0009127	purine nucleoside monophosphate biosynthetic process
+GO:0016055	Wnt signaling pathway

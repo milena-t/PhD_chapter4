@@ -1,0 +1,79 @@
+GO:0010996	response to auditory stimulus
+GO:0007617	mating behavior
+GO:1905039	carboxylic acid transmembrane transport
+GO:1903825	OBSOLETE
+GO:0019363	pyridine nucleotide biosynthetic process
+GO:0019359	nicotinamide nucleotide biosynthetic process
+GO:0046942	carboxylic acid transport
+GO:0015849	organic acid transport
+GO:0019098	reproductive behavior
+GO:0009142	nucleoside triphosphate biosynthetic process
+GO:0009631	cold acclimation
+GO:0046031	ADP metabolic process
+GO:1901292	nucleoside phosphate catabolic process
+GO:1905515	non-motile cilium assembly
+GO:0019184	nonribosomal peptide biosynthetic process
+GO:0045026	OBSOLETE
+GO:0042364	water-soluble vitamin biosynthetic process
+GO:0045333	cellular respiration
+GO:0098662	OBSOLETE
+GO:0009060	aerobic respiration
+GO:0099111	microtubule-based transport
+GO:0003333	amino acid transmembrane transport
+GO:0019320	hexose catabolic process
+GO:0051156	glucose 6-phosphate metabolic process
+GO:0009110	vitamin biosynthetic process
+GO:0007271	synaptic transmission, cholinergic
+GO:0046364	monosaccharide biosynthetic process
+GO:0046365	monosaccharide catabolic process
+GO:0007320	insemination
+GO:0044706	multi-multicellular organism process
+GO:0009409	response to cold
+GO:0070286	axonemal dynein complex assembly
+GO:0007291	sperm individualization
+GO:0070498	interleukin-1-mediated signaling pathway
+GO:0032224	positive regulation of synaptic transmission, cholinergic
+GO:0050851	antigen receptor-mediated signaling pathway
+GO:0060287	epithelial cilium movement involved in determination of left/right asymmetry
+GO:0050852	T cell receptor signaling pathway
+GO:0070423	OBSOLETE
+GO:0015824	proline transport
+GO:0015816	glycine transport
+GO:0044747	pre-miRNA 3'-end processing
+GO:0006747	FAD biosynthetic process
+GO:0003351	epithelial cilium movement involved in extracellular fluid movement
+GO:0034606	response to hermaphrodite contact
+GO:0034608	vulval location
+GO:0070935	3'-UTR-mediated mRNA stabilization
+GO:0042726	flavin-containing compound metabolic process
+GO:0042727	flavin-containing compound biosynthetic process
+GO:1902373	negative regulation of mRNA catabolic process
+GO:0043123	positive regulation of canonical NF-kappaB signal transduction
+GO:0035045	sperm plasma membrane disassembly
+GO:0002753	cytoplasmic pattern recognition receptor signaling pathway
+GO:1903804	glycine import across plasma membrane
+GO:0048250	iron import into the mitochondrion
+GO:0048255	mRNA stabilization
+GO:0071347	cellular response to interleukin-1
+GO:0035872	nucleotide-binding domain, leucine rich repeat containing receptor signaling pathway
+GO:0031223	auditory behavior
+GO:0046443	FAD metabolic process
+GO:0070555	response to interleukin-1
+GO:0035524	proline transmembrane transport
+GO:0050910	detection of mechanical stimulus involved in sensory perception of sound
+GO:1903344	regulation of protein polyglycylation
+GO:1903346	positive regulation of protein polyglycylation
+GO:0018095	protein polyglutamylation
+GO:0072387	flavin adenine dinucleotide metabolic process
+GO:0072388	flavin adenine dinucleotide biosynthetic process
+GO:0006091	generation of precursor metabolites and energy
+GO:0006865	amino acid transport
+GO:0006119	oxidative phosphorylation
+GO:0022904	respiratory electron transport chain
+GO:0050832	defense response to fungus
+GO:0006767	OBSOLETE
+GO:0099500	vesicle fusion to plasma membrane
+GO:0031629	synaptic vesicle fusion to presynaptic active zone membrane
+GO:0046835	carbohydrate phosphorylation
+GO:1903531	negative regulation of secretion by cell
+GO:0042398	modified amino acid biosynthetic process

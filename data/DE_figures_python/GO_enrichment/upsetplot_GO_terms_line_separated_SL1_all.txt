@@ -1,0 +1,14 @@
+GO:0035082	axoneme assembly
+GO:0009167	purine ribonucleoside monophosphate metabolic process
+GO:0030317	flagellated sperm motility
+GO:0046034	ATP metabolic process
+GO:0060285	cilium-dependent cell motility
+GO:0060271	cilium assembly
+GO:0003341	cilium movement
+GO:0007605	sensory perception of sound
+GO:0007618	mating
+GO:0048515	spermatid differentiation
+GO:0019343	OBSOLETE
+GO:0019346	transsulfuration
+GO:0071266	'de novo' L-methionine biosynthetic process
+GO:0035092	sperm DNA condensation

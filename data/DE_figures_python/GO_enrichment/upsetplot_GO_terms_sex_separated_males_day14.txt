@@ -1,0 +1,68 @@
+GO:0051415	microtubule nucleation by interphase microtubule organizing center
+GO:0009416	response to light stimulus
+GO:0042332	gravitaxis
+GO:0006220	pyrimidine nucleotide metabolic process
+GO:0006221	pyrimidine nucleotide biosynthetic process
+GO:0042246	tissue regeneration
+GO:0046080	dUTP metabolic process
+GO:0046081	dUTP catabolic process
+GO:0006244	pyrimidine nucleotide catabolic process
+GO:0009149	pyrimidine nucleoside triphosphate catabolic process
+GO:0009264	deoxyribonucleotide catabolic process
+GO:0009223	pyrimidine deoxyribonucleotide catabolic process
+GO:0009213	pyrimidine deoxyribonucleoside triphosphate catabolic process
+GO:0009204	deoxyribonucleoside triphosphate catabolic process
+GO:0010918	positive regulation of mitochondrial membrane potential
+GO:0071454	cellular response to anoxia
+GO:0045838	positive regulation of membrane potential
+GO:0046386	deoxyribose phosphate catabolic process
+GO:0035871	protein K11-linked deubiquitination
+GO:0044313	protein K6-linked deubiquitination
+GO:0070646	protein modification by small protein removal
+GO:0006406	mRNA export from nucleus
+GO:0032786	positive regulation of DNA-templated transcription, elongation
+GO:0070816	OBSOLETE
+GO:0031122	cytoplasmic microtubule organization
+GO:0007140	male meiotic nuclear division
+GO:0009052	pentose-phosphate shunt, non-oxidative branch
+GO:0006226	dUMP biosynthetic process
+GO:0009176	pyrimidine deoxyribonucleoside monophosphate metabolic process
+GO:0009177	pyrimidine deoxyribonucleoside monophosphate biosynthetic process
+GO:0016024	CDP-diacylglycerol biosynthetic process
+GO:0046078	dUMP metabolic process
+GO:0009143	nucleoside triphosphate catabolic process
+GO:0031952	regulation of protein autophosphorylation
+GO:0031954	positive regulation of protein autophosphorylation
+GO:0035106	operant conditioning
+GO:0009211	pyrimidine deoxyribonucleoside triphosphate metabolic process
+GO:0071929	alpha-tubulin acetylation
+GO:0009200	deoxyribonucleoside triphosphate metabolic process
+GO:0015886	heme transport
+GO:0071586	CAAX-box protein processing
+GO:0030714	anterior/posterior axis specification, follicular epithelium
+GO:2000152	OBSOLETE
+GO:0050941	negative regulation of pigment cell differentiation
+GO:0050932	regulation of pigment cell differentiation
+GO:0045914	OBSOLETE
+GO:0033239	negative regulation of amine metabolic process
+GO:1901678	iron coordination entity transport
+GO:0006438	valyl-tRNA aminoacylation
+GO:1902559	3'-phospho-5'-adenylyl sulfate transmembrane transport
+GO:1905349	ciliary transition zone assembly
+GO:0046341	CDP-diacylglycerol metabolic process
+GO:0046963	3'-phosphoadenosine 5'-phosphosulfate transport
+GO:0080120	CAAX-box protein maturation
+GO:0051382	kinetochore assembly
+GO:0051923	sulfation
+GO:0035520	monoubiquitinated protein deubiquitination
+GO:0035521	OBSOLETE
+GO:0070588	calcium ion transmembrane transport
+GO:0016579	protein deubiquitination
+GO:0051642	centrosome localization
+GO:0061842	microtubule organizing center localization
+GO:0031503	protein-containing complex localization
+GO:0009266	response to temperature stimulus
+GO:0006399	tRNA metabolic process
+GO:0051028	mRNA transport
+GO:0034472	snRNA 3'-end processing
+GO:1902850	microtubule cytoskeleton organization involved in mitosis

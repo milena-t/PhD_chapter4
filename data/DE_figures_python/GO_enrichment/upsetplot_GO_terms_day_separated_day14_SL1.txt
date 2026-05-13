@@ -1,0 +1,56 @@
+GO:0016310	phosphorylation
+GO:0045924	regulation of female receptivity
+GO:0046939	OBSOLETE
+GO:0009117	nucleotide metabolic process
+GO:0060180	female mating behavior
+GO:0046328	regulation of JNK cascade
+GO:0009126	purine nucleoside monophosphate metabolic process
+GO:0031063	OBSOLETE
+GO:0090311	regulation of protein deacetylation
+GO:0090312	positive regulation of protein deacetylation
+GO:0070302	regulation of stress-activated protein kinase signaling cascade
+GO:0032872	regulation of stress-activated MAPK cascade
+GO:0009144	purine nucleoside triphosphate metabolic process
+GO:0009205	purine ribonucleoside triphosphate metabolic process
+GO:0009199	OBSOLETE
+GO:0009161	OBSOLETE
+GO:0097722	sperm motility
+GO:0009123	nucleoside monophosphate metabolic process
+GO:0007254	JNK cascade
+GO:0072524	pyridine-containing compound metabolic process
+GO:0019344	L-cysteine biosynthetic process
+GO:0061615	glycolytic process through fructose-6-phosphate
+GO:0046184	aldehyde biosynthetic process
+GO:0009092	L-homoserine metabolic process
+GO:0071071	regulation of phospholipid biosynthetic process
+GO:0099514	synaptic vesicle cytoskeletal transport
+GO:0099517	synaptic vesicle transport along microtubule
+GO:0042816	vitamin B6 metabolic process
+GO:0006007	glucose catabolic process
+GO:0044771	meiotic cell cycle phase transition
+GO:0031991	regulation of actomyosin contractile ring contraction
+GO:0044782	cilium organization
+GO:0009132	nucleoside diphosphate metabolic process
+GO:0051403	stress-activated MAPK cascade
+GO:0070303	negative regulation of stress-activated protein kinase signaling cascade
+GO:0032873	negative regulation of stress-activated MAPK cascade
+GO:0071482	cellular response to light stimulus
+GO:0046329	negative regulation of JNK cascade
+GO:0001539	cilium or flagellum-dependent cell motility
+GO:0006661	phosphatidylinositol biosynthetic process
+GO:0033173	calcineurin-NFAT signaling cascade
+GO:0035092	sperm DNA condensation
+GO:1904886	beta-catenin destruction complex disassembly
+GO:0097720	calcineurin-mediated signaling
+GO:0045948	positive regulation of translational initiation
+GO:0043409	negative regulation of MAPK cascade
+GO:0042446	hormone biosynthetic process
+GO:1901214	OBSOLETE
+GO:0046471	phosphatidylglycerol metabolic process
+GO:0016233	telomere capping
+GO:0006655	phosphatidylglycerol biosynthetic process
+GO:0009435	NAD+ biosynthetic process
+GO:0050667	homocysteine metabolic process
+GO:0010866	regulation of triglyceride biosynthetic process
+GO:0031098	stress-activated protein kinase signaling cascade
+GO:0070997	OBSOLETE

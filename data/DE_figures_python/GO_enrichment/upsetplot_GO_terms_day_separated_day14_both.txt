@@ -1,0 +1,40 @@
+GO:0018094	protein polyglycylation
+GO:0009142	nucleoside triphosphate biosynthetic process
+GO:0007289	spermatid nucleus differentiation
+GO:0051039	OBSOLETE
+GO:0070935	3'-UTR-mediated mRNA stabilization
+GO:0016024	CDP-diacylglycerol biosynthetic process
+GO:0060287	epithelial cilium movement involved in determination of left/right asymmetry
+GO:0072525	pyridine-containing compound biosynthetic process
+GO:0006165	OBSOLETE
+GO:0046034	ATP metabolic process
+GO:0009167	purine ribonucleoside monophosphate metabolic process
+GO:0008315	G2/MI transition of meiotic cell cycle
+GO:0010511	regulation of phosphatidylinositol biosynthetic process
+GO:0010513	positive regulation of phosphatidylinositol biosynthetic process
+GO:0061620	glycolytic process through glucose-6-phosphate
+GO:0061621	canonical glycolysis
+GO:0061718	glucose catabolic process to pyruvate
+GO:0071073	positive regulation of phospholipid biosynthetic process
+GO:0042822	pyridoxal 5'-phosphate metabolic process
+GO:0042823	pyridoxal 5'-phosphate biosynthetic process
+GO:0048490	anterograde synaptic vesicle transport
+GO:0048491	retrograde synaptic vesicle transport
+GO:0042819	vitamin B6 biosynthetic process
+GO:1903727	positive regulation of phospholipid metabolic process
+GO:0006735	NADH regeneration
+GO:0010868	negative regulation of triglyceride biosynthetic process
+GO:0051055	negative regulation of lipid biosynthetic process
+GO:0030317	flagellated sperm motility
+GO:0045727	positive regulation of translation
+GO:0060294	cilium movement involved in cell motility
+GO:0060271	cilium assembly
+GO:0019343	OBSOLETE
+GO:0019346	transsulfuration
+GO:0071266	'de novo' L-methionine biosynthetic process
+GO:0060285	cilium-dependent cell motility
+GO:0006754	ATP biosynthetic process
+GO:0009145	purine nucleoside triphosphate biosynthetic process
+GO:0009206	purine ribonucleoside triphosphate biosynthetic process
+GO:0003341	cilium movement
+GO:0009201	ribonucleoside triphosphate biosynthetic process

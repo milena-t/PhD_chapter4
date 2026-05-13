@@ -1,0 +1,13 @@
+GO:0003407	neural retina development
+GO:0007618	mating
+GO:0060179	male mating behavior
+GO:0008049	male courtship behavior
+GO:0034728	nucleosome organization
+GO:0043486	OBSOLETE
+GO:0043052	thermotaxis
+GO:0007619	courtship behavior
+GO:0098662	OBSOLETE
+GO:0016545	male courtship behavior, veined wing vibration
+GO:0060078	regulation of postsynaptic membrane potential
+GO:0045433	male courtship behavior, veined wing generated song production
+GO:0048065	male courtship behavior, veined wing extension

@@ -1,0 +1,47 @@
+GO:0006414	translational elongation
+GO:0009117	nucleotide metabolic process
+GO:0048149	behavioral response to ethanol
+GO:1904801	positive regulation of neuron remodeling
+GO:0000028	ribosomal small subunit assembly
+GO:0035156	fusion cell fate specification
+GO:0009132	nucleoside diphosphate metabolic process
+GO:0006140	regulation of nucleotide metabolic process
+GO:0048056	R3/R4 cell differentiation
+GO:0035277	spiracle morphogenesis, open tracheal system
+GO:0045465	R8 cell differentiation
+GO:0001738	morphogenesis of a polarized epithelium
+GO:0007619	courtship behavior
+GO:0060571	morphogenesis of an epithelial fold
+GO:0031036	myosin II filament assembly
+GO:0036059	nephrocyte diaphragm assembly
+GO:0007386	compartment pattern specification
+GO:0007473	wing disc proximal/distal pattern formation
+GO:0045468	regulation of R8 cell spacing in compound eye
+GO:0035163	embryonic hemocyte differentiation
+GO:0045761	regulation of adenylate cyclase activity
+GO:0060289	compartment boundary maintenance
+GO:0008407	chaeta morphogenesis
+GO:0009636	response to toxic substance
+GO:0006979	response to oxidative stress
+GO:0061331	epithelial cell proliferation involved in Malpighian tubule morphogenesis
+GO:0042402	biogenic amine catabolic process
+GO:2001013	epithelial cell proliferation involved in renal tubule morphogenesis
+GO:0009310	amine catabolic process
+GO:0010824	regulation of centrosome duplication
+GO:0031111	negative regulation of microtubule polymerization or depolymerization
+GO:0018195	peptidyl-arginine modification
+GO:0046599	regulation of centriole replication
+GO:0097237	cellular response to toxic substance
+GO:0007291	sperm individualization
+GO:0005977	glycogen metabolic process
+GO:0006073	OBSOLETE
+GO:0006112	energy reserve metabolic process
+GO:0044042	glucan metabolic process
+GO:0072522	purine-containing compound biosynthetic process
+GO:0042401	biogenic amine biosynthetic process
+GO:0007464	R3/R4 cell fate commitment
+GO:0009309	amine biosynthetic process
+GO:1903578	regulation of ATP metabolic process
+GO:0070507	regulation of microtubule cytoskeleton organization
+GO:0031109	microtubule polymerization or depolymerization
+GO:0006163	purine nucleotide metabolic process

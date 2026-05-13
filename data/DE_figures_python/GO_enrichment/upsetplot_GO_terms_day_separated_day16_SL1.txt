@@ -1,0 +1,36 @@
+GO:0042866	pyruvate biosynthetic process
+GO:0006096	glycolytic process
+GO:0043456	regulation of pentose-phosphate shunt
+GO:0006754	ATP biosynthetic process
+GO:0009166	nucleotide catabolic process
+GO:0019359	nicotinamide nucleotide biosynthetic process
+GO:0009168	purine ribonucleoside monophosphate biosynthetic process
+GO:0043687	post-translational protein modification
+GO:0032781	positive regulation of ATP-dependent activity
+GO:0006006	glucose metabolic process
+GO:0006835	dicarboxylic acid transport
+GO:0019319	hexose biosynthetic process
+GO:0006094	gluconeogenesis
+GO:0034404	nucleobase-containing small molecule biosynthetic process
+GO:0007617	mating behavior
+GO:0046364	monosaccharide biosynthetic process
+GO:0046942	carboxylic acid transport
+GO:0034964	box H/ACA sno(s)RNA processing
+GO:0033979	box H/ACA sno(s)RNA metabolic process
+GO:0000495	box H/ACA sno(s)RNA 3'-end processing
+GO:1903054	negative regulation of extracellular matrix organization
+GO:0010715	regulation of extracellular matrix disassembly
+GO:0010716	negative regulation of extracellular matrix disassembly
+GO:0006749	glutathione metabolic process
+GO:0033108	mitochondrial respiratory chain complex assembly
+GO:0042773	ATP synthesis coupled electron transport
+GO:0042775	mitochondrial ATP synthesis coupled electron transport
+GO:0046835	carbohydrate phosphorylation
+GO:0034394	protein localization to cell surface
+GO:0042398	modified amino acid biosynthetic process
+GO:0051260	protein homooligomerization
+GO:0009620	response to fungus
+GO:0007286	spermatid development
+GO:0060079	excitatory postsynaptic potential
+GO:0050974	detection of mechanical stimulus involved in sensory perception
+GO:0099565	chemical synaptic transmission, postsynaptic

@@ -1,0 +1,35 @@
+GO:0035025	positive regulation of Rho protein signal transduction
+GO:0035164	embryonic plasmatocyte differentiation
+GO:0035169	lymph gland plasmatocyte differentiation
+GO:0045687	positive regulation of glial cell differentiation
+GO:0032095	regulation of response to food
+GO:0048213	OBSOLETE
+GO:0090062	regulation of trehalose metabolic process
+GO:0000301	retrograde transport, vesicle recycling within Golgi
+GO:0048856	anatomical structure development
+GO:0060538	skeletal muscle organ development
+GO:0042690	negative regulation of crystal cell differentiation
+GO:0035289	posterior head segmentation
+GO:0070374	positive regulation of ERK1 and ERK2 cascade
+GO:0009888	tissue development
+GO:0060252	positive regulation of glial cell proliferation
+GO:0032502	developmental process
+GO:0007561	imaginal disc eversion
+GO:0050764	regulation of phagocytosis
+GO:0070372	regulation of ERK1 and ERK2 cascade
+GO:0048567	ectodermal digestive tract morphogenesis
+GO:0007439	ectodermal digestive tract development
+GO:0008343	adult feeding behavior
+GO:0005991	trehalose metabolic process
+GO:0007271	synaptic transmission, cholinergic
+GO:0042689	regulation of crystal cell differentiation
+GO:1904059	regulation of locomotor rhythm
+GO:0031290	retinal ganglion cell axon guidance
+GO:0035287	head segmentation
+GO:0070371	ERK1 and ERK2 cascade
+GO:0060562	epithelial tube morphogenesis
+GO:0007480	imaginal disc-derived leg morphogenesis
+GO:0010906	regulation of glucose metabolic process
+GO:0042688	crystal cell differentiation
+GO:0007516	hemocyte development
+GO:0007478	leg disc morphogenesis

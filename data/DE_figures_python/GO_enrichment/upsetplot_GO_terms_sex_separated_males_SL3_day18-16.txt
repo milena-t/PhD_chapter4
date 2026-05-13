@@ -1,0 +1,99 @@
+GO:0007591	molting cycle, chitin-based cuticle
+GO:0042335	cuticle development
+GO:0006084	acetyl-CoA metabolic process
+GO:0019674	NAD+ metabolic process
+GO:0016556	mRNA modification
+GO:0006022	aminoglycan metabolic process
+GO:0098869	cellular oxidant detoxification
+GO:0007224	smoothened signaling pathway
+GO:0051146	striated muscle cell differentiation
+GO:0032528	microvillus organization
+GO:0098534	centriole assembly
+GO:0044282	small molecule catabolic process
+GO:0008589	regulation of smoothened signaling pathway
+GO:0007099	centriole replication
+GO:0019682	glyceraldehyde-3-phosphate metabolic process
+GO:0016486	peptide hormone processing
+GO:0140448	signaling receptor ligand precursor processing
+GO:0006695	cholesterol biosynthetic process
+GO:0006040	amino sugar metabolic process
+GO:0043650	dicarboxylic acid biosynthetic process
+GO:0045216	cell-cell junction organization
+GO:0045879	negative regulation of smoothened signaling pathway
+GO:0022404	molting cycle process
+GO:1901071	OBSOLETE
+GO:0072002	Malpighian tubule development
+GO:0061326	renal tubule development
+GO:0003007	heart morphogenesis
+GO:0001655	urogenital system development
+GO:0072001	renal system development
+GO:0006949	OBSOLETE
+GO:0140253	cell-cell fusion
+GO:0000768	syncytium formation by cell-cell fusion
+GO:0007520	myoblast fusion
+GO:0006026	aminoglycan catabolic process
+GO:0006030	chitin metabolic process
+GO:0044283	small molecule biosynthetic process
+GO:0033866	nucleoside bisphosphate biosynthetic process
+GO:0034030	ribonucleoside bisphosphate biosynthetic process
+GO:0034033	purine nucleoside bisphosphate biosynthetic process
+GO:0019287	isopentenyl diphosphate biosynthetic process, mevalonate pathway
+GO:0071596	ubiquitin-dependent protein catabolic process via the N-end rule pathway
+GO:0046967	cytosol to endoplasmic reticulum transport
+GO:0003143	embryonic heart tube morphogenesis
+GO:0036084	GDP-fucose import into endoplasmic reticulum lumen
+GO:0032529	follicle cell microvillus organization
+GO:0046490	isopentenyl diphosphate metabolic process
+GO:0040005	chitin-based cuticle attachment to epithelium
+GO:0044806	OBSOLETE
+GO:0016114	terpenoid biosynthetic process
+GO:0000303	response to superoxide
+GO:0032053	ciliary basal body organization
+GO:0048491	retrograde synaptic vesicle transport
+GO:0071450	cellular response to oxygen radical
+GO:0071451	cellular response to superoxide
+GO:0006801	superoxide metabolic process
+GO:0006533	L-aspartate catabolic process
+GO:0038179	neurotrophin signaling pathway
+GO:1990511	piRNA processing
+GO:0030259	OBSOLETE
+GO:0019430	removal of superoxide radicals
+GO:0007502	digestive tract mesoderm development
+GO:0009240	isopentenyl diphosphate biosynthetic process
+GO:0043062	extracellular structure organization
+GO:0019318	hexose metabolic process
+GO:0035225	determination of genital disc primordium
+GO:0007445	determination of imaginal disc primordium
+GO:0006739	NADP+ metabolic process
+GO:0006515	protein quality control for misfolded or incompletely synthesized proteins
+GO:0008299	isoprenoid biosynthetic process
+GO:0085029	extracellular matrix assembly
+GO:1901136	carbohydrate derivative catabolic process
+GO:0035383	OBSOLETE
+GO:0006637	acyl-CoA metabolic process
+GO:0016322	neuron remodeling
+GO:0072523	purine-containing compound catabolic process
+GO:0021675	nerve development
+GO:0010955	negative regulation of protein processing
+GO:0006208	pyrimidine nucleobase catabolic process
+GO:0019321	pentose metabolic process
+GO:1903318	negative regulation of protein maturation
+GO:0009435	NAD+ biosynthetic process
+GO:0008203	cholesterol metabolic process
+GO:0071218	cellular response to misfolded protein
+GO:0051788	response to misfolded protein
+GO:0034285	response to disaccharide
+GO:0007443	Malpighian tubule morphogenesis
+GO:0061333	renal tubule morphogenesis
+GO:0043297	apical junction assembly
+GO:0019991	septate junction assembly
+GO:0042551	neuron maturation
+GO:0043436	oxoacid metabolic process
+GO:0006082	organic acid metabolic process
+GO:0042445	hormone metabolic process
+GO:0035114	imaginal disc-derived appendage morphogenesis
+GO:0048800	antennal morphogenesis
+GO:0034446	substrate adhesion-dependent cell spreading
+GO:0046349	amino sugar biosynthetic process
+GO:0009072	aromatic amino acid metabolic process
+GO:0043649	dicarboxylic acid catabolic process

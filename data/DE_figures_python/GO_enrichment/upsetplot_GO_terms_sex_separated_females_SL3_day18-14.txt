@@ -1,0 +1,50 @@
+GO:1905039	carboxylic acid transmembrane transport
+GO:0006839	mitochondrial transport
+GO:0035164	embryonic plasmatocyte differentiation
+GO:0035169	lymph gland plasmatocyte differentiation
+GO:0006532	L-aspartate biosynthetic process
+GO:0015724	formate transport
+GO:0009609	response to symbiotic bacterium
+GO:0070184	mitochondrial tyrosyl-tRNA aminoacylation
+GO:0060570	negative regulation of peptide hormone processing
+GO:1902616	O-acyl-L-carnitine transmembrane transport
+GO:0090063	positive regulation of microtubule nucleation
+GO:0045687	positive regulation of glial cell differentiation
+GO:0006835	dicarboxylic acid transport
+GO:0042908	xenobiotic transport
+GO:0006855	xenobiotic transmembrane transport
+GO:0032438	melanosome organization
+GO:0015766	disaccharide transport
+GO:0015771	trehalose transport
+GO:0015772	oligosaccharide transport
+GO:0006656	phosphatidylcholine biosynthetic process
+GO:0006657	CDP-choline pathway
+GO:0015884	folic acid transport
+GO:0006850	pyruvate import into mitochondria
+GO:0006856	eye pigment precursor transport
+GO:0006090	pyruvate metabolic process
+GO:0008039	synaptic target recognition
+GO:0098656	monoatomic anion transmembrane transport
+GO:0046470	phosphatidylcholine metabolic process
+GO:0006848	pyruvate transport
+GO:1901475	pyruvate transmembrane transport
+GO:0035165	embryonic crystal cell differentiation
+GO:0007344	pronuclear fusion
+GO:0051180	vitamin transport
+GO:0035289	posterior head segmentation
+GO:0035350	FAD transmembrane transport
+GO:0007403	glial cell fate determination
+GO:0015883	FAD transport
+GO:0035461	vitamin transmembrane transport
+GO:0000741	karyogamy
+GO:0021781	glial cell fate commitment
+GO:0046942	carboxylic acid transport
+GO:0035193	larval central nervous system remodeling
+GO:0072337	modified amino acid transport
+GO:0050667	homocysteine metabolic process
+GO:0010171	body morphogenesis
+GO:0042690	negative regulation of crystal cell differentiation
+GO:0040003	chitin-based cuticle development
+GO:0006537	OBSOLETE
+GO:0060252	positive regulation of glial cell proliferation
+GO:1990542	mitochondrial transmembrane transport

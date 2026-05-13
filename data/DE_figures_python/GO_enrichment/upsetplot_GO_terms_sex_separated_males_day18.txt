@@ -1,0 +1,59 @@
+GO:0009914	hormone transport
+GO:0006741	NADP+ biosynthetic process
+GO:1904274	tricellular tight junction assembly
+GO:1904515	positive regulation of TORC2 signaling
+GO:0015870	acetylcholine transport
+GO:0015871	choline transport
+GO:1902350	cellular response to chloroquine
+GO:0032223	negative regulation of synaptic transmission, cholinergic
+GO:0044057	regulation of system process
+GO:0090557	establishment of endothelial intestinal barrier
+GO:0051968	positive regulation of synaptic transmission, glutamatergic
+GO:0060986	endocrine hormone secretion
+GO:0007555	regulation of ecdysteroid secretion
+GO:2000831	regulation of steroid hormone secretion
+GO:0035929	steroid hormone secretion
+GO:0060814	posterior mRNA localization involved in anterior/posterior axis specification
+GO:0045457	ecdysteroid secretion
+GO:0044060	regulation of endocrine process
+GO:0050886	endocrine process
+GO:0036466	synaptic vesicle recycling via endosome
+GO:0008355	olfactory learning
+GO:0051966	regulation of synaptic transmission, glutamatergic
+GO:0099532	synaptic vesicle endosomal processing
+GO:0000244	spliceosomal tri-snRNP complex assembly
+GO:0008306	associative learning
+GO:0051898	negative regulation of phosphatidylinositol 3-kinase/protein kinase B signal transduction
+GO:0061512	protein localization to cilium
+GO:0006013	mannose metabolic process
+GO:0071236	cellular response to antibiotic
+GO:0042048	olfactory behavior
+GO:0072488	ammonium transmembrane transport
+GO:0035265	organ growth
+GO:0007049	cell cycle
+GO:0007612	learning
+GO:0001558	regulation of cell growth
+GO:0032368	regulation of lipid transport
+GO:0048047	mating behavior, sex discrimination
+GO:0007635	chemosensory behavior
+GO:0042632	cholesterol homeostasis
+GO:0035249	synaptic transmission, glutamatergic
+GO:0140353	lipid export from cell
+GO:0048148	behavioral response to cocaine
+GO:0006517	protein deglycosylation
+GO:0006403	RNA localization
+GO:0061028	establishment of endothelial barrier
+GO:0045498	sex comb development
+GO:0030308	negative regulation of cell growth
+GO:0070193	synaptonemal complex organization
+GO:0090328	regulation of olfactory learning
+GO:0030154	cell differentiation
+GO:0055092	sterol homeostasis
+GO:0008062	eclosion rhythm
+GO:0008057	eye pigment granule organization
+GO:0030111	regulation of Wnt signaling pathway
+GO:0048753	pigment granule organization
+GO:0042220	response to cocaine
+GO:0042693	muscle cell fate commitment
+GO:0035002	liquid clearance, open tracheal system
+GO:0048869	cellular developmental process

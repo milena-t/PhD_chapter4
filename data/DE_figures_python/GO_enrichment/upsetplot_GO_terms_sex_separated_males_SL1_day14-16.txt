@@ -1,0 +1,103 @@
+GO:0061077	OBSOLETE
+GO:0042026	protein refolding
+GO:0006855	xenobiotic transmembrane transport
+GO:0031167	rRNA methylation
+GO:0015695	organic cation transport
+GO:0019388	galactose catabolic process
+GO:0001666	response to hypoxia
+GO:0009141	nucleoside triphosphate metabolic process
+GO:0072330	monocarboxylic acid biosynthetic process
+GO:0006633	fatty acid biosynthetic process
+GO:0009312	oligosaccharide biosynthetic process
+GO:0044550	secondary metabolite biosynthetic process
+GO:0019693	ribose phosphate metabolic process
+GO:0032781	positive regulation of ATP-dependent activity
+GO:0009150	purine ribonucleotide metabolic process
+GO:0009259	ribonucleotide metabolic process
+GO:0042273	ribosomal large subunit biogenesis
+GO:0001676	long-chain fatty acid metabolic process
+GO:0008637	apoptotic mitochondrial changes
+GO:0046902	regulation of mitochondrial membrane permeability
+GO:0046033	AMP metabolic process
+GO:1901475	pyruvate transmembrane transport
+GO:0015866	ADP transport
+GO:0006848	pyruvate transport
+GO:0043010	camera-type eye development
+GO:0090559	regulation of membrane permeability
+GO:0015748	organophosphate ester transport
+GO:0019646	aerobic electron transport chain
+GO:0006413	translational initiation
+GO:1901679	nucleotide transmembrane transport
+GO:0050974	detection of mechanical stimulus involved in sensory perception
+GO:0016226	iron-sulfur cluster assembly
+GO:0006862	nucleotide transport
+GO:0031163	metallo-sulfur cluster assembly
+GO:0008053	mitochondrial fusion
+GO:0006121	mitochondrial electron transport, succinate to ubiquinone
+GO:0090151	OBSOLETE
+GO:0051204	protein insertion into mitochondrial membrane
+GO:0022904	respiratory electron transport chain
+GO:0140053	mitochondrial gene expression
+GO:0022900	electron transport chain
+GO:0060180	female mating behavior
+GO:0046785	microtubule polymerization
+GO:0035384	OBSOLETE
+GO:0098581	detection of external biotic stimulus
+GO:0070681	glutaminyl-tRNAGln biosynthesis via transamidation
+GO:0009749	response to glucose
+GO:0043456	regulation of pentose-phosphate shunt
+GO:0043489	RNA stabilization
+GO:0061502	OBSOLETE
+GO:0009595	detection of biotic stimulus
+GO:0006085	acetyl-CoA biosynthetic process
+GO:0001504	neurotransmitter uptake
+GO:0010636	positive regulation of mitochondrial fusion
+GO:0046040	IMP metabolic process
+GO:0072531	pyrimidine-containing compound transmembrane transport
+GO:0035349	coenzyme A transmembrane transport
+GO:0007008	outer mitochondrial membrane organization
+GO:0035338	long-chain fatty-acyl-CoA biosynthetic process
+GO:0044208	'de novo' AMP biosynthetic process
+GO:0000001	mitochondrion inheritance
+GO:0006420	arginyl-tRNA aminoacylation
+GO:0006424	glutamyl-tRNA aminoacylation
+GO:0006429	leucyl-tRNA aminoacylation
+GO:0006433	prolyl-tRNA aminoacylation
+GO:1902031	regulation of NADP metabolic process
+GO:0019918	peptidyl-arginine methylation, to symmetrical-dimethyl arginine
+GO:2001171	positive regulation of ATP biosynthetic process
+GO:0015742	alpha-ketoglutarate transport
+GO:0032927	positive regulation of activin receptor signaling pathway
+GO:0015851	nucleobase transport
+GO:0015854	guanine transport
+GO:0015880	coenzyme A transport
+GO:0080121	AMP transport
+GO:0071326	cellular response to monosaccharide stimulus
+GO:1902369	negative regulation of RNA catabolic process
+GO:0071331	cellular response to hexose stimulus
+GO:0006863	purine nucleobase transport
+GO:0006850	pyruvate import into mitochondria
+GO:0032048	cardiolipin metabolic process
+GO:0032049	cardiolipin biosynthetic process
+GO:0006844	OBSOLETE
+GO:0006597	spermine biosynthetic process
+GO:0006569	L-tryptophan catabolic process
+GO:0006573	valine metabolic process
+GO:1990809	endoplasmic reticulum tubular network membrane organization
+GO:0008215	spermine metabolic process
+GO:0071106	adenosine 3',5'-bisphosphate transmembrane transport
+GO:0019441	OBSOLETE
+GO:0061738	late endosomal microautophagy
+GO:0010890	positive regulation of triglyceride storage
+GO:0043462	regulation of ATP-dependent activity
+GO:0042595	behavioral response to starvation
+GO:0046460	neutral lipid biosynthetic process
+GO:0046463	acylglycerol biosynthetic process
+GO:0009620	response to fungus
+GO:0042773	ATP synthesis coupled electron transport
+GO:0042775	mitochondrial ATP synthesis coupled electron transport
+GO:0031146	SCF-dependent proteasomal ubiquitin-dependent protein catabolic process
+GO:0035336	long-chain fatty-acyl-CoA metabolic process
+GO:0002183	cytoplasmic translational initiation
+GO:0009311	oligosaccharide metabolic process
+GO:0033865	nucleoside bisphosphate metabolic process

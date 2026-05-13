@@ -1,0 +1,83 @@
+GO:0003341	cilium movement
+GO:0007605	sensory perception of sound
+GO:0030317	flagellated sperm motility
+GO:0060271	cilium assembly
+GO:0036158	outer dynein arm assembly
+GO:0035082	axoneme assembly
+GO:0036159	inner dynein arm assembly
+GO:0050982	detection of mechanical stimulus
+GO:0006123	mitochondrial electron transport, cytochrome c to oxygen
+GO:0060285	cilium-dependent cell motility
+GO:0009167	purine ribonucleoside monophosphate metabolic process
+GO:0018094	protein polyglycylation
+GO:0046034	ATP metabolic process
+GO:0071331	cellular response to hexose stimulus
+GO:0007618	mating
+GO:0006730	one-carbon metabolic process
+GO:0019343	OBSOLETE
+GO:0019346	transsulfuration
+GO:0071266	'de novo' L-methionine biosynthetic process
+GO:0001678	intracellular glucose homeostasis
+GO:1902600	proton transmembrane transport
+GO:0015800	acidic amino acid transport
+GO:0035092	sperm DNA condensation
+GO:0007589	body fluid secretion
+GO:0060078	regulation of postsynaptic membrane potential
+GO:0006839	mitochondrial transport
+GO:0071260	cellular response to mechanical stimulus
+GO:0006750	glutathione biosynthetic process
+GO:0007291	sperm individualization
+GO:0050878	regulation of body fluid levels
+GO:1905039	carboxylic acid transmembrane transport
+GO:1903825	OBSOLETE
+GO:0048515	spermatid differentiation
+GO:0051938	L-glutamate import
+GO:0015813	L-glutamate transmembrane transport
+GO:0019184	nonribosomal peptide biosynthetic process
+GO:0050832	defense response to fungus
+GO:0019646	aerobic electron transport chain
+GO:1903312	negative regulation of mRNA metabolic process
+GO:0042391	regulation of membrane potential
+GO:0060294	cilium movement involved in cell motility
+GO:0070286	axonemal dynein complex assembly
+GO:0045333	cellular respiration
+GO:0007595	lactation
+GO:0002753	cytoplasmic pattern recognition receptor signaling pathway
+GO:0018095	protein polyglutamylation
+GO:0060287	epithelial cilium movement involved in determination of left/right asymmetry
+GO:0070935	3'-UTR-mediated mRNA stabilization
+GO:0015862	uridine transmembrane transport
+GO:0015864	pyrimidine nucleoside transport
+GO:0015853	adenine transport
+GO:0015855	pyrimidine nucleobase transport
+GO:0032098	regulation of appetite
+GO:0003351	epithelial cilium movement involved in extracellular fluid movement
+GO:1902373	negative regulation of mRNA catabolic process
+GO:0035045	sperm plasma membrane disassembly
+GO:0046341	CDP-diacylglycerol metabolic process
+GO:0070555	response to interleukin-1
+GO:0048250	iron import into the mitochondrion
+GO:0048255	mRNA stabilization
+GO:0030879	mammary gland development
+GO:0070498	interleukin-1-mediated signaling pathway
+GO:0070423	OBSOLETE
+GO:0016024	CDP-diacylglycerol biosynthetic process
+GO:0050910	detection of mechanical stimulus involved in sensory perception of sound
+GO:0043123	positive regulation of canonical NF-kappaB signal transduction
+GO:0035872	nucleotide-binding domain, leucine rich repeat containing receptor signaling pathway
+GO:0034606	response to hermaphrodite contact
+GO:0034608	vulval location
+GO:0050709	negative regulation of protein secretion
+GO:0050851	antigen receptor-mediated signaling pathway
+GO:0050852	T cell receptor signaling pathway
+GO:0035364	thymine transport
+GO:0071347	cellular response to interleukin-1
+GO:0035344	hypoxanthine transport
+GO:0071332	cellular response to fructose stimulus
+GO:0071333	cellular response to glucose stimulus
+GO:0009750	response to fructose
+GO:0055085	transmembrane transport
+GO:0050906	detection of stimulus involved in sensory perception
+GO:0015807	L-amino acid transport
+GO:1902475	L-alpha-amino acid transmembrane transport
+GO:0009060	aerobic respiration

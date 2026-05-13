@@ -1,0 +1,40 @@
+GO:0031065	OBSOLETE
+GO:0042676	compound eye cone cell fate commitment
+GO:0045572	positive regulation of imaginal disc growth
+GO:0043524	negative regulation of neuron apoptotic process
+GO:0046622	positive regulation of organ growth
+GO:0070050	neuron cellular homeostasis
+GO:0071482	cellular response to light stimulus
+GO:0046329	negative regulation of JNK cascade
+GO:1905269	positive regulation of chromatin organization
+GO:0045747	positive regulation of Notch signaling pathway
+GO:0042058	regulation of epidermal growth factor receptor signaling pathway
+GO:0008587	imaginal disc-derived wing margin morphogenesis
+GO:0022416	chaeta development
+GO:0001933	negative regulation of protein phosphorylation
+GO:0042326	negative regulation of phosphorylation
+GO:0010563	negative regulation of phosphorus metabolic process
+GO:0045936	negative regulation of phosphate metabolic process
+GO:0031400	negative regulation of protein modification process
+GO:0042461	photoreceptor cell development
+GO:0006979	response to oxidative stress
+GO:0030162	regulation of proteolysis
+GO:0043161	proteasome-mediated ubiquitin-dependent protein catabolic process
+GO:0051248	negative regulation of protein metabolic process
+GO:0010498	proteasomal protein catabolic process
+GO:0046530	photoreceptor cell differentiation
+GO:0001932	regulation of protein phosphorylation
+GO:0019941	modification-dependent protein catabolic process
+GO:0006511	ubiquitin-dependent protein catabolic process
+GO:0043632	modification-dependent macromolecule catabolic process
+GO:0042325	regulation of phosphorylation
+GO:0045892	negative regulation of DNA-templated transcription
+GO:1902679	negative regulation of RNA biosynthetic process
+GO:1903507	OBSOLETE
+GO:0051603	OBSOLETE
+GO:0051253	negative regulation of RNA metabolic process
+GO:0030163	protein catabolic process
+GO:0051174	regulation of phosphorus metabolic process
+GO:0019220	OBSOLETE
+GO:0045934	negative regulation of nucleobase-containing compound metabolic process
+GO:2000113	OBSOLETE

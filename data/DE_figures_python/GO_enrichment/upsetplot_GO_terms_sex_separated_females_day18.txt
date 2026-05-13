@@ -1,0 +1,112 @@
+GO:0010918	positive regulation of mitochondrial membrane potential
+GO:0002084	protein depalmitoylation
+GO:2000060	positive regulation of ubiquitin-dependent protein catabolic process
+GO:0006457	protein folding
+GO:0070584	OBSOLETE
+GO:0016579	protein deubiquitination
+GO:0045732	positive regulation of protein catabolic process
+GO:1904801	positive regulation of neuron remodeling
+GO:0022411	cellular component disassembly
+GO:0006584	catecholamine metabolic process
+GO:0060828	regulation of canonical Wnt signaling pathway
+GO:0045666	positive regulation of neuron differentiation
+GO:0046627	negative regulation of insulin receptor signaling pathway
+GO:0031099	regeneration
+GO:0061726	OBSOLETE
+GO:0000422	autophagy of mitochondrion
+GO:0032436	positive regulation of proteasomal ubiquitin-dependent protein catabolic process
+GO:0090090	negative regulation of canonical Wnt signaling pathway
+GO:0043056	forward locomotion
+GO:0043059	regulation of forward locomotion
+GO:0007211	octopamine or tyramine signaling pathway
+GO:0070212	protein poly-ADP-ribosylation
+GO:0071927	octopamine signaling pathway
+GO:0033058	directional locomotion
+GO:1900244	positive regulation of synaptic vesicle endocytosis
+GO:0046465	OBSOLETE
+GO:0009597	detection of virus
+GO:1903423	positive regulation of synaptic vesicle recycling
+GO:0006489	dolichyl diphosphate biosynthetic process
+GO:0050769	positive regulation of neurogenesis
+GO:1903008	organelle disassembly
+GO:0030178	negative regulation of Wnt signaling pathway
+GO:0031146	SCF-dependent proteasomal ubiquitin-dependent protein catabolic process
+GO:0032434	regulation of proteasomal ubiquitin-dependent protein catabolic process
+GO:1901800	positive regulation of proteasomal protein catabolic process
+GO:0060623	regulation of chromosome condensation
+GO:0045849	negative regulation of nurse cell apoptotic process
+GO:2000114	regulation of establishment of cell polarity
+GO:0032878	regulation of establishment or maintenance of cell polarity
+GO:1904746	negative regulation of apoptotic process involved in development
+GO:0090364	regulation of proteasome assembly
+GO:0061077	OBSOLETE
+GO:0070507	regulation of microtubule cytoskeleton organization
+GO:0061136	regulation of proteasomal protein catabolic process
+GO:0032886	regulation of microtubule-based process
+GO:0048665	neuron fate specification
+GO:1905880	negative regulation of oogenesis
+GO:1900242	regulation of synaptic vesicle endocytosis
+GO:0016320	endoplasmic reticulum membrane fusion
+GO:0000973	post-transcriptional tethering of RNA polymerase II gene DNA at nuclear periphery
+GO:0050767	regulation of neurogenesis
+GO:0090502	OBSOLETE
+GO:0050770	regulation of axonogenesis
+GO:0051962	positive regulation of nervous system development
+GO:0048207	vesicle targeting, rough ER to cis-Golgi
+GO:0048208	COPII vesicle coating
+GO:0048690	OBSOLETE
+GO:0048691	positive regulation of axon extension involved in regeneration
+GO:0010824	regulation of centrosome duplication
+GO:0006901	vesicle coating
+GO:0046599	regulation of centriole replication
+GO:0048686	regulation of sprouting of injured axon
+GO:0048687	positive regulation of sprouting of injured axon
+GO:0048677	axon extension involved in regeneration
+GO:0006589	octopamine biosynthetic process
+GO:0090113	OBSOLETE
+GO:0042421	norepinephrine biosynthetic process
+GO:0042415	norepinephrine metabolic process
+GO:1903421	regulation of synaptic vesicle recycling
+GO:0006471	OBSOLETE
+GO:0003400	regulation of COPII vesicle coating
+GO:0070922	RISC complex assembly
+GO:0048209	regulation of vesicle targeting, to, from or within Golgi
+GO:0019614	catechol-containing compound catabolic process
+GO:0046333	octopamine metabolic process
+GO:0048199	vesicle targeting, to, from or within Golgi
+GO:0048104	establishment of body hair or bristle planar orientation
+GO:0019336	phenol-containing compound catabolic process
+GO:0042420	dopamine catabolic process
+GO:0042424	catecholamine catabolic process
+GO:0048047	mating behavior, sex discrimination
+GO:0006488	dolichol-linked oligosaccharide biosynthetic process
+GO:0034982	mitochondrial protein processing
+GO:0007626	locomotory behavior
+GO:0007224	smoothened signaling pathway
+GO:0009713	catechol-containing compound biosynthetic process
+GO:0014014	negative regulation of gliogenesis
+GO:0002121	inter-male aggressive behavior
+GO:0090158	endoplasmic reticulum membrane organization
+GO:0042423	catecholamine biosynthetic process
+GO:0060253	negative regulation of glial cell proliferation
+GO:0042439	OBSOLETE
+GO:0000972	transcription-dependent tethering of RNA polymerase II gene DNA at nuclear periphery
+GO:0040012	regulation of locomotion
+GO:0019439	OBSOLETE
+GO:0030720	oocyte localization involved in germarium-derived egg chamber formation
+GO:0006921	cellular component disassembly involved in execution phase of apoptosis
+GO:0008334	histone mRNA metabolic process
+GO:0060628	regulation of ER to Golgi vesicle-mediated transport
+GO:0048680	positive regulation of axon regeneration
+GO:0048682	sprouting of injured axon
+GO:0001682	tRNA 5'-leader removal
+GO:0006398	mRNA 3'-end processing by stem-loop binding and cleavage
+GO:0070572	positive regulation of neuron projection regeneration
+GO:0030262	apoptotic nuclear changes
+GO:0009310	amine catabolic process
+GO:0006309	apoptotic DNA fragmentation
+GO:0006490	OBSOLETE
+GO:0042402	biogenic amine catabolic process
+GO:0099116	tRNA 5'-end processing
+GO:0032101	regulation of response to external stimulus
+GO:1901361	OBSOLETE
