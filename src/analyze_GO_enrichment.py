@@ -104,11 +104,17 @@ def get_interesting_GO_overlap_lists():
         },
         "line_separated" : {
             "SL1" : {
+                "day14" : ["F_14 - M_14"],
+                "day16" : ["F_16 - M_16"],
+                "day18" : ["F_18 - M_18"],
                 "all" : ["F_14 - M_14","F_16 - M_16", "F_18 - M_18"],
                 "early" : ["F_14 - M_14","F_16 - M_16"],
                 "late" : ["F_16 - M_16", "F_18 - M_18"]
             },
             "SL3" : {
+                "day14" : ["F_14 - M_14"],
+                "day16" : ["F_16 - M_16"],
+                "day18" : ["F_18 - M_18"],
                 "all" : ["F_14 - M_14","F_16 - M_16", "F_18 - M_18"],
                 "early" : ["F_14 - M_14","F_16 - M_16"],
                 "late" : ["F_16 - M_16", "F_18 - M_18"]
@@ -224,7 +230,7 @@ if __name__ == "__main__":
     # get functional information about GO terms
     if plot==False:
         print(f"read GO-terms definitions...")
-        go = GODag("go-basic.obo")
+        go = GODag(f"/Users/{username}/work/go-basic.obo") # wget https://current.geneontology.org/ontology/go-basic.obo
         print(f"...done!")
         
 

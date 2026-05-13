@@ -1,0 +1,68 @@
+GO:0043456	regulation of pentose-phosphate shunt
+GO:0061738	late endosomal microautophagy
+GO:0006096	glycolytic process
+GO:0019359	nicotinamide nucleotide biosynthetic process
+GO:0009166	nucleotide catabolic process
+GO:0097237	cellular response to toxic substance
+GO:0019319	hexose biosynthetic process
+GO:0006094	gluconeogenesis
+GO:0071324	cellular response to disaccharide stimulus
+GO:0071329	cellular response to sucrose stimulus
+GO:0009060	aerobic respiration
+GO:0043462	regulation of ATP-dependent activity
+GO:0046693	sperm storage
+GO:0046460	neutral lipid biosynthetic process
+GO:0046463	acylglycerol biosynthetic process
+GO:0006119	oxidative phosphorylation
+GO:0098869	cellular oxidant detoxification
+GO:1990748	cellular detoxification
+GO:0018105	peptidyl-serine phosphorylation
+GO:0018209	peptidyl-serine modification
+GO:0015813	L-glutamate transmembrane transport
+GO:0019184	nonribosomal peptide biosynthetic process
+GO:0051938	L-glutamate import
+GO:1905515	non-motile cilium assembly
+GO:0070286	axonemal dynein complex assembly
+GO:0032210	regulation of telomere maintenance via telomerase
+GO:0032211	negative regulation of telomere maintenance via telomerase
+GO:0000495	box H/ACA sno(s)RNA 3'-end processing
+GO:0015862	uridine transmembrane transport
+GO:0015864	pyrimidine nucleoside transport
+GO:0032204	regulation of telomere maintenance
+GO:0032205	negative regulation of telomere maintenance
+GO:0015853	adenine transport
+GO:0015855	pyrimidine nucleobase transport
+GO:2000278	regulation of DNA biosynthetic process
+GO:2000279	negative regulation of DNA biosynthetic process
+GO:1904356	regulation of telomere maintenance via telomere lengthening
+GO:1904357	negative regulation of telomere maintenance via telomere lengthening
+GO:0015824	proline transport
+GO:0015816	glycine transport
+GO:0030879	mammary gland development
+GO:1903054	negative regulation of extracellular matrix organization
+GO:0033979	box H/ACA sno(s)RNA metabolic process
+GO:0051972	OBSOLETE
+GO:0051974	OBSOLETE
+GO:0035045	sperm plasma membrane disassembly
+GO:1903804	glycine import across plasma membrane
+GO:0010715	regulation of extracellular matrix disassembly
+GO:0010716	negative regulation of extracellular matrix disassembly
+GO:0048250	iron import into the mitochondrion
+GO:0071333	cellular response to glucose stimulus
+GO:0034964	box H/ACA sno(s)RNA processing
+GO:0007595	lactation
+GO:0035524	proline transmembrane transport
+GO:1903344	regulation of protein polyglycylation
+GO:1903346	positive regulation of protein polyglycylation
+GO:0018095	protein polyglutamylation
+GO:0097009	energy homeostasis
+GO:0035364	thymine transport
+GO:0035344	hypoxanthine transport
+GO:0042744	hydrogen peroxide catabolic process
+GO:0046364	monosaccharide biosynthetic process
+GO:0017001	antibiotic catabolic process
+GO:1903312	negative regulation of mRNA metabolic process
+GO:0050912	detection of chemical stimulus involved in sensory perception of taste
+GO:0050913	sensory perception of bitter taste
+GO:0050906	detection of stimulus involved in sensory perception
+GO:0099111	microtubule-based transport

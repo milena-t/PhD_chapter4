@@ -1,0 +1,51 @@
+GO:0097720	calcineurin-mediated signaling
+GO:0033173	calcineurin-NFAT signaling cascade
+GO:0016052	carbohydrate catabolic process
+GO:0051865	protein autoubiquitination
+GO:0006835	dicarboxylic acid transport
+GO:0070936	protein K48-linked ubiquitination
+GO:0048016	OBSOLETE
+GO:0009166	nucleotide catabolic process
+GO:0006855	xenobiotic transmembrane transport
+GO:0042908	xenobiotic transport
+GO:0051606	detection of stimulus
+GO:0019363	pyridine nucleotide biosynthetic process
+GO:0019359	nicotinamide nucleotide biosynthetic process
+GO:0043090	amino acid import
+GO:0051156	glucose 6-phosphate metabolic process
+GO:1901292	nucleoside phosphate catabolic process
+GO:0050907	detection of chemical stimulus involved in sensory perception
+GO:0046031	ADP metabolic process
+GO:0104004	cellular response to environmental stimulus
+GO:0071214	cellular response to abiotic stimulus
+GO:0097480	establishment of synaptic vesicle localization
+GO:0006747	FAD biosynthetic process
+GO:0071929	alpha-tubulin acetylation
+GO:0070555	response to interleukin-1
+GO:0043123	positive regulation of canonical NF-kappaB signal transduction
+GO:0031223	auditory behavior
+GO:0046443	FAD metabolic process
+GO:0044747	pre-miRNA 3'-end processing
+GO:0048250	iron import into the mitochondrion
+GO:0042726	flavin-containing compound metabolic process
+GO:0042727	flavin-containing compound biosynthetic process
+GO:0070498	interleukin-1-mediated signaling pathway
+GO:0070423	OBSOLETE
+GO:0019230	proprioception
+GO:0002753	cytoplasmic pattern recognition receptor signaling pathway
+GO:1904667	negative regulation of ubiquitin protein ligase activity
+GO:0072387	flavin adenine dinucleotide metabolic process
+GO:0072388	flavin adenine dinucleotide biosynthetic process
+GO:0035872	nucleotide-binding domain, leucine rich repeat containing receptor signaling pathway
+GO:0051444	negative regulation of ubiquitin-protein transferase activity
+GO:0071347	cellular response to interleukin-1
+GO:0050851	antigen receptor-mediated signaling pathway
+GO:0050852	T cell receptor signaling pathway
+GO:1903312	negative regulation of mRNA metabolic process
+GO:0009110	vitamin biosynthetic process
+GO:0046364	monosaccharide biosynthetic process
+GO:0046365	monosaccharide catabolic process
+GO:0019320	hexose catabolic process
+GO:0034587	piRNA processing
+GO:0002833	positive regulation of response to biotic stimulus
+GO:0031349	positive regulation of defense response

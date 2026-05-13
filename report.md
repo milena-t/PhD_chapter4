@@ -867,8 +867,7 @@ upsetplot_GO_terms_sex_separated_males_SL1_day14-16.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -881,8 +880,7 @@ upsetplot_GO_terms_sex_separated_males_SL1_day18-14.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -895,8 +893,7 @@ upsetplot_GO_terms_sex_separated_males_SL1_day18-16.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -909,8 +906,7 @@ upsetplot_GO_terms_sex_separated_males_SL3_day14-16.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -923,8 +919,7 @@ upsetplot_GO_terms_sex_separated_males_SL3_day18-14.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -937,8 +932,7 @@ upsetplot_GO_terms_sex_separated_males_SL3_day18-16.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -951,8 +945,7 @@ upsetplot_GO_terms_sex_separated_males_day14.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -965,8 +958,7 @@ upsetplot_GO_terms_sex_separated_males_day16.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -979,8 +971,7 @@ upsetplot_GO_terms_sex_separated_males_day18.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -1014,8 +1005,7 @@ upsetplot_GO_terms_sex_separated_females_SL3_day18-14.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -1028,8 +1018,7 @@ upsetplot_GO_terms_sex_separated_females_day14.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -1042,8 +1031,7 @@ upsetplot_GO_terms_sex_separated_females_day16.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -1056,8 +1044,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
     frameBorder="0"
     class=""
     scrolling="auto"
-    height="100%"
-    width="100%">
+    style="width:100%; height:30vh;">
 </iframe>
 
 </div>
@@ -1346,18 +1333,102 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
   <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1.png" width="30%" />
 </p>
 
-<details>
-<summary>GO-terms of relevant contrast overlaps</summary>
+**GO-terms of relevant contrast comparison**
 
-enrichment in sex biased genes at all time points, or only early or only late
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'SL1_day14_GO')">day14</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_day16_GO')">day16</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_day18_GO')">day18</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_all_GO')">all</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_early_GO')">early</button>
+  <button class="tablinks" onclick="openTab(event, 'SL1_late_GO')">late</button>
+</div>
 
-```
-all	F_14 - M_14 AND F_16 - M_16 AND F_18 - M_18	GO:0035082,GO:0009167,GO:0030317,GO:0046034,GO:0060285,GO:0060271,GO:0003341,GO:0007605,GO:0007618,GO:0048515,GO:0019343,GO:0019346,GO:0071266,GO:0035092
-early	F_14 - M_14 AND F_16 - M_16	GO:0006120,GO:0016310,GO:0006754,GO:0060294,GO:0007289,GO:0070935,GO:0048255,GO:0003351,GO:1902373,GO:0034606,GO:0034608,GO:0050910,GO:0060287,GO:0009168,GO:0007286,GO:0045333,GO:0006007,GO:0072593,GO:0019646
-late	F_16 - M_16 AND F_18 - M_18	GO:0018094,GO:0036158,GO:0036159,GO:0045454,GO:0050982,GO:0006123,GO:0042866,GO:0015807,GO:1902475,GO:0006730,GO:0006839,GO:0071331,GO:0001678,GO:0098655,GO:0046692,GO:0015800,GO:0032781,GO:0043687,GO:0033108,GO:1902600,GO:0071322,GO:0060078,GO:0006835,GO:0006855,GO:0042908,GO:0006750,GO:0043090,GO:0007589,GO:0042773,GO:0042775,GO:0071260,GO:0050878,GO:0034404
-```
+<div id="SL1_day14_GO" class="tabcontent">
 
-</details>
+upsetplot_GO_terms_line_separated_SL1_day14.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_day14.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL1_day16_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL1_day16.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_day16.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL1_day18_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL1_day18.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_day18.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL1_all_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL1_all.txt: `F_14 - M_14 AND F_16 - M_16 AND F_18 - M_18`
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_all.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL1_early_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL1_early.txt: `F_14 - M_14 AND F_16 - M_16`
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_early.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL1_late_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL1_late.txt: `F_16 - M_16 AND F_18 - M_18`
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_late.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+
 
 </div>
 
@@ -1367,19 +1438,102 @@ late	F_16 - M_16 AND F_18 - M_18	GO:0018094,GO:0036158,GO:0036159,GO:0045454,GO:
   <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3.png" width="30%" />
 </p>
 
-<details>
-<summary>GO-terms of relevant contrast overlaps</summary>
+**GO-terms of relevant contrast comparison**
 
-enrichment in sex biased genes at all time points, or only early or only late
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'SL3_day14_GO')">day14</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_day16_GO')">day16</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_day18_GO')">day18</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_all_GO')">all</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_early_GO')">early</button>
+  <button class="tablinks" onclick="openTab(event, 'SL3_late_GO')">late</button>
+</div>
 
-```
-all	F_14 - M_14 AND F_16 - M_16 AND F_18 - M_18	GO:0035082,GO:0030317,GO:0046034,GO:0009167,GO:0050982,GO:0060271,GO:0006165,GO:0071266,GO:0019343,GO:0019346,GO:0006123,GO:0035092,GO:1905515,GO:0019646,GO:0060285,GO:0006750,GO:0042773,GO:0042775,GO:1902600,GO:0071260,GO:0006730,GO:0032981,GO:0098655,GO:0009142,GO:0060294,GO:0007638,GO:0015800,GO:0007605,GO:0050832,GO:0018094,GO:0003341
-early	F_14 - M_14 AND F_16 - M_16	GO:0003407,GO:0007618,GO:0060179,GO:0008049,GO:0034728,GO:0043486,GO:0043052,GO:0007619,GO:0098662,GO:0016545,GO:0060078,GO:0045433,GO:0048065
-late	F_16 - M_16 AND F_18 - M_18	GO:0036159,GO:0036158,GO:0031146,GO:0070534,GO:0009631,GO:0051438,GO:0010996,GO:0043687,GO:0007289,GO:1902475,GO:0015807,GO:0006839,GO:0016082,GO:0051443,GO:0007286,GO:0019184,GO:0015813,GO:0045026,GO:0051938,GO:0042364,GO:0070286
 
-```
+<div id="SL3_day14_GO" class="tabcontent">
 
-</details>
+upsetplot_GO_terms_line_separated_SL3_day14.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_day14.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL3_day16_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL3_day16.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_day16.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL3_day18_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL3_day18.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_day18.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL3_all_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL3_all.txt: `F_14 - M_14 AND F_16 - M_16 AND F_18 - M_18`
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_all.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL3_early_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL3_early.txt: `F_14 - M_14 AND F_16 - M_16`
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_early.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="SL3_late_GO" class="tabcontent">
+
+upsetplot_GO_terms_line_separated_SL3_late.txt: `F_16 - M_16 AND F_18 - M_18`
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_late.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
 
 </div>
 

@@ -1,0 +1,28 @@
+GO:0018200	peptidyl-glutamic acid modification
+GO:0007293	germarium-derived egg chamber formation
+GO:0007600	sensory perception
+GO:0050912	detection of chemical stimulus involved in sensory perception of taste
+GO:0050913	sensory perception of bitter taste
+GO:0050954	sensory perception of mechanical stimulus
+GO:0050974	detection of mechanical stimulus involved in sensory perception
+GO:0046835	carbohydrate phosphorylation
+GO:0010257	NADH dehydrogenase complex assembly
+GO:0071332	cellular response to fructose stimulus
+GO:0009750	response to fructose
+GO:0032098	regulation of appetite
+GO:0006891	intra-Golgi vesicle-mediated transport
+GO:0009064	OBSOLETE
+GO:0035041	sperm DNA decondensation
+GO:0045727	positive regulation of translation
+GO:0045466	R7 cell differentiation
+GO:0009583	detection of light stimulus
+GO:0035039	male pronucleus assembly
+GO:0072524	pyridine-containing compound metabolic process
+GO:0071824	protein-DNA complex organization
+GO:0009581	detection of external stimulus
+GO:0009582	detection of abiotic stimulus
+GO:0050911	detection of chemical stimulus involved in sensory perception of smell
+GO:0006536	glutamate metabolic process
+GO:0030716	oocyte fate determination
+GO:0046460	neutral lipid biosynthetic process
+GO:0046463	acylglycerol biosynthetic process

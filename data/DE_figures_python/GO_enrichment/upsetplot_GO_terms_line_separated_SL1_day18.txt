@@ -1,0 +1,49 @@
+GO:1902176	negative regulation of oxidative stress-induced intrinsic apoptotic signaling pathway
+GO:0031146	SCF-dependent proteasomal ubiquitin-dependent protein catabolic process
+GO:0071265	L-methionine biosynthetic process
+GO:0050832	defense response to fungus
+GO:0060041	retina development in camera-type eye
+GO:0003407	neural retina development
+GO:0046130	purine ribonucleoside catabolic process
+GO:0015743	malate transport
+GO:0071326	cellular response to monosaccharide stimulus
+GO:0071423	malate transmembrane transport
+GO:0016082	synaptic vesicle priming
+GO:1901292	nucleoside phosphate catabolic process
+GO:0006508	proteolysis
+GO:0032981	mitochondrial respiratory chain complex I assembly
+GO:0010257	NADH dehydrogenase complex assembly
+GO:0051438	regulation of ubiquitin-protein transferase activity
+GO:0061101	neuroendocrine cell differentiation
+GO:0060563	neuroepithelial cell differentiation
+GO:0042454	ribonucleoside catabolic process
+GO:0034284	response to monosaccharide
+GO:0009746	response to hexose
+GO:0043010	camera-type eye development
+GO:0006152	purine nucleoside catabolic process
+GO:0016052	carbohydrate catabolic process
+GO:0007638	mechanosensory behavior
+GO:0016056	G protein-coupled opsin signaling pathway
+GO:0043161	proteasome-mediated ubiquitin-dependent protein catabolic process
+GO:0009164	nucleoside catabolic process
+GO:0043471	OBSOLETE
+GO:0050667	homocysteine metabolic process
+GO:0006817	phosphate ion transport
+GO:0035435	phosphate ion transmembrane transport
+GO:0034656	nucleobase-containing small molecule catabolic process
+GO:1902883	negative regulation of response to oxidative stress
+GO:1900408	negative regulation of cellular response to oxidative stress
+GO:0008089	anterograde axonal transport
+GO:0000209	protein polyubiquitination
+GO:0016567	protein ubiquitination
+GO:0007602	phototransduction
+GO:0009142	nucleoside triphosphate biosynthetic process
+GO:0010498	proteasomal protein catabolic process
+GO:0098656	monoatomic anion transmembrane transport
+GO:0098660	OBSOLETE
+GO:0072523	purine-containing compound catabolic process
+GO:0048016	OBSOLETE
+GO:0051443	positive regulation of ubiquitin-protein transferase activity
+GO:1901800	positive regulation of proteasomal protein catabolic process
+GO:0006006	glucose metabolic process
+GO:0046434	organophosphate catabolic process

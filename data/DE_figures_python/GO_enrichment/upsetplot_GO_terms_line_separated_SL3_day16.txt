@@ -1,0 +1,32 @@
+GO:0046692	sperm competition
+GO:0071331	cellular response to hexose stimulus
+GO:0007200	phospholipase C-activating G protein-coupled receptor signaling pathway
+GO:0001580	detection of chemical stimulus involved in sensory perception of bitter taste
+GO:0007054	spindle assembly involved in male meiosis I
+GO:0001678	intracellular glucose homeostasis
+GO:0006651	diacylglycerol biosynthetic process
+GO:0008377	OBSOLETE
+GO:1903531	negative regulation of secretion by cell
+GO:0046939	OBSOLETE
+GO:0045454	cell redox homeostasis
+GO:0032781	positive regulation of ATP-dependent activity
+GO:0048515	spermatid differentiation
+GO:0051482	OBSOLETE
+GO:0046693	sperm storage
+GO:0043462	regulation of ATP-dependent activity
+GO:0006754	ATP biosynthetic process
+GO:0043153	entrainment of circadian clock by photoperiod
+GO:0007589	body fluid secretion
+GO:0002792	negative regulation of peptide secretion
+GO:0098869	cellular oxidant detoxification
+GO:1990748	cellular detoxification
+GO:0009060	aerobic respiration
+GO:0009145	purine nucleoside triphosphate biosynthetic process
+GO:0009206	purine ribonucleoside triphosphate biosynthetic process
+GO:0007283	spermatogenesis
+GO:0045333	cellular respiration
+GO:0009201	ribonucleoside triphosphate biosynthetic process
+GO:0009132	nucleoside diphosphate metabolic process
+GO:0090209	negative regulation of triglyceride metabolic process
+GO:0009648	photoperiodism
+GO:0031047	regulatory ncRNA-mediated gene silencing

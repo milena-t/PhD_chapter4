@@ -1,0 +1,64 @@
+GO:0044458	motile cilium assembly
+GO:0051039	OBSOLETE
+GO:0009127	purine nucleoside monophosphate biosynthetic process
+GO:0051674	localization of cell
+GO:0032200	telomere organization
+GO:0000723	telomere maintenance
+GO:0009156	ribonucleoside monophosphate biosynthetic process
+GO:0009124	nucleoside monophosphate biosynthetic process
+GO:0048232	male gamete generation
+GO:0015985	energy coupled proton transport, down electrochemical gradient
+GO:0015986	proton motive force-driven ATP synthesis
+GO:0007617	mating behavior
+GO:0009066	OBSOLETE
+GO:0051037	OBSOLETE
+GO:0043489	RNA stabilization
+GO:0008315	G2/MI transition of meiotic cell cycle
+GO:0061620	glycolytic process through glucose-6-phosphate
+GO:0061621	canonical glycolysis
+GO:0016024	CDP-diacylglycerol biosynthetic process
+GO:0061718	glucose catabolic process to pyruvate
+GO:0006533	L-aspartate catabolic process
+GO:1902369	negative regulation of RNA catabolic process
+GO:0042822	pyridoxal 5'-phosphate metabolic process
+GO:0042823	pyridoxal 5'-phosphate biosynthetic process
+GO:0042819	vitamin B6 biosynthetic process
+GO:0006735	NADH regeneration
+GO:0046341	CDP-diacylglycerol metabolic process
+GO:0031991	regulation of actomyosin contractile ring contraction
+GO:0006858	extracellular transport
+GO:0007283	spermatogenesis
+GO:0046939	OBSOLETE
+GO:0045924	regulation of female receptivity
+GO:0016999	antibiotic metabolic process
+GO:0060180	female mating behavior
+GO:0019098	reproductive behavior
+GO:0044782	cilium organization
+GO:0010511	regulation of phosphatidylinositol biosynthetic process
+GO:0010513	positive regulation of phosphatidylinositol biosynthetic process
+GO:0061615	glycolytic process through fructose-6-phosphate
+GO:0046184	aldehyde biosynthetic process
+GO:0071073	positive regulation of phospholipid biosynthetic process
+GO:0042816	vitamin B6 metabolic process
+GO:1903727	positive regulation of phospholipid metabolic process
+GO:0044341	sodium-dependent phosphate transport
+GO:1904886	beta-catenin destruction complex disassembly
+GO:0010868	negative regulation of triglyceride biosynthetic process
+GO:0044771	meiotic cell cycle phase transition
+GO:0051055	negative regulation of lipid biosynthetic process
+GO:0050954	sensory perception of mechanical stimulus
+GO:0006979	response to oxidative stress
+GO:0045727	positive regulation of translation
+GO:0009064	OBSOLETE
+GO:0015980	energy derivation by oxidation of organic compounds
+GO:0007140	male meiotic nuclear division
+GO:0009132	nucleoside diphosphate metabolic process
+GO:1901607	alpha-amino acid biosynthetic process
+GO:0042795	snRNA transcription by RNA polymerase II
+GO:0006531	aspartate metabolic process
+GO:0010378	temperature compensation of the circadian clock
+GO:0071071	regulation of phospholipid biosynthetic process
+GO:0009435	NAD+ biosynthetic process
+GO:0045213	OBSOLETE
+GO:0045948	positive regulation of translational initiation
+GO:0044283	small molecule biosynthetic process
