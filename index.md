@@ -475,6 +475,7 @@ For venn-diagrams see smear plots
 </p>
 
 Contrasts specified like this: (either option is fine, gives the exact same results)
+
 ```
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
@@ -500,6 +501,7 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
   <img src="data/DE_figures_python/smear_F_SL_1_3_18_16.png" width="32%" />
 </p>
 Contrasts specified like this: (either option is fine, gives the exact same results)
+
 ```
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
@@ -527,6 +529,7 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 </p>
 
 Contrasts specified like this: (either option is fine, gives the exact same results)
+
 ```
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
@@ -553,6 +556,7 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
 </p>
 
 Contrasts specified like this: (either option is fine, gives the exact same results)
+
 ```
 (SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
