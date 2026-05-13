@@ -1968,19 +1968,6 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
   <img src="data/DE_figures_python/upsetplot_day_separated_day14.png" width="32%" />
 </p>
 
-<details>
-<summary>GO-terms of relevant contrasts</summary>
-
-Enriched in sex biased genes either exclusive to SL1, exclusive to SL3, or sex-biased in both
-
-```
-males	M_1 - M_3	GO:1990511,GO:0018990,GO:0071481,GO:0055093,GO:0070646,GO:0009629,GO:0006032,GO:0042332,GO:0090175,GO:0008334,GO:0006398,GO:0046348,GO:1901072,GO:0036296,GO:1901136,GO:0006457,GO:0007309,GO:0051205,GO:0045838,GO:0032225,GO:0071927,GO:0046080,GO:0046081,GO:0006244,GO:0030710,GO:0032775,GO:0009149,GO:0060814,GO:0009264,GO:0009223,GO:0080154,GO:0033058,GO:0009213,GO:0010918,GO:0009204,GO:0016598,GO:0046386,GO:0097120,GO:0071454,GO:0043056,GO:0043059,GO:0031123,GO:0007308,GO:0006026,GO:0006030,GO:1905330,GO:0000338,GO:0060251,GO:1902882,GO:0014013,GO:0042246,GO:0006066,GO:2000241,GO:0030728,GO:1901616,GO:0014009,GO:0042810,GO:0042811,GO:0010529,GO:0050821,GO:0048599,GO:0000079,GO:0032196,GO:0010528,GO:0009408,GO:0001578,GO:0060811,GO:0030162,GO:1904029,GO:0045849,GO:0046963,GO:2000114,GO:0010387,GO:0051382,GO:0001963,GO:0015886,GO:0006226,GO:0046078,GO:1901678,GO:0030714,GO:0006067,GO:0009176,GO:0009177,GO:0032878,GO:0009143,GO:1902559,GO:0046594,GO:0007211,GO:0009211,GO:0071586,GO:0080120,GO:0009200,GO:0060623,GO:0060625,GO:0046487,GO:0031952,GO:0031954,GO:0006305,GO:0006306,GO:1904746,GO:0035520,GO:0006428,GO:0035521,GO:0035522,GO:0006438,GO:1900244,GO:2000152,GO:2000158,GO:1903423
-SL1	F_1 - M_1	GO:0016310,GO:0045924,GO:0046939,GO:0009117,GO:0060180,GO:0046328,GO:0009126,GO:0031063,GO:0090311,GO:0090312,GO:0070302,GO:0032872,GO:0009144,GO:0009205,GO:0009199,GO:0009161,GO:0097722,GO:0009123,GO:0007254,GO:0072524,GO:0019344,GO:0061615,GO:0046184,GO:0009092,GO:0071071,GO:0099514,GO:0099517,GO:0042816,GO:0006007,GO:0044771,GO:0031991,GO:0044782,GO:0009132,GO:0051403,GO:0070303,GO:0032873,GO:0071482,GO:0046329,GO:0001539,GO:0006661,GO:0033173,GO:0035092,GO:1904886,GO:0097720,GO:0045948,GO:0043409,GO:0042446,GO:1901214,GO:0046471,GO:0016233,GO:0006655,GO:0009435,GO:0050667,GO:0010866,GO:0031098,GO:0070997
-SL3	F_3 - M_3	GO:1905515,GO:0006123,GO:0003407,GO:0009581,GO:0009582,GO:0018200,GO:0007600,GO:0006750,GO:1902600,GO:0007617,GO:0007618,GO:0007286,GO:0007602,GO:0099111,GO:0007283,GO:0060179,GO:0048515,GO:0051260,GO:0046835,GO:0043052,GO:0009168,GO:0009127,GO:0009583,GO:0007018,GO:0007291,GO:0015800,GO:0048255,GO:0035045,GO:0003351,GO:1902373,GO:0018095,GO:0034606,GO:0034608,GO:0046341,GO:0009064,GO:0009156,GO:0019646,GO:0035041,GO:0009124,GO:0035039,GO:0042866,GO:0008089,GO:0046460,GO:0046463,GO:0042773,GO:0042775,GO:0009620,GO:0016545,GO:0050907,GO:0045433,GO:0006536,GO:0048065,GO:0006120,GO:0045333,GO:0006757,GO:0050982,GO:0042073,GO:0006096,GO:0048232,GO:0000820,GO:0008377,GO:0032240,GO:0051037,GO:0045873,GO:1902369,GO:0060042,GO:0006858,GO:0110118,GO:0030397,GO:0042670,GO:0048593,GO:0060219,GO:0006521,GO:0043489,GO:0045501,GO:0001580,GO:2000211,GO:0006533,GO:0034214,GO:0045677,GO:0006651,GO:2000766,GO:0022900,GO:0006091
-both	F_1 - M_1 AND F_3 - M_3	GO:0018094,GO:0009142,GO:0007289,GO:0051039,GO:0070935,GO:0016024,GO:0060287,GO:0072525,GO:0006165,GO:0046034,GO:0009167,GO:0008315,GO:0010511,GO:0010513,GO:0061620,GO:0061621,GO:0061718,GO:0071073,GO:0042822,GO:0042823,GO:0048490,GO:0048491,GO:0042819,GO:1903727,GO:0006735,GO:0010868,GO:0051055,GO:0030317,GO:0045727,GO:0060294,GO:0060271,GO:0019343,GO:0019346,GO:0071266,GO:0060285,GO:0006754,GO:0009145,GO:0009206,GO:0003341,GO:0009201
-```
-
-</details>
 
 </div>
 
@@ -1989,20 +1976,6 @@ both	F_1 - M_1 AND F_3 - M_3	GO:0018094,GO:0009142,GO:0007289,GO:0051039,GO:0070
   <img src="data/DE_figures_python/upsetplot_day_separated_day16.png" width="32%" />
 </p>
 
-<details>
-<summary>GO-terms of relevant contrasts</summary>
-
-Enriched in sex biased genes either exclusive to SL1, exclusive to SL3, or sex-biased in both
-
-```
-males	M_1 - M_3	GO:0046496,GO:0043648,GO:0009063,GO:1901606,GO:0042811,GO:0016999,GO:0019682,GO:0046653,GO:0030728,GO:0045824,GO:0046008,GO:1901605,GO:0006551,GO:0006098,GO:0006607,GO:0019751,GO:0006544,GO:0006734,GO:0006099,GO:0006101,GO:0042180,GO:0007599,GO:0042381,GO:0050817,GO:0071711,GO:0046662,GO:0072350,GO:0009065,GO:0060033,GO:0044282,GO:0005975,GO:0018991,GO:0042744,GO:0035007,GO:0017001,GO:0043649,GO:0017038,GO:0009081,GO:0009152,GO:0046952,GO:0097120,GO:1903461,GO:0030710,GO:0006528,GO:0006530,GO:0006539,GO:0034514,GO:0045838,GO:1901569,GO:0033345,GO:0006127,GO:0019264,GO:0014703,GO:0006107,GO:0033501,GO:0009051,GO:0003010,GO:0006021,GO:0010918,GO:0019859,GO:0019674,GO:0055092,GO:0019915,GO:0090407,GO:0006164,GO:0046390,GO:0009260,GO:0042743,GO:0034446,GO:0072522,GO:0009165,GO:0071456,GO:0046578,GO:0051056,GO:0044281,GO:0045475,GO:0036294,GO:0035069,GO:0043455,GO:1901293,GO:0019693,GO:0010876,GO:0006821,GO:1902476,GO:0000387,GO:0071453
-SL1	F_1 - M_1	GO:0042866,GO:0006096,GO:0043456,GO:0006754,GO:0009166,GO:0019359,GO:0009168,GO:0043687,GO:0032781,GO:0006006,GO:0006835,GO:0019319,GO:0006094,GO:0034404,GO:0007617,GO:0046364,GO:0046942,GO:0034964,GO:0033979,GO:0000495,GO:1903054,GO:0010715,GO:0010716,GO:0006749,GO:0033108,GO:0042773,GO:0042775,GO:0046835,GO:0034394,GO:0042398,GO:0051260,GO:0009620,GO:0007286,GO:0060079,GO:0050974,GO:0099565
-SL3	F_3 - M_3	GO:0046692,GO:0007638,GO:0060179,GO:0007602,GO:0032981,GO:0007054,GO:0010996,GO:0046939,GO:0006165,GO:0042593,GO:0045433,GO:0016545,GO:0048065,GO:0050912,GO:0050913,GO:0008049,GO:0007619,GO:0050907,GO:0016319,GO:0051443,GO:0098655,GO:0006812,GO:0009142,GO:0009132,GO:0009631,GO:0003333,GO:0007283,GO:0016056,GO:0072525,GO:0009593,GO:0033500,GO:0099111,GO:0034220,GO:0006747,GO:0042726,GO:0042727,GO:0010752,GO:0010753,GO:0051039,GO:0031223,GO:0046443,GO:0072387,GO:0072388,GO:0009409,GO:0015980
-both	F_1 - M_1 AND F_3 - M_3	GO:0003341,GO:0007605,GO:0030317,GO:0060271,GO:0036158,GO:0035082,GO:0036159,GO:0050982,GO:0006123,GO:0060285,GO:0009167,GO:0018094,GO:0046034,GO:0071331,GO:0007618,GO:0006730,GO:0019343,GO:0019346,GO:0071266,GO:0001678,GO:1902600,GO:0015800,GO:0035092,GO:0007589,GO:0060078,GO:0006839,GO:0071260,GO:0006750,GO:0007291,GO:0050878,GO:1905039,GO:1903825,GO:0048515,GO:0051938,GO:0015813,GO:0019184,GO:0050832,GO:0019646,GO:1903312,GO:0042391,GO:0060294,GO:0070286,GO:0045333,GO:0007595,GO:0002753,GO:0018095,GO:0060287,GO:0070935,GO:0015862,GO:0015864,GO:0015853,GO:0015855,GO:0032098,GO:0003351,GO:1902373,GO:0035045,GO:0046341,GO:0070555,GO:0048250,GO:0048255,GO:0030879,GO:0070498,GO:0070423,GO:0016024,GO:0050910,GO:0043123,GO:0035872,GO:0034606,GO:0034608,GO:0050709,GO:0050851,GO:0050852,GO:0035364,GO:0071347,GO:0035344,GO:0071332,GO:0071333,GO:0009750,GO:0055085,GO:0050906,GO:0015807,GO:1902475,GO:0009060
-```
-
-</details>
-
 </div>
 
 <div id="day18_upset" class="tabcontent">
@@ -2010,21 +1983,6 @@ both	F_1 - M_1 AND F_3 - M_3	GO:0003341,GO:0007605,GO:0030317,GO:0060271,GO:0036
   <img src="data/DE_figures_python/upsetplot_day_separated_day18.png" width="32%" />
 </p>
 
-
-<details>
-<summary>GO-terms of relevant contrasts</summary>
-
-Enriched in sex biased genes either exclusive to SL1, exclusive to SL3, or sex-biased in both
-
-```
-males	M_1 - M_3	GO:0071454,GO:0006873,GO:0006828,GO:0050908,GO:0051480,GO:0007076,GO:0007603,GO:0006874,GO:0019722,GO:0055074,GO:0006406,GO:0072503,GO:0051304,GO:0072507,GO:0051028,GO:0070588,GO:0007602,GO:0030261,GO:0071166,GO:0006816,GO:0019932,GO:0006875,GO:0006611,GO:0006405,GO:0007422,GO:0055065,GO:0031503
-SL1	F_1 - M_1	GO:0006855,GO:1902176,GO:0001678,GO:0071423,GO:0071322,GO:0010257,GO:0051438,GO:0097720,GO:0060041,GO:0033173,GO:0017196,GO:0018206,GO:0003407,GO:0071326,GO:0071331,GO:0045454,GO:0050912,GO:0050913,GO:0015800,GO:0031365,GO:0034728,GO:1990542,GO:0032781,GO:0009086,GO:0000097,GO:0043471,GO:0006817,GO:0034284,GO:0009746,GO:0035435,GO:0043010,GO:1902883,GO:1900408,GO:0007608,GO:0016056,GO:0046693,GO:0016567,GO:0043486,GO:0006006,GO:0007606,GO:0060078,GO:0043462,GO:0007289,GO:0048016,GO:0050907,GO:0097480
-SL3	F_3 - M_3	GO:0010996,GO:0007617,GO:1905039,GO:1903825,GO:0019363,GO:0019359,GO:0046942,GO:0015849,GO:0019098,GO:0009142,GO:0009631,GO:0046031,GO:1901292,GO:1905515,GO:0019184,GO:0045026,GO:0042364,GO:0045333,GO:0098662,GO:0009060,GO:0099111,GO:0003333,GO:0019320,GO:0051156,GO:0009110,GO:0007271,GO:0046364,GO:0046365,GO:0007320,GO:0044706,GO:0009409,GO:0070286,GO:0007291,GO:0070498,GO:0032224,GO:0050851,GO:0060287,GO:0050852,GO:0070423,GO:0015824,GO:0015816,GO:0044747,GO:0006747,GO:0003351,GO:0034606,GO:0034608,GO:0070935,GO:0042726,GO:0042727,GO:1902373,GO:0043123,GO:0035045,GO:0002753,GO:1903804,GO:0048250,GO:0048255,GO:0071347,GO:0035872,GO:0031223,GO:0046443,GO:0070555,GO:0035524,GO:0050910,GO:1903344,GO:1903346,GO:0018095,GO:0072387,GO:0072388,GO:0006091,GO:0006865,GO:0006119,GO:0022904,GO:0050832,GO:0006767,GO:0099500,GO:0031629,GO:0046835,GO:1903531,GO:0042398
-both	F_1 - M_1 AND F_3 - M_3	GO:0060271,GO:0018094,GO:0050982,GO:0036159,GO:0006165,GO:0006839,GO:0035082,GO:0046034,GO:0009167,GO:0006123,GO:0031146,GO:0046692,GO:0071260,GO:0007618,GO:0098655,GO:1902475,GO:0015807,GO:0006730,GO:0016082,GO:0071266,GO:0019343,GO:0019346,GO:0016052,GO:0032981,GO:0072525,GO:0035092,GO:0000209,GO:0048515,GO:1902600,GO:0007638,GO:0042866,GO:0043687,GO:0006096,GO:0006757,GO:0043090,GO:0051443,GO:0006750,GO:0009166
-
-```
-
-</details>
 
 </div>
 
@@ -2049,18 +2007,264 @@ both	F_1 - M_1 AND F_3 - M_3	GO:0060271,GO:0018094,GO:0050982,GO:0036159,GO:0006
 <p float="left">
   <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14.png" width="32%" />
 </p>
+
+**GO-terms of relevant contrast comparison**
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_SL1_GO')">SL1 F-M</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_SL3_GO')">SL3 F-M</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_both_GO')">both F-M</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_males_GO')">males SL1-3</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_females_GO')">females SL1-3</button>
+</div>
+
+<div id="day14_SL1_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day14_SL1.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_SL1.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day14_SL3_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day14_SL3.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_SL3.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day14_both_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day14_both.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_both.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day14_males_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day14_males.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_males.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day14_females_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day14_females.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_females.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+
 </div>
 
 <div id="day16_GO" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16.png" width="32%" />
 </p>
+
+**GO-terms of relevant contrast comparison**
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day16_SL1_GO')">SL1 F-M</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_SL3_GO')">SL3 F-M</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_both_GO')">both F-M</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_males_GO')">males SL1-3</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_females_GO')">females SL1-3</button>
+</div>
+
+<div id="day16_SL1_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day16_SL1.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_SL1.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day16_SL3_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day16_SL3.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_SL3.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day16_both_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day16_both.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_both.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day16_males_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day16_males.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_males.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day16_females_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day16_females.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_females.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+
 </div>
 
 <div id="day18_GO" class="tabcontent">
 <p float="left">
   <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18.png" width="32%" />
 </p>
+
+
+**GO-terms of relevant contrast comparison**
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day18_SL1_GO')">SL1 F-M</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_SL3_GO')">SL3 F-M</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_both_GO')">both F-M</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_males_GO')">males SL1-3</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_females_GO')">females SL1-3</button>
+</div>
+
+<div id="day18_SL1_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day18_SL1.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_SL1.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day18_SL3_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day18_SL3.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_SL3.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day18_both_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day18_both.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_both.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day18_males_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day18_males.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_males.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
+<div id="day18_females_GO" class="tabcontent">
+
+upsetplot_GO_terms_day_separated_day18_females.txt
+
+<iframe
+    src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_females.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
+</div>
+
 </div>
 
 <div id="all_GO" class="tabcontent">

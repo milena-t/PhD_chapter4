@@ -1,0 +1,14 @@
+GO:1900244	positive regulation of synaptic vesicle endocytosis
+GO:0002084	protein depalmitoylation
+GO:0048665	neuron fate specification
+GO:0006627	OBSOLETE
+GO:0006465	OBSOLETE
+GO:0098693	regulation of synaptic vesicle cycle
+GO:1902667	regulation of axon guidance
+GO:0097722	sperm motility
+GO:0050920	regulation of chemotaxis
+GO:0001539	cilium or flagellum-dependent cell motility
+GO:0050770	regulation of axonogenesis
+GO:0040012	regulation of locomotion
+GO:0040011	locomotion
+GO:0010769	OBSOLETE

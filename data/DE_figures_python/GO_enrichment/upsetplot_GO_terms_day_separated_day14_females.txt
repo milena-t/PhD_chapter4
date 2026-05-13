@@ -1,0 +1,37 @@
+GO:0007131	reciprocal meiotic recombination
+GO:0045132	meiotic chromosome segregation
+GO:0007348	regulation of syncytial blastoderm mitotic cell cycle
+GO:0048104	establishment of body hair or bristle planar orientation
+GO:0000712	resolution of meiotic recombination intermediates
+GO:0033314	mitotic DNA replication checkpoint signaling
+GO:0045572	positive regulation of imaginal disc growth
+GO:0001731	formation of translation preinitiation complex
+GO:0042676	compound eye cone cell fate commitment
+GO:0060249	anatomical structure homeostasis
+GO:0002181	cytoplasmic translation
+GO:0051307	meiotic chromosome separation
+GO:0006281	DNA repair
+GO:0044818	mitotic G2/M transition checkpoint
+GO:0002183	cytoplasmic translational initiation
+GO:0000076	DNA replication checkpoint signaling
+GO:0016321	female meiosis chromosome segregation
+GO:0009314	response to radiation
+GO:0010972	negative regulation of G2/M transition of mitotic cell cycle
+GO:0043524	negative regulation of neuron apoptotic process
+GO:1902750	negative regulation of cell cycle G2/M phase transition
+GO:0046622	positive regulation of organ growth
+GO:0032200	telomere organization
+GO:0042675	compound eye cone cell differentiation
+GO:0070050	neuron cellular homeostasis
+GO:0006974	DNA damage response
+GO:0043523	regulation of neuron apoptotic process
+GO:0044774	mitotic DNA integrity checkpoint signaling
+GO:0051402	neuron apoptotic process
+GO:1902749	regulation of cell cycle G2/M phase transition
+GO:0010389	regulation of G2/M transition of mitotic cell cycle
+GO:0045570	regulation of imaginal disc growth
+GO:0072499	photoreceptor cell axon guidance
+GO:0033554	cellular response to stress
+GO:0007444	imaginal disc development
+GO:0001737	establishment of imaginal disc-derived wing hair orientation
+GO:0000086	G2/M transition of mitotic cell cycle
