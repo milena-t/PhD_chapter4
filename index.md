@@ -3,14 +3,12 @@
 <!-- Tab links -->
 <script>
 function openTab(evt, cityName) {
-  // Declare all variables
-  var i, tabcontent, tablinks, tab, parenttab;
   // only change tabs on the same level to allow nested tabs etc.
-  tab = document.getElementById(cityName)
-  parenttab = tab.parentNode  
+  let tab = document.getElementById(cityName)
+  let parenttab = tab.parentNode  
 
   // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tabcontent");
+  let tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     if (tabcontent[i].parentNode == parenttab){
       tabcontent[i].style.display = "none";
@@ -18,7 +16,7 @@ function openTab(evt, cityName) {
   }
 
   // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
+  let tablinks = document.getElementsByClassName("tablinks");
   for (i = 0; i < tablinks.length; i++) {
     if (tabcontent[i].parentNode == parenttab){
       tablinks[i].classList.remove("active");
