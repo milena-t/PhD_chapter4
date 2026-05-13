@@ -500,6 +500,7 @@ Contrasts specified like this: (either option is fine, gives the exact same resu
   <img src="data/DE_figures_python/smear_F_SL_1_3_18_14.png" width="32%" />
   <img src="data/DE_figures_python/smear_F_SL_1_3_18_16.png" width="32%" />
 </p>
+
 Contrasts specified like this: (either option is fine, gives the exact same results)
 
 ```
@@ -1095,7 +1096,7 @@ These are all still nonoverlapping, see the sex-separated GO-terms lists for fun
 </div>
 
 
-### 3.4 DE analysis of line-separated samples
+### 3.4 Line-separated samples
 
 I will now split the data by line to see sex differences in expression during the development stages. 
 
@@ -1578,7 +1579,7 @@ upsetplot_GO_terms_line_separated_SL3_late.txt: `F_16 - M_16 AND F_18 - M_18`
 </div>
 
 
-### 3.5 DE analysis of day-separated samples
+### 3.5 Day-separated samples
 
 Analyze line and sex differences.
 
