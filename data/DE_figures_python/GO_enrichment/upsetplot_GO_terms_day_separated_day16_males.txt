@@ -1,0 +1,86 @@
+GO:0046496	nicotinamide nucleotide metabolic process
+GO:0043648	dicarboxylic acid metabolic process
+GO:0009063	amino acid catabolic process
+GO:1901606	alpha-amino acid catabolic process
+GO:0042811	pheromone biosynthetic process
+GO:0016999	antibiotic metabolic process
+GO:0019682	glyceraldehyde-3-phosphate metabolic process
+GO:0046653	tetrahydrofolate metabolic process
+GO:0030728	ovulation
+GO:0045824	negative regulation of innate immune response
+GO:0046008	regulation of female receptivity, post-mating
+GO:1901605	alpha-amino acid metabolic process
+GO:0006551	L-leucine metabolic process
+GO:0006098	pentose-phosphate shunt
+GO:0006607	NLS-bearing protein import into nucleus
+GO:0019751	polyol metabolic process
+GO:0006544	glycine metabolic process
+GO:0006734	OBSOLETE
+GO:0006099	tricarboxylic acid cycle
+GO:0006101	citrate metabolic process
+GO:0042180	ketone metabolic process
+GO:0007599	hemostasis
+GO:0042381	hemolymph coagulation
+GO:0050817	coagulation
+GO:0071711	basement membrane organization
+GO:0046662	regulation of egg-laying behavior
+GO:0072350	tricarboxylic acid metabolic process
+GO:0009065	OBSOLETE
+GO:0060033	anatomical structure regression
+GO:0044282	small molecule catabolic process
+GO:0005975	carbohydrate metabolic process
+GO:0018991	egg-laying behavior
+GO:0042744	hydrogen peroxide catabolic process
+GO:0035007	regulation of melanization defense response
+GO:0017001	antibiotic catabolic process
+GO:0043649	dicarboxylic acid catabolic process
+GO:0017038	protein import
+GO:0009081	branched-chain amino acid metabolic process
+GO:0009152	purine ribonucleotide biosynthetic process
+GO:0046952	ketone body catabolic process
+GO:0097120	receptor localization to synapse
+GO:1903461	Okazaki fragment processing involved in mitotic DNA replication
+GO:0030710	regulation of border follicle cell delamination
+GO:0006528	asparagine metabolic process
+GO:0006530	L-asparagine catabolic process
+GO:0006539	OBSOLETE
+GO:0034514	mitochondrial unfolded protein response
+GO:0045838	positive regulation of membrane potential
+GO:1901569	fatty acid derivative catabolic process
+GO:0033345	OBSOLETE
+GO:0006127	glycerol-3-phosphate shuttle
+GO:0019264	OBSOLETE
+GO:0014703	oscillatory muscle contraction
+GO:0006107	oxaloacetate metabolic process
+GO:0033501	OBSOLETE
+GO:0009051	pentose-phosphate shunt, oxidative branch
+GO:0003010	voluntary skeletal muscle contraction
+GO:0006021	inositol biosynthetic process
+GO:0010918	positive regulation of mitochondrial membrane potential
+GO:0019859	thymine metabolic process
+GO:0019674	NAD+ metabolic process
+GO:0055092	sterol homeostasis
+GO:0019915	lipid storage
+GO:0090407	organophosphate biosynthetic process
+GO:0006164	purine nucleotide biosynthetic process
+GO:0046390	ribose phosphate biosynthetic process
+GO:0009260	ribonucleotide biosynthetic process
+GO:0042743	hydrogen peroxide metabolic process
+GO:0034446	substrate adhesion-dependent cell spreading
+GO:0072522	purine-containing compound biosynthetic process
+GO:0009165	nucleotide biosynthetic process
+GO:0071456	cellular response to hypoxia
+GO:0046578	regulation of Ras protein signal transduction
+GO:0051056	regulation of small GTPase mediated signal transduction
+GO:0044281	small molecule metabolic process
+GO:0045475	locomotor rhythm
+GO:0036294	cellular response to decreased oxygen levels
+GO:0035069	larval midgut histolysis
+GO:0043455	regulation of secondary metabolic process
+GO:1901293	nucleoside phosphate biosynthetic process
+GO:0019693	ribose phosphate metabolic process
+GO:0010876	lipid localization
+GO:0006821	chloride transport
+GO:1902476	chloride transmembrane transport
+GO:0000387	spliceosomal snRNP assembly
+GO:0071453	cellular response to oxygen levels

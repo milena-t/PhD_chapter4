@@ -116,16 +116,19 @@ def get_interesting_GO_overlap_lists():
         },
         "day_separated" : {
             "day14" : {
+                "males" : ["M_1 - M_3"],
                 "SL1" : ["F_1 - M_1"],
                 "SL3" : ["F_3 - M_3"],
                 "both" : ["F_1 - M_1","F_3 - M_3"]
             },
             "day16" : {
+                "males" : ["M_1 - M_3"],
                 "SL1" : ["F_1 - M_1"],
                 "SL3" : ["F_3 - M_3"],
                 "both" : ["F_1 - M_1","F_3 - M_3"]
             },
             "day18" : {
+                "males" : ["M_1 - M_3"],
                 "SL1" : ["F_1 - M_1"],
                 "SL3" : ["F_3 - M_3"],
                 "both" : ["F_1 - M_1","F_3 - M_3"]

@@ -1,0 +1,27 @@
+GO:0071454	cellular response to anoxia
+GO:0006873	intracellular monoatomic ion homeostasis
+GO:0006828	manganese ion transport
+GO:0050908	detection of light stimulus involved in visual perception
+GO:0051480	regulation of cytosolic calcium ion concentration
+GO:0007076	mitotic chromosome condensation
+GO:0007603	phototransduction, visible light
+GO:0006874	intracellular calcium ion homeostasis
+GO:0019722	calcium-mediated signaling
+GO:0055074	calcium ion homeostasis
+GO:0006406	mRNA export from nucleus
+GO:0072503	OBSOLETE
+GO:0051304	chromosome separation
+GO:0072507	OBSOLETE
+GO:0051028	mRNA transport
+GO:0070588	calcium ion transmembrane transport
+GO:0007602	phototransduction
+GO:0030261	chromosome condensation
+GO:0071166	ribonucleoprotein complex localization
+GO:0006816	calcium ion transport
+GO:0019932	OBSOLETE
+GO:0006875	OBSOLETE
+GO:0006611	protein export from nucleus
+GO:0006405	RNA export from nucleus
+GO:0007422	peripheral nervous system development
+GO:0055065	OBSOLETE
+GO:0031503	protein-containing complex localization

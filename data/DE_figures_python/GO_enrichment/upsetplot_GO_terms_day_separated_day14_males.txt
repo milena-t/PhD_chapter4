@@ -1,0 +1,109 @@
+GO:1990511	piRNA processing
+GO:0018990	ecdysis, chitin-based cuticle
+GO:0071481	cellular response to X-ray
+GO:0055093	response to hyperoxia
+GO:0070646	protein modification by small protein removal
+GO:0009629	response to gravity
+GO:0006032	chitin catabolic process
+GO:0042332	gravitaxis
+GO:0090175	regulation of establishment of planar polarity
+GO:0008334	histone mRNA metabolic process
+GO:0006398	mRNA 3'-end processing by stem-loop binding and cleavage
+GO:0046348	amino sugar catabolic process
+GO:1901072	glucosamine-containing compound catabolic process
+GO:0036296	response to increased oxygen levels
+GO:1901136	carbohydrate derivative catabolic process
+GO:0006457	protein folding
+GO:0007309	oocyte axis specification
+GO:0051205	protein insertion into membrane
+GO:0045838	positive regulation of membrane potential
+GO:0032225	regulation of synaptic transmission, dopaminergic
+GO:0071927	octopamine signaling pathway
+GO:0046080	dUTP metabolic process
+GO:0046081	dUTP catabolic process
+GO:0006244	pyrimidine nucleotide catabolic process
+GO:0030710	regulation of border follicle cell delamination
+GO:0032775	OBSOLETE
+GO:0009149	pyrimidine nucleoside triphosphate catabolic process
+GO:0060814	posterior mRNA localization involved in anterior/posterior axis specification
+GO:0009264	deoxyribonucleotide catabolic process
+GO:0009223	pyrimidine deoxyribonucleotide catabolic process
+GO:0080154	regulation of fertilization
+GO:0033058	directional locomotion
+GO:0009213	pyrimidine deoxyribonucleoside triphosphate catabolic process
+GO:0010918	positive regulation of mitochondrial membrane potential
+GO:0009204	deoxyribonucleoside triphosphate catabolic process
+GO:0016598	protein arginylation
+GO:0046386	deoxyribose phosphate catabolic process
+GO:0097120	receptor localization to synapse
+GO:0071454	cellular response to anoxia
+GO:0043056	forward locomotion
+GO:0043059	regulation of forward locomotion
+GO:0031123	RNA 3'-end processing
+GO:0007308	oocyte construction
+GO:0006026	aminoglycan catabolic process
+GO:0006030	chitin metabolic process
+GO:1905330	regulation of morphogenesis of an epithelium
+GO:0000338	protein deneddylation
+GO:0060251	regulation of glial cell proliferation
+GO:1902882	regulation of response to oxidative stress
+GO:0014013	regulation of gliogenesis
+GO:0042246	tissue regeneration
+GO:0006066	alcohol metabolic process
+GO:2000241	regulation of reproductive process
+GO:0030728	ovulation
+GO:1901616	OBSOLETE
+GO:0014009	glial cell proliferation
+GO:0042810	pheromone metabolic process
+GO:0042811	pheromone biosynthetic process
+GO:0010529	OBSOLETE
+GO:0050821	protein stabilization
+GO:0048599	oocyte development
+GO:0000079	regulation of cyclin-dependent protein serine/threonine kinase activity
+GO:0032196	transposition
+GO:0010528	OBSOLETE
+GO:0009408	response to heat
+GO:0001578	microtubule bundle formation
+GO:0060811	intracellular mRNA localization involved in anterior/posterior axis specification
+GO:0030162	regulation of proteolysis
+GO:1904029	OBSOLETE
+GO:0045849	negative regulation of nurse cell apoptotic process
+GO:0046963	3'-phosphoadenosine 5'-phosphosulfate transport
+GO:2000114	regulation of establishment of cell polarity
+GO:0010387	COP9 signalosome assembly
+GO:0051382	kinetochore assembly
+GO:0001963	synaptic transmission, dopaminergic
+GO:0015886	heme transport
+GO:0006226	dUMP biosynthetic process
+GO:0046078	dUMP metabolic process
+GO:1901678	iron coordination entity transport
+GO:0030714	anterior/posterior axis specification, follicular epithelium
+GO:0006067	ethanol metabolic process
+GO:0009176	pyrimidine deoxyribonucleoside monophosphate metabolic process
+GO:0009177	pyrimidine deoxyribonucleoside monophosphate biosynthetic process
+GO:0032878	regulation of establishment or maintenance of cell polarity
+GO:0009143	nucleoside triphosphate catabolic process
+GO:1902559	3'-phospho-5'-adenylyl sulfate transmembrane transport
+GO:0046594	maintenance of pole plasm mRNA location
+GO:0007211	octopamine or tyramine signaling pathway
+GO:0009211	pyrimidine deoxyribonucleoside triphosphate metabolic process
+GO:0071586	CAAX-box protein processing
+GO:0080120	CAAX-box protein maturation
+GO:0009200	deoxyribonucleoside triphosphate metabolic process
+GO:0060623	regulation of chromosome condensation
+GO:0060625	regulation of protein deneddylation
+GO:0046487	glyoxylate metabolic process
+GO:0031952	regulation of protein autophosphorylation
+GO:0031954	positive regulation of protein autophosphorylation
+GO:0006305	OBSOLETE
+GO:0006306	OBSOLETE
+GO:1904746	negative regulation of apoptotic process involved in development
+GO:0035520	monoubiquitinated protein deubiquitination
+GO:0006428	isoleucyl-tRNA aminoacylation
+GO:0035521	OBSOLETE
+GO:0035522	OBSOLETE
+GO:0006438	valyl-tRNA aminoacylation
+GO:1900244	positive regulation of synaptic vesicle endocytosis
+GO:2000152	OBSOLETE
+GO:2000158	positive regulation of ubiquitin-specific protease activity
+GO:1903423	positive regulation of synaptic vesicle recycling
