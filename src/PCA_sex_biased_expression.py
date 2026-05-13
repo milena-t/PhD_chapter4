@@ -122,18 +122,27 @@ def plot_PCA_vst_counts(counts_path:str, metadata_path:str, plot_path:str="", co
 
 
 
-def plot_PCA_one_sex(counts_path:str, metadata_path:str, plot_path:str="", colors_dict=colors_dict, points_dict=points_dict, sex="M"):
+def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", colors_dict=colors_dict, points_dict=points_dict, sex="", day = "", line = ""):
     """
     make a PCA of the DE counts for only one sex by day and line
     """
     if plot_path=="":
         plot_path=counts_path.replace(".txt", "_PCA.png")
     
-    sex_name = "male"
-    if sex == "F":
-        sex_name = "female"
-    elif sex != "M":
-        raise RuntimeError(f"invalid sex specifier, you picked '{sex}', pick 'M' or 'F'!")
+    if sex !="":
+        cat_name = "male"
+        if sex == "F":
+            cat_name = "female"
+        elif sex != "M":
+            raise RuntimeError(f"invalid sex specifier, you picked '{sex}', pick 'M' or 'F'!")
+    elif day != "":
+        if day not in ["14","16","18"]:
+            raise RuntimeError(f"invalid day specifier, you picked '{day}', pick '14', '16' or '18'!")
+        cat_name = f"day {day}"
+    elif line != "":
+        if line not in ["1","3"]:
+            raise RuntimeError(f"invalid day specifier, you picked '{line}', pick '1' or '3'!")
+        cat_name = f"SL{line}"
     
     norm_counts = pd.read_csv(counts_path, sep="\t", comment="#", index_col=0)
     # read metadata and sort/order according to counts
@@ -142,7 +151,15 @@ def plot_PCA_one_sex(counts_path:str, metadata_path:str, plot_path:str="", color
     metadata = metadata.reindex(norm_counts.columns)
     ## filter only {sex} samples
 
-    categories = [sample for sample in list(norm_counts.columns) if f"-{sex}_" in sample]
+    if sex != "":
+        categories = [sample for sample in list(norm_counts.columns) if f"-{sex}_" in sample]
+    elif day != "":
+        line1 = [sample for sample in list(norm_counts.columns) if f"-1-{day}-" in sample] #otherwise you also get other days where the sample number happens to be 14/16/18
+        line3 = [sample for sample in list(norm_counts.columns) if f"-3-{day}-" in sample]
+        categories = line1+line3
+    elif line != "":
+        categories = [sample for sample in list(norm_counts.columns) if f"WJ-3841-{line}-" in sample]
+
     print(f"{len(list(norm_counts.columns))} categories before filtering, {len(categories)} after filtering")
     norm_counts = norm_counts[categories]
     metadata = metadata.filter(categories, axis="index")
@@ -170,30 +187,82 @@ def plot_PCA_one_sex(counts_path:str, metadata_path:str, plot_path:str="", color
     fs = 25
     ps = fs*15 # point size
 
-    for i, row in pca_df.iterrows():
-        ax.scatter(row.loc["PC1"], row.loc["PC2"], marker=points_dict["line"][row.loc['line']], s=ps, color=colors_dict["day"][row.loc["day"]])
-    # ax.scatter(pca_df["PC1"], pca_df["PC2"], color=color_by_sex_vec, s=100, marker=marker_by_organ_vec)
-    ax.set_xlabel(f"PC1 ({pca.explained_variance_ratio_[0]*100:.1f}% var)", fontsize = fs)
-    ax.set_ylabel(f"PC2 ({pca.explained_variance_ratio_[1]*100:.1f}% var)", fontsize = fs)
-    ax.tick_params(axis='x', labelsize=fs)
-    ax.tick_params(axis='y', labelsize=fs)
-    ylim = ax.get_ylim()
-    ax.set_ylim(ylim)
-    xlim = ax.get_xlim()
-    ax.set_xlim(xlim)
+    if sex != "":
+        for i, row in pca_df.iterrows():
+            ax.scatter(row.loc["PC1"], row.loc["PC2"], marker=points_dict["line"][row.loc['line']], s=ps, color=colors_dict["day"][row.loc["day"]])
+        # ax.scatter(pca_df["PC1"], pca_df["PC2"], color=color_by_sex_vec, s=100, marker=marker_by_organ_vec)
+        ax.set_xlabel(f"PC1 ({pca.explained_variance_ratio_[0]*100:.1f}% var)", fontsize = fs)
+        ax.set_ylabel(f"PC2 ({pca.explained_variance_ratio_[1]*100:.1f}% var)", fontsize = fs)
+        ax.tick_params(axis='x', labelsize=fs)
+        ax.tick_params(axis='y', labelsize=fs)
+        ylim = ax.get_ylim()
+        ax.set_ylim(ylim)
+        xlim = ax.get_xlim()
+        ax.set_xlim(xlim)
 
-    ## make legend
-    sex_labels = { sex : points_dict['line'][sex] for sex in pca_df['line']}
-    org_labels = { org : colors_dict["day"][org] for org in pca_df["day"]}
-    yleg = ylim[0]-1e6
-    xleg = xlim[0]-1e6
+        ## make legend
+        sex_labels = { sex : points_dict['line'][sex] for sex in pca_df['line']}
+        org_labels = { org : colors_dict["day"][org] for org in pca_df["day"]}
+    
+        yleg = ylim[0]-1e6
+        xleg = xlim[0]-1e6
 
-    for key,value in sex_labels.items():
-        ax.scatter(xleg,yleg,marker=value,s=ps,label=key, color='black')
-    for key,value in org_labels.items():
-        ax.scatter(xleg,yleg,color=value,s=ps,label=key, marker="s")
+        for key,value in sex_labels.items():
+            ax.scatter(xleg,yleg,marker=value,s=ps,label=key, color='black')
+        for key,value in org_labels.items():
+            ax.scatter(xleg,yleg,color=value,s=ps,label=key, marker="s")
+
+    elif line != "":
+        for i, row in pca_df.iterrows():
+            ax.scatter(row.loc["PC1"], row.loc["PC2"], marker=points_dict["sex"][row.loc['sex']], s=ps, color=colors_dict["day"][row.loc["day"]])
+        # ax.scatter(pca_df["PC1"], pca_df["PC2"], color=color_by_sex_vec, s=100, marker=marker_by_organ_vec)
+        ax.set_xlabel(f"PC1 ({pca.explained_variance_ratio_[0]*100:.1f}% var)", fontsize = fs)
+        ax.set_ylabel(f"PC2 ({pca.explained_variance_ratio_[1]*100:.1f}% var)", fontsize = fs)
+        ax.tick_params(axis='x', labelsize=fs)
+        ax.tick_params(axis='y', labelsize=fs)
+        ylim = ax.get_ylim()
+        ax.set_ylim(ylim)
+        xlim = ax.get_xlim()
+        ax.set_xlim(xlim)
+
+        ## make legend
+        sex_labels = { sex : points_dict['sex'][sex] for sex in pca_df['sex']}
+        org_labels = { org : colors_dict["day"][org] for org in pca_df["day"]}
+    
+        yleg = ylim[0]-1e6
+        xleg = xlim[0]-1e6
+
+        for key,value in sex_labels.items():
+            ax.scatter(xleg,yleg,marker=value,s=ps,label=key, color='black')
+        for key,value in org_labels.items():
+            ax.scatter(xleg,yleg,color=value,s=ps,label=key, marker="s")
+
+    elif day != "":
+        for i, row in pca_df.iterrows():
+            ax.scatter(row.loc["PC1"], row.loc["PC2"], marker=points_dict["sex"][row.loc['sex']], s=ps, color=colors_dict["line"][row.loc["line"]])
+        # ax.scatter(pca_df["PC1"], pca_df["PC2"], color=color_by_sex_vec, s=100, marker=marker_by_organ_vec)
+        ax.set_xlabel(f"PC1 ({pca.explained_variance_ratio_[0]*100:.1f}% var)", fontsize = fs)
+        ax.set_ylabel(f"PC2 ({pca.explained_variance_ratio_[1]*100:.1f}% var)", fontsize = fs)
+        ax.tick_params(axis='x', labelsize=fs)
+        ax.tick_params(axis='y', labelsize=fs)
+        ylim = ax.get_ylim()
+        ax.set_ylim(ylim)
+        xlim = ax.get_xlim()
+        ax.set_xlim(xlim)
+
+        ## make legend
+        sex_labels = { sex : points_dict['sex'][sex] for sex in pca_df['sex']}
+        org_labels = { org : colors_dict["line"][org] for org in pca_df["line"]}
+    
+        yleg = ylim[0]-1e6
+        xleg = xlim[0]-1e6
+
+        for key,value in sex_labels.items():
+            ax.scatter(xleg,yleg,marker=value,s=ps,label=key, color='black')
+        for key,value in org_labels.items():
+            ax.scatter(xleg,yleg,color=value,s=ps,label=key, marker="s")
     ax.legend(fontsize=fs)
-    plt.suptitle(f"Differential expression \nbased on {len(metadata)} {sex_name} samples", fontsize=fs*1.25)
+    plt.suptitle(f"Differential expression \nbased on {len(metadata)} {cat_name} samples", fontsize=fs*1.25)
     
     # Adjust layout to prevent overlap
     plt.tight_layout(rect=[0, 0.05, 1, 1])
@@ -212,16 +281,29 @@ if __name__ == "__main__":
     if True:
         counts_path, vst_path = counts_paths(username=username)
         metadata_path = metadata_paths(username=username)
-        if True:
+        if False:
             for condition in ["line", "day"]:
                 plot_PCA_vst_counts(
                     counts_path=vst_path, 
                     metadata_path=metadata_path, 
                     plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_{condition}_all_counts.png",
                     condition=condition)
-        for sex in ["M", "F"] :
-            plot_PCA_one_sex(
-                counts_path=vst_path, 
-                metadata_path=metadata_path, 
-                plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_{sex}_day_line.png",
-                sex=sex)
+        if True:
+            # for sex in ["M", "F"] :
+            #     plot_PCA_separation(
+            #         counts_path=vst_path, 
+            #         metadata_path=metadata_path, 
+            #         plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_{sex}_day_line.png",
+            #         sex=sex)
+            for day in ["14","16","18"]:
+                plot_PCA_separation(
+                    counts_path=vst_path, 
+                    metadata_path=metadata_path, 
+                    plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_day{day}_line.png",
+                    day=day)
+            # for line in ["1","3"]:
+            #     plot_PCA_separation(
+            #         counts_path=vst_path, 
+            #         metadata_path=metadata_path, 
+            #         plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_day_SL{line}.png",
+            #         line=line)

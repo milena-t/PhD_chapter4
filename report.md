@@ -87,7 +87,7 @@ This was done by Bianca Sarcani, all data here: `RNA_data_processing`. Basically
 * collapse lanes
 * deduplicate reads (removePCR duplicates and poly-G)
 
-Bianca continued here and assembled a transcriptome but I will not use it here
+Bianca continued here and assembled a transcriptome but I will not use it since we suspect that there are some problems that require further curation, such as a very high number of transcripts
 
 ### 1.2 Evaluation and comparison of mapping pipelines
 
@@ -121,8 +121,6 @@ I will use edgeR to get the logFC of all comparisons of interest below, but the 
 After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. Since we know that yTor-C (orange) in SL1 is the closest to the SL3 yTor, it makes sense that it shows expression in SL1 and SL3, while yTor-A, which is more diverged from the SL3 yTor, does not map reads from these samples. Furthermore, yTor-C is also the closes to aTor, which likely explains the female samples, which are mismapped reads that only map to yTor-C and not yTor-A.
 
 The autosomal Tor `gene-30110` is expressed much higher than any y-linked copy, which makes sense since it is a highly conserved gene in the insulin signalling pathway. There seems to be no difference between SL1 and SL3.
-
-#### Normalized counts plots
 
 Since we hypothesize that the phenotypic difference is related with differences in Tor expression dosage, I will manually merge the read counts of yTor-A, B and C into one yTor-all for the DE analysis.
 
@@ -162,7 +160,9 @@ PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'All samples')">All samples</button>
-  <button class="tablinks" onclick="openTab(event, 'Only one sex')">Only one sex</button>
+  <button class="tablinks" onclick="openTab(event, 'Only one sex')">Sex-separated</button>
+  <button class="tablinks" onclick="openTab(event, 'Only one line')">Line-separated</button>
+  <button class="tablinks" onclick="openTab(event, 'Only one day')">Day-separated</button>
 </div>
 
 <div id="All samples" class="tabcontent">
@@ -187,6 +187,29 @@ Line is a clear separator (left), but not day (right). Day 14 seems to be mostly
 Since we are interested in the male variation and the females are mostly control, we have much fewer female than male samples.
 
 line is the lagest difference, which is the same as when all samples are plotted. The days show a trend where day 18 is more to the left, 16 is intermediate, and 14 is to the right, but it is more of a gradual transition and not a clear separation. This makes sense since age is continuous, and we can only sample with limited precision, so it is likely that there is some age variation present within all the day categories that is represented here. (Except that one outlier in females (right) for SL3 day18 all the way on the right.)
+
+</div>
+
+<div id="Only one line" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures/PCA_sex_day_SL1.png" width="32%" />
+  <img src="data/DE_figures/PCA_sex_day_SL3.png" width="32%" />
+</p>
+
+Sexes separate mostly cleanly, but the days are not as obvious, more gradual (similar as the other separations). in SL3 (larger males) the day 18 ones are the most separated while the others are more similar, and in SL1 day 14 are more together while the other time points are more overlapping.
+
+</div>
+
+<div id="Only one day" class="tabcontent">
+
+<p float="left">
+  <img src="data/DE_figures/PCA_sex_day14_line.png" width="32%" />
+  <img src="data/DE_figures/PCA_sex_day16_line.png" width="32%" />
+  <img src="data/DE_figures/PCA_sex_day18_line.png" width="32%" />
+</p>
+
+Lines are cleanly separated in day 14 and day 16, but kind of merged in day 18. general clean sex-separation in all days perpendicular to the line-separation.
 
 </div>
 
