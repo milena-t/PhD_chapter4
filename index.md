@@ -899,7 +899,7 @@ GO-terms that are exclusive to individual contrasts and don't overlap with anyth
 
 <div id="males_SL1_day14-16_GO" class="tabcontent">
 
-`upsetplot_GO_terms_sex_separated_males_SL1_day14-16.txt`: 
+`upsetplot_GO_terms_sex_separated_males_SL1_day14-16.txt`: All sorts of stuff, I can see no theme
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_SL1_day14-16.txt"
@@ -913,7 +913,8 @@ GO-terms that are exclusive to individual contrasts and don't overlap with anyth
 
 <div id="males_SL1_day18-14_GO" class="tabcontent">
 
-`upsetplot_GO_terms_sex_separated_males_SL1_day18-14.txt`: 
+`upsetplot_GO_terms_sex_separated_males_SL1_day18-14.txt`: Mostly molecular and biochemical stuff I don't know, some DNA/chromatin organization, as well as <span style="color: #BD351E"> meiosis, insemination and sperm competition? </span>
+
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_SL1_day18-14.txt"
@@ -927,7 +928,7 @@ GO-terms that are exclusive to individual contrasts and don't overlap with anyth
 
 <div id="males_SL1_day18-16_GO" class="tabcontent">
 
-`upsetplot_GO_terms_sex_separated_males_SL1_day18-16.txt`: Can't really make anything of this
+`upsetplot_GO_terms_sex_separated_males_SL1_day18-16.txt`: Lots of development and organ morphogenesis. Very few DE genes compared to other day-comparisons (see smear plots above), but more genes are upregulated in day 18 compared to 16, which kind of makes sense for organ development stuff.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_SL1_day18-16.txt"
@@ -940,7 +941,8 @@ GO-terms that are exclusive to individual contrasts and don't overlap with anyth
 </div>
 
 <div id="males_SL3_day14-16_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_males_SL3_day14-16.txt
+
+`upsetplot_GO_terms_sex_separated_males_SL3_day14-16.txt`: Same as SL1, don't really understand these.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_SL3_day14-16.txt"
@@ -953,7 +955,8 @@ upsetplot_GO_terms_sex_separated_males_SL3_day14-16.txt
 </div>
 
 <div id="males_SL3_day18-14_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_males_SL3_day18-14.txt
+
+`upsetplot_GO_terms_sex_separated_males_SL3_day18-14.txt`: some development and a bit of detoxification
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_SL3_day18-14.txt"
@@ -966,7 +969,8 @@ upsetplot_GO_terms_sex_separated_males_SL3_day18-14.txt
 </div>
 
 <div id="males_SL3_day18-16_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_males_SL3_day18-16.txt
+
+`upsetplot_GO_terms_sex_separated_males_SL3_day18-16.txt`: some stuff related to molting, cuticle and muscle development
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_SL3_day18-16.txt"
@@ -979,7 +983,8 @@ upsetplot_GO_terms_sex_separated_males_SL3_day18-16.txt
 </div>
 
 <div id="males_day14_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_males_day14.txt
+
+`upsetplot_GO_terms_sex_separated_males_day14.txt`: I don't understand these
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_day14.txt"
@@ -992,7 +997,8 @@ upsetplot_GO_terms_sex_separated_males_day14.txt
 </div>
 
 <div id="males_day16_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_males_day16.txt
+
+`upsetplot_GO_terms_sex_separated_males_day16.txt`: I don't understand these
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_day16.txt"
@@ -1005,7 +1011,8 @@ upsetplot_GO_terms_sex_separated_males_day16.txt
 </div>
 
 <div id="males_day18_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_males_day18.txt
+
+`upsetplot_GO_terms_sex_separated_males_day18.txt`: a bit of cell/organ growth and differentiation, but mostly stuff I don't understand. 
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_day18.txt"
@@ -1124,6 +1131,8 @@ I will now split the data by line to see sex differences in expression during th
 
 
 #### Differential expression between males and females
+
+Almost all DE is because of upregulation in males (in all lines and time points).
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1 (Smear plot)</button>
@@ -1333,6 +1342,8 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 #### Upsetplots of sig DE genes overlap within SL1 and SL3
 
+Most sex-biased genes are sex-biased at all times in both lines! 
+
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_upset')">SL1</button>
   <button class="tablinks" onclick="openTab(event, 'SL3_upset')">SL3</button>
@@ -1345,6 +1356,8 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
   <img src="data/DE_figures_python/upsetplot_line_separated_SL1.png" width="30%" />
 </p>
 
+Lots of stuff happening mostly shared between later time points. smaller intersection between all time points, mostly because not so many genes are sex-biased yet in day 14
+
 </div>
 
 <div id="SL3_upset" class="tabcontent">
@@ -1352,6 +1365,8 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 <p float="left">
   <img src="data/DE_figures_python/upsetplot_line_separated_SL3.png" width="30%" />
 </p>
+
+Most genes are sex biased (male-biased, see smear plots) at all times.
 
 </div>
 
@@ -1361,10 +1376,14 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
   <img src="data/DE_figures_python/upsetplot_line_separated_all_categories.png" width="40%" />
 </p>
 
+Same genes are sex-biased even between the lines. (again outlier SL1 day14, not a lot of sex bias happening here yet)
+
 </div>
 
 
 #### Upsetplots of sig enriched GO-terms overlap within SL1 and SL3
+
+Even though the genes that are sex biased overlap, the GO-term enrichment finds mostly different GO-terms in the enrichment?
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_GO')">SL1</button>
@@ -1380,6 +1399,8 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 **GO-terms of relevant contrast comparison**
 
+Shared enriched GO-terms ('all') are mostly related to spermatogenesis (same in SL3). The GO-terms that are unique to the development days are difficult to interpret, lots of biochemical stuff.
+
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_day14_GO')">day14</button>
   <button class="tablinks" onclick="openTab(event, 'SL1_day16_GO')">day16</button>
@@ -1391,7 +1412,7 @@ Since we are explicitly checking for sex-bias, it makes no sense to highlight ge
 
 <div id="SL1_day14_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL1_day14.txt
+`upsetplot_GO_terms_line_separated_SL1_day14.txt`: no clue (mostly molecular/biochemistry stuff I know nothing about)
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_day14.txt"
@@ -1405,7 +1426,7 @@ upsetplot_GO_terms_line_separated_SL1_day14.txt
 
 <div id="SL1_day16_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL1_day16.txt
+`upsetplot_GO_terms_line_separated_SL1_day16.txt`: no clue (mostly molecular/biochemistry stuff I know nothing about)
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_day16.txt"
@@ -1419,7 +1440,7 @@ upsetplot_GO_terms_line_separated_SL1_day16.txt
 
 <div id="SL1_day18_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL1_day18.txt
+`upsetplot_GO_terms_line_separated_SL1_day18.txt`: no clue (mostly molecular/biochemistry stuff I know nothing about)
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_day18.txt"
@@ -1435,6 +1456,8 @@ upsetplot_GO_terms_line_separated_SL1_day18.txt
 
 upsetplot_GO_terms_line_separated_SL1_all.txt: `F_14 - M_14 AND F_16 - M_16 AND F_18 - M_18`
 
+Makes sense mostly, spermatogenesis and cilium-stuff would be male-biased when it happens during development.
+
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_all.txt"
     frameBorder="0"
@@ -1447,7 +1470,7 @@ upsetplot_GO_terms_line_separated_SL1_all.txt: `F_14 - M_14 AND F_16 - M_16 AND 
 
 <div id="SL1_early_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL1_early.txt: `F_14 - M_14 AND F_16 - M_16`
+upsetplot_GO_terms_line_separated_SL1_early.txt: `F_14 - M_14 AND F_16 - M_16`: less moolecular than the individual days but I still don't understand
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_early.txt"
@@ -1461,7 +1484,7 @@ upsetplot_GO_terms_line_separated_SL1_early.txt: `F_14 - M_14 AND F_16 - M_16`
 
 <div id="SL1_late_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL1_late.txt: `F_16 - M_16 AND F_18 - M_18`
+upsetplot_GO_terms_line_separated_SL1_late.txt: `F_16 - M_16 AND F_18 - M_18`: less moolecular than the individual days but I still don't understand
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL1_late.txt"
@@ -1485,6 +1508,8 @@ upsetplot_GO_terms_line_separated_SL1_late.txt: `F_16 - M_16 AND F_18 - M_18`
 
 **GO-terms of relevant contrast comparison**
 
+Shared enriched GO-terms ('all') are mostly related to spermatogenesis (same in SL1). Day14 shows some male-bias in genes related to feeding and digestion, and day14+day16 share a strange set of male courtship behaviour GO-terms.
+
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL3_day14_GO')">day14</button>
   <button class="tablinks" onclick="openTab(event, 'SL3_day16_GO')">day16</button>
@@ -1497,7 +1522,7 @@ upsetplot_GO_terms_line_separated_SL1_late.txt: `F_16 - M_16 AND F_18 - M_18`
 
 <div id="SL3_day14_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL3_day14.txt
+`upsetplot_GO_terms_line_separated_SL3_day14.txt`: some sensory reception and stimulus detection, as well as response to fructose and regulation of appetite?  <span style="color: #BD351E"> Do the larger SL3 males eat more at this time? </span>
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_day14.txt"
@@ -1511,7 +1536,7 @@ upsetplot_GO_terms_line_separated_SL3_day14.txt
 
 <div id="SL3_day16_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL3_day16.txt
+`upsetplot_GO_terms_line_separated_SL3_day16.txt`: Some stuff related to spermatogenesis.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_day16.txt"
@@ -1525,7 +1550,7 @@ upsetplot_GO_terms_line_separated_SL3_day16.txt
 
 <div id="SL3_day18_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL3_day18.txt
+`upsetplot_GO_terms_line_separated_SL3_day18.txt`: Biochemical stuff I don't understand. maybe related to feeding/nutrient processing?
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_day18.txt"
@@ -1539,7 +1564,7 @@ upsetplot_GO_terms_line_separated_SL3_day18.txt
 
 <div id="SL3_all_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL3_all.txt: `F_14 - M_14 AND F_16 - M_16 AND F_18 - M_18`
+upsetplot_GO_terms_line_separated_SL3_all.txt: `F_14 - M_14 AND F_16 - M_16 AND F_18 - M_18`: Again spermatogenesis like SL1, but also some mitochondria stuff.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_all.txt"
@@ -1553,7 +1578,7 @@ upsetplot_GO_terms_line_separated_SL3_all.txt: `F_14 - M_14 AND F_16 - M_16 AND 
 
 <div id="SL3_early_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL3_early.txt: `F_14 - M_14 AND F_16 - M_16`
+upsetplot_GO_terms_line_separated_SL3_early.txt: `F_14 - M_14 AND F_16 - M_16`: Apparently lots of the same genes are involved in male courtship as well as wing development? <span style="color: #BD351E"> Do beetles have veined wings? Otherwise how is male courtship male-biased early in larval development?</span>
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_early.txt"
@@ -1567,7 +1592,7 @@ upsetplot_GO_terms_line_separated_SL3_early.txt: `F_14 - M_14 AND F_16 - M_16`
 
 <div id="SL3_late_GO" class="tabcontent">
 
-upsetplot_GO_terms_line_separated_SL3_late.txt: `F_16 - M_16 AND F_18 - M_18`
+upsetplot_GO_terms_line_separated_SL3_late.txt: `F_16 - M_16 AND F_18 - M_18`: one spermatogenesis, but mostly biochemical stuff I don't understand.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_SL3_late.txt"
@@ -1593,7 +1618,7 @@ upsetplot_GO_terms_line_separated_SL3_late.txt: `F_16 - M_16 AND F_18 - M_18`
 
 ### 3.5 Day-separated samples
 
-Analyze line and sex differences.
+Analyze line and sex differences in each time point.
 
 
 #### Differential expression between SL1 and SL3
@@ -1747,10 +1772,9 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 
 
 
-
-
-
 #### Differential expression between males and females
+
+This agrees very nicely with the line-separated analysis, most genes are male-biased, with SL1 on day 14 showing much less male-bias compared to all other tested contrasts.
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_FM_smear')">Day 14 (Smear plot)</button>
@@ -2000,6 +2024,7 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 
 #### Upsetplot of sig DE genes between lines and sexes
 
+Same as in the line-separated analysis, the sex-biased genes are the same between all days and lines, and if there are differences it is that genes are missing from day 14 where they are not sex-biased yet.
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_upset')">Day 14</button>
@@ -2010,7 +2035,7 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 
 <div id="day14_upset" class="tabcontent">
 <p float="left">
-  <img src="data/DE_figures_python/upsetplot_day_separated_day14.png" width="32%" />
+  <img src="data/DE_figures_python/upsetplot_day_separated_day14.png" width="25%" />
 </p>
 
 
@@ -2033,7 +2058,7 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 
 <div id="all_upset" class="tabcontent">
 <p float="left">
-  <img src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="40%" />
+  <img src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="50%" />
 </p>
 </div>
 
@@ -2055,6 +2080,8 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 
 **GO-terms of relevant contrast comparison**
 
+Some spermatogenesis stuff is male-biased only in SL3 (`SL3 F-M`) and not yet in SL1.
+
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_SL1_GO')">SL1 F-M</button>
   <button class="tablinks" onclick="openTab(event, 'day14_SL3_GO')">SL3 F-M</button>
@@ -2065,7 +2092,7 @@ In Females, there should be no line bias, so all genes that show line-bias in fe
 
 <div id="day14_SL1_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day14_SL1.txt
+`upsetplot_GO_terms_day_separated_day14_SL1.txt`: A little bit of spermatogenesis, but mostly Biochemical stuff I don't understand.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_SL1.txt"
@@ -2079,7 +2106,7 @@ upsetplot_GO_terms_day_separated_day14_SL1.txt
 
 <div id="day14_SL3_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day14_SL3.txt
+`upsetplot_GO_terms_day_separated_day14_SL3.txt`: Spermatogenesis and mating behaviour
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_SL3.txt"
@@ -2093,7 +2120,7 @@ upsetplot_GO_terms_day_separated_day14_SL3.txt
 
 <div id="day14_both_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day14_both.txt: `F_1 - M_1 AND F_3 - M_3`
+upsetplot_GO_terms_day_separated_day14_both.txt: `F_1 - M_1 AND F_3 - M_3`: Some spermatogenesis (cilium) but mostly biochemical stuff
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_both.txt"
@@ -2107,7 +2134,7 @@ upsetplot_GO_terms_day_separated_day14_both.txt: `F_1 - M_1 AND F_3 - M_3`
 
 <div id="day14_males_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day14_males.txt
+`upsetplot_GO_terms_day_separated_day14_males.txt` some locomotion but mostly unsure how to interpret. <span style="color: #BD351E"> Nothing related to feeding/digestion (which is male-biased in the line-separated data for day14 in SL3).</span>
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_males.txt"
@@ -2121,7 +2148,7 @@ upsetplot_GO_terms_day_separated_day14_males.txt
 
 <div id="day14_females_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day14_females.txt
+`upsetplot_GO_terms_day_separated_day14_females.txt`: <span style="color: #BD351E"> Females should have no line difference!</span> Unclear how to interpret these anyways.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_females.txt"
@@ -2153,7 +2180,7 @@ upsetplot_GO_terms_day_separated_day14_females.txt
 
 <div id="day16_SL1_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day16_SL1.txt
+`upsetplot_GO_terms_day_separated_day16_SL1.txt`: some digestion/glucose-related stuff. a litte bit of spermatogenesis/mating behaviour.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_SL1.txt"
@@ -2167,7 +2194,7 @@ upsetplot_GO_terms_day_separated_day16_SL1.txt
 
 <div id="day16_SL3_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day16_SL3.txt
+`upsetplot_GO_terms_day_separated_day16_SL3.txt`: again male courtship behaviour/veined wing development!  <span style="color: #BD351E"> also male-biased in early SL3 (day 14 and 16) in the line-separated data</span> 
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_SL3.txt"
@@ -2181,7 +2208,7 @@ upsetplot_GO_terms_day_separated_day16_SL3.txt
 
 <div id="day16_both_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day16_both.txt: `F_1 - M_1 AND F_3 - M_3`
+upsetplot_GO_terms_day_separated_day16_both.txt: `F_1 - M_1 AND F_3 - M_3`: spermatogenesis, and a bit of feeding/digestion related stuff. 
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_both.txt"
@@ -2195,7 +2222,7 @@ upsetplot_GO_terms_day_separated_day16_both.txt: `F_1 - M_1 AND F_3 - M_3`
 
 <div id="day16_males_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day16_males.txt
+`upsetplot_GO_terms_day_separated_day16_males.txt` Lots of metabolic process. Maybe also related to differences in feeding behaviour at this time in the SL3 males
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_males.txt"
@@ -2209,7 +2236,7 @@ upsetplot_GO_terms_day_separated_day16_males.txt
 
 <div id="day16_females_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day16_females.txt
+`upsetplot_GO_terms_day_separated_day16_females.txt`: <span style="color: #BD351E"> Females should have no line difference!</span> These are difficult to interpret anyways.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_females.txt"
@@ -2242,7 +2269,7 @@ upsetplot_GO_terms_day_separated_day16_females.txt
 
 <div id="day18_SL1_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day18_SL1.txt
+`upsetplot_GO_terms_day_separated_day18_SL1.txt`: a bit of (retina?) development, mostly unclear biochemistry.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_SL1.txt"
@@ -2256,7 +2283,7 @@ upsetplot_GO_terms_day_separated_day18_SL1.txt
 
 <div id="day18_SL3_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day18_SL3.txt
+`upsetplot_GO_terms_day_separated_day18_SL3.txt`: a bit of spermatogenesis but mostly unclear biochemistry.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_SL3.txt"
@@ -2270,7 +2297,7 @@ upsetplot_GO_terms_day_separated_day18_SL3.txt
 
 <div id="day18_both_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day18_both.txt: `F_1 - M_1 AND F_3 - M_3`
+upsetplot_GO_terms_day_separated_day18_both.txt: `F_1 - M_1 AND F_3 - M_3`: Also a bit of spermatogenesis but I think less than day 14 and 16?. Also transmembrane and metabolism biochemistry.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_both.txt"
@@ -2284,7 +2311,7 @@ upsetplot_GO_terms_day_separated_day18_both.txt: `F_1 - M_1 AND F_3 - M_3`
 
 <div id="day18_males_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day18_males.txt
+`upsetplot_GO_terms_day_separated_day18_males.txt` no spermatogenesis any more? stuff related to calcium ions.
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_males.txt"
@@ -2298,7 +2325,7 @@ upsetplot_GO_terms_day_separated_day18_males.txt
 
 <div id="day18_females_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day18_females.txt
+`upsetplot_GO_terms_day_separated_day18_females.txt` <span style="color: #BD351E"> Females should have no line difference!</span>
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_females.txt"
