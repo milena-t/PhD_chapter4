@@ -2048,7 +2048,7 @@ upsetplot_GO_terms_day_separated_day14_SL3.txt
 
 <div id="day14_both_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day14_both.txt
+upsetplot_GO_terms_day_separated_day14_both.txt: `F_1 - M_1 AND F_3 - M_3`
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_both.txt"
@@ -2136,7 +2136,7 @@ upsetplot_GO_terms_day_separated_day16_SL3.txt
 
 <div id="day16_both_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day16_both.txt
+upsetplot_GO_terms_day_separated_day16_both.txt: `F_1 - M_1 AND F_3 - M_3`
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16_both.txt"
@@ -2225,7 +2225,7 @@ upsetplot_GO_terms_day_separated_day18_SL3.txt
 
 <div id="day18_both_GO" class="tabcontent">
 
-upsetplot_GO_terms_day_separated_day18_both.txt
+upsetplot_GO_terms_day_separated_day18_both.txt: `F_1 - M_1 AND F_3 - M_3`
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day18_both.txt"
