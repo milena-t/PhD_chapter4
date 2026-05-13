@@ -114,7 +114,7 @@ See the `RNA_mapping` directory in this repository for by-sample mapping rate in
 
 ## 3. DE analysis
 
-I will use edgeR to get the logFC of all comparisons of interest below, but the plotting is done in python. 
+I will use edgeR to get the logFC of all comparisons of interest below, but the plotting is done in python. In EdgeR, I am trying both `glmLRT` and `glmQLFTest` to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from `glmQLFTest`.
 
 ### 3.1 yTor expression
 
@@ -153,10 +153,15 @@ Only show samples that have nonzero expression! Female samples removed even if t
 
 </div>
 
-### 3.2 PCA plots
+### 3.2 Separation summary: PCA plots
+
+For the actual DE analysis, I am partitioning the data into three separate sub-analyses. This helps avoid three-way contrasts which are complicated to define and confusing to interpret.
+
+* **Sex-separated**: Analyze one sex at a time to investigate line and day contrasts (how do the lines change across the development time?)
+* **Line-separated**: Analyze one line at a time to investigate sex and day contrasts (how do the sexes change across development time?)
+* **Day-separated**: Analyze one developmental time point to investigate sex and line contrasts (how do sexes change across lines?)
 
 PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which are the small (1) and large (3) males respectively. Intuitively, the tor copy number is reversed, with the small males in SL1 having three copies, and the large males in SL3 having only one. The days are day 14, 16, or 18 of larval development. 
-
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'All samples')">All samples</button>
@@ -225,9 +230,9 @@ Males and females are kind of but not super clearly separated, but for only male
 
 </details>
 
-### 3.3 DE analysis of sex-separated samples 
+### 3.3 Sex-separated samples 
 
-I started the differential expression analysis with only samples from one sex at a time. The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`. I am trying both `glmLRT` and `glmQLFTest` to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from `glmQLFTest`.
+The contrasts are within each day (14, 16, 18), and always `SL1 - SL3`. `SL1` are the small males (three Tor copies), and all genes identified as "upregulated" are higher expressed in `SL1`.
 
 In all contrasts, genes that are differentially expressed in both females and males between the lines are excluded from the smear plots (see venn-diagram overlaps). 
 

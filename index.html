@@ -175,7 +175,7 @@ function openTab(evt, cityName) {
 <h2 id="2-star-mapping">2. STAR mapping</h2>
 <p>See the <code>RNA_mapping</code> directory in this repository for by-sample mapping rate information. Mean uniquely mapped reads: 83.76% and mean multimapped reads: 9.74%.</p>
 <h2 id="3-de-analysis">3. DE analysis</h2>
-<p>I will use edgeR to get the logFC of all comparisons of interest below, but the plotting is done in python.</p>
+<p>I will use edgeR to get the logFC of all comparisons of interest below, but the plotting is done in python. In EdgeR, I am trying both <code>glmLRT</code> and <code>glmQLFTest</code> to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from <code>glmQLFTest</code>.</p>
 <h3 id="31-ytor-expression">3.1 yTor expression</h3>
 <p>After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. Since we know that yTor-C (orange) in SL1 is the closest to the SL3 yTor, it makes sense that it shows expression in SL1 and SL3, while yTor-A, which is more diverged from the SL3 yTor, does not map reads from these samples. Furthermore, yTor-C is also the closes to aTor, which likely explains the female samples, which are mismapped reads that only map to yTor-C and not yTor-A.</p>
 <p>The autosomal Tor <code>gene-30110</code> is expressed much higher than any y-linked copy, which makes sense since it is a highly conserved gene in the insulin signalling pathway. There seems to be no difference between SL1 and SL3.</p>
@@ -199,7 +199,13 @@ function openTab(evt, cityName) {
   <img src="file:////Users/miltr339/work/PhD_code/PhD_chapter4/data/yTor_analysis/merged_yTor_aTor_counts.png" width="49%" />
 </p>
 </div>
-<h3 id="32-pca-plots">3.2 PCA plots</h3>
+<h3 id="32-separation-summary-pca-plots">3.2 Separation summary: PCA plots</h3>
+<p>For the actual DE analysis, I am partitioning the data into three separate sub-analyses. This helps avoid three-way contrasts which are complicated to define and confusing to interpret.</p>
+<ul>
+<li><strong>Sex-separated</strong>: Analyze one sex at a time to investigate line and day contrasts (how do the lines change across the development time?)</li>
+<li><strong>Line-separated</strong>: Analyze one line at a time to investigate sex and day contrasts (how do the sexes change across development time?)</li>
+<li><strong>Day-separated</strong>: Analyze one developmental time point to investigate sex and line contrasts (how do sexes change across lines?)</li>
+</ul>
 <p>PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which are the small (1) and large (3) males respectively. Intuitively, the tor copy number is reversed, with the small males in SL1 having three copies, and the large males in SL3 having only one. The days are day 14, 16, or 18 of larval development.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'All samples')">All samples</button>
@@ -245,8 +251,8 @@ function openTab(evt, cityName) {
 </p>
 <p>Males and females are kind of but not super clearly separated, but for only male samples, the SL1 and SL3 border is relatively clear.</p>
 </details>
-<h3 id="33-de-analysis-of-sex-separated-samples">3.3 DE analysis of sex-separated samples</h3>
-<p>I started the differential expression analysis with only samples from one sex at a time. The contrasts are within each day (14, 16, 18), and always <code>SL1 - SL3</code>. <code>SL1</code> are the small males (three Tor copies), and all genes identified as &quot;upregulated&quot; are higher expressed in <code>SL1</code>. I am trying both <code>glmLRT</code> and <code>glmQLFTest</code> to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from <code>glmQLFTest</code>.</p>
+<h3 id="33-sex-separated-samples">3.3 Sex-separated samples</h3>
+<p>The contrasts are within each day (14, 16, 18), and always <code>SL1 - SL3</code>. <code>SL1</code> are the small males (three Tor copies), and all genes identified as &quot;upregulated&quot; are higher expressed in <code>SL1</code>.</p>
 <p>In all contrasts, genes that are differentially expressed in both females and males between the lines are excluded from the smear plots (see venn-diagram overlaps).</p>
 <h4 id="differential-expression-between-sl1-and-sl3">Differential expression between SL1 and SL3</h4>
 <p>Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in <code>SL1</code>) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.</p>
