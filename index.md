@@ -829,6 +829,11 @@ Only difference between day 14 and 18, no other developmental cues? Do only the 
 
 Check which genes are DE in more than one contrast.
 
+* **Males**: lots of overlap involving the day18-14 contrast between the lines. 
+  * Probably major developmental milestones that have to happen anyways regardless of y-haplotype?
+  * These also share mostly with SL3_d14-16 and SL3_d14-16, but they have very little overlap with GO terms (see GO venn diagram?)
+* **Females**: very little DE and almost no overlap
+
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'Males_upset')">Males</button>
   <button class="tablinks" onclick="openTab(event, 'Females_upset')">Females</button>
@@ -893,7 +898,8 @@ GO-terms that are exclusive to individual contrasts and don't overlap with anyth
 </div>
 
 <div id="males_SL1_day14-16_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_males_SL1_day14-16.txt
+
+`upsetplot_GO_terms_sex_separated_males_SL1_day14-16.txt`: 
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_SL1_day14-16.txt"
@@ -906,7 +912,8 @@ upsetplot_GO_terms_sex_separated_males_SL1_day14-16.txt
 </div>
 
 <div id="males_SL1_day18-14_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_males_SL1_day18-14.txt
+
+`upsetplot_GO_terms_sex_separated_males_SL1_day18-14.txt`: 
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_SL1_day18-14.txt"
@@ -919,7 +926,8 @@ upsetplot_GO_terms_sex_separated_males_SL1_day18-14.txt
 </div>
 
 <div id="males_SL1_day18-16_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_males_SL1_day18-16.txt
+
+`upsetplot_GO_terms_sex_separated_males_SL1_day18-16.txt`: Can't really make anything of this
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_males_SL1_day18-16.txt"
@@ -1021,7 +1029,7 @@ upsetplot_GO_terms_sex_separated_males_day18.txt
 
 **GO-terms of relevant contrast comparisons** 
 
-GO-terms that are exclusive to individual contrasts and don't overlap with anything
+GO-terms that are exclusive to individual contrasts and don't overlap with anything. <span style="color: #BD351E"> Females should show no differences but there is clearly some stuff going on? </span>
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'females_SL3_day18-14_GO')">SL3 day18-14</button>
@@ -1031,7 +1039,8 @@ GO-terms that are exclusive to individual contrasts and don't overlap with anyth
 </div>
 
 <div id="females_SL3_day18-14_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_females_SL3_day18-14.txt
+
+`upsetplot_GO_terms_sex_separated_females_SL3_day18-14.txt`: Different kinds of transmembrane transport
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_females_SL3_day18-14.txt"
@@ -1044,7 +1053,10 @@ upsetplot_GO_terms_sex_separated_females_SL3_day18-14.txt
 </div>
 
 <div id="females_day14_GO" class="tabcontent">
-upsetplot_GO_terms_sex_separated_females_day14.txt
+
+`upsetplot_GO_terms_sex_separated_females_day14.txt`: Growth and development of all sorts of organs. negative regulation of some metabolic stuff. According to smear plot above genes are up- and downregulated in equal  measure, so it's not like that all these are upregulated in one line over the other
+
+<span style="color: #BD351E"><b>QUESTION:</b> Lots of development stuff that they differ in </span>
 
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_females_day14.txt"
