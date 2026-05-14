@@ -117,7 +117,7 @@ def plot_PCA_vst_counts(counts_path:str, metadata_path:str, plot_path:str="", co
     # Adjust layout to prevent overlap
     plt.tight_layout(rect=[0, 0.05, 1, 1])
 
-    plt.savefig(plot_path, dpi = 300, transparent = False)
+    plt.savefig(plot_path, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {plot_path}")
 
 
