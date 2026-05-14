@@ -267,43 +267,43 @@ def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", co
     # Adjust layout to prevent overlap
     plt.tight_layout(rect=[0, 0.05, 1, 1])
 
-    plt.savefig(plot_path, dpi = 300, transparent = False)
+    plt.savefig(plot_path, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {plot_path}")
 
 
 
 if __name__ == "__main__":
 
-    username = "miltr339"
+    username = "milena"
 
 
     ### plot PCA
     if True:
         counts_path, vst_path = counts_paths(username=username)
         metadata_path = metadata_paths(username=username)
-        if False:
+        if True:
             for condition in ["line", "day"]:
                 plot_PCA_vst_counts(
                     counts_path=vst_path, 
                     metadata_path=metadata_path, 
                     plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_{condition}_all_counts.png",
                     condition=condition)
-        if True:
-            # for sex in ["M", "F"] :
-            #     plot_PCA_separation(
-            #         counts_path=vst_path, 
-            #         metadata_path=metadata_path, 
-            #         plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_{sex}_day_line.png",
-            #         sex=sex)
+        if False:
+            for sex in ["M", "F"] :
+                plot_PCA_separation(
+                    counts_path=vst_path, 
+                    metadata_path=metadata_path, 
+                    plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_{sex}_day_line.png",
+                    sex=sex)
             for day in ["14","16","18"]:
                 plot_PCA_separation(
                     counts_path=vst_path, 
                     metadata_path=metadata_path, 
                     plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_day{day}_line.png",
                     day=day)
-            # for line in ["1","3"]:
-            #     plot_PCA_separation(
-            #         counts_path=vst_path, 
-            #         metadata_path=metadata_path, 
-            #         plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_day_SL{line}.png",
-            #         line=line)
+            for line in ["1","3"]:
+                plot_PCA_separation(
+                    counts_path=vst_path, 
+                    metadata_path=metadata_path, 
+                    plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_day_SL{line}.png",
+                    line=line)

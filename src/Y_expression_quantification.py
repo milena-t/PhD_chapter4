@@ -139,7 +139,7 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
     plt.tight_layout()
     if len(geneIDs_lists_dict)>1:
         plt.legend(fontsize = fs)
-    plt.savefig(outfile_name, dpi = 300, transparent = False)
+    plt.savefig(outfile_name, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {outfile_name}")
 
 
@@ -231,10 +231,10 @@ if __name__ == "__main__":
     samples_group_dict_orig = samples_group()
     samples_group_dict = {item: key for key, values in samples_group_dict_orig.items() for item in values}
 
-    # plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
-    #             outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
-    # plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
-    #             outfile_name = f"{out_path}/y_x_genes_mean_expression.png", y_label= "normalized counts", errorbars=False, samples_group_dict = samples_group_dict)
+    plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
+                outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
+    plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
+                outfile_name = f"{out_path}/y_x_genes_mean_expression.png", y_label= "normalized counts", errorbars=False, samples_group_dict = samples_group_dict)
 
-    filter_counts_file(counts_path=count_files["raw"], out_path = count_files["raw"].replace(".txt", "_only_Y.txt"), IDs_list=y_contigs["all"])
-    filter_counts_file(counts_path=count_files["raw"], out_path = count_files["raw"].replace(".txt", "_only_X.txt"), IDs_list=x_contigs["all"])
+    # filter_counts_file(counts_path=count_files["raw"], out_path = count_files["raw"].replace(".txt", "_only_Y.txt"), IDs_list=y_contigs["all"])
+    # filter_counts_file(counts_path=count_files["raw"], out_path = count_files["raw"].replace(".txt", "_only_X.txt"), IDs_list=x_contigs["all"])
