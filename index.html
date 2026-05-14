@@ -1,172 +1,45 @@
 <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Differential expression analysis on Larval RNAseq data</title>
-            <style>
-/* From extension vscode.github */
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-
-.vscode-dark img[src$=\#gh-light-mode-only],
-.vscode-light img[src$=\#gh-dark-mode-only],
-.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
-.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
-	display: none;
-}
-
-</style>
-            
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Differential expression analysis on Larval RNAseq data</title>
 <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        </style>
-        <style>
-.task-list-item {
-    list-style-type: none;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  max-width: 1100px;
+  margin: 2em auto;
+  padding: 0 1em;
+  line-height: 1.5;
+  color: #24292f;
 }
-
-.task-list-item-checkbox {
-    margin-left: -20px;
-    vertical-align: middle;
-    pointer-events: none;
+h1, h2, h3, h4, h5, h6 { margin-top: 1.6em; }
+h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+code {
+  background: #eff1f3;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-size: 90%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
-</style>
-<style>
-:root {
-  --color-note: #0969da;
-  --color-tip: #1a7f37;
-  --color-warning: #9a6700;
-  --color-severe: #bc4c00;
-  --color-caution: #d1242f;
-  --color-important: #8250df;
+pre {
+  background: #f6f8fa;
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
 }
-
-</style>
-<style>
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-note: #2f81f7;
-    --color-tip: #3fb950;
-    --color-warning: #d29922;
-    --color-severe: #db6d28;
-    --color-caution: #f85149;
-    --color-important: #a371f7;
-  }
-}
+pre code { background: none; padding: 0; }
+table { border-collapse: collapse; margin: 1em 0; }
+table th, table td { border: 1px solid #d0d7de; padding: 6px 10px; }
+table th { background: #f6f8fa; }
+img { max-width: 100%; height: auto; }
+details { margin: 0.8em 0; }
+summary { cursor: pointer; }
+iframe { border: 1px solid #d0d7de; border-radius: 4px; }
+a { color: #0969da; }
 
 </style>
-<style>
-.markdown-alert {
-  padding: 0.5rem 1rem;
-  margin-bottom: 16px;
-  color: inherit;
-  border-left: .25em solid #888;
-}
-
-.markdown-alert>:first-child {
-  margin-top: 0
-}
-
-.markdown-alert>:last-child {
-  margin-bottom: 0
-}
-
-.markdown-alert .markdown-alert-title {
-  display: flex;
-  font-weight: 500;
-  align-items: center;
-  line-height: 1
-}
-
-.markdown-alert .markdown-alert-title .octicon {
-  margin-right: 0.5rem;
-  display: inline-block;
-  overflow: visible !important;
-  vertical-align: text-bottom;
-  fill: currentColor;
-}
-
-.markdown-alert.markdown-alert-note {
-  border-left-color: var(--color-note);
-}
-
-.markdown-alert.markdown-alert-note .markdown-alert-title {
-  color: var(--color-note);
-}
-
-.markdown-alert.markdown-alert-important {
-  border-left-color: var(--color-important);
-}
-
-.markdown-alert.markdown-alert-important .markdown-alert-title {
-  color: var(--color-important);
-}
-
-.markdown-alert.markdown-alert-warning {
-  border-left-color: var(--color-warning);
-}
-
-.markdown-alert.markdown-alert-warning .markdown-alert-title {
-  color: var(--color-warning);
-}
-
-.markdown-alert.markdown-alert-tip {
-  border-left-color: var(--color-tip);
-}
-
-.markdown-alert.markdown-alert-tip .markdown-alert-title {
-  color: var(--color-tip);
-}
-
-.markdown-alert.markdown-alert-caution {
-  border-left-color: var(--color-caution);
-}
-
-.markdown-alert.markdown-alert-caution .markdown-alert-title {
-  color: var(--color-caution);
-}
-
-</style>
-        
-        </head>
-        <body class="vscode-body vscode-light">
-            <!-- Tab links -->
-<script>
-function openTab(evt, cityName) {
-  // only change tabs on the same level to allow nested tabs etc.
-  let tab = document.getElementById(cityName)
-  let parenttab = tab.parentNode  
-
-  // Get all elements with class="tabcontent" and hide them
-  let tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    if (tabcontent[i].parentNode == parenttab){
-      tabcontent[i].style.display = "none";
-    }
-  }
-
-  // Get all elements with class="tablinks" and remove the class "active"
-  let tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    if (tabcontent[i].parentNode == parenttab){
-      tablinks[i].classList.remove("active");
-    }
-  }
-
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.classList.add("active");
-}
-
-</script>
 <style>
 
 /* Style the tab */
@@ -206,42 +79,98 @@ function openTab(evt, cityName) {
 }
 
 </style>
-<h1 id="differential-expression-analysis-on-larval-rnaseq-data">Differential expression analysis on Larval RNAseq data</h1>
-<h2 id="1-preprocessing-and-testing">1. Preprocessing and testing</h2>
+<script>
+function openTab(evt, cityName) {
+  // only change tabs on the same level to allow nested tabs etc.
+  const tab = document.getElementById(cityName);
+  const parenttab = tab.parentNode;
+
+  // Hide sibling tab panels.
+  for (const el of document.getElementsByClassName("tabcontent")) {
+    if (el.parentNode === parenttab) el.style.display = "none";
+  }
+
+  // Clear "active" only on tablinks at the same level. A tablink's grandparent
+  // (button -> .tab div -> parenttab) is the panel container.
+  for (const btn of document.getElementsByClassName("tablinks")) {
+    if (btn.parentNode.parentNode === parenttab) btn.classList.remove("active");
+  }
+
+  tab.style.display = "block";
+  evt.currentTarget.classList.add("active");
+}
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".tab").forEach(function (tabBar) {
+    var firstBtn = tabBar.querySelector("button.tablinks");
+    if (firstBtn) firstBtn.click();
+  });
+});
+</script>
+</head>
+<body>
+
+  <h1>Differential expression analysis on Larval RNAseq data</h1>
+
+<h2>1. Preprocessing and testing</h2>
+
 <p>This analysis is based on a lot of work to properly filter the data and compare mapping pipelines to handle the high rRNA contamination rate and multimapping issues.</p>
-<h3 id="11-rrna-filtering-and-other-reads-preprocessing">1.1 rRNA filtering and other reads preprocessing</h3>
+
+<h3>1.1 rRNA filtering and other reads preprocessing</h3>
+
 <p>This was done by Bianca Sarcani, all data here: <code>RNA_data_processing</code>. Basically:</p>
 <ul>
-<li>filter rRNA reads with sortmeRNA and custom rRNA library (see back to Axel's work about generating the reference library)</li>
-<li>collapse lanes</li>
-<li>deduplicate reads (removePCR duplicates and poly-G)</li>
+  <li>filter rRNA reads with sortmeRNA and custom rRNA library (see back to Axel's work about generating the reference library)</li>
+  <li>collapse lanes</li>
+  <li>deduplicate reads (removePCR duplicates and poly-G)</li>
 </ul>
 <p>Bianca continued here and assembled a transcriptome but I will not use it since we suspect that there are some problems that require further curation, such as a very high number of transcripts</p>
-<h3 id="12-evaluation-and-comparison-of-mapping-pipelines">1.2 Evaluation and comparison of mapping pipelines</h3>
-<p>This was done by Sebastian Ellwe, see repository here: <a href="https://github.com/sellwe/Master_thesis_sebastian">https://github.com/sellwe/Master_thesis_sebastian</a>. He compared:</p>
+
+<h3>1.2 Evaluation and comparison of mapping pipelines</h3>
+<p>This was done by Sebastian Ellwe, see repository here: https://github.com/sellwe/Master_thesis_sebastian. He compared:</p>
 <ul>
-<li>STAR</li>
-<li>Salmon
-<ul>
-<li>salmon-mapping (map RNA to proteinfasta with decoy dataset)</li>
-<li>salmon-align (refine existing mapped bam file)</li>
+  <li>STAR</li>
+  <li>Salmon
+  <ul>
+    li>salmon-mapping (map RNA to proteinfasta with decoy dataset)</li>
+    li>salmon-align (refine existing mapped bam file)</li>
+  </ul>
+  </li>
 </ul>
-</li>
-</ul>
-<p>From his results I made the choice to use STAR, see <code>mapping_and_transcriptome</code>. In short, with the new annotation the mapping rate is good enough with just STAR and not the complicated optimization algorithm that salmon uses.</p>
-<h3 id="13-ytor-annotation-manual-curation">1.3 yTor annotation manual curation</h3>
-<p>This work is based on the selection lines evaluated by Kaufmann <em>et al.</em> (<a href="https://doi.org/10.1093/molbev/msad167">link</a>), but I am using a different version of the <em>C. maculatus</em> annotation that does not have the gene structures of the Y TOR copy number variation. Therefore I lift these gene structures from the original annotation and transform the coordinates to match my superscaffolded version of the assembly/annotation, see <code>mTOR_annotation</code>.</p>
-<p>The genes are named <code>yTor-A</code>, <code>yTor-B</code>, and <code>yTor-C</code>, and the autosomal Tor is <code>transcript-30111</code>, or <code>gene-30110</code>.</p>
+<p>From his results I made the choice to use STAR, see <code>mapping_and_transcriptome</code>. 
+  In short, with the new annotation the mapping rate is good enough with just STAR and not the complicated optimization algorithm that salmon uses.</p>
+
+<h3>1.3 yTor annotation manual curation</h3>
+
+<p>This work is based on the selection lines evaluated by Kaufmann <em>et al.</em> (<a href="https://doi.org/10.1093/molbev/msad167">link</a>), 
+  but I am using a different version of the <em>C. maculatus</em> annotation that does not have the gene structures of the Y TOR copy number variation. 
+  Therefore I lift these gene structures from the original annotation and transform the coordinates to match my superscaffolded version of the assembly/annotation, 
+  see <code>mTOR_annotation</code>. The genes are named <code>yTor-A</code>, <code>yTor-B</code>, and <code>yTor-C</code>, and the autosomal Tor is 
+  <code>transcript-30111</code>, or <code>gene-30110</code>.</p>
 <p>The annotation is then functionally annotated using eggnog and the resulting functional annotation is used for GO-term enrichment analysis with topGO in R.</p>
-<h2 id="2-star-mapping">2. STAR mapping</h2>
+
+<h2>2. STAR mapping</h2>
+
 <p>See the <code>RNA_mapping</code> directory in this repository for by-sample mapping rate information. Mean uniquely mapped reads: 83.76% and mean multimapped reads: 9.74%.</p>
-<h2 id="3-de-analysis">3. DE analysis</h2>
+
+<h2>3. DE analysis</h2>
+
 <p>I will use edgeR to get the logFC of all comparisons of interest below, but the plotting is done in python. In EdgeR, I am trying both <code>glmLRT</code> and <code>glmQLFTest</code> to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from <code>glmQLFTest</code>.</p>
-<h3 id="31-ytor-expression">3.1 yTor expression</h3>
-<p>After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. Since we know that yTor-C (orange) in SL1 is the closest to the SL3 yTor, it makes sense that it shows expression in SL1 and SL3, while yTor-A, which is more diverged from the SL3 yTor, does not map reads from these samples. Furthermore, yTor-C is also the closes to aTor, which likely explains the female samples, which are mismapped reads that only map to yTor-C and not yTor-A.</p>
-<p>The autosomal Tor <code>gene-30110</code> is expressed much higher than any y-linked copy, which makes sense since it is a highly conserved gene in the insulin signalling pathway. There seems to be no difference between SL1 and SL3.</p>
-<p>Since we hypothesize that the phenotypic difference is related with differences in Tor expression dosage, I will manually merge the read counts of yTor-A, B and C into one yTor-all for the DE analysis.</p>
-<p>The phylogenetic relationship is this: <code>(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))</code> (with yTor-C being the one also in SL3 and the closest to aTor) and the tick labels are according to this naming scheme: <code>SL</code>-<code>day</code>-<code>sample_ID</code>-<code>sex</code>.</p>
+
+<h3>3.1 yTor expression</h3>
+
+<p>After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. Since we know that yTor-C (orange) 
+  in SL1 is the closest to the SL3 yTor, it makes sense that it shows expression in SL1 and SL3, while yTor-A, which is more diverged from the SL3 yTor, 
+  does not map reads from these samples. Furthermore, yTor-C is also the closes to aTor, which likely explains the female samples, which are mismapped reads 
+  that only map to yTor-C and not yTor-A. The phylogenetic relationship is this: <code>(aTor,(yTor-SL3,(yTor-C,(yTor-A,yTor-B))))</code> 
+  (with yTor-C being the one also in SL3 and the closest to aTor) and the tick labels are according to this naming scheme: 
+  <code>SL</code>-<code>day</code>-<code>sample_ID</code>-<code>sex</code>.</p>
+<p>The autosomal Tor <code>gene-30110</code> is expressed much higher than any y-linked copy, which makes sense since it is a highly conserved gene in the 
+  insulin signalling pathway. There seems to be no difference between SL1 and SL3.</p>
+<p>Since we hypothesize that the phenotypic difference is related with differences in Tor expression dosage, I will manually merge the read counts of 
+  yTor-A, B and C into one yTor-all for the DE analysis.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'yTor_split')">yTor split into A,B,C</button>
   <button class="tablinks" onclick="openTab(event, 'yTor_merged')">yTor merged</button>
@@ -260,7 +189,7 @@ function openTab(evt, cityName) {
   <img src="data/yTor_analysis/merged_yTor_aTor_counts.png" width="49%" />
 </p>
 </div>
-<h3 id="32-separation-summary-pca-plots">3.2 Separation summary: PCA plots</h3>
+<h3>3.2 Separation summary: PCA plots</h3>
 <p>For the actual DE analysis, I am partitioning the data into three separate sub-analyses. This helps avoid three-way contrasts which are complicated to define and confusing to interpret.</p>
 <ul>
 <li><strong>Sex-separated</strong>: Analyze one sex at a time to investigate line and day contrasts (how do the lines change across the development time?)</li>
@@ -312,10 +241,10 @@ function openTab(evt, cityName) {
 </p>
 <p>Males and females are kind of but not super clearly separated, but for only male samples, the SL1 and SL3 border is relatively clear.</p>
 </details>
-<h3 id="33-sex-separated-samples">3.3 Sex-separated samples</h3>
+<h3>3.3 Sex-separated samples</h3>
 <p>The contrasts are within each day (14, 16, 18), and always <code>SL1 - SL3</code>. <code>SL1</code> are the small males (three Tor copies), and all genes identified as &quot;upregulated&quot; are higher expressed in <code>SL1</code>.</p>
 <p>In all contrasts, genes that are differentially expressed in both females and males between the lines are excluded from the smear plots (see venn-diagram overlaps).</p>
-<h4 id="differential-expression-between-sl1-and-sl3">Differential expression between SL1 and SL3</h4>
+<h4>Differential expression between SL1 and SL3</h4>
 <p>Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in <code>SL1</code>) genes, while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in day 14 and 16, which becomes reduced in day 18.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males (Smear plots)</button>
@@ -324,7 +253,6 @@ function openTab(evt, cityName) {
   <button class="tablinks" onclick="openTab(event, 'females_lines_DE_volcano')">females (Volcano plots)</button>
 </div>
 <div id="males_lines_DE" class="tabcontent">
-<table>
 <table>
 <thead>
 <tr>
@@ -355,7 +283,6 @@ function openTab(evt, cityName) {
 </tr>
 </tbody>
 </table>
-</table>
 <p float="left">
   <img src="data/DE_figures_python/smear_M_1-3_day14.png" width="32%" />
   <img src="data/DE_figures_python/smear_M_1-3_day16.png" width="32%" />
@@ -367,7 +294,6 @@ function openTab(evt, cityName) {
 </p>
 </div>
 <div id="females_lines_DE" class="tabcontent">
-<table>
 <table>
 <thead>
 <tr>
@@ -397,7 +323,6 @@ function openTab(evt, cityName) {
 <td>47</td>
 </tr>
 </tbody>
-</table>
 </table>
 <p float="left">
   <img src="data/DE_figures_python/smear_F_1-3_day14.png" width="32%" />
@@ -444,7 +369,7 @@ For venn-diagrams see smear plots
 </p>
 <p>For venn-diagrams see smear plots</p>
 </div>
-<h4 id="scatterplots-of-pairwise-comparisons">Scatterplots of pairwise comparisons</h4>
+<h4>Scatterplots of pairwise comparisons</h4>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
   <button class="tablinks" onclick="openTab(event, 'females_day_DE')">females</button>
@@ -621,7 +546,7 @@ For venn-diagrams see smear plots
 </table>
 </td></tr> </table>
 </div>
-<h4 id="interaction-of-line-by-day-effects">Interaction of line by day effects</h4>
+<h4>Interaction of line by day effects</h4>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males (Smear plots)</button>
   <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females (Smear plots)</button>
@@ -639,7 +564,6 @@ For venn-diagrams see smear plots
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 </code></pre>
 <table>
-<table>
 <thead>
 <tr>
 <th><code>glmQLFTest</code></th>
@@ -668,7 +592,6 @@ For venn-diagrams see smear plots
 <td>1</td>
 </tr>
 </tbody>
-</table>
 </table>
 </div>
 <div id="females_line_day_DE" class="tabcontent">
@@ -682,7 +605,6 @@ For venn-diagrams see smear plots
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 </code></pre>
 <table>
-<table>
 <thead>
 <tr>
 <th><code>glmQLFTest</code></th>
@@ -712,7 +634,6 @@ For venn-diagrams see smear plots
 </tr>
 </tbody>
 </table>
-</table>
 </div>
 <div id="males_line_day_DE_volcano" class="tabcontent">
 <p float="left">
@@ -724,7 +645,6 @@ For venn-diagrams see smear plots
 <pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 </code></pre>
-<table>
 <table>
 <thead>
 <tr>
@@ -755,7 +675,6 @@ For venn-diagrams see smear plots
 </tr>
 </tbody>
 </table>
-</table>
 </div>
 <div id="females_line_day_DE_volcano" class="tabcontent">
 <p float="left">
@@ -767,7 +686,6 @@ For venn-diagrams see smear plots
 <pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
 (SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
 </code></pre>
-<table>
 <table>
 <thead>
 <tr>
@@ -798,7 +716,6 @@ For venn-diagrams see smear plots
 </tr>
 </tbody>
 </table>
-</table>
 </div>
 <details>
 <summary>Interpretation of line:day interaction</summary>
@@ -807,7 +724,7 @@ For venn-diagrams see smear plots
 </details>
 <details>
 <summary>(OLD) Differential expression within lines between day18 and mean(day14,day16)</summary>
-<h4 id="differential-expression-within-lines-between-day18-and-meanday14day16">Differential expression within lines between day18 and mean(day14,day16)</h4>
+<h4>Differential expression within lines between day18 and mean(day14,day16)</h4>
 <p>I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables')">males (Smear plot)</button>
@@ -816,7 +733,6 @@ For venn-diagrams see smear plots
   <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_volcano')">females (Volcano plot)</button>
 </div>
 <div id="males_lines_DE_tables" class="tabcontent">
-<table>
 <table>
 <thead>
 <tr>
@@ -842,7 +758,6 @@ For venn-diagrams see smear plots
 <td>2766</td>
 </tr>
 </tbody>
-</table>
 </table>
 <p float="left">
   <img src="data/DE_figures_python/smear_M_SL1.png" width="32%" />
@@ -882,7 +797,6 @@ For venn-diagrams see smear plots
 </div>
 <div id="females_lines_DE_tables" class="tabcontent">
 <table>
-<table>
 <thead>
 <tr>
 <th><code>glmQLFTest</code></th>
@@ -907,7 +821,6 @@ For venn-diagrams see smear plots
 <td>76</td>
 </tr>
 </tbody>
-</table>
 </table>
 <p float="left">
   <img src="data/DE_figures_python/smear_F_SL1.png" width="32%" />
@@ -960,7 +873,7 @@ For venn-diagrams see smear plots
 </p>
 </div>
 </details>
-<h4 id="differential-expression-within-lines-with-all-pairwise-day-comparisons">Differential expression within lines with all pairwise day comparisons</h4>
+<h4>Differential expression within lines with all pairwise day comparisons</h4>
 <p>Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3. To be sure that this is real I also do individual comparisons between all the days even though that is more difficult to interpret.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males (Smear plot)</button>
@@ -1148,7 +1061,7 @@ For venn-diagrams see smear plots
   <img src="data/DE_figures_python/smear_F_SL3_18_16_volcano.png" width="32%" />
 </p>
 </div>
-<h4 id="upsetplots-of-sig-de-genes-overlap-within-males-and-females">Upsetplots of sig DE genes overlap within males and females</h4>
+<h4>Upsetplots of sig DE genes overlap within males and females</h4>
 <p>Check which genes are DE in more than one contrast.</p>
 <ul>
 <li><strong>Males</strong>: lots of overlap involving the day18-14 contrast between the lines.
@@ -1179,7 +1092,7 @@ For venn-diagrams see smear plots
   <img src="data/DE_figures_python/upsetplot_sex_separated_all_categories.png" width="75%" />
 </p>
 </div>
-<h4 id="upsetplots-of-sig-enriched-go-terms-overlap-within-males-and-females">Upsetplots of sig enriched GO-terms overlap within males and females</h4>
+<h4>Upsetplots of sig enriched GO-terms overlap within males and females</h4>
 <p>See which enriched GO terms are shared between contrasts. Includes a list of the overlapping or exclusive ones for selected contrasts with functional information.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'Males_GO')">Males</button>
@@ -1354,7 +1267,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
 </p>
 <p>These are all still nonoverlapping, see the sex-separated GO-terms lists for functional information.</p>
 </div>
-<h3 id="34-line-separated-samples">3.4 Line-separated samples</h3>
+<h3>3.4 Line-separated samples</h3>
 <p>I will now split the data by line to see sex differences in expression during the development stages.</p>
 <details>
 <summary>MDS plots for SL1 and SL3</summary>
@@ -1363,7 +1276,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
   <img src="data/DE_figures/MDS_SL3_only.png" width="32%" />
 </p>
 </details>
-<h4 id="differential-expression-between-males-and-females">Differential expression between males and females</h4>
+<h4>Differential expression between males and females</h4>
 <p>Almost all DE is because of upregulation in males (in all lines and time points).</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1 (Smear plot)</button>
@@ -1467,7 +1380,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
   <img src="data/DE_figures_python/smear_SL3_day18_F-M_volcano.png" width="32%" />
 </p>
 </div>
-<h4 id="scatterplots-of-pairwise-comparisons-1">Scatterplots of pairwise comparisons</h4>
+<h4>Scatterplots of pairwise comparisons</h4>
 <p>Since we are explicitly checking for sex-bias, it makes no sense to highlight genes with shared sex-bias in SL1 and SL3 for example, so I exclude the highlight here.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_overlap')">SL1</button>
@@ -1547,7 +1460,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
 </tbody>
 </table>
 </div>
-<h4 id="interaction-of-sex-by-day-effects">interaction of sex by day effects</h4>
+<h4>interaction of sex by day effects</h4>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_interaction_smear')">SL1 (Smear plot)</button>
   <button class="tablinks" onclick="openTab(event, 'SL3_interaction_smear')">SL3 (Smear plot)</button>
@@ -1706,7 +1619,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
 </tbody>
 </table>
 </div>
-<h4 id="upsetplots-of-sig-de-genes-overlap-within-sl1-and-sl3">Upsetplots of sig DE genes overlap within SL1 and SL3</h4>
+<h4>Upsetplots of sig DE genes overlap within SL1 and SL3</h4>
 <p>Most sex-biased genes are sex-biased at all times in both lines!</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_upset')">SL1</button>
@@ -1731,7 +1644,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
 </p>
 <p>Same genes are sex-biased even between the lines. (again outlier SL1 day14, not a lot of sex bias happening here yet)</p>
 </div>
-<h4 id="upsetplots-of-sig-enriched-go-terms-overlap-within-sl1-and-sl3">Upsetplots of sig enriched GO-terms overlap within SL1 and SL3</h4>
+<h4>Upsetplots of sig enriched GO-terms overlap within SL1 and SL3</h4>
 <p>Even though the genes that are sex biased overlap, the GO-term enrichment finds mostly different GO-terms in the enrichment?</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_GO')">SL1</button>
@@ -1894,9 +1807,9 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
   <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_line_separated_all.png" width="40%" />
 </p>
 </div>
-<h3 id="35-day-separated-samples">3.5 Day-separated samples</h3>
+<h3>3.5 Day-separated samples</h3>
 <p>Analyze line and sex differences in each time point.</p>
-<h4 id="differential-expression-between-sl1-and-sl3-1">Differential expression between SL1 and SL3</h4>
+<h4>Differential expression between SL1 and SL3</h4>
 <p>In Females, there should be no line bias, so all genes that show line-bias in females (see lists in tabs) are excluded for the day contrasts.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_smear')">Day 14 (Smear plot)</button>
@@ -2124,7 +2037,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
 </tbody>
 </table>
 </div>
-<h4 id="differential-expression-between-males-and-females-1">Differential expression between males and females</h4>
+<h4>Differential expression between males and females</h4>
 <p>This agrees very nicely with the line-separated analysis, most genes are male-biased, with SL1 on day 14 showing much less male-bias compared to all other tested contrasts.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_FM_smear')">Day 14 (Smear plot)</button>
@@ -2332,7 +2245,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
 </tbody>
 </table>
 </div>
-<h4 id="interaction-sex-bias-by-line-bias">Interaction sex-bias by line-bias</h4>
+<h4>Interaction sex-bias by line-bias</h4>
 <p><code>(F_1 - M_1) - (F_3 - M_3)</code>: Female-biased in one line and male-biased in the other. Also plot a scatter of the genes significant in the interaction in the same scatter plot as above if they are significant.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_interaction_smear')">Day 14 (Smear plot)</button>
@@ -2516,7 +2429,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
 </tbody>
 </table>
 </div>
-<h4 id="overlap-of-de-scatterplots">Overlap of DE scatterplots</h4>
+<h4>Overlap of DE scatterplots</h4>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_scatter')">Day 14</button>
   <button class="tablinks" onclick="openTab(event, 'day16_scatter')">Day 16</button>
@@ -2540,7 +2453,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
   <img src="data/DE_figures_python/LFC_scatter_day18_sex_bias_by_line.png" width="32%" />
 </p>
 </div>
-<h4 id="upsetplot-of-sig-de-genes-between-lines-and-sexes">Upsetplot of sig DE genes between lines and sexes</h4>
+<h4>Upsetplot of sig DE genes between lines and sexes</h4>
 <p>Same as in the line-separated analysis, the sex-biased genes are the same between all days and lines, and if there are differences it is that genes are missing from day 14 where they are not sex-biased yet.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_upset')">Day 14</button>
@@ -2568,7 +2481,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
   <img src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="50%" />
 </p>
 </div>
-<h4 id="upsetplot-of-sig-enriched-go-terms-between-lines-and-sexes">Upsetplot of sig enriched GO-terms between lines and sexes</h4>
+<h4>Upsetplot of sig enriched GO-terms between lines and sexes</h4>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_GO')">Day 14</button>
   <button class="tablinks" onclick="openTab(event, 'day16_GO')">Day 16</button>
@@ -2770,8 +2683,8 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
   <img src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_all.png" width="65%" />
 </p>
 </div>
-<h2 id="4-y-expression-quantification">4. Y expression quantification</h2>
-<h3 id="41-median-expression-in-all-samples">4.1 median expression in all samples</h3>
+<h2>4. Y expression quantification</h2>
+<h3>4.1 median expression in all samples</h3>
 <p>The median expression of X and Y linked genes in all samples with 95% standard error</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'y_median')">only Y</button>
@@ -2787,7 +2700,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
   <img src="data/yTor_analysis/y_x_genes_mean_expression.png" width="75%" />
 </p>
 </div>
-<h3 id="42-de-of-only-genes-on-the-y-chromosome">4.2 DE of only genes on the Y chromosome</h3>
+<h3>4.2 DE of only genes on the Y chromosome</h3>
 <p>I filtered the raw counts file <code>PhD_chapter4/data/gene_counts_standard.txt</code> to only have genes that are on the Y according to the annotation, which is 63.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'all_Y')">11 expressed y genes</button>
@@ -2805,7 +2718,7 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
 </p>
 </div>
 <p>Thoughts about the annotation: unsure how BRAKER handles multimapping internally? this is all unuqiely mapped reads. maybe high multimapping makes gene prediction more difficult, resulting in fewer genes in the first place?</p>
-<h4 id="msl2">MSL2</h4>
+<h4>MSL2</h4>
 <p>MSL2 is a gene that controls dosage compensation in drosophila, there's a copy on <code>scaffold_26</code> (y-linked) in Cmac which is expressed at comparable levels to the autosomal one (multimapping?)</p>
 <details>
 <summary>Toggle down for plot</summary>
@@ -2813,7 +2726,5 @@ upsetplot_GO_terms_sex_separated_females_day18.txt
   <img src="data/yTor_analysis/MSL2_counts.png" width="75%" />
 </p>
 </details>
-            
-            
-        </body>
-        </html>
+</body>
+</html>
