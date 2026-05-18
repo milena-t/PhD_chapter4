@@ -53,47 +53,47 @@ PROTEIN_DATA=$3
 export home_wd=${PWD}/${SPECIES}
 
 if [ -d ${home_wd} ]; then
-    echo "Working directory already exists: ${home_wd}"
+    echo " * Working directory already exists: ${home_wd}"
 else
     mkdir $home_wd
-    echo "created directory: $home_wd"
+    echo " * created directory: $home_wd"
 fi
 
 export wd=${TMPDIR}/${SPECIES}
 #ASSEMBLY_MASKED=/proj/naiss2023-6-65/Milena/coleoptera_sequences/c_chinensis/chinensis_from_uppmax.fasta.masked
 
 if [ -d ${wd} ]; then
-    echo "Working directory in temporary directory already exists: ${wd}"
+    echo " * Working directory in temporary directory already exists: ${wd}"
 else
     mkdir $wd
-    echo "created directory in TMPDIR: $wd"
+    echo " * created directory in TMPDIR: $wd"
 fi
 
 cd $wd
-echo "working in: $(pwd)"
+echo " * working in: $(pwd)"
 
 
 # link braker.sif file
 ln -s /proj/naiss2023-6-65/Milena/annotation_pipeline/braker3.sif braker3.sif
 # get proteinfasta dir and assembly dir to mount to singularity container to access data
 PROT_DIR="$(dirname "${PROTEIN_DATA}")"
-echo "inferred directory for PROT_DIR: ${PROT_DIR}"
+echo " * inferred directory for PROT_DIR: ${PROT_DIR}"
 ASS_DIR="$(dirname "${ASSEMBLY_MASKED}")"
-echo "inferred directory for ASS_DIR: ${ASS_DIR}"
+echo " * inferred directory for ASS_DIR: ${ASS_DIR}"
 
 # check if the augustus_config direcotry exists,
 # export AUGUSTUS_CONFIG_PATH=${wd}/augustus_config
 if [ -d ${wd}/augustus_config ]; then
-    echo "Augustus_config already exists: ${wd}/augustus_config/species"
+    echo " * Augustus_config already exists: ${wd}/augustus_config/species"
 else
-    echo "Augustus config does not exist, create it and change write permissions"
+    echo " * Augustus config does not exist, create it and change write permissions"
     module load AUGUSTUS/3.5.0-gfbf-2024a # so that the source command works
     cp -dR --preserve=mode,timestamps --no-preserve=ownership $AUGUSTUS_CONFIG_PATH AUGUSTUS_config
     chmod -R +w AUGUSTUS_config
     module unload AUGUSTUS/3.5.0-gfbf-2024a # same as above, some weird shit with conflicting perl versions
     export AUGUSTUS_CONFIG_PATH=$PWD/AUGUSTUS_config
     AUGUSTUS_CONFIG_PATH=$PWD/AUGUSTUS_config
-    echo "augustus config path: ${AUGUSTUS_CONFIG_PATH}"
+    echo " * augustus config path: ${AUGUSTUS_CONFIG_PATH}"
 fi
 
 # export PROTEIN_REF_ALL_SPECIES=/proj/naiss2023-6-65/Milena/annotation_pipeline/all_proteinrefs_annotation/orthoDB_and_species_proteins.fa
@@ -105,9 +105,9 @@ export ETP=/sw/bioinfo/GeneMark-ETP/1.02-20231213-dd8b37b/rackham/bin
 # there should not already be an existing braker output directory in the working directory, otherwise there will be an error that it can't create the genemark-es ouptut file
 if [ -d ${wd}/braker ]; then
   rm -r ${wd}/braker
-  echo "removed preexisting output directory at: ${wd}/braker, proceed with new braker run from scratch"
+  echo " * removed preexisting output directory at: ${wd}/braker, proceed with new braker run from scratch"
 else
-  echo "no existing directory at: ${wd}/braker, proceed with braker run from scratch"
+  echo " * no existing directory at: ${wd}/braker, proceed with braker run from scratch"
 fi
 
 
@@ -118,7 +118,7 @@ echo ""
 
 # new: Bind the working directory to ensure it's accessible within the container
 if [ $# -eq 5 ]; then
-    echo "You have included a third command line argument that is assumed to contain fasta-ids for species-specific RNAseq data, as well as the directory in which these are stored"
+    echo " * You have included a third command line argument that is assumed to contain fasta-ids for species-specific RNAseq data, as well as the directory in which these are stored"
     FASTA_IDS=$4
     echo "FASTA_IDS = ${FASTA_IDS}"
     FASTA_dir=$5
@@ -149,7 +149,7 @@ if [ $# -eq 5 ]; then
             --useexisting
     fi
 elif [ $# -eq 4 ]; then
-    echo "You have included a third command line argument that is assumed to contain SRA-ids for species-specific RNAseq data"
+    echo " * You have included a third command line argument that is assumed to contain SRA-ids for species-specific RNAseq data"
     SRA_IDS=$4
     singularity exec -B ${wd}:${wd} braker3.sif braker.pl \
         --genome=${ASSEMBLY_MASKED} \
