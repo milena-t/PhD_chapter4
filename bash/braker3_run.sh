@@ -116,7 +116,8 @@ echo "======================== START BRAKER RUN ========================"
 echo ""
 
 
-# new: Bind the working directory to ensure it's accessible within the container
+# TODO something doesn't work with the augustus config path. there's '//' at the end of it so the path specification doesn't work
+# unclear what the exact issue is, maybe something with the container and the scratch storage?
 if [ $# -eq 5 ]; then
     echo " * You have included a third command line argument that is assumed to contain fasta-ids for species-specific RNAseq data, as well as the directory in which these are stored"
     FASTA_IDS=$4
