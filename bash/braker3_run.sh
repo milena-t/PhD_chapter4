@@ -123,7 +123,7 @@ if [ $# -eq 5 ]; then
     echo "FASTA_IDS = ${FASTA_IDS}"
     FASTA_dir=$5
     echo "FASTA_dir = ${FASTA_dir}"
-    if [[ $string == *"My long"* ]]; then
+    if [[ $FASTA_dir == *","* ]]; then
         echo "two input dirs for RNAseq data!"
         IFS="," read -r RNAdir1 RNAdir2 <<< "$FASTA_dir" # split two input dirs into list
         echo "    - ${RNAdir1}"
