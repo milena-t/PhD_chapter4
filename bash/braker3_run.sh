@@ -111,8 +111,11 @@ else
 fi
 
 
-# old header:
-# singularity exec -B ${PWD}:${PWD} braker3.sif braker.pl \
+echo ""
+echo "======================== START BRAKER RUN ========================"
+echo ""
+
+
 # new: Bind the working directory to ensure it's accessible within the container
 if [ $# -eq 5 ]; then
     echo "You have included a third command line argument that is assumed to contain fasta-ids for species-specific RNAseq data, as well as the directory in which these are stored"
@@ -120,15 +123,29 @@ if [ $# -eq 5 ]; then
     echo "FASTA_IDS = ${FASTA_IDS}"
     FASTA_dir=$5
     echo "FASTA_dir = ${FASTA_dir}"
-    singularity exec -B ${wd}:${wd} -B ${PROT_DIR}:${PROT_DIR} -B ${ASS_DIR}:${ASS_DIR} -B ${FASTA_dir}:${FASTA_dir} braker3.sif braker.pl \
-        --genome=${ASSEMBLY_MASKED} \
-        --prot_seq $PROTEIN_DATA \
-        --rnaseq_sets_ids=$FASTA_IDS \
-        --rnaseq_sets_dirs=$FASTA_dir \
-        --threads 20 \
-        --GENEMARK_PATH=${ETP}/gmes \
-        --AUGUSTUS_CONFIG_PATH=${wd}/AUGUSTUS_config \
-        --useexisting
+    if [[ $string == *"My long"* ]]; then
+        echo "two input dirs for RNAseq data!"
+        IFS="," read -r RNAdir1 RNAdir2 <<< "$FASTA_dir" # split two input dirs into list
+        singularity exec -B ${wd}:${wd} -B ${PROT_DIR}:${PROT_DIR} -B ${ASS_DIR}:${ASS_DIR} -B ${RNAdir1}:${RNAdir1} -B ${RNAdir2}:${RNAdir2} braker3.sif braker.pl \
+            --genome=${ASSEMBLY_MASKED} \
+            --prot_seq $PROTEIN_DATA \
+            --rnaseq_sets_ids=$FASTA_IDS \
+            --rnaseq_sets_dirs=$FASTA_dir \
+            --threads 20 \
+            --GENEMARK_PATH=${ETP}/gmes \
+            --AUGUSTUS_CONFIG_PATH=${wd}/AUGUSTUS_config \
+            --useexisting
+    else
+        singularity exec -B ${wd}:${wd} -B ${PROT_DIR}:${PROT_DIR} -B ${ASS_DIR}:${ASS_DIR} -B ${FASTA_dir}:${FASTA_dir} braker3.sif braker.pl \
+            --genome=${ASSEMBLY_MASKED} \
+            --prot_seq $PROTEIN_DATA \
+            --rnaseq_sets_ids=$FASTA_IDS \
+            --rnaseq_sets_dirs=$FASTA_dir \
+            --threads 20 \
+            --GENEMARK_PATH=${ETP}/gmes \
+            --AUGUSTUS_CONFIG_PATH=${wd}/AUGUSTUS_config \
+            --useexisting
+    fi
 elif [ $# -eq 4 ]; then
     echo "You have included a third command line argument that is assumed to contain SRA-ids for species-specific RNAseq data"
     SRA_IDS=$4
