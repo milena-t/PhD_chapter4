@@ -178,6 +178,7 @@ if [ -d ${home_wd}/braker ]; then
   echo "removed preexisting output directory at: ${home_wd}/braker"
 else
   echo "no existing directory at: ${home_wd}/braker"
+  echo "-> mv $wd/braker $home_wd/braker
 fi
 mv $wd/braker $home_wd/braker
 
