@@ -171,7 +171,7 @@ fi
 
 
 
-echo "move TMPDIR directory to our storage"
+echo "move scratch directory to our storage"
 
 if [ -d ${home_wd}/braker ]; then
   rm -r ${home_wd}/braker
