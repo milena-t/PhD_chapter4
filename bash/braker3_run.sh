@@ -126,6 +126,8 @@ if [ $# -eq 5 ]; then
     if [[ $string == *"My long"* ]]; then
         echo "two input dirs for RNAseq data!"
         IFS="," read -r RNAdir1 RNAdir2 <<< "$FASTA_dir" # split two input dirs into list
+        echo $RNAdir1
+        echo $RNAdir2
         singularity exec -B ${wd}:${wd} -B ${PROT_DIR}:${PROT_DIR} -B ${ASS_DIR}:${ASS_DIR} -B ${RNAdir1}:${RNAdir1} -B ${RNAdir2}:${RNAdir2} braker3.sif braker.pl \
             --genome=${ASSEMBLY_MASKED} \
             --prot_seq $PROTEIN_DATA \
