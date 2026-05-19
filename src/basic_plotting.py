@@ -132,9 +132,9 @@ def plot_counts(counts_table:str, geneIDs_list, outfile_name:str, y_label="norma
 
 if __name__ == "__main__":
     
-    username = "milena"
+    username = "miltr339"
 
-    if True:
+    if False:
         counts_file = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
         yTor_IDs = {"yTor-all":"yTor","gene-30110":"aTor"}
         yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/merged_yTor_aTor_counts.png"
@@ -145,6 +145,8 @@ if __name__ == "__main__":
         plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot, remove_females=True)
         if False:
             ## split yTor lists -> HAS TO USE OLD FILE WITH ACTUAL SPLIT GENEIDS!
+            ## since I generate this with edgeR from the raw counts, the current file is the merged one used for all other analysis.
+            ## to re-run these plots I need to re-create the old file by running the split yTor raw counts one through edgeR again
             counts_file = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/gene_counts_normalized_nolog.tsv"
             # all TOR
             yTor_IDs = ["yTor-A", "yTor-B", "yTor-C","gene-30110"]
@@ -154,7 +156,7 @@ if __name__ == "__main__":
             yTor_IDs = ["yTor-A", "yTor-B", "yTor-C"]
             yTor_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/yTor_counts.png"
             plot_counts(counts_table=counts_file, geneIDs_list=yTor_IDs, outfile_name=yTor_plot)
-    if True:
+    if False:
         MSL2_IDs = {"gene-371922" : "Y-MSL2","gene-343165": "A-MSL2"} # Y-copy,A-copy
         MSL2_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/MSL2_counts.png"
         plot_counts(counts_table=counts_file, geneIDs_list=MSL2_IDs, outfile_name=MSL2_plot)
