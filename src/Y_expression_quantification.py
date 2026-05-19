@@ -63,72 +63,88 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
 "#bd6b8f",
 "#717935"]
     c = 0
+
     for list_label, gene_counts in dfs_dict.items():
-
+        print(f"--------------------- {list_label} ---------------------")
+        print(gene_counts)
         ## make medians and standard errors
-
         if samples_group_dict == {}:
-            medians_dict = [0.0 for sample in nonzero_samples_sorted]
-            errors_dict = [0.0 for sample in nonzero_samples_sorted]
-            tick_labels = ["" for sample in nonzero_samples_sorted]
-            tick_pos = [i for i, sample in enumerate(nonzero_samples_sorted)]
+        # plot all samples individually, no groups
+            medians_list = []
+            errors_list = []
+            tick_labels = [sample for sample  in nonzero_samples_sorted] # make fully new array, with just tick_labels=nonzero_samples_sorted i just kind of get a pointer and it messes up subsequent loops
+            tick_pos = [i for i in range(len(nonzero_samples_sorted))]
 
-            for i, sample in enumerate(nonzero_samples_sorted):
+            for i in range(len(nonzero_samples_sorted)):
+                sample = nonzero_samples_sorted[i]
                 try:
                     curr_counts = gene_counts[sample].to_list()
-                    medians_dict[i] = np.median(curr_counts)
-                    errors_dict[i] = stats.sem(curr_counts)
+                    curr_med = np.median(curr_counts)
+                    curr_sem = stats.sem(curr_counts)
                     count_expressed = len([count for count in curr_counts if count >0])
                 except:
-                    medians_dict[i] = np.nan
-                    errors_dict[i] = np.nan
+                    curr_counts = []
+                    curr_med = np.nan
+                    curr_sem = np.nan
+                    count_expressed = []
+
+                medians_list.append(curr_med)
+                errors_list.append(curr_sem)
                     
                 sample_ = sample.replace("WJ-3841-","SL").split("_")[0]
                 if len(geneIDs_lists_dict) ==1:
                     tick_labels[i] = f"{sample_} ({count_expressed})"
                 else:
                     tick_labels[i] = f"{sample_}"
-            tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in nonzero_samples_sorted ]
+                
+                print(f" ({i}) {sample} ({len(curr_counts)} genes) :\t median: {curr_med:.3f}; std.err: {curr_sem:.3f}")
             
-            for s,m in zip(tick_labels,medians_dict):
-                print(f"{s} : {m}")
+            tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in nonzero_samples_sorted ]
+            # for s,m in zip(tick_labels,medians_list):
+            #     print(f"{s} : {m}")
 
         else:
-            medians_dict = [0.0 for sample in samples_group_dict.keys()]
-            errors_dict = [0.0 for sample in samples_group_dict.keys()]
-            tick_labels = ["" for sample in samples_group_dict.keys()]
-            tick_pos = [i for i, sample in enumerate(samples_group_dict.keys())]
+            # use sample groups as defined in sample_groups_dict
+            sample_group_labels = list(samples_group_dict.keys())
+            medians_list = []
+            errors_list = []
+            tick_labels = [sample for sample  in sample_group_labels]
+            tick_pos = [i for i in range(len(sample_group_labels))]
 
-            for i,sample_group in enumerate(samples_group_dict.keys()):
-                print(sample_group)
+            for i in range(len(sample_group_labels)):
+                sample_group = sample_group_labels[i]
                 sample_group_list = samples_group_dict[sample_group]
                 curr_counts = []
-                count_expressed = 0
-                for i, sample in enumerate(sample_group_list):
-                    for geneID,sample_counts in gene_counts.items():
-                        if sample_counts == {}:
-                            # print(f"{geneID} in {list_label} has empty samples dictionary")
-                            continue
-                        if sample_counts[sample] >0:
-                            curr_counts.append(sample_counts[sample])
-                            count_expressed+=1
+                count_samples = 0
+                for i in range(len(sample_group_list)):
+                    sample = sample_group_list[i]
+                    try:
+                        curr_counts.extend(gene_counts[sample].to_list())
+                        count_samples +=1
+                    except:
+                        pass
                     
                 if len(curr_counts)>0:
-                    medians_dict[i] = np.median(curr_counts)
-                    errors_dict[i] = stats.sem(curr_counts)
+                    curr_med = np.median(curr_counts)
+                    curr_sem = stats.sem(curr_counts)
                 else:
-                    medians_dict[i] = np.nan
-                    errors_dict[i] = np.nan
-                
-                tick_labels[i] = f"{sample_group}"
+                    curr_med = np.nan
+                    curr_sem = np.nan
 
-            tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in samples_group_dict.keys() ]
+                medians_list.append(curr_med)
+                errors_list.append(curr_sem)
+                print(f" ({i}) {sample_group} ({len(curr_counts)} genes from {count_samples} samples) :\t median: {curr_med:.3f}; std.err: {curr_sem:.3f}")
+
+            tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in tick_labels ]
+
+            # for median, sem, sample in zip(medians_list, errors_list, tick_labels):
+            #     print(f"{sample} : {median:.3f} +- {sem:.3f}")
 
         if errorbars:
-            ax.errorbar(tick_pos, medians_dict, xerr = 0, yerr = errors_dict, color=colors_list[c], linewidth =lw,
+            ax.errorbar(tick_pos, medians_list, xerr = 0, yerr = errors_list, color=colors_list[c], linewidth =lw,
                         marker = ".", markersize=ps, linestyle = linest, label=list_label)
         else:
-            ax.plot(tick_pos, medians_dict,color=colors_list[c], linewidth =lw, 
+            ax.plot(tick_pos, medians_list,color=colors_list[c], linewidth =lw, 
                     marker = ".", markersize=ps, linestyle = linest, label=list_label)
         c +=1
 
@@ -169,7 +185,6 @@ def samples_group():
         "SL3_18_F" : ["WJ-3841-3-18-10-F_S373","WJ-3841-3-18-24-F_S424","WJ-3841-3-18-5-F_S372_"],
     }
     return samples
-
 
 def get_counts_paths(username = "milena"):
     counts_paths = {
@@ -241,16 +256,16 @@ if __name__ == "__main__":
     samples_group_dict_rev = {item: key for key, values in samples_group_dict.items() for item in values}
 
 
-    if False:
+    if True:
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True)
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_x_genes_mean_expression.png", y_label= "normalized counts", errorbars=False)
-    if True:
+    if False:
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
-                    outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
+                    outfile_name = f"{out_path}/y_genes_mean_expression_sample_groups.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
-                    outfile_name = f"{out_path}/y_x_genes_mean_expression.png", y_label= "normalized counts", errorbars=False, samples_group_dict = samples_group_dict)
+                    outfile_name = f"{out_path}/y_x_genes_mean_expression_sample_groups.png", y_label= "normalized counts", errorbars=False, samples_group_dict = samples_group_dict)
 
     ### test stuff with edgeR on downsampled counts files, did not work! only here for posterity just in case
     # filter_counts_file(counts_path=count_files["raw"], out_path = count_files["raw"].replace(".txt", "_only_Y.txt"), IDs_list=y_contigs["all"])
