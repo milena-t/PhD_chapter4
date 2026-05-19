@@ -2901,7 +2901,10 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </div>
 <p>Thoughts about the annotation: unsure how BRAKER handles multimapping internally? this is all unuqiely mapped reads. 
   Maybe high multimapping makes gene prediction more difficult, resulting in fewer genes in the first place?</p>
+
+
 <h4>MSL2</h4>
+
 <p>MSL2 is a gene that controls dosage compensation in drosophila, there's a copy on <code>scaffold_26</code> (y-linked) in 
   Cmac which is expressed at comparable levels to the autosomal one (is multimapping an issue? not sure how many SNP differences they have?)</p>
 <details>
@@ -2912,3 +2915,25 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </details>
 </body>
 </html>
+
+<h3>4.3 Other genes in the TOR-pathways</h3>
+
+<span style="color: #BD351E">TODO add lists from plots!</span>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'tor_unique')">unique samples</button>
+  <button class="tablinks" onclick="openTab(event, 'tor_group')">grouped by biological replicates</button>
+</div>
+
+<div id="tor_unique" class="tabcontent">
+    <p float="left">
+      <img loading="lazy" src="data/yTor_analysis/tor_pathway_related_expression.png" width="75%" />
+    </p>
+
+</div>
+<div id="tor_group" class="tabcontent">
+    <p float="left">
+      <img loading="lazy" src="data/yTor_analysis/tor_pathway_related_expression_sample_groups.png" width="75%" />
+    </p>
+
+</div>

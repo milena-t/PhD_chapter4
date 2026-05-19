@@ -1,0 +1,12 @@
+SL1_14_M (10 expr. genes from 10 samples) :	 median: 0.543; std.err: 0.052
+SL1_16_M (10 expr. genes from 11 samples) :	 median: 0.455; std.err: 0.135
+SL1_18_M (6 expr. genes from 7 samples) :	 median: 0.232; std.err: 0.104
+SL3_14_M (4 expr. genes from 9 samples) :	 median: 0.000; std.err: 0.029
+SL3_16_M (4 expr. genes from 7 samples) :	 median: 0.161; std.err: 0.060
+SL3_18_M (8 expr. genes from 12 samples) :	 median: 0.092; std.err: 0.021
+SL1_14_F (2 expr. genes from 3 samples) :	 median: 0.148; std.err: 0.183
+SL1_16_F (2 expr. genes from 3 samples) :	 median: 0.085; std.err: 0.039
+SL1_18_F (3 expr. genes from 5 samples) :	 median: 0.149; std.err: 0.071
+SL3_14_F (2 expr. genes from 6 samples) :	 median: 0.000; std.err: 0.018
+SL3_16_F (1 expr. genes from 6 samples) :	 median: 0.000; std.err: 0.027
+SL3_18_F (1 expr. genes from 3 samples) :	 median: 0.000; std.err: 0.037
