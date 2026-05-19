@@ -65,88 +65,101 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
     c = 0
 
     for list_label, gene_counts in dfs_dict.items():
-        print(f"--------------------- {list_label} ---------------------")
-        print(gene_counts)
-        ## make medians and standard errors
-        if samples_group_dict == {}:
-        # plot all samples individually, no groups
-            medians_list = []
-            errors_list = []
-            tick_labels = [sample for sample  in nonzero_samples_sorted] # make fully new array, with just tick_labels=nonzero_samples_sorted i just kind of get a pointer and it messes up subsequent loops
-            tick_pos = [i for i in range(len(nonzero_samples_sorted))]
 
-            for i in range(len(nonzero_samples_sorted)):
-                sample = nonzero_samples_sorted[i]
-                try:
-                    curr_counts = gene_counts[sample].to_list()
-                    curr_med = np.median(curr_counts)
-                    curr_sem = stats.sem(curr_counts)
-                    count_expressed = len([count for count in curr_counts if count >0])
-                except:
-                    curr_counts = []
-                    curr_med = np.nan
-                    curr_sem = np.nan
-                    count_expressed = []
+        outfile_table = outfile_name.replace(".png", f"_{list_label}.txt")
+        with open(outfile_table, "w" ) as out_table:
 
-                medians_list.append(curr_med)
-                errors_list.append(curr_sem)
-                    
-                sample_ = sample.replace("WJ-3841-","SL").split("_")[0]
-                if len(geneIDs_lists_dict) ==1:
-                    tick_labels[i] = f"{sample_} ({count_expressed})"
-                else:
-                    tick_labels[i] = f"{sample_}"
-                
-                print(f" ({i}) {sample} ({len(curr_counts)} genes) :\t median: {curr_med:.3f}; std.err: {curr_sem:.3f}")
-            
-            tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in nonzero_samples_sorted ]
-            # for s,m in zip(tick_labels,medians_list):
-            #     print(f"{s} : {m}")
+            print(f"--------------------- {list_label} ---------------------")
+            ## make medians and standard errors
+            if samples_group_dict == {}:
+            # plot all samples individually, no groups
+                medians_list = []
+                errors_list = []
+                tick_labels = [sample for sample  in nonzero_samples_sorted] # make fully new array, with just tick_labels=nonzero_samples_sorted i just kind of get a pointer and it messes up subsequent loops
+                tick_pos = [i for i in range(len(nonzero_samples_sorted))]
 
-        else:
-            # use sample groups as defined in sample_groups_dict
-            sample_group_labels = list(samples_group_dict.keys())
-            medians_list = []
-            errors_list = []
-            tick_labels = [sample for sample  in sample_group_labels]
-            tick_pos = [i for i in range(len(sample_group_labels))]
-
-            for i in range(len(sample_group_labels)):
-                sample_group = sample_group_labels[i]
-                sample_group_list = samples_group_dict[sample_group]
-                curr_counts = []
-                count_samples = 0
-                for i in range(len(sample_group_list)):
-                    sample = sample_group_list[i]
+                for i in range(len(nonzero_samples_sorted)):
+                    sample = nonzero_samples_sorted[i]
                     try:
-                        curr_counts.extend(gene_counts[sample].to_list())
-                        count_samples +=1
+                        curr_counts = gene_counts[sample].to_list()
+                        curr_med = np.median(curr_counts)
+                        curr_sem = stats.sem(curr_counts)
+                        count_expressed = len([count for count in curr_counts if count >0])
                     except:
-                        pass
+                        curr_counts = []
+                        curr_med = np.nan
+                        curr_sem = np.nan
+                        count_expressed = []
+
+                    medians_list.append(curr_med)
+                    errors_list.append(curr_sem)
+                        
+                    sample_ = sample.replace("WJ-3841-","SL").split("_")[0]
+                    if len(geneIDs_lists_dict) ==1:
+                        tick_labels[i] = f"{sample_} ({count_expressed})"
+                    else:
+                        tick_labels[i] = f"{sample_}"
                     
-                if len(curr_counts)>0:
-                    curr_med = np.median(curr_counts)
-                    curr_sem = stats.sem(curr_counts)
-                else:
-                    curr_med = np.nan
-                    curr_sem = np.nan
+                    sample_outstr = sample.replace("WJ-3841-","SL")
+                    out_str = f"{sample_outstr} ({len(curr_counts)} genes, {count_expressed} are expressed) :\t median: {curr_med:.3f}; std.err: {curr_sem:.3f}"
+                    out_table.write(f"{out_str}\n")
+                    # print(out_str)
+                
+                tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in nonzero_samples_sorted ]
+                # for s,m in zip(tick_labels,medians_list):
+                #     print(f"{s} : {m}")
 
-                medians_list.append(curr_med)
-                errors_list.append(curr_sem)
-                print(f" ({i}) {sample_group} ({len(curr_counts)} genes from {count_samples} samples) :\t median: {curr_med:.3f}; std.err: {curr_sem:.3f}")
+            else:
+                # use sample groups as defined in sample_groups_dict
+                sample_group_labels = list(samples_group_dict.keys())
+                medians_list = []
+                errors_list = []
+                tick_labels = [sample for sample  in sample_group_labels]
+                tick_pos = [i for i in range(len(sample_group_labels))]
 
-            tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in tick_labels ]
+                for i in range(len(sample_group_labels)):
+                    sample_group = sample_group_labels[i]
+                    sample_group_list = samples_group_dict[sample_group]
+                    curr_counts = []
+                    count_samples = 0
+                    count_expressed = 0
+                    for i in range(len(sample_group_list)):
+                        sample = sample_group_list[i]
+                        try:
+                            curr_counts.extend(gene_counts[sample].to_list())
+                            count_samples +=1
+                        except:
+                            pass
+                        
+                    if len(curr_counts)>0:
+                        curr_med = np.median(curr_counts)
+                        curr_sem = stats.sem(curr_counts)
+                        count_expressed = len([count for count in curr_counts if count >0])
+                    else:
+                        curr_med = np.nan
+                        curr_sem = np.nan
 
-            # for median, sem, sample in zip(medians_list, errors_list, tick_labels):
-            #     print(f"{sample} : {median:.3f} +- {sem:.3f}")
+                    medians_list.append(curr_med)
+                    errors_list.append(curr_sem)
 
-        if errorbars:
-            ax.errorbar(tick_pos, medians_list, xerr = 0, yerr = errors_list, color=colors_list[c], linewidth =lw,
+                    out_str =f"{sample_group} ({count_expressed} expr. genes from {count_samples} samples) :\t median: {curr_med:.3f}; std.err: {curr_sem:.3f}"
+                    # print(out_str)
+                    out_table.write(f"{out_str}\n")
+
+                tick_cols = ["#000000" if "M" in sample else "#8A8A8A" for sample in tick_labels ]
+
+                # for median, sem, sample in zip(medians_list, errors_list, tick_labels):
+                #     print(f"{sample} : {median:.3f} +- {sem:.3f}")
+            
+            print(f"table outfile written to: {outfile_table}")
+
+            if errorbars:
+                ax.errorbar(tick_pos, medians_list, xerr = 0, yerr = errors_list, color=colors_list[c], linewidth =lw,
+                            marker = ".", markersize=ps, linestyle = linest, label=list_label)
+            else:
+                ax.plot(tick_pos, medians_list,color=colors_list[c], linewidth =lw, 
                         marker = ".", markersize=ps, linestyle = linest, label=list_label)
-        else:
-            ax.plot(tick_pos, medians_list,color=colors_list[c], linewidth =lw, 
-                    marker = ".", markersize=ps, linestyle = linest, label=list_label)
-        c +=1
+            c +=1
 
     if "log" not in y_label:
         ymin, ymax = ax.get_ylim()
@@ -257,13 +270,17 @@ if __name__ == "__main__":
 
 
     if True:
+        print(f"\n")
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True)
+        print(f"\n")
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_x_genes_mean_expression.png", y_label= "normalized counts", errorbars=False)
-    if False:
+    if True:
+        print(f"\n")
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_genes_mean_expression_sample_groups.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
+        print(f"\n")
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_x_genes_mean_expression_sample_groups.png", y_label= "normalized counts", errorbars=False, samples_group_dict = samples_group_dict)
 

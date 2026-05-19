@@ -2758,24 +2758,131 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   <img loading="lazy" src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_all.png" width="75%" />
 </p>
 </div>
+
+
 <h2>4. Y expression quantification</h2>
+
 <h3>4.1 median expression in all samples</h3>
+
 <p>The median expression of X and Y linked genes in all samples with 95% standard error</p>
+
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'y_median')">only Y</button>
   <button class="tablinks" onclick="openTab(event, 'x_and_y_median')">Y and X</button>
 </div>
+
 <div id="y_median" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/yTor_analysis/y_genes_mean_expression.png" width="75%" />
-</p>
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'y_unique')">unique samples</button>
+    <button class="tablinks" onclick="openTab(event, 'y_group')">grouped by biological replicates</button>
+  </div>
+
+  <div id="y_unique" class="tabcontent">
+    <p float="left">
+      <img loading="lazy" src="data/yTor_analysis/y_genes_mean_expression.png" width="75%" />
+    </p>
+    <code>data/yTor_analysis/y_genes_mean_expression_Y.txt</code>
+    <iframe
+      src="data/yTor_analysis/y_genes_mean_expression_Y.txt"
+      frameBorder="0"
+      class=""
+      scrolling="auto"
+      style="width:100%; height:30vh;">
+    </iframe>  
+  </div>
+
+  <div id="y_group" class="tabcontent">
+    <p float="left">
+      <img loading="lazy" src="data/yTor_analysis/y_genes_mean_expression_sample_groups.png" width="75%" />
+    </p>
+    <code>data/yTor_analysis/y_genes_mean_expression_sample_groups_Y.txt</code>
+    <iframe
+      src="data/yTor_analysis/y_genes_mean_expression_sample_groups_Y.txt"
+      frameBorder="0"
+      class=""
+      scrolling="auto"
+      style="width:100%; height:20vh;">
+    </iframe>
+  </div>
 </div>
+
+
 <div id="x_and_y_median" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/yTor_analysis/y_x_genes_mean_expression.png" width="75%" />
-</p>
+  
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'x_y_unique')">unique samples</button>
+    <button class="tablinks" onclick="openTab(event, 'x_y_group')">grouped by biological replicates</button>
+  </div>
+
+  <div id="x_y_unique" class="tabcontent">
+    
+    <p float="left">
+      <img loading="lazy" src="data/yTor_analysis/y_x_genes_mean_expression.png" width="75%" />
+    </p>
+
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'y_data_unique')">Y counts numbers</button>
+      <button class="tablinks" onclick="openTab(event, 'x_data_unique')">X counts numbers</button>
+    </div>
+
+    <div id="y_data_unique" class="tabcontent">
+      <code>data/yTor_analysis/y_x_genes_mean_expression_Y.txt</code>
+      <iframe
+      src="data/yTor_analysis/y_x_genes_mean_expression_Y.txt"
+      frameBorder="0"
+      class=""
+      scrolling="auto"
+      style="width:100%; height:30vh;">
+      </iframe>  
+    </div>
+
+    <div id="x_data_unique" class="tabcontent">
+      <code>data/yTor_analysis/y_x_genes_mean_expression_X.txt</code>
+      <iframe
+      src="data/yTor_analysis/y_x_genes_mean_expression_X.txt"
+      frameBorder="0"
+      class=""
+      scrolling="auto"
+      style="width:100%; height:30vh;">
+      </iframe>  
+    </div>
+  </div>
+
+  <div id="x_y_group" class="tabcontent">
+    <p float="left">
+      <img loading="lazy" src="data/yTor_analysis/y_x_genes_mean_expression_sample_groups.png" width="75%" />
+    </p>
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'y_data_group')">Y counts numbers</button>
+      <button class="tablinks" onclick="openTab(event, 'x_data_group')">X counts numbers</button>
+    </div>
+    <div id="y_data_group" class="tabcontent">
+      <code>data/yTor_analysis/y_x_genes_mean_expression_sample_groups_Y.txt</code>
+      <iframe
+      src="data/yTor_analysis/y_x_genes_mean_expression_sample_groups_Y.txt"
+      frameBorder="0"
+      class=""
+      scrolling="auto"
+      style="width:100%; height:20vh;">
+      </iframe>  
+    </div>
+    <div id="x_data_group" class="tabcontent">
+      <code>data/yTor_analysis/y_x_genes_mean_expression_sample_groups_X.txt</code>
+      <iframe
+      src="data/yTor_analysis/y_x_genes_mean_expression_sample_groups_X.txt"
+      frameBorder="0"
+      class=""
+      scrolling="auto"
+      style="width:100%; height:20vh;">
+      </iframe>  
+    </div>
+  </div>
 </div>
+
+
+
 <h3>4.2 DE of only genes on the Y chromosome</h3>
+
 <p>I filtered the raw counts file <code>PhD_chapter4/data/gene_counts_standard.txt</code> to only have genes that are on the Y according to the annotation, which is 63.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'all_Y')">11 expressed y genes</button>
