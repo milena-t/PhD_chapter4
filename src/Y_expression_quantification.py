@@ -26,21 +26,6 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
     # subsetting the df for each gene set to plot as separate lines
     dfs_dict = { geneID_label : counts_df.filter(items=geneIDs_list, axis="index") for geneID_label, geneIDs_list in geneIDs_lists_dict.items()}
 
-    if False:
-        # make output dict that has the counts per sample for each geneID, split by the input list according to the counts table
-        ### old and unnecessarily complicated
-        gene_counts_all_lists = {geneID_label :{geneID : {} for geneID in geneIDs_list} for geneID_label, geneIDs_list in geneIDs_lists_dict.items()}
-        nonexpressed = []
-        for geneID_label, geneIDs_list in geneIDs_lists_dict.items():
-            for geneID in geneIDs_list:
-                try:
-                    counts_dict = counts_df.loc[geneID].to_dict()
-                except:
-                    nonexpressed.append(geneID)
-                    continue
-                gene_counts_all_lists[geneID_label][geneID] = counts_dict
-        print(f"{len(nonexpressed)} out of {len(geneIDs_list)} genes not expressed")
-
     # check if there are samples that show no expression for any gene in any input list
     nonzero_samples2 = []
     for lab,df in dfs_dict.items():
@@ -89,17 +74,6 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
             tick_pos = [i for i, sample in enumerate(nonzero_samples_sorted)]
 
             for i, sample in enumerate(nonzero_samples_sorted):
-                # curr_counts = []
-                # count_expressed = 0
-                # for geneID,sample_counts in gene_counts.items():
-                #     if sample_counts == {}:
-                #         # print(f"{geneID} in {list_label} has empty samples dictionary")
-                #         continue
-                #     if sample_counts[sample] >0:
-                #         curr_counts.append(sample_counts[sample])
-                #         count_expressed+=1
-                # 
-                # if len(curr_counts)>0:
                 try:
                     curr_counts = gene_counts[sample].to_list()
                     medians_dict[i] = np.median(curr_counts)
@@ -267,13 +241,12 @@ if __name__ == "__main__":
     samples_group_dict_rev = {item: key for key, values in samples_group_dict.items() for item in values}
 
 
-    if True:
+    if False:
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True)
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_x_genes_mean_expression.png", y_label= "normalized counts", errorbars=False)
-    if False:
-        ## TODO something is wrong with the sample grouping
+    if True:
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
