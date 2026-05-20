@@ -47,7 +47,7 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
     # sort nonzero samples so that F/M and lines are separated and the plot is easier to interpret 
     females = sorted([sample for sample in nonzero_samples if "-F_" in sample])
     males = sorted([sample for sample in nonzero_samples if "-M_" in sample])
-    nonzero_samples_sorted = females + males
+    nonzero_samples_sorted = males + females
     assert len(nonzero_samples) == len(nonzero_samples_sorted)
 
     colors_list = [
@@ -269,7 +269,7 @@ def filter_counts_file(counts_path, out_path, IDs_list):
 
 if __name__ == "__main__":
     
-    username = "milena"
+    username = "miltr339"
     count_files = get_counts_paths(username=username)
     ex_chromosomes,y_contigs,x_contigs,tor_related = get_y_information()
     out_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis"
@@ -277,14 +277,14 @@ if __name__ == "__main__":
     samples_group_dict_rev = {item: key for key, values in samples_group_dict.items() for item in values}
 
 
-    if False:
+    if True:
         print(f"\n")
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True)
         print(f"\n")
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_x_genes_mean_expression.png", y_label= "normalized counts", errorbars=False)
-    if False:
+    if True:
         print(f"\n")
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
                     outfile_name = f"{out_path}/y_genes_mean_expression_sample_groups.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
