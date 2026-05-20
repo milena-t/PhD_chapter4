@@ -101,6 +101,7 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
                         tick_labels[i] = f"{sample_}"
                     
                     sample_outstr = sample.replace("WJ-3841-","SL")
+                    sample_outstr = sample_outstr.split("_S")[0]
                     out_str = f"{sample_outstr} ({len(curr_counts)} genes, {count_expressed} are expressed) :\t median: {curr_med:.3f}; std.err: {curr_sem:.3f}"
                     out_table.write(f"{out_str}\n")
                     # print(out_str)
