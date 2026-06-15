@@ -117,8 +117,24 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+
+<style>
+    .left-div {
+       float: left;
+       width: 50%;
+    }
+    .right-div {
+       float: right;
+       width: 50%;
+    }
+</style>
+
 </head>
 <body>
+    <!--
+        grey : #909bb5
+        red : #BD351E
+    -->
 
 <h1>Differential expression analysis on Larval RNAseq data</h1>
 
@@ -203,13 +219,228 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   </p>
 </div>
 
-<h3>3.2 Separation summary: PCA plots</h3>
+
+<h3>3.2 Basic analysis on full dataset</h3>
+
+<p>
+    Test if there is an overall signal where males differ strongly between the lines and females do not. For this purpose the time effect is not taken into account.
+</p>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'sex bias SL1')">sex bias SL1</button>
+    <button class="tablinks" onclick="openTab(event, 'sex bias SL3')">sex bias SL3</button>
+    <button class="tablinks" onclick="openTab(event, 'line bias females')">line bias females</button>
+    <button class="tablinks" onclick="openTab(event, 'line bias males')">line bias males</button>
+    <button class="tablinks" onclick="openTab(event, 'line by sex interaction')">line by sex interaction</button>
+</div>
+
+<div id="sex bias SL1" class="tabcontent">
+    <table>
+        <thead>
+        <tr>
+          <th><code>SL1_F - SL1_M</code></th>
+          <th>any LFC</th>
+          <th>|LFC| > 1</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Downregulated</td>
+          <td>1058</td>
+          <td>939</td>
+          </tr>
+        <tr>
+          <td>no difference</td>
+          <td>9470</td>
+          <td>9645</td>
+        </tr>
+        <tr>
+          <td>Upregulated</td>
+          <td>68</td>
+          <td>12</td>
+        </tr>
+        </tbody>
+    </table>
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_SL1_F-M.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_SL1_F-M_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/Venn_all_samples_sex_bias_no_age.png" width="32%" />
+    </p>
+</div>
+
+
+<div id="sex bias SL3" class="tabcontent">
+    <table>
+        <thead>
+        <tr>
+          <th><code>SL3_F - SL3_M</code></th>
+          <th>any LFC</th>
+          <th>|LFC| > 1</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Downregulated</td>
+          <td>1227</td>
+          <td>1073</td>
+          </tr>
+        <tr>
+          <td>no difference</td>
+          <td>9344</td>
+          <td>9506</td>
+        </tr>
+        <tr>
+          <td>Upregulated</td>
+          <td>25</td>
+          <td>17</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_SL3_F-M.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_SL3_F-M_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/Venn_all_samples_sex_bias_no_age.png" width="32%" />
+    </p>
+
+</div>
+
+
+<div id="line bias females" class="tabcontent">
+    <table>
+        <thead>
+        <tr>
+          <th><code>SL1_F - SL3_F</code></th>
+          <th>any LFC</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Downregulated</td>
+          <td>126</td>
+          </tr>
+        <tr>
+          <td>no difference</td>
+          <td>10169</td>
+        </tr>
+        <tr>
+          <td>Upregulated</td>
+          <td>301</td>
+        </tr>
+        </tbody>
+    </table>
+
+     <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_F_SL1-SL3.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_F_SL1-SL3_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/Venn_all_samples_line_bias_no_age.png" width="32%" />
+    </p>
+
+</div>
+<div id="line bias males" class="tabcontent">
+    <table>
+        <thead>
+        <tr>
+          <th><code>SL1_M - SL3_M</code></th>
+          <th>any LFC</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Downregulated</td>
+          <td>293</td>
+          </tr>
+        <tr>
+          <td>no difference</td>
+          <td>9945</td>
+        </tr>
+        <tr>
+          <td>Upregulated</td>
+          <td>358</td>
+        </tr>
+        </tbody>
+    </table>
+
+     <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_M_SL1-SL3.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_M_SL1-SL3_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/Venn_all_samples_line_bias_no_age.png" width="32%" />
+    </p>
+
+</div>
+
+
+<div id="line by sex interaction" class="tabcontent">
+    <div style="float: left;width: 35%;">
+    <table>
+        <thead>
+        <tr>
+          <th><code>(SL1_F - SL3_F) - (SL1_M - SL3_M)</code></th>
+          <th>counts</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Downregulated</td>
+          <td>5</td>
+          </tr>
+        <tr>
+          <td>no difference</td>
+          <td>10550</td>
+        </tr>
+        <tr>
+          <td>Upregulated</td>
+          <td>41</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <div style="float: right;width: 65%;">
+        <p>
+            The sex by line interaction here checks if there are genes that are sig. <i>differently</i> sex biased in the two lines. This also tests for a significantly greater line-bias 
+            in males compared to females, which is essential here. <span style="color:#BD351E">I am unsure what it means that there are only very few significant genes. Probably bad.</span>
+        </p>
+    </div>
+    
+    <details>
+        <summary>sig. DE genes list</summary>
+        <pre><code>gene-40003,gene-237494,gene-426041,gene-48523,gene-2355,gene-237342,gene-220249,gene-430068,gene-324122,gene-241126,gene-222600,gene-222486,gene-240871,gene-430032,gene-240833,gene-222531,gene-244235,gene-204669,gene-390956,gene-240929,gene-140193,gene-225709,gene-224227,gene-224896,gene-222365,gene-431701,gene-326849,gene-224357,gene-430314,gene-241001,gene-222555,gene-240983,gene-222519,gene-224201,gene-199491,gene-224968,gene-323148,gene-428765,gene-222383,gene-222350,gene-240910,gene-225107,gene-224743,gene-326873,gene-224682,gene-226245</code></pre>
+    </details>
+    
+    <div style="clear: both;"></div>
+
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_line_sex_interaction.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_line_sex_interaction_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/Venn_all_samples_line_bias_no_age.png" width="32%" />
+    </p>
+
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/LFC_scatter_all_samples_line_bias.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/LFC_scatter_all_samples_sex_bias.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/Venn_all_samples_sex_bias_no_age.png" width="32%" />
+    </p>
+
+
+</div>
+
+
+<p>
+    The genes from the interaction here are significantly different in line bias between males and females, and theoretically should be intersected with the sig. DE genes 
+    in the sex biased samples below.
+</p>
+
+
+<h3>3.3 Separation summary: PCA plots</h3>
+
 <p>For the actual DE analysis, I am partitioning the data into three separate sub-analyses. This helps avoid three-way contrasts which are 
   complicated to define and confusing to interpret.</p>
 <ul>
-  <li><strong>Sex-separated</strong>: Analyze one sex at a time to investigate line and day contrasts (how do the lines change across the development time?)</li>
-  <li><strong>Line-separated</strong>: Analyze one line at a time to investigate sex and day contrasts (how do the sexes change across development time?)</li>
-  <li><strong>Day-separated</strong>: Analyze one developmental time point to investigate sex and line contrasts (how do sexes change across lines?)</li>
+    <li><strong>Sex-separated</strong>: Analyze one sex at a time to investigate line and day contrasts (how do the lines change across the development time?)</li>
+    <span style="color:#909bb5">
+        <li><strong>Line-separated</strong>: Analyze one line at a time to investigate sex and day contrasts (how do the sexes change across development time?)</li>
+        <li><strong>Day-separated</strong>: Analyze one developmental time point to investigate sex and line contrasts (how do sexes change across lines?)</li>
+    </span>
 </ul>
 
 <p>PCAs are based on log-transformed normalized counts. Lines are SL1 and SL3 which are the small (1) and large (3) males respectively. Intuitively, the tor copy number is reversed, with the small males in SL1 having three copies, and the large males in SL3 having only one. The days are day 14, 16, or 18 of larval development.</p>
@@ -263,7 +494,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   <p>Males and females are kind of but not super clearly separated, but for only male samples, the SL1 and SL3 border is relatively clear.</p>
 </details>
 
-<h3>3.3 Sex-separated samples</h3>
+<h3>3.4 Sex-separated samples</h3>
 
 <p>
     The contrasts are within each day (14, 16, 18), and always <code>SL1 - SL3</code>. <code>SL1</code> are the small males (three Tor copies), 
@@ -524,6 +755,11 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </div>
 <!-- Tab content -->
 <div id="males_day_DE" class="tabcontent">
+
+    <p>
+        The day14/day16 SL1-SL3 contrast comparison shows genes that are SL3-biased on day 14 but SL1-biased on day 16, however these effects are not significant, indicating a possible interaction effect.
+    </p>
+
 <p float="left">
   <img loading="lazy" src="data/DE_figures_python/LFC_scatter_males_day_14_vs_day_16_line_bias.png" width="32%" />
   <img loading="lazy" src="data/DE_figures_python/LFC_scatter_males_day_14_vs_day_18_line_bias.png" width="32%" />
@@ -701,6 +937,13 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </div>
 
 <h4>Interaction of line by day effects</h4>
+
+<p>
+    An interaction of line by day effects here would mean a significant change in line effects between days. This can be indicated by the scatterplot points above if there are points in the upper 
+    left and lower right quadrants (logFC positive in one day and negative in the other). These do appear for the male day14/day16 SL1-SL3 contrast comparison, showing genes that are SL3-biased 
+    on day 14 but SL1-biased on day 16, however these effects are not significant.
+</p>
+
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males (Smear plots)</button>
   <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females (Smear plots)</button>
@@ -1456,7 +1699,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 <p>These are all still nonoverlapping, see the sex-separated GO-terms lists for functional information.</p>
 </div>
 
-<h3>3.4 Line-separated samples</h3>
+<h3>3.5 Line-separated samples</h3>
 
 <details>
     <summary>Toggle down for analysis</summary>
@@ -2004,7 +2247,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 </details>
 
-<h3>3.5 Day-separated samples</h3>
+<h3>3.6 Day-separated samples</h3>
 
 <details>
     <summary>Toggle down for analysis</summary>

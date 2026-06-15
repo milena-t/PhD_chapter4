@@ -18,6 +18,16 @@ def get_tables(username = "miltr339"):
     tables_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/"
 
     out_dict = {
+
+        "no_separation" : {
+            "all_samples" : {
+                "SL1_F - SL1_M" : f"{tables_dir}full_dataset_day_ignored_SL1_F-M.txt",
+                "SL3_F - SL3_M" : f"{tables_dir}full_dataset_day_ignored_SL3_F-M.txt",
+                "SL1_F - SL3_F" : f"{tables_dir}full_dataset_day_ignored_F_SL1-SL3.txt",
+                "SL1_M - SL3_M" : f"{tables_dir}full_dataset_day_ignored_M_SL1-SL3.txt",
+                "(SL1_F - SL3_F) - (SL1_M - SL3_M)" : f"{tables_dir}full_dataset_day_ignored_line_sex_interaction.txt",
+            },
+        },
         
         "sex_separated" : {
             "females" :{
@@ -124,7 +134,12 @@ def get_tables(username = "miltr339"):
         "F_1 - F_3" : f"females SL1-3",
         "M_1 - M_3" : f"males SL1-3",
         "(F_1 - M_1) - (F_3 - M_3)" : f"F-M by SL1-SL3",
-        "SL1 - SL3" : "SL1-SL3 days merged"
+        "SL1 - SL3" : "SL1-SL3 days merged",
+        "SL1_F - SL1_M" : "SL1 F-M",
+        "SL3_F - SL3_M" : "SL3 F-M",
+        "SL1_F - SL3_F" : "SL1-SL3 F",
+        "SL1_M - SL3_M" : "SL1-SL3 M",
+        "(SL1_F - SL3_F) - (SL1_M - SL3_M)" : " line by sex interaction",
     }
     return out_dict,contrast_plot_titles
 
@@ -449,6 +464,9 @@ if __name__ == "__main__":
     
     ### genes that are line-biased in both males and females (should be excluded from male analysis since they can't be related to the Y-haplotype)
     excl_line_bias_lists = {
+        "no_separation" : {
+            "all_samples" : [],
+        },
         "sex_separated" : {
             "day14" : ['gene-225709', 'gene-240623', 'gene-431701', 'gene-224956', 'gene-84970', 'gene-240871', 'gene-222486', 'gene-224697', 'gene-224743', 'gene-241001', 'gene-225236', 'gene-430032', 'gene-428738', 'gene-323803', 'gene-224682', 'gene-390616', 'gene-241126', 'gene-222600', 'gene-240910', 'gene-391222', 'gene-237881', 'gene-222519', 'gene-224227', 'gene-430314', 'gene-326873', 'gene-222365', 'gene-323148', 'gene-225738', 'gene-224896', 'gene-225173', 'gene-226245', 'gene-224357', 'gene-222383', 'gene-222555', 'gene-225030', 'gene-220028', 'gene-241055', 'gene-430080', 'gene-225720', 'gene-322927', 'gene-240929', 'gene-240833', 'gene-225140', 'gene-224968', 'gene-225635', 'gene-225107', 'gene-428765', 'gene-430068', 'gene-224593', 'gene-218529', 'gene-224782', 'gene-81427', 'gene-222332', 'gene-120952', 'gene-224860', 'gene-390956', 'gene-224201', 'gene-222350', 'gene-326849', 'gene-240691', 'gene-322912', 'gene-225325', 'gene-222344', 'gene-224875', 'gene-80359', 'gene-403809', 'gene-430263', 'gene-222531', 'gene-90157'],
             "day16" : ['gene-431701', 'gene-407280', 'gene-323803', 'gene-223491', 'gene-227370', 'gene-237881', 'gene-430314', 'gene-224896', 'gene-222555', 'gene-225030', 'gene-430080', 'gene-225140', 'gene-224593', 'gene-120952', 'gene-222531', 'gene-224201', 'gene-406796', 'gene-240691', 'gene-403809', 'gene-222746', 'gene-225709', 'gene-240623', 'gene-240871', 'gene-241001', 'gene-225236', 'gene-224079', 'gene-428738', 'gene-224682', 'gene-87700', 'gene-222519', 'gene-224227', 'gene-224890', 'gene-222365', 'gene-225738', 'gene-241262', 'gene-223773', 'gene-225720', 'gene-322927', 'gene-430068', 'gene-238407', 'gene-229506', 'gene-223318', 'gene-80359', 'gene-222486', 'gene-224697', 'gene-391222', 'gene-222159', 'gene-323148', 'gene-282853', 'gene-222383', 'gene-286545', 'gene-241055', 'g14784', 'gene-240929', 'gene-240833', 'gene-224968', 'gene-225107', 'gene-224860', 'gene-390956', 'gene-326849', 'gene-322912', 'gene-222344', 'gene-225325', 'gene-224956', 'gene-84970', 'gene-224743', 'gene-430032', 'gene-241126', 'gene-222600', 'gene-240910', 'gene-326873', 'gene-225173', 'gene-226245', 'gene-224357', 'gene-330102', 'gene-220028', 'gene-124877', 'gene-225635', 'gene-428765', 'gene-224782', 'gene-222332', 'gene-222350', 'gene-224875', 'gene-223419', 'gene-430263', 'gene-390616', 'gene-90157'],
@@ -475,7 +493,7 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
@@ -487,6 +505,9 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
+            if separation != "no_separation":
+                print(f"ignore {separation}")
+                continue
             print(f"\n=========================== {separation} ===========================")
             
             # for upsetplot
@@ -499,10 +520,13 @@ if __name__ == "__main__":
                 sig_DE_genes = {}
                 
                 for contrast, table_path in paths_dict.items():
-                    if contrast != "SL1 - SL3":
-                        print("ignore for now")
-                        continue
                     
+                    if "F" in contrast and "M" in contrast:
+                        # sex-biased contrast -> use |LFC| = 1 as min
+                        # only for plot, don't do this for the output tables
+                        min_LFC = 1
+                    else:
+                        min_LFC = 0
                     print(f"{separation}:{category} --> contrast: {contrast}")
 
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
@@ -521,9 +545,9 @@ if __name__ == "__main__":
                         print(f"\texcluding genes from list '{excl_list_name}'")
         
                     # smear plot
-                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot)
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot)
                     # volcano plot
-                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot)
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot)
                     
                     if False:
                         Downlist = smear_lists["Downregulated"]
@@ -700,7 +724,7 @@ if __name__ == "__main__":
 
     ## compare if the same genes are DE between lines within sexes in days
     if False:
-        venn_sets_day = {
+        venn_sets_all = {
             "day_separated" : {
                 "day14" : {
                     "males" : ["M_1 - M_3"],
@@ -732,12 +756,56 @@ if __name__ == "__main__":
                 shared_list = plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title, get_shared_list=True, plot=False)
                 print(f"{len(shared_list)} genes : \n{shared_list}")
 
+    ## compare sex bias and interaction on full dataset with days merged/ignored
+    if False:
+        venn_sets_all = {
+            "no_separation" : {
+                "all_samples:sex_bias" : {
+                    "SL1" : ["SL1_F - SL1_M"],
+                    "SL3" : ["SL3_F - SL3_M"],
+                    "line by sex" : ["(SL1_F - SL3_F) - (SL1_M - SL3_M)"]
+                },
+                "all_samples:line_bias" : {
+                    "females" : ["SL1_F - SL3_F"],
+                    "males" : ["SL1_M - SL3_M"],
+                    "line by sex" : ["(SL1_F - SL3_F) - (SL1_M - SL3_M)"]
+                }
+            }
+        }
+        
+        for separation, samples_dict in venn_sets_all.items():
+            print(f"\n=========================== {separation} ===========================")
+            for sample, sexes_contrasts_dict in samples_dict.items():
+                print(f"\n ------------------- {sample} -------------------")
+
+                venn_paths_dict = {}
+                sample_ds = sample.split(":")[0]
+                for line, venn_contrasts_list in sexes_contrasts_dict.items():
+                    print(f"{line} : {venn_contrasts_list}")
+                    venn_paths_dict[line] = table_paths[separation][sample_ds][venn_contrasts_list[0]]
+                
+                sample_=sample.replace(":", "_")
+                venn_filename = f"{out_path_figs}/Venn_{sample_}_no_age.png"
+                day_ = sample.replace("day", "day ")
+                if sample == "all_samples":
+                    day_ = sample.replace("_", " ")
+                venn_title = f"sig. DE genes overlap ({day_})"
+                shared_list = plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title, get_shared_list=True)
+                print(shared_list)
+
     ############################################
     ######## MAKE ALL THE SB COMPARISONS #######
     ############################################
 
-    if False:
+    if True:
         LFC_comp_sets = {
+            "no_separation" : {
+                "all_samples" : {
+                    "sex bias" : ["SL1_F - SL1_M", "SL3_F - SL3_M"],
+                    "line bias" : ["SL1_F - SL3_F", "SL1_M - SL3_M"],
+                },
+            },
+        
             "sex_separated" : {
                 "females" : {
                     "day 14 vs. day 16 line bias" : ["SL1_14 - SL3_14","SL1_16 - SL3_16"],
@@ -793,6 +861,9 @@ if __name__ == "__main__":
             
 
         for separation, seps_dict in table_paths.items():
+            if separation != "no_separation":
+                print(f"ignore {separation}")
+                continue
             print(f"\n=========================== {separation} ===========================")
 
             for category, paths_dict in seps_dict.items():
