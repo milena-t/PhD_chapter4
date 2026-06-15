@@ -35,6 +35,7 @@ def get_tables(username = "miltr339"):
                 "(SL1_18 - SL1_14) - (SL3_18 - SL3_14)" : f"{tables_dir}DE_genes_F_SL_1_3_18_14.txt",
                 "(SL1_14 - SL1_16) - (SL3_14 - SL3_16)" : f"{tables_dir}DE_genes_F_SL_1_3_14_16.txt",
                 "(SL1_18 - SL1_16) - (SL3_18 - SL3_16)" : f"{tables_dir}DE_genes_F_SL_1_3_18_16.txt",
+                "SL1 - SL3" : f"{tables_dir}only_M_no_time_DE_genes_1-3.txt",
             },
             "males" : {
                 "SL1_14 - SL3_14" : f"{tables_dir}DE_genes_M_1-3_day14.txt",
@@ -51,6 +52,7 @@ def get_tables(username = "miltr339"):
                 "(SL1_18 - SL1_14) - (SL3_18 - SL3_14)" : f"{tables_dir}DE_genes_M_SL_1_3_18_14.txt",
                 "(SL1_14 - SL1_16) - (SL3_14 - SL3_16)" : f"{tables_dir}DE_genes_M_SL_1_3_14_16.txt",
                 "(SL1_18 - SL1_16) - (SL3_18 - SL3_16)" : f"{tables_dir}DE_genes_M_SL_1_3_18_16.txt",
+                "SL1 - SL3" : f"{tables_dir}only_F_no_time_DE_genes_1-3.txt",
             }
         },
         "line_separated" : {
@@ -122,6 +124,7 @@ def get_tables(username = "miltr339"):
         "F_1 - F_3" : f"females SL1-3",
         "M_1 - M_3" : f"males SL1-3",
         "(F_1 - M_1) - (F_3 - M_3)" : f"F-M by SL1-SL3",
+        "SL1 - SL3" : "SL1-SL3 days merged"
     }
     return out_dict,contrast_plot_titles
 
@@ -450,6 +453,7 @@ if __name__ == "__main__":
             "day14" : ['gene-225709', 'gene-240623', 'gene-431701', 'gene-224956', 'gene-84970', 'gene-240871', 'gene-222486', 'gene-224697', 'gene-224743', 'gene-241001', 'gene-225236', 'gene-430032', 'gene-428738', 'gene-323803', 'gene-224682', 'gene-390616', 'gene-241126', 'gene-222600', 'gene-240910', 'gene-391222', 'gene-237881', 'gene-222519', 'gene-224227', 'gene-430314', 'gene-326873', 'gene-222365', 'gene-323148', 'gene-225738', 'gene-224896', 'gene-225173', 'gene-226245', 'gene-224357', 'gene-222383', 'gene-222555', 'gene-225030', 'gene-220028', 'gene-241055', 'gene-430080', 'gene-225720', 'gene-322927', 'gene-240929', 'gene-240833', 'gene-225140', 'gene-224968', 'gene-225635', 'gene-225107', 'gene-428765', 'gene-430068', 'gene-224593', 'gene-218529', 'gene-224782', 'gene-81427', 'gene-222332', 'gene-120952', 'gene-224860', 'gene-390956', 'gene-224201', 'gene-222350', 'gene-326849', 'gene-240691', 'gene-322912', 'gene-225325', 'gene-222344', 'gene-224875', 'gene-80359', 'gene-403809', 'gene-430263', 'gene-222531', 'gene-90157'],
             "day16" : ['gene-431701', 'gene-407280', 'gene-323803', 'gene-223491', 'gene-227370', 'gene-237881', 'gene-430314', 'gene-224896', 'gene-222555', 'gene-225030', 'gene-430080', 'gene-225140', 'gene-224593', 'gene-120952', 'gene-222531', 'gene-224201', 'gene-406796', 'gene-240691', 'gene-403809', 'gene-222746', 'gene-225709', 'gene-240623', 'gene-240871', 'gene-241001', 'gene-225236', 'gene-224079', 'gene-428738', 'gene-224682', 'gene-87700', 'gene-222519', 'gene-224227', 'gene-224890', 'gene-222365', 'gene-225738', 'gene-241262', 'gene-223773', 'gene-225720', 'gene-322927', 'gene-430068', 'gene-238407', 'gene-229506', 'gene-223318', 'gene-80359', 'gene-222486', 'gene-224697', 'gene-391222', 'gene-222159', 'gene-323148', 'gene-282853', 'gene-222383', 'gene-286545', 'gene-241055', 'g14784', 'gene-240929', 'gene-240833', 'gene-224968', 'gene-225107', 'gene-224860', 'gene-390956', 'gene-326849', 'gene-322912', 'gene-222344', 'gene-225325', 'gene-224956', 'gene-84970', 'gene-224743', 'gene-430032', 'gene-241126', 'gene-222600', 'gene-240910', 'gene-326873', 'gene-225173', 'gene-226245', 'gene-224357', 'gene-330102', 'gene-220028', 'gene-124877', 'gene-225635', 'gene-428765', 'gene-224782', 'gene-222332', 'gene-222350', 'gene-224875', 'gene-223419', 'gene-430263', 'gene-390616', 'gene-90157'],
             "day18" : ['gene-240623', 'gene-224697', 'gene-225236', 'gene-428738', 'gene-223491', 'gene-223758', 'gene-223773', 'gene-241055', 'gene-225720', 'gene-240833', 'gene-224593', 'gene-120952', 'gene-224860', 'gene-406796', 'gene-225325', 'gene-240691', 'gene-224875', 'gene-227308', 'gene-301479', 'gene-430263', 'gene-238849'],
+            "SL1-SL3 days merged" : ['gene-5731', 'gene-391222', 'gene-124877', 'gene-370643', 'gene-222159', 'g5034', 'gene-328746', 'gene-215103', 'gene-224896', 'gene-80359', 'gene-225140', 'gene-241055', 'gene-222350', 'gene-224875', 'gene-88032', 'gene-327441', 'gene-241682', 'gene-222365', 'gene-370323', 'gene-210286', 'gene-214979', 'gene-221101', 'gene-225355', 'gene-241886', 'gene-84949', 'gene-237857', 'gene-428738', 'gene-224860', 'gene-238320', 'gene-240833', 'gene-84224', 'gene-424914', 'gene-224890', 'gene-224227', 'gene-370595', 'gene-326849', 'gene-90157', 'gene-240910', 'gene-269365', 'gene-38977', 'gene-430080', 'gene-120964', 'gene-243299', 'gene-282008', 'gene-131074', 'gene-120660', 'gene-84970', 'gene-241506', 'gene-428765', 'gene-224682', 'gene-225738', 'gene-223773', 'gene-302994', 'gene-240397', 'gene-225236', 'gene-87700', 'gene-224956', 'gene-218529', 'gene-224201', 'gene-89234', 'gene-223491', 'gene-118887', 'gene-224593', 'gene-323803', 'gene-81427', 'gene-231854', 'gene-227308', 'gene-430032', 'gene-222519', 'gene-395158', 'gene-231493', 'g14784', 'gene-225325', 'gene-55252', 'gene-238849', 'gene-278356', 'gene-406510', 'gene-407280', 'gene-215357', 'g422', 'gene-216986', 'gene-240056', 'gene-424896', 'gene-120832', 'gene-237378', 'gene-327074', 'gene-431030', 'gene-224782', 'gene-223419', 'gene-322912', 'gene-225030', 'gene-431701', 'gene-237881', 'gene-60429', 'gene-407355', 'gene-84577', 'gene-231604', 'gene-227164', 'gene-326873', 'gene-75424', 'gene-240691', 'gene-270971', 'gene-227370', 'gene-241841', 'gene-224968', 'gene-225107', 'gene-224079', 'gene-424863', 'gene-425532', 'gene-219157', 'gene-222531', 'gene-407253', 'gene-64665', 'gene-426056', 'gene-222344', 'gene-421265', 'gene-223758', 'gene-241268', 'gene-430263', 'gene-240623', 'gene-406796', 'gene-222600', 'gene-324176', 'gene-230270', 'gene-222486', 'gene-368309', 'gene-220028', 'gene-241328', 'gene-225635', 'gene-241238', 'gene-73288', 'gene-216914', 'gene-330102', 'gene-268146', 'gene-224357', 'gene-219019', 'gene-303243', 'gene-301479', 'gene-390616', 'gene-222555', 'gene-241262', 'gene-263597', 'gene-55240', 'gene-322927', 'gene-403809', 'gene-223318', 'gene-89057', 'gene-224697', 'gene-224118', 'gene-210277', 'gene-71572', 'gene-241856', 'gene-410330', 'gene-223213', 'gene-225921', 'gene-240929', 'gene-403902', 'gene-323991', 'gene-223599', 'gene-392186', 'gene-120952', 'gene-225709', 'gene-60610', 'gene-5642', 'gene-68612', 'gene-218086', 'gene-221980', 'gene-239553', 'gene-130722', 'gene-224743', 'gene-222332', 'gene-299793', 'gene-222383', 'gene-70017', 'gene-225173', 'gene-430068', 'gene-225720', 'gene-241126', 'gene-328764', 'gene-222746', 'gene-421566', 'gene-423321', 'gene-226245', 'gene-421549', 'gene-327787', 'gene-428089', 'gene-429522', 'gene-241001']
             },
         "line_separated" : {
             "SL1" : [],
@@ -475,7 +479,7 @@ if __name__ == "__main__":
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
-    if True:
+    if False:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -495,8 +499,12 @@ if __name__ == "__main__":
                 sig_DE_genes = {}
                 
                 for contrast, table_path in paths_dict.items():
+                    if contrast != "SL1 - SL3":
+                        print("ignore for now")
+                        continue
                     
                     print(f"{separation}:{category} --> contrast: {contrast}")
+
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"
                     smear_title = contrast_plot_titles[contrast]
@@ -633,6 +641,10 @@ if __name__ == "__main__":
                 "day18" : {
                     "females" : ["SL1_18 - SL3_18"],
                     "males" : ["SL1_18 - SL3_18"]
+                },
+                "days_merged" : {
+                    "females" : ["SL1 - SL3"],
+                    "males" : ["SL1 - SL3"]
                 }
             }
         }
@@ -650,6 +662,8 @@ if __name__ == "__main__":
                 
                 venn_filename = f"{out_path_figs}/Venn_{day}_f_vs_m.png"
                 day_ = day.replace("day", "day ")
+                if day == "days_merged":
+                    day_ = day.replace("_", " ")
                 venn_title = f"sig. DE genes overlap ({day_})\nfemales and males"
                 shared_list = plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title, get_shared_list=True)
                 print(shared_list)

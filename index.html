@@ -7,7 +7,7 @@
 <style>
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  background-color: #ebeaee;
+  background-color: #eaebee;
   max-width: 1500px;
   margin: 2em auto;
   padding: 0 1em;
@@ -25,11 +25,18 @@ code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 pre {
-  background: #f6f8fa;
+  background: #eaebee;
   padding: 1em;
   border-radius: 6px;
   overflow-x: auto;
 }
+details {
+  background: #dddee5;
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
 pre code { background: none; padding: 0; }
 table { border-collapse: collapse; margin: 1em 0; }
 table th, table td { border: 1px solid #909bb5; padding: 6px 10px; }
@@ -258,15 +265,126 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 <h3>3.3 Sex-separated samples</h3>
 
-<p>The contrasts are within each day (14, 16, 18), and always <code>SL1 - SL3</code>. <code>SL1</code> are the small males (three Tor copies), 
-  and all genes identified as &quot;upregulated&quot; are higher expressed in <code>SL1</code>. In all contrasts, genes that are differentially 
-  expressed in both females and males between the lines are excluded from the smear plots (see venn-diagram overlaps).</p>
+<p>
+    The contrasts are within each day (14, 16, 18), and always <code>SL1 - SL3</code>. <code>SL1</code> are the small males (three Tor copies), 
+    and all genes identified as &quot;upregulated&quot; are higher expressed in <code>SL1</code>. In all contrasts, genes that are differentially 
+    expressed in both females and males between the lines are excluded from the smear plots (see venn-diagram overlaps).
+</p>
 
-<h4>Differential expression between SL1 and SL3</h4>
 
-<p>Additionally, in day 14 and day 16, there is a larger number of upregulated (higher in <code>SL1</code>) genes, 
-  while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in 
-  day 14 and 16, which becomes reduced in day 18.</p>
+<h4>Differential expression between SL1 and SL3: time points merged</h4>
+
+<p>
+    I only take line into account when making the contrasts, and day is ignored. The contrast is just <code>SL1 - SL3</code>
+</p>
+
+<details>
+    <summary>Code summary</summary>
+    There is no control for time as a random factor.
+    <pre>
+        <code>
+ line <- factor(meta_data$line)
+ y <- DGEList(counts=counts_M, group=line)
+ MM <- model.matrix(~ 0+ line, data = y$samples)</code>
+    </pre>
+</details>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'males_lines_DE_no_time')">males</button>
+    <button class="tablinks" onclick="openTab(event, 'females_lines_DE_no_time')">females</button>
+</div>
+
+<div id="males_lines_DE_no_time" class="tabcontent">
+    <table>
+        <thead>
+        <tr>
+          <th><code>glmQLFTest</code></th>
+          <th>Days merged</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Downregulated</td>
+          <td>256</td>
+          </tr>
+        <tr>
+          <td>no difference</td>
+          <td>10023</td>
+        </tr>
+        <tr>
+          <td>Upregulated</td>
+          <td>358</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_only_M_no_time_1-3.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_only_M_no_time_1-3_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/Venn_days_merged_f_vs_m.png" width="32%" />
+    </p>
+</div>
+
+<div id="females_lines_DE_no_time" class="tabcontent">
+    <table>
+        <thead>
+        <tr>
+          <th><code>glmQLFTest</code></th>
+          <th>Days merged</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Downregulated</td>
+          <td>107</td>
+          </tr>
+        <tr>
+          <td>no difference</td>
+          <td>9390</td>
+        </tr>
+        <tr>
+          <td>Upregulated</td>
+          <td>159</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_only_F_no_time_1-3.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_only_F_no_time_1-3_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/Venn_days_merged_f_vs_m.png" width="32%" />
+    </p>
+
+    <details>
+        <summary>sig. DE genes list</summary>
+        <pre><code>gene-239553,gene-223491,gene-224079,gene-223773,gene-218529,gene-421566,gene-429522,gene-388757,gene-407355,gene-429426,gene-223758,gene-53941,gene-210277,gene-231854,gene-223318,gene-222746,gene-323919,gene-223599,gene-230270,gene-53595,gene-40003,gene-223419,gene-241268,gene-237494,gene-238320,gene-298022,gene-68612,gene-367523,gene-48523,gene-297796,gene-60610,gene-424896,gene-328746,gene-70017,gene-38977,gene-120832,gene-132037,gene-241262,gene-124877,gene-218421,gene-218556,gene-221980,gene-240397,gene-324176,gene-222081,gene-59711,gene-426041,gene-58433,gene-85401,gene-89057,gene-282008,gene-426056,gene-241856,gene-88032,gene-241506,gene-50812,gene-132081,gene-120964,gene-407280,gene-240056,gene-241238,gene-73457,gene-60429,gene-424863,gene-327074,gene-128133,gene-131578,gene-297577,gene-210286,gene-55240,gene-55252,gene-129358,gene-231604,gene-231493,gene-241328,gene-178274,gene-75424,gene-424914,gene-270971,gene-327787,gene-130615,gene-7202,gene-368309,gene-130589,gene-410330,gene-179222,gene-428089,gene-326368,gene-71572,gene-269365,gene-406510,gene-396226,gene-53926,gene-241886,gene-64665,gene-127849,gene-169457,gene-68000,gene-327746,gene-326430,gene-302994,gene-225921,gene-268146,gene-26493,gene-223213,gene-224118,gene-156867,gene-224896,gene-241126,gene-240929,gene-222531,gene-431701,gene-222600,gene-224227,gene-240623,gene-240910,gene-225173,gene-224682,gene-224968,gene-224357,gene-241055,gene-222365,gene-225140,gene-225720,gene-222519,gene-430032,gene-430263,gene-430068,gene-224782,gene-225030,gene-322912,gene-225738,gene-240833,gene-222486,gene-225236,gene-225709,gene-222383,gene-222350,gene-240691,gene-222332,gene-428738,gene-224743,gene-323148,gene-390956,gene-240871,gene-430080,gene-224875,gene-226245,gene-222555,gene-390616,gene-120952,gene-224956,gene-224201,gene-323803,gene-225635,gene-225107,gene-406796,gene-224697,gene-322927,gene-241001,gene-224860,gene-430314,gene-225325,gene-220028,gene-237881,gene-222344,gene-326849,gene-428765,gene-80359,gene-90157,gene-84970,g14784,gene-403809,gene-222159,gene-227308,gene-81427,gene-224890,gene-224593,gene-391222,gene-238849,gene-244235,gene-326873,gene-84949,gene-87700,gene-89234,gene-73288,gene-243308,gene-166814,gene-227370,gene-301479,gene-238137,gene-327441,gene-241682,gene-421265,gene-215103,gene-237378,gene-392186,gene-5642,gene-397251,gene-5731,gene-84577,gene-370842,gene-368072,gene-130665,gene-370643,gene-219212,gene-221101,gene-303243,gene-371230,gene-216914,gene-370595,gene-217018,gene-423321,gene-85011,gene-120660,gene-88038,gene-218086,gene-403902,gene-330102,gene-278356,gene-89345,gene-219019,gene-125566,gene-323991,gene-227164,gene-131074,gene-237857,gene-205685,gene-407253,gene-71733,gene-9713,gene-60566,gene-431030,gene-216986,g422,gene-214979,gene-395158,gene-130722,gene-84224,gene-364586,gene-215357,gene-270956,g5034,gene-429233,gene-219157,gene-328764,gene-417093,gene-243299,gene-248152,gene-419489,gene-47315,gene-299793,gene-263597,gene-231788,gene-88715,gene-325743,gene-370323,gene-241841,gene-13249,gene-425532,gene-421549,gene-431758,gene-356036,gene-118887,gene-225355,gene-65074</code></pre>
+    </details>
+
+
+</div>
+
+<h4>Differential expression between SL1 and SL3: split by time</h4>
+
+<p>
+    Time is taken into account, and all Day and Line combinations are treated as six individual groups.
+</p>
+
+<details>
+    <summary>Code summary</summary>
+
+    <pre>
+        <code>
+    groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
+    y <- DGEList(counts=counts_M, group=groups)
+    MM <- model.matrix(~ 0+ groups, data = y$samples)</code>
+    </pre>
+</details>
+
+<p>
+    In day 14 and day 16, there is a larger number of upregulated (higher in <code>SL1</code>) genes, 
+    while day 18 about the same number as up- and downregulated genes. This looks like there is a stronger line-difference in 
+    day 14 and 16, which becomes reduced in day 18.
+</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males (Smear plots)</button>
   <button class="tablinks" onclick="openTab(event, 'females_lines_DE')">females (Smear plots)</button>
@@ -1340,6 +1458,10 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 <h3>3.4 Line-separated samples</h3>
 
+<details>
+    <summary>Toggle down for analysis</summary>
+
+
 <p>I will now split the data by line to see sex differences in expression during the development stages.</p>
 <details>
 <summary>MDS plots for SL1 and SL3</summary>
@@ -1880,8 +2002,12 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </p>
 </div>
 
+</details>
 
 <h3>3.5 Day-separated samples</h3>
+
+<details>
+    <summary>Toggle down for analysis</summary>
 
 <p>Analyze line and sex differences in each time point.</p>
 <h4>Differential expression between SL1 and SL3</h4>
@@ -2759,6 +2885,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </p>
 </div>
 
+</details>
 
 <h2>4. Y expression quantification</h2>
 
