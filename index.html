@@ -14,7 +14,8 @@ body {
   line-height: 1.5;
   color: #24292f;
 }
-h1, h2, h3, h4, h5, h6 { margin-top: 1.6em; color:#44506e;}
+h1, h2 { margin-top: 1.6em; color:#44506e;}
+h3, h4, h5, h6 { margin-top: 1.6em; }
 h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
 h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
 code {
@@ -39,8 +40,8 @@ details {
 
 pre code { background: none; padding: 0; }
 table { border-collapse: collapse; margin: 1em 0; }
-table th, table td { border: 1px solid #909bb5; padding: 6px 10px; }
-table th { background: #d0d4df; }
+table th, table td { border: 1.5px solid #909bb5; padding: 6px 10px; }
+table th { background: #dddee5; }
 img { max-width: 100%; height: auto; }
 details { margin: 0.8em 0; }
 summary { cursor: pointer; }
@@ -55,7 +56,7 @@ a { color: #416793; }
   overflow: hidden;
   border: 1.5px solid #909bb5;
   background-color: #d0d4df;
-  border-radius: 8px 8px 0 0;
+  border-radius: 25px 25px 0 0;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -86,8 +87,9 @@ a { color: #416793; }
 .tabcontent {
   display: none;
   padding: 6px 12px;
-  border: 1px solid #909bb5;
+  border: 1.5px solid #909bb5;
   border-top: none;
+  border-radius: 0 0 25px 25px;
 }
 
 </style>
@@ -189,6 +191,30 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 <p>I will use edgeR to get the logFC of all comparisons of interest below, but the plotting is done in python. In EdgeR, I am trying both <code>glmLRT</code> and <code>glmQLFTest</code> to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from <code>glmQLFTest</code>.</p>
 
+<p><b>Sample sizes:</b></p>
+
+<table>
+    <thead>
+    <tr>
+      <td> </td>
+      <th>F</th>
+      <th>M</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>SL1</th>
+      <td>11</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>SL3</th>
+      <td>15</td>
+      <td>28</td>
+    </tr>
+    </tbody>
+</table>
+
 <h3>3.1 yTor expression</h3>
 
 <p>After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. Since we know that yTor-C (orange) 
@@ -236,13 +262,15 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
     <pre>
         <code>
  groups <- factor(paste(meta_data$line, meta_data$sex, sep="_"))
- y <- DGEList(counts=counts_M, group=groups)
- # filter min expr. and normalize library sizes
+ y <- DGEList(counts=counts_M)
+ # see Rmd file for filter min expr. and normalize library sizes
  day <- factor(meta_data$day)
- MM <- model.matrix(~ 0 + group + day, data = y$samples)
- colnames(MM) <- c("SL1_F", "SL1_M", "SL3_F", "SL3_M", "day16", "day18")</code>
+ MM <- model.matrix(~ 0 + line:sex + day, data = y$samples)
+ colnames(MM) <- c("day14", "day16", "day18", "SL1_F", "SL3_F", "SL1_M", "SL3_M")</code>
     </pre>
 </details>
+
+<p>For the differential expression between the sexes I add a |log2FC| > 1 threshold.</p>
 
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'sex bias SL1')">sex bias SL1</button>
@@ -264,18 +292,18 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
         <tbody>
           <tr>
           <td>Downregulated</td>
-          <td>1058</td>
-          <td>939</td>
+          <td>1127</td>
+          <td>957</td>
           </tr>
         <tr>
           <td>no difference</td>
-          <td>9470</td>
-          <td>9645</td>
+          <td>9379</td>
+          <td>9623</td>
         </tr>
         <tr>
           <td>Upregulated</td>
-          <td>68</td>
-          <td>12</td>
+          <td>90</td>
+          <td>16</td>
         </tr>
         </tbody>
     </table>
@@ -299,18 +327,18 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
         <tbody>
           <tr>
           <td>Downregulated</td>
-          <td>1227</td>
-          <td>1073</td>
+          <td>1093</td>
+          <td>949</td>
           </tr>
         <tr>
           <td>no difference</td>
-          <td>9344</td>
-          <td>9506</td>
+          <td>9844</td>
+          <td>9640</td>
         </tr>
         <tr>
           <td>Upregulated</td>
-          <td>25</td>
-          <td>17</td>
+          <td>15</td>
+          <td>7</td>
         </tr>
         </tbody>
     </table>
@@ -320,7 +348,6 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
         <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_SL3_F-M_volcano.png" width="32%" />
         <img loading="lazy" src="data/DE_figures_python/Venn_all_samples_sex_bias_no_age.png" width="32%" />
     </p>
-
 </div>
 
 
@@ -335,15 +362,15 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
         <tbody>
           <tr>
           <td>Downregulated</td>
-          <td>126</td>
+          <td>146</td>
           </tr>
         <tr>
           <td>no difference</td>
-          <td>10169</td>
+          <td>10153</td>
         </tr>
         <tr>
           <td>Upregulated</td>
-          <td>301</td>
+          <td>297</td>
         </tr>
         </tbody>
     </table>
@@ -366,15 +393,15 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
         <tbody>
           <tr>
           <td>Downregulated</td>
-          <td>293</td>
+          <td>391</td>
           </tr>
         <tr>
           <td>no difference</td>
-          <td>9945</td>
+          <td>9754</td>
         </tr>
         <tr>
           <td>Upregulated</td>
-          <td>358</td>
+          <td>451</td>
         </tr>
         </tbody>
     </table>
@@ -400,15 +427,15 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
         <tbody>
           <tr>
           <td>Downregulated</td>
-          <td>5</td>
+          <td>3</td>
           </tr>
         <tr>
           <td>no difference</td>
-          <td>10550</td>
+          <td>10588</td>
         </tr>
         <tr>
           <td>Upregulated</td>
-          <td>41</td>
+          <td>5</td>
         </tr>
         </tbody>
     </table>

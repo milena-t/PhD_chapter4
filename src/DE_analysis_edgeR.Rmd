@@ -112,6 +112,101 @@ Export normalized counts to file. See Python scripting for the PCA plots based o
 ```
 
 
+# run whole dataset for basic analyses
+
+```{r}
+
+counts_M <- count_data
+
+meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
+## adjust metadata
+meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
+# reorder so it's in the same order as the count data columns
+meta_data <- meta_data[names(counts_M),]
+# check assumptions, should be TRUE
+all(colnames(counts_M) %in% rownames(meta_data))
+
+# groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
+groups <- factor(paste(meta_data$line, meta_data$sex, sep="_"))
+# y <- DGEList(counts=counts_M, group=groups)
+y <- DGEList(counts=counts_M)
+
+## filter out low count genes
+# filter by only line group and not day, since we aren't sure how the expression changes between days and we don't want to remove genes that are only rarely expressed
+keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
+  y <- y[keep, , keep.lib.sizes=FALSE]
+  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
+  
+# normalize by library sizes
+y <- calcNormFactors(y)
+
+# specify model
+line <- factor(paste("SL", meta_data$line, sep=""))
+day <- factor(meta_data$day)
+sex <- factor(meta_data$sex)
+MM <- model.matrix(~ 0 + line:sex + day, data = y$samples)
+colnames(MM) <- c("day14", "day16", "day18", "SL1_F", "SL3_F", "SL1_M", "SL3_M")
+rownames(MM) <- colnames(y)
+# estimate dispersion
+y <- estimateDisp(y, MM)
+# plotBCV(y)
+
+```
+
+Differential expression analysis 
+
+```{r}
+
+my.contrasts <- makeContrasts(
+line1_F_M = SL1_F - SL1_M,
+line3_F_M = SL3_F - SL3_M,
+F_SL1_SL3 = SL1_F - SL3_F,
+M_SL1_SL3 = SL1_M - SL3_M,
+line_sex_interaction = (SL1_F - SL3_F) - (SL1_M - SL3_M),
+levels=MM)
+
+contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
+  
+  fit <- glmQLFit(y, MM)
+  qlf <- glmQLFTest(fit, contrast=contrast)
+  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
+  print(contrast)
+  print(summary(de_qlf))
+  
+  print("--------------------------------------------")
+  
+  ## make output table
+  Tags <- topTags(qlf, n=Inf, p.value=1)						
+  Tags <- Tags$table
+  Tags$Gene <- rownames(Tags)
+  write.table(Tags, file=table_name, sep="\t")	
+  
+  output <- list(qlf=qlf,Tags=Tags)
+  return(output)
+}
+
+```
+
+sex bias in full dataset when age is not taken into account
+```{r}
+SL1_F_M = sprintf("%sfull_dataset_day_ignored_SL1_F-M.txt", outdir)
+SL1_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line1_F_M"],table_name=SL1_F_M,lfc_min = 0)
+
+SL3_F_M = sprintf("%sfull_dataset_day_ignored_SL3_F-M.txt", outdir)
+SL3_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line3_F_M"],table_name=SL3_F_M,lfc_min = 0)
+
+F_SL1_SL3 = sprintf("%sfull_dataset_day_ignored_F_SL1-SL3.txt", outdir)
+F_SL1_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"F_SL1_SL3"],table_name=F_SL1_SL3,lfc_min = 0)
+
+M_SL1_SL3 = sprintf("%sfull_dataset_day_ignored_M_SL1-SL3.txt", outdir)
+M_SL1_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"M_SL1_SL3"],table_name=M_SL1_SL3,lfc_min = 0)
+
+SL1_SL3_F_M = sprintf("%sfull_dataset_day_ignored_line_sex_interaction.txt", outdir)
+SL1_SL3_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_sex_interaction"],table_name=SL1_SL3_F_M,lfc_min = 0)
+
+```
+
+
 # basic DE with only one sex
 
 I will partition the data to avoid having to handle a contrast with a three-way interaction. I will do first males and females separately to 
@@ -128,15 +223,12 @@ or only line differences are tested
 ```{r} 
 use_males<-FALSE # only run on male samples (if False only run on female samples)
 use_time<-FALSE # contrasts that take time into account (if False then only line contrasts)
-use_full_set<-TRUE # no filtering, but merge the days in the groups for DGEList 
+use_full_set<-False # no filtering, but merge the days in the groups for DGEList 
 ```
 
 
 ```{r} 
-if(use_full_set){
-## no filtering (variable is still called counts_M because i implemented filtering first and I'm not changing it now)
-counts_M <- count_data
-}else if (use_males){
+if (use_males){
 ## filter count data to only include males 
 counts_M <- count_data[,grepl("-M_", colnames(count_data))]
 }else{
@@ -152,21 +244,13 @@ meta_data <- meta_data[names(counts_M),]
 # check assumptions, should be TRUE
 all(colnames(counts_M) %in% rownames(meta_data))
 
-if(use_full_set){
-  # make sample groups that reflect line and sex. Day is not separated but also not taken into account
-  groups <- factor(paste(meta_data$line, meta_data$sex, sep="_"))
+# make sample groups that reflect line and day
+groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
+# read data into data structure
+if (use_time){
   y <- DGEList(counts=counts_M, group=groups)
 }else{
-  # make sample groups that reflect line and day
-  groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
-  line <- factor(paste("SL", meta_data$line, sep=""))
-  time <- factor(meta_data$day)
-  # read data into data structure
-  if (use_time){
-    y <- DGEList(counts=counts_M, group=groups)
-  }else{
-    y <- DGEList(counts=counts_M, group=line)
-  }
+  y <- DGEList(counts=counts_M, group=line)
 }
 
 ## filter out low count genes
@@ -178,12 +262,7 @@ keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
 # normalize by library sizes
 y <- calcNormFactors(y)
 
-
-if(use_full_set){
-  MM <- model.matrix(~0 + groups, data = y$samples)
-  colnames(MM) <- c("SL1_F", "SL1_M", "SL3_F", "SL3_M")
-  rownames(MM) <- colnames(y)
-}else if (use_time){
+if (use_time){
   MM <- model.matrix(~0 + groups, data = y$samples)
   colnames(MM) <- c("SL1_14", "SL1_16", "SL1_18", "SL3_14",  "SL3_16", "SL3_18")
   rownames(MM) <- colnames(y)
@@ -221,15 +300,7 @@ dev.off()
 Contrasts are within day between line and pairwise comparisons within lines between days, as well as interactions of line-by-day.
 
 ```{r}
-if(use_full_set){
-  my.contrasts <- makeContrasts(
-  line1_F_M = SL1_F - SL1_M,
-  line3_F_M = SL3_F - SL3_M,
-  F_SL1_SL3 = SL1_F - SL3_F,
-  M_SL1_SL3 = SL1_M - SL3_M,
-  line_sex_interaction = (SL1_F - SL3_F) - (SL1_M - SL3_M),
-  levels=MM)
-}else if (use_time){
+if (use_time){
   my.contrasts <- makeContrasts(
   day14 =	SL1_14 - SL3_14, 
   day16 =	SL1_16 - SL3_16, 
@@ -271,26 +342,6 @@ contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
   return(output)
 }
 
-```
-
-sex bias in full dataset when age is not taken into account
-```{r}
-if (use_full_set){
-  SL1_F_M = sprintf("%sfull_dataset_day_ignored_SL1_F-M.txt", outdir)
-  SL1_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line1_F_M"],table_name=SL1_F_M,lfc_min = 0)
-
-  SL3_F_M = sprintf("%sfull_dataset_day_ignored_SL3_F-M.txt", outdir)
-  SL3_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line3_F_M"],table_name=SL3_F_M,lfc_min = 0)
-
-  F_SL1_SL3 = sprintf("%sfull_dataset_day_ignored_F_SL1-SL3.txt", outdir)
-  F_SL1_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"F_SL1_SL3"],table_name=F_SL1_SL3,lfc_min = 0)
-
-  M_SL1_SL3 = sprintf("%sfull_dataset_day_ignored_M_SL1-SL3.txt", outdir)
-  M_SL1_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"M_SL1_SL3"],table_name=M_SL1_SL3,lfc_min = 0)
-
-  SL1_SL3_F_M = sprintf("%sfull_dataset_day_ignored_line_sex_interaction.txt", outdir)
-  SL1_SL3_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_sex_interaction"],table_name=SL1_SL3_F_M,lfc_min = 0)
-}
 ```
 
 
