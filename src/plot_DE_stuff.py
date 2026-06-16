@@ -26,6 +26,9 @@ def get_tables(username = "miltr339"):
                 "SL1_F - SL3_F" : f"{tables_dir}full_dataset_day_ignored_F_SL1-SL3.txt",
                 "SL1_M - SL3_M" : f"{tables_dir}full_dataset_day_ignored_M_SL1-SL3.txt",
                 "(SL1_F - SL3_F) - (SL1_M - SL3_M)" : f"{tables_dir}full_dataset_day_ignored_line_sex_interaction.txt",
+                "day14 - day16" : f"{tables_dir}full_dataset_day_random_factor_day14_day16.txt",
+                "day16 - day18" : f"{tables_dir}full_dataset_day_random_factor_day16_day18.txt",
+                "day14 - day18" : f"{tables_dir}full_dataset_day_random_factor_day14_day18.txt",
             },
         },
         

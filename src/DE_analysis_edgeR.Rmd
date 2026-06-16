@@ -147,9 +147,19 @@ sex <- factor(meta_data$sex)
 MM <- model.matrix(~ 0 + line:sex + day, data = y$samples)
 colnames(MM) <- c("day14", "day16", "day18", "SL1_F", "SL3_F", "SL1_M", "SL3_M")
 rownames(MM) <- colnames(y)
-# estimate dispersion
-y <- estimateDisp(y, MM)
+
+# estimate dispersion with edgeR
+y <- estimateDisp(y, MM) # edgeR doesn't work, error with coefficient SL3_M
 # plotBCV(y)
+
+# try limma 
+library(limma)
+y <- voom(y, MM, plot = FALSE)
+# plot
+# fit <- lmFit(y, MM)
+# fit <- contrasts.fit(fit, contrasts)
+# fit <- eBayes(fit)
+
 
 ```
 
@@ -162,14 +172,17 @@ line1_F_M = SL1_F - SL1_M,
 line3_F_M = SL3_F - SL3_M,
 F_SL1_SL3 = SL1_F - SL3_F,
 M_SL1_SL3 = SL1_M - SL3_M,
+day14_day16 = day14 - day16,
+day16_day18 = day16 - day18,
+day14_day18 = day14 - day18,
 line_sex_interaction = (SL1_F - SL3_F) - (SL1_M - SL3_M),
 levels=MM)
 
-contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
-  
-  fit <- glmQLFit(y, MM)
-  qlf <- glmQLFTest(fit, contrast=contrast)
-  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
+contrast_analysis_complete_ds <- function(y,MM,contrast, table_name, lfc_min){
+  ## function for limma, but probably not useable change back to other one below with edgeR stuff
+  fit <- lmFit(y, MM)
+  qlf <- contrasts.fit(fit, contrast=contrast)
+  de_qlf <- eBayes(qlf, p.value=0.05, lfc=lfc_min)
   print(contrast)
   print(summary(de_qlf))
   
@@ -206,6 +219,18 @@ SL1_SL3_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_sex_inte
 
 ```
 
+Check for overall day differences 
+
+```{r}
+day14_day16_table = sprintf("%sfull_dataset_day_random_factor_day14_day16.txt", outdir)
+day14_day16_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line1_F_M"],table_name=day14_day16_table,lfc_min = 0)
+
+day16_day18_table = sprintf("%sfull_dataset_day_random_factor_day16_day18.txt", outdir)
+day16_day18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line3_F_M"],table_name=day16_day18_table,lfc_min = 0)
+
+day14_day18_table = sprintf("%sfull_dataset_day_random_factor_day14_day18.txt", outdir)
+day14_day18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line3_F_M"],table_name=day14_day18_table,lfc_min = 0)
+```
 
 # basic DE with only one sex
 

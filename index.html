@@ -270,6 +270,44 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
     </pre>
 </details>
 
+<p>First I check if there are general time differences</p>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'day14_day16_whole_dataset')">day14 - day16</button>
+    <button class="tablinks" onclick="openTab(event, 'day16_day18_whole_dataset')">day16 - day18</button>
+    <button class="tablinks" onclick="openTab(event, 'day14_day18_whole_dataset')">day14 - day18</button>
+</div>
+
+<div id="day14_day16_whole_dataset" class="tabcontent">
+    <table>
+        <thead>
+        <tr>
+          <th><code>SL1_F - SL1_M</code></th>
+          <th>any LFC</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Downregulated</td>
+          <td>1127</td>
+          </tr>
+        <tr>
+          <td>no difference</td>
+          <td>9379</td>
+        </tr>
+        <tr>
+          <td>Upregulated</td>
+          <td>90</td>
+        </tr>
+        </tbody>
+    </table>
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_SL1_F-M.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_SL1_F-M_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/Venn_all_samples_sex_bias_no_age.png" width="32%" />
+    </p>
+</div>
+
 <p>For the differential expression between the sexes I add a |log2FC| > 1 threshold.</p>
 
 <div class="tab">
