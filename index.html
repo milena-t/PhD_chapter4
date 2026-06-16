@@ -14,7 +14,7 @@ body {
   line-height: 1.5;
   color: #24292f;
 }
-h1, h2, h3, h4, h5, h6 { margin-top: 1.6em; }
+h1, h2, h3, h4, h5, h6 { margin-top: 1.6em; color:#44506e;}
 h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
 h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
 code {
@@ -53,19 +53,23 @@ a { color: #416793; }
 /* Style the tab */
 .tab {
   overflow: hidden;
-  border: 1px solid #909bb5;
+  border: 1.5px solid #909bb5;
   background-color: #d0d4df;
+  border-radius: 8px 8px 0 0;
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
   background-color: inherit;
   float: left;
+  color: #44506e;
+  font-weight: bold;
   border: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
+  font-size: 0.9rem;
 }
 
 /* Change background color of buttons on hover */
@@ -198,7 +202,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 <p>Since we hypothesize that the phenotypic difference is related with differences in Tor expression dosage, I will manually merge the read counts of 
   yTor-A, B and C into one yTor-all for the DE analysis.</p>
 
-  <div class="tab">
+<div class="tab">
   <button class="tablinks" onclick="openTab(event, 'yTor_split')">yTor split into A,B,C</button>
   <button class="tablinks" onclick="openTab(event, 'yTor_merged')">yTor merged</button>
 </div>
@@ -223,8 +227,22 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 <h3>3.2 Basic analysis on full dataset</h3>
 
 <p>
-    Test if there is an overall signal where males differ strongly between the lines and females do not. For this purpose the time effect is not taken into account.
+    Test if there is an overall signal where males differ strongly between the lines and females do not. 
+    For this purpose the time effect is not taken into account for the contrast but controlled for in the model as a random factor.
 </p>
+
+<details>
+    <summary>Code summary</summary>
+    <pre>
+        <code>
+ groups <- factor(paste(meta_data$line, meta_data$sex, sep="_"))
+ y <- DGEList(counts=counts_M, group=groups)
+ # filter min expr. and normalize library sizes
+ day <- factor(meta_data$day)
+ MM <- model.matrix(~ 0 + group + day, data = y$samples)
+ colnames(MM) <- c("SL1_F", "SL1_M", "SL3_F", "SL3_M", "day16", "day18")</code>
+    </pre>
+</details>
 
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'sex bias SL1')">sex bias SL1</button>
@@ -399,6 +417,9 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
         <p>
             The sex by line interaction here checks if there are genes that are sig. <i>differently</i> sex biased in the two lines. This also tests for a significantly greater line-bias 
             in males compared to females, which is essential here. <span style="color:#BD351E">I am unsure what it means that there are only very few significant genes. Probably bad.</span>
+        </p>
+        <p>
+            I already did this analysis in the day-separated dataset (for each day individually, see 3.6, "interaction sex-bias by line-bias"), and there are a lot more genes here.
         </p>
     </div>
     
