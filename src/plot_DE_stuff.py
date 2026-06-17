@@ -222,7 +222,14 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
                     ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
                 ax.set_xlim([min_line,max_line])
             elif x_axis == "fdr_p":
-                pass
+                min_line = min(df["FDR_volc"])-0.25
+                max_line = max(df["FDR_volc"])+0.25
+                if min_LFC > 0:
+                    ax.vlines(x=min_LFC, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                    ax.vlines(x=-1*min_LFC, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                else:
+                    ax.vlines(x=1, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                    ax.vlines(x=-1, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
 
             smear_plot_name_coeff = smear_plot_name.replace(".png", f"_{coeff_name}.png")
             if x_axis == "fdr_p":
@@ -296,11 +303,14 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
                     ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
                 ax.set_xlim([min_line,max_line])
             elif x_axis == "fdr_p":
-                pass
-                # min_line = min(df["logFC"])
-                # max_line = max(df["logFC"])
-                # ax.vlines(x=0, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-                # ax.set_xlim([min_line,max_line])
+                min_line = min(df["FDR_volc"])-0.25
+                max_line = max(df["FDR_volc"])+0.25
+                if min_LFC > 0:
+                    ax.vlines(x=min_LFC, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                    ax.vlines(x=-1*min_LFC, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                else:
+                    ax.vlines(x=1, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                    ax.vlines(x=-1, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
             
 
             if x_axis == "fdr_p":
@@ -583,9 +593,9 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "no_separation":
-                print(f"ignore {separation}")
-                continue
+            # if separation != "no_separation":
+            #     print(f"ignore {separation}")
+            #     continue
             print(f"\n=========================== {separation} ===========================")
             
             # for upsetplot
@@ -611,7 +621,6 @@ if __name__ == "__main__":
                         coefficients = True
                         print(f"{separation}:{category} --> coefficients: {contrast}")
                     else:
-                        continue
                         coefficients = False
                         print(f"{separation}:{category} --> contrast: {contrast}")
 
