@@ -1074,180 +1074,137 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </p>
 
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males (Smear plots)</button>
-  <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females (Smear plots)</button>
-  <button class="tablinks" onclick="openTab(event, 'males_line_day_DE_volcano')">males (Volcano plots)</button>
-<button class="tablinks" onclick="openTab(event, 'females_line_day_DE_volcano')">females (Volcano plots)</button>
-</div>
-<div id="males_line_day_DE" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_14_16.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_18_14.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_18_16.png" width="32%" />
-</p>
-<p>Contrasts specified like this: (either option is fine, gives the exact same results)</p>
-<pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
-(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
-</code></pre>
-<table>
-  <thead>
-  <tr>
-  <th><code>glmQLFTest</code></th>
-  <th>SL1(18-14)-SL3(18-14)</th>
-  <th>SL1(14-16)-SL3(14-16)</th>
-  <th>SL1(18-16)-SL3(18-16)</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td>Downregulated</td>
-  <td>1</td>
-  <td>0</td>
-  <td>0</td>
-  </tr>
-  <tr>
-  <td>no difference</td>
-  <td>10636</td>
-  <td>10637</td>
-  <td>10636</td>
-  </tr>
-  <tr>
-  <td>Upregulated</td>
-  <td>0</td>
-  <td>0</td>
-  <td>1</td>
-  </tr>
-  </tbody>
-</table>
-</div>
-<div id="females_line_day_DE" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_14_16.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_18_14.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_18_16.png" width="32%" />
-</p>
-<p>Contrasts specified like this: (either option is fine, gives the exact same results)</p>
-<pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
-(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
-</code></pre>
-<table>
-  <thead>
-  <tr>
-  <th><code>glmQLFTest</code></th>
-  <th>SL1(18-14)-SL3(18-14)</th>
-  <th>SL1(14-16)-SL3(14-16)</th>
-  <th>SL1(18-16)-SL3(18-16)</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td>Downregulated</td>
-  <td>1</td>
-  <td>0</td>
-  <td>0</td>
-  </tr>
-  <tr>
-  <td>no difference</td>
-  <td>9655</td>
-  <td>9656</td>
-  <td>9656</td>
-  </tr>
-  <tr>
-  <td>Upregulated</td>
-  <td>0</td>
-  <td>0</td>
-  <td>0</td>
-  </tr>
-  </tbody>
-</table>
-</div>
-<div id="males_line_day_DE_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_14_16_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_18_14_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_18_16_volcano.png" width="32%" />
-</p>
-<p>Contrasts specified like this: (either option is fine, gives the exact same results)</p>
-<pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
-(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
-</code></pre>
-<table>
-  <thead>
-  <tr>
-  <th><code>glmQLFTest</code></th>
-  <th>SL1(18-14)-SL3(18-14)</th>
-  <th>SL1(14-16)-SL3(14-16)</th>
-  <th>SL1(18-16)-SL3(18-16)</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td>Downregulated</td>
-  <td>1</td>
-  <td>0</td>
-  <td>0</td>
-  </tr>
-  <tr>
-  <td>no difference</td>
-  <td>10636</td>
-  <td>10637</td>
-  <td>10636</td>
-  </tr>
-  <tr>
-  <td>Upregulated</td>
-  <td>0</td>
-  <td>0</td>
-  <td>1</td>
-  </tr>
-  </tbody>
-</table>
-</div>
-<div id="females_line_day_DE_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_14_16_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_18_14_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_18_16_volcano.png" width="32%" />
-</p>
-<p>Contrasts specified like this: (either option is fine, gives the exact same results)</p>
-<pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
-(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
-</code></pre>
-<table>
-  <thead>
-  <tr>
-  <th><code>glmQLFTest</code></th>
-  <th>SL1(18-14)-SL3(18-14)</th>
-  <th>SL1(14-16)-SL3(14-16)</th>
-  <th>SL1(18-16)-SL3(18-16)</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td>Downregulated</td>
-  <td>1</td>
-  <td>0</td>
-  <td>0</td>
-  </tr>
-  <tr>
-  <td>no difference</td>
-  <td>9655</td>
-  <td>9656</td>
-  <td>9656</td>
-  </tr>
-  <tr>
-  <td>Upregulated</td>
-  <td>0</td>
-  <td>0</td>
-  <td>0</td>
-  </tr>
-  </tbody>
-</table>
+    <button class="tablinks" onclick="openTab(event, 'males_line_day_DE')">males</button>
+    <button class="tablinks" onclick="openTab(event, 'females_line_day_DE')">females</button>
 </div>
 
+<div id="males_line_day_DE" class="tabcontent">
+
+<p>Contrasts specified like this: (either option is fine, gives the exact same results)</p>
+<pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
+</code></pre>
+<table>
+  <thead>
+  <tr>
+  <th><code>glmQLFTest</code></th>
+  <th>SL1(18-14)-SL3(18-14)</th>
+  <th>SL1(14-16)-SL3(14-16)</th>
+  <th>SL1(18-16)-SL3(18-16)</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>Downregulated</td>
+  <td>1</td>
+  <td>0</td>
+  <td>0</td>
+  </tr>
+  <tr>
+  <td>no difference</td>
+  <td>10636</td>
+  <td>10637</td>
+  <td>10636</td>
+  </tr>
+  <tr>
+  <td>Upregulated</td>
+  <td>0</td>
+  <td>0</td>
+  <td>1</td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'males_line_day_DE_smear')">Smear plots</button>
+    <button class="tablinks" onclick="openTab(event, 'males_line_day_DE_volcano')">Volcano plots</button>
+</div>
+<div id="males_line_day_DE_smear" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_14_16.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_18_14.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_18_16.png" width="32%" />
+    </p>
+</div>
+<div id="males_line_day_DE_volcano" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_14_16_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_18_14_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_M_SL_1_3_18_16_volcano.png" width="32%" />
+    </p>
+</div>
+
+</div>
+
+<div id="females_line_day_DE" class="tabcontent">
+
+<p>Contrasts specified like this: (either option is fine, gives the exact same results)</p>
+<pre><code>(SL1_18-SL1_14)-(SL3_18-SL3_14), (SL1_14-SL1_16)-(SL3_14-SL3_16), (SL1_18-SL1_16)-(SL3_18-SL3_16)
+(SL1_14-SL3_14)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_16-SL3_16), (SL1_18-SL3_18)-(SL1_14-SL3_14)
+</code></pre>
+<table>
+  <thead>
+  <tr>
+  <th><code>glmQLFTest</code></th>
+  <th>SL1(18-14)-SL3(18-14)</th>
+  <th>SL1(14-16)-SL3(14-16)</th>
+  <th>SL1(18-16)-SL3(18-16)</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>Downregulated</td>
+  <td>1</td>
+  <td>0</td>
+  <td>0</td>
+  </tr>
+  <tr>
+  <td>no difference</td>
+  <td>9655</td>
+  <td>9656</td>
+  <td>9656</td>
+  </tr>
+  <tr>
+  <td>Upregulated</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'females_line_day_DE_smear')">Smear plots</button>
+    <button class="tablinks" onclick="openTab(event, 'females_line_day_DE_volcano')">Volcano plots</button>
+</div>
+<div id="females_line_day_DE_smear" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_14_16.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_18_14.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_18_16.png" width="32%" />
+    </p>
+</div>
+<div id="females_line_day_DE_volcano" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_14_16_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_18_14_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_F_SL_1_3_18_16_volcano.png" width="32%" />
+    </p>
+</div>
+
+</div>
+
+
 <details>
-  <summary>Interpretation of line:day interaction</summary>
-  <p>Interaction line by day: when genes are upregulated (in the line contrast) in one day and then downregulated in another day. These cases exist, see scatterplots above, but there is apparently none that overcome the significance threshold, only one gene is significantly DE when the day contrast is 18-14.</p>
-  <p>The original plan was to then plot the LFC of the day contrast for both lines for the genes that are significant in the interaction, so <code>LFC(SL1d18-SL1d14)</code> by <code>LFC(SL3d18-SL3d14)</code>.</p>
+    <summary>Interpretation of line:day interaction results</summary>
+    <p>
+        Interaction line by day: when genes are upregulated (in the line contrast) in one day and then downregulated in another day. 
+        These cases exist, see scatterplots above, but there is apparently none that overcome the significance threshold, only one gene is significantly DE when the day contrast is 18-14.
+    </p>
+    <p>
+        The original plan was to then plot the LFC of the day contrast for both lines for the genes that are significant in the interaction, 
+        so <code>LFC(SL1d18-SL1d14)</code> by <code>LFC(SL3d18-SL3d14)</code>.
+    </p>
 </details>
 
 <details>
@@ -1410,11 +1367,10 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 <p>Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3. To be sure that this is real I also do individual comparisons between all the days even though that is more difficult to interpret.</p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days')">females (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days_volcano')">males (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days_volcano')">females (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days')">females</button>
 </div>
+
 <div id="males_lines_DE_tables_single_days" class="tabcontent">
 <table>
   <tr><th>SL1</th><th>SL3</th></tr>
@@ -1483,17 +1439,44 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   </td><td>
 </table>
 
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_18_14.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_18_16.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_14_16.png" width="32%" />
-</p>
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_18_14.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_18_16.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_14_16.png" width="32%" />
-</p>
-<p>in SL1, the difference is more between day 14 and day 16/18, since the day 18 - day 16 plot has only very few DE genes. In SL3, the difference is more between day 18 and day14/16, since the day14/16 plot has the least DE genes. Maybe this means that SL1 starts preparation for pupation between day 14 and 16? There is no clear indication for SL3, which has larger individuals, so maybe it is even earlier? Note that this does not show a morphological change yet, the earliest individuals show a start of pupation only at day 18 (did we sequence those then?).</p>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days_smear')">Smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'males_lines_DE_tables_single_days_volcano')">Volcano plot</button>
+    </div>
+
+    <div id="males_lines_DE_tables_single_days_smear" class="tabcontent">
+
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_18_14.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_18_16.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_14_16.png" width="32%" />
+        </p>
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_18_14.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_18_16.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_14_16.png" width="32%" />
+        </p>
+
+    </div>
+    <div id="males_lines_DE_tables_single_days_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_18_14_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_18_16_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_14_16_volcano.png" width="32%" />
+        </p>
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_18_14_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_18_16_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_14_16_volcano.png" width="32%" />
+        </p>
+    </div>
+
+    <p>
+        In SL1, the difference is more between day 14 and day 16/18, since the day 18 - day 16 plot has only very few DE genes. 
+        In SL3, the difference is more between day 18 and day14/16, since the day14/16 plot has the least DE genes. 
+        Maybe this means that SL1 starts preparation for pupation between day 14 and 16? There is no clear indication for SL3, which has larger individuals, 
+        so maybe it is even earlier? Note that this does not show a morphological change yet, the earliest individuals show a start of pupation only at day 18 (did we sequence those then?).
+    </p>
 </div>
 
 <div id="females_lines_DE_tables_single_days" class="tabcontent">
@@ -1564,43 +1547,43 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   </td><td>
 </table>
 
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_18_14.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_14_16.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_18_16.png" width="32%" />
-</p>
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_18_14.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_14_16.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_18_16.png" width="32%" />
-</p>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days_smear')">Smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'females_lines_DE_tables_single_days_volcano')">Volcano plot</button>
+    </div>
+
+    <div id="females_lines_DE_tables_single_days_smear" class="tabcontent">
+
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_18_14.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_18_16.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_14_16.png" width="32%" />
+        </p>
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_18_14.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_18_16.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_14_16.png" width="32%" />
+        </p>
+
+    </div>
+    <div id="females_lines_DE_tables_single_days_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_18_14_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_18_16_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_14_16_volcano.png" width="32%" />
+        </p>
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_18_14_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_18_16_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_14_16_volcano.png" width="32%" />
+        </p>
+    </div>
 <p>Only difference between day 14 and 18, no other developmental cues? Do only the males do special stuff before pupation?</p>
+
+
 </div>
 
-<div id="males_lines_DE_tables_single_days_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_18_14_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_18_16_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL1_14_16_volcano.png" width="32%" />
-</p>
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_18_14_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_18_16_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_M_SL3_14_16_volcano.png" width="32%" />
-</p>
-</div>
-<div id="females_lines_DE_tables_single_days_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_18_14_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_14_16_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL1_18_16_volcano.png" width="32%" />
-</p>
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_18_14_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_14_16_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_SL3_18_16_volcano.png" width="32%" />
-</p>
-</div>
+
 
 <h4>Upsetplots of sig DE genes overlap within males and females</h4>
 
@@ -2385,646 +2368,547 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 <h4>Differential expression between SL1 and SL3</h4>
 <p>In Females, there should be no line bias, so all genes that show line-bias in females (see lists in tabs) are excluded for the day contrasts.</p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_smear')">Day 14 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_volcano')">Day 14 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_SL1-3_smear')">Day 16 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_SL1-3_volcano')">Day 16 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_SL1-3_smear')">Day 18 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_SL1-3_volcano')">Day 18 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_SL1-3')">Day 14</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_SL1-3')">Day 16</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_SL1-3')">Day 18</button>
 </div>
-<div id="day14_SL1-3_smear" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_F_1-3.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_M_1-3.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day14_line_bias_by_sex.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-F3</th>
-<th>M1-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>11</td>
-<td>160</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10370</td>
-<td>10097</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>17</td>
-<td>141</td>
-</tr>
-</tbody>
-</table>
+
+<div id="day14_SL1-3" class="tabcontent">
+    
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_smear')">Smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'day14_SL1-3_volcano')">Volcano plot</button>
+    </div>
+
+    <div id="day14_SL1-3_smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day14_F_1-3.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day14_M_1-3.png" width="32%" />
+        </p>
+    </div>
+    <div id="day14_SL1-3_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day14_F_1-3_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day14_M_1-3_volcano.png" width="32%" />
+        </p>
+    </div>
+
+    <div style="float: left;width: 25%;">
+        <table>
+            <thead>
+                <tr>
+                    <th><code>glmQLFTest</code></th>
+                    <th>F1-F3</th>
+                    <th>M1-M3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downregulated</td>
+                    <td>11</td>
+                    <td>160</td>
+                </tr>
+                <tr>
+                    <td>no difference</td>
+                    <td>10370</td>
+                    <td>10097</td>
+                </tr>
+                <tr>
+                    <td>Upregulated</td>
+                    <td>17</td>
+                    <td>141</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="float: right;width: 75%;">
+    <p><img loading="lazy" src="data/DE_figures_python/Venn_day14_line_bias_by_sex.png" width="40%" /></p>
+    </div>
+    <div style="clear: both;"></div>
+
 <details>
 <summary>130 DE genes shared between males and females (excluded from plots, toggle down to see list)</summary>
 <pre><code>['gene-327441', 'gene-241001', 'gene-403652', 'gene-403851', 'gene-224860', 'gene-218086', 'gene-390956', 'gene-224682', 'gene-240910', 'gene-81551', 'gene-392224', 'gene-240983', 'gene-326825', 'gene-222519', 'gene-237881', 'gene-224968', 'gene-220544', 'gene-226245', 'gene-391198', 'gene-403818', 'gene-239553', 'gene-90157', 'gene-84970', 'gene-219019', 'gene-407253', 'gene-224845', 'gene-81640', 'gene-222383', 'gene-220249', 'gene-430080', 'gene-430044', 'gene-391222', 'gene-222365', 'gene-240833', 'gene-428765', 'gene-240691', 'gene-80359', 'gene-392248', 'gene-390678', 'gene-225629', 'gene-120952', 'gene-428756', 'gene-224956', 'gene-403809', 'gene-224227', 'gene-240935', 'gene-225720', 'gene-225140', 'gene-224614', 'gene-224357', 'gene-392159', 'gene-222531', 'gene-225325', 'gene-117712', 'gene-84949', 'gene-222344', 'gene-406796', 'gene-240929', 'gene-392290', 'gene-81599', 'gene-225107', 'gene-231925', 'gene-214979', 'gene-220028', 'gene-260693', 'gene-224277', 'gene-224250', 'gene-224782', 'gene-390616', 'gene-224593', 'gene-322912', 'gene-431701', 'gene-80466', 'gene-403706', 'gene-323148', 'gene-323803', 'gene-283443', 'gene-326909', 'gene-225173', 'gene-243308', 'gene-430068', 'gene-222430', 'gene-240871', 'gene-237318', 'gene-224697', 'gene-222332', 'gene-241126', 'gene-89234', 'gene-406468', 'gene-328764', 'gene-326810', 'gene-88715', 'gene-222486', 'gene-224743', 'gene-221953', 'gene-225635', 'gene-222501', 'gene-428738', 'gene-430032', 'gene-241108', 'gene-81572', 'gene-392186', 'gene-222555', 'gene-81427', 'gene-225738', 'gene-403700', 'gene-234575', 'gene-240623', 'gene-222350', 'gene-395080', 'gene-225236', 'gene-224201', 'gene-241055', 'gene-225709', 'gene-326873', 'gene-326849', 'gene-322927', 'gene-80484', 'gene-395143', 'gene-225030', 'gene-222600', 'gene-224875', 'gene-390637', 'gene-224307', 'gene-403583', 'gene-224896', 'gene-430263', 'gene-428747', 'gene-430314', 'gene-403902']
 </code></pre>
 </details>
 </div>
-<div id="day14_SL1-3_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_F_1-3_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_M_1-3_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day14_line_bias_by_sex.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-F3</th>
-<th>M1-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>11</td>
-<td>160</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10370</td>
-<td>10097</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>17</td>
-<td>141</td>
-</tr>
-</tbody>
-</table>
-<details>
-<summary>130 DE genes shared between males and females (excluded from plots, toggle down to see list)</summary>
-<pre><code>['gene-327441', 'gene-241001', 'gene-403652', 'gene-403851', 'gene-224860', 'gene-218086', 'gene-390956', 'gene-224682', 'gene-240910', 'gene-81551', 'gene-392224', 'gene-240983', 'gene-326825', 'gene-222519', 'gene-237881', 'gene-224968', 'gene-220544', 'gene-226245', 'gene-391198', 'gene-403818', 'gene-239553', 'gene-90157', 'gene-84970', 'gene-219019', 'gene-407253', 'gene-224845', 'gene-81640', 'gene-222383', 'gene-220249', 'gene-430080', 'gene-430044', 'gene-391222', 'gene-222365', 'gene-240833', 'gene-428765', 'gene-240691', 'gene-80359', 'gene-392248', 'gene-390678', 'gene-225629', 'gene-120952', 'gene-428756', 'gene-224956', 'gene-403809', 'gene-224227', 'gene-240935', 'gene-225720', 'gene-225140', 'gene-224614', 'gene-224357', 'gene-392159', 'gene-222531', 'gene-225325', 'gene-117712', 'gene-84949', 'gene-222344', 'gene-406796', 'gene-240929', 'gene-392290', 'gene-81599', 'gene-225107', 'gene-231925', 'gene-214979', 'gene-220028', 'gene-260693', 'gene-224277', 'gene-224250', 'gene-224782', 'gene-390616', 'gene-224593', 'gene-322912', 'gene-431701', 'gene-80466', 'gene-403706', 'gene-323148', 'gene-323803', 'gene-283443', 'gene-326909', 'gene-225173', 'gene-243308', 'gene-430068', 'gene-222430', 'gene-240871', 'gene-237318', 'gene-224697', 'gene-222332', 'gene-241126', 'gene-89234', 'gene-406468', 'gene-328764', 'gene-326810', 'gene-88715', 'gene-222486', 'gene-224743', 'gene-221953', 'gene-225635', 'gene-222501', 'gene-428738', 'gene-430032', 'gene-241108', 'gene-81572', 'gene-392186', 'gene-222555', 'gene-81427', 'gene-225738', 'gene-403700', 'gene-234575', 'gene-240623', 'gene-222350', 'gene-395080', 'gene-225236', 'gene-224201', 'gene-241055', 'gene-225709', 'gene-326873', 'gene-326849', 'gene-322927', 'gene-80484', 'gene-395143', 'gene-225030', 'gene-222600', 'gene-224875', 'gene-390637', 'gene-224307', 'gene-403583', 'gene-224896', 'gene-430263', 'gene-428747', 'gene-430314', 'gene-403902']
-</code></pre>
-</details>
-</div>
-<div id="day16_SL1-3_smear" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_F_1-3.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_M_1-3.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day16_line_bias_by_sex.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-F3</th>
-<th>M1-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>6</td>
-<td>173</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10415</td>
-<td>10161</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>21</td>
-<td>108</td>
-</tr>
-</tbody>
-</table>
+
+<div id="day16_SL1-3" class="tabcontent">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day16_SL1-3_smear')">Smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'day16_SL1-3_volcano')">Volcano plot</button>
+    </div>
+
+    <div id="day16_SL1-3_smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day16_F_1-3.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day16_M_1-3.png" width="32%" />
+        </p>
+    </div>
+    <div id="day16_SL1-3_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day16_F_1-3_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day16_M_1-3_volcano.png" width="32%" />
+        </p>
+    </div>
+
+    <div style="float: left;width: 25%;">
+        <table>
+            <thead>
+                <tr>
+                    <th><code>glmQLFTest</code></th>
+                    <th>F1-F3</th>
+                    <th>M1-M3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downregulated</td>
+                    <td>6</td>
+                    <td>173</td>
+                </tr>
+                <tr>
+                    <td>no difference</td>
+                    <td>10415</td>
+                    <td>10161</td>
+                </tr>
+                <tr>
+                    <td>Upregulated</td>
+                    <td>21</td>
+                    <td>108</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+<div style="float: right;width: 75%;">
+    <p><img loading="lazy" src="data/DE_figures_python/Venn_day16_line_bias_by_sex.png" width="40%" /></p>
+    </div>
+<div style="clear: both;"></div>
+
 <details>
 <summary>142 DE genes shared between males and females (excluded from plots, toggle down to see list)</summary>
 <pre><code>['gene-241001', 'gene-282746', 'gene-224860', 'gene-227308', 'gene-390956', 'gene-224682', 'gene-240910', 'gene-399475', 'gene-240983', 'gene-222519', 'gene-282458', 'gene-237881', 'gene-224968', 'gene-220544', 'gene-226245', 'gene-240860', 'gene-391198', 'gene-282524', 'gene-403818', 'gene-90157', 'gene-84970', 'gene-224845', 'gene-81640', 'gene-222383', 'gene-220249', 'gene-430080', 'gene-430044', 'gene-391222', 'gene-222365', 'gene-240833', 'gene-428765', 'gene-240691', 'gene-80359', 'gene-390678', 'gene-225629', 'gene-238849', 'gene-282620', 'gene-120952', 'gene-428756', 'gene-224956', 'gene-403809', 'gene-282853', 'gene-224227', 'gene-225720', 'gene-225140', 'gene-238407', 'gene-239506', 'gene-224357', 'gene-222531', 'gene-241682', 'gene-225325', 'gene-84949', 'gene-222344', 'gene-406796', 'gene-240929', 'gene-282551', 'gene-240638', 'gene-392290', 'gene-225158', 'gene-225107', 'gene-220028', 'gene-260693', 'gene-224277', 'gene-224782', 'gene-390616', 'gene-224593', 'gene-322912', 'gene-431701', 'gene-428113', 'gene-380466', 'gene-323148', 'gene-323803', 'gene-282665', 'gene-326909', 'gene-428104', 'gene-225173', 'gene-227370', 'gene-399317', 'gene-224890', 'gene-282347', 'gene-282784', 'gene-430068', 'gene-282491', 'gene-400393', 'gene-222430', 'gene-399484', 'gene-240871', 'gene-224697', 'gene-222332', 'gene-241126', 'gene-89234', 'gene-399424', 'gene-282362', 'g14784', 'gene-223491', 'gene-400384', 'gene-222486', 'gene-224743', 'gene-243299', 'gene-221953', 'gene-225635', 'gene-222501', 'gene-428738', 'gene-400402', 'gene-430032', 'gene-241108', 'gene-282398', 'gene-81572', 'gene-392186', 'gene-222555', 'gene-81427', 'gene-225738', 'gene-282701', 'gene-282886', 'gene-240623', 'gene-222159', 'gene-222350', 'gene-395080', 'gene-225236', 'gene-224201', 'gene-241055', 'gene-286545', 'gene-225709', 'gene-431030', 'gene-326849', 'gene-322927', 'gene-395143', 'gene-225030', 'gene-222600', 'gene-224875', 'gene-223773', 'gene-390637', 'gene-224307', 'gene-231854', 'gene-224896', 'gene-430263', 'gene-428747', 'gene-399270', 'gene-241262', 'gene-430314', 'gene-242512', 'gene-282590']
 </code></pre>
 </details>
 </div>
-<div id="day16_SL1-3_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_F_1-3_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_M_1-3_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day16_line_bias_by_sex.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-F3</th>
-<th>M1-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>6</td>
-<td>173</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10415</td>
-<td>10161</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>21</td>
-<td>108</td>
-</tr>
-</tbody>
-</table>
-<details>
-<summary>142 DE genes shared between males and females (excluded from plots, toggle down to see list)</summary>
-<pre><code>['gene-241001', 'gene-282746', 'gene-224860', 'gene-227308', 'gene-390956', 'gene-224682', 'gene-240910', 'gene-399475', 'gene-240983', 'gene-222519', 'gene-282458', 'gene-237881', 'gene-224968', 'gene-220544', 'gene-226245', 'gene-240860', 'gene-391198', 'gene-282524', 'gene-403818', 'gene-90157', 'gene-84970', 'gene-224845', 'gene-81640', 'gene-222383', 'gene-220249', 'gene-430080', 'gene-430044', 'gene-391222', 'gene-222365', 'gene-240833', 'gene-428765', 'gene-240691', 'gene-80359', 'gene-390678', 'gene-225629', 'gene-238849', 'gene-282620', 'gene-120952', 'gene-428756', 'gene-224956', 'gene-403809', 'gene-282853', 'gene-224227', 'gene-225720', 'gene-225140', 'gene-238407', 'gene-239506', 'gene-224357', 'gene-222531', 'gene-241682', 'gene-225325', 'gene-84949', 'gene-222344', 'gene-406796', 'gene-240929', 'gene-282551', 'gene-240638', 'gene-392290', 'gene-225158', 'gene-225107', 'gene-220028', 'gene-260693', 'gene-224277', 'gene-224782', 'gene-390616', 'gene-224593', 'gene-322912', 'gene-431701', 'gene-428113', 'gene-380466', 'gene-323148', 'gene-323803', 'gene-282665', 'gene-326909', 'gene-428104', 'gene-225173', 'gene-227370', 'gene-399317', 'gene-224890', 'gene-282347', 'gene-282784', 'gene-430068', 'gene-282491', 'gene-400393', 'gene-222430', 'gene-399484', 'gene-240871', 'gene-224697', 'gene-222332', 'gene-241126', 'gene-89234', 'gene-399424', 'gene-282362', 'g14784', 'gene-223491', 'gene-400384', 'gene-222486', 'gene-224743', 'gene-243299', 'gene-221953', 'gene-225635', 'gene-222501', 'gene-428738', 'gene-400402', 'gene-430032', 'gene-241108', 'gene-282398', 'gene-81572', 'gene-392186', 'gene-222555', 'gene-81427', 'gene-225738', 'gene-282701', 'gene-282886', 'gene-240623', 'gene-222159', 'gene-222350', 'gene-395080', 'gene-225236', 'gene-224201', 'gene-241055', 'gene-286545', 'gene-225709', 'gene-431030', 'gene-326849', 'gene-322927', 'gene-395143', 'gene-225030', 'gene-222600', 'gene-224875', 'gene-223773', 'gene-390637', 'gene-224307', 'gene-231854', 'gene-224896', 'gene-430263', 'gene-428747', 'gene-399270', 'gene-241262', 'gene-430314', 'gene-242512', 'gene-282590']
-</code></pre>
-</details>
+
+
+<div id="day18_SL1-3" class="tabcontent">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day18_SL1-3_smear')">Smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'day18_SL1-3_volcano')">Volcano plot</button>
+    </div>
+
+    <div id="day18_SL1-3_smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day18_F_1-3.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day18_M_1-3.png" width="32%" />
+        </p>
+    </div>
+    <div id="day18_SL1-3_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day18_F_1-3_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day18_M_1-3_volcano.png" width="32%" />
+        </p>
+    </div>
+
+    <div style="float: left;width: 25%;">
+        <table>
+            <thead>
+                <tr>
+                    <th><code>glmQLFTest</code></th>
+                    <th>F1-F3</th>
+                    <th>M1-M3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downregulated</td>
+                    <td>6</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>no difference</td>
+                    <td>11193</td>
+                    <td>11190</td>
+                </tr>
+                <tr>
+                    <td>Upregulated</td>
+                    <td>5</td>
+                    <td>11</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+<div style="float: right;width: 75%;">
+    <p><img loading="lazy" src="data/DE_figures_python/Venn_day18_line_bias_by_sex.png" width="40%" /></p>
+    </div>
+<div style="clear: both;"></div>
+
+
 </div>
-<div id="day18_SL1-3_smear" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_F_1-3.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_M_1-3.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day18_line_bias_by_sex.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-F3</th>
-<th>M1-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>6</td>
-<td>3</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>11193</td>
-<td>11190</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>5</td>
-<td>11</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="day18_SL1-3_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_F_1-3_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_M_1-3_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day18_line_bias_by_sex.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-F3</th>
-<th>M1-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>6</td>
-<td>3</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>11193</td>
-<td>11190</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>5</td>
-<td>11</td>
-</tr>
-</tbody>
-</table>
-</div>
+
+
+
 <h4>Differential expression between males and females</h4>
+
+
 <p>This agrees very nicely with the line-separated analysis, most genes are male-biased, with SL1 on day 14 showing much less male-bias compared to all other tested contrasts.</p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'day14_FM_smear')">Day 14 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day14_FM_volcano')">Day 14 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_FM_smear')">Day 16 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_FM_volcano')">Day 16 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_FM_smear')">Day 18 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_FM_volcano')">Day 18 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_FM')">Day 14</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_FM')">Day 16</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_FM')">Day 18</button>
 </div>
-<div id="day14_FM_smear" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_SL1_F-M.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_SL3_F-M.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day14_sex_bias_by_line.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-M1</th>
-<th>F3-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>154</td>
-<td>510</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10236</td>
-<td>9884</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>8</td>
-<td>4</td>
-</tr>
-</tbody>
-</table>
+
+<div id="day14_FM" class="tabcontent">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day14_FM_smear')">Smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'day14_FM_volcano')">Volcano plot</button>
+    </div>
+
+    <div id="day14_FM_smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day14_SL1_F-M.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day14_SL3_F-M.png" width="32%" />
+        </p>
+    </div>
+    <div id="day14_FM_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day14_SL1_F-M_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day14_SL3_F-M_volcano.png" width="32%" />
+        </p>
+    </div>
+    <div style="float: left;width: 25%;">
+        
+        <table>
+            <thead>
+                <tr>
+                    <th><code>glmQLFTest</code></th>
+                    <th>F1-M1</th>
+                    <th>F3-M3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downregulated</td>
+                    <td>154</td>
+                    <td>510</td>
+                </tr>
+                <tr>
+                    <td>no difference</td>
+                    <td>10236</td>
+                    <td>9884</td>
+                </tr>
+                <tr>
+                    <td>Upregulated</td>
+                    <td>8</td>
+                    <td>4</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="float: right;width: 75%;">
+        <p><img loading="lazy" src="data/DE_figures_python/Venn_day14_sex_bias_by_line.png" width="40%" /></p>
+    </div>
+    <div style="clear: both;"></div>
 </div>
-<div id="day14_FM_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_SL1_F-M_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_SL3_F-M_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day14_sex_bias_by_line.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-M1</th>
-<th>F3-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>154</td>
-<td>510</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10236</td>
-<td>9884</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>8</td>
-<td>4</td>
-</tr>
-</tbody>
-</table>
+
+
+<div id="day16_FM" class="tabcontent">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day16_FM_smear')">Smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'day16_FM_volcano')">Volcano plot</button>
+    </div>
+
+    <div id="day16_FM_smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day16_SL1_F-M.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day16_SL3_F-M.png" width="32%" />
+        </p>
+    </div>
+    <div id="day16_FM_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day16_SL1_F-M_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day16_SL3_F-M_volcano.png" width="32%" />
+        </p>
+    </div>
+    <div style="float: left;width: 25%;">
+        <table>
+            <thead>
+                <tr>
+                    <th><code>glmQLFTest</code></th>
+                    <th>F1-M1</th>
+                    <th>F3-M3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downregulated</td>
+                    <td>692</td>
+                    <td>781</td>
+                </tr>
+                <tr>
+                    <td>no difference</td>
+                    <td>9713</td>
+                    <td>9625</td>
+                </tr>
+                <tr>
+                    <td>Upregulated</td>
+                    <td>37</td>
+                    <td>36</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="float: right;width: 75%;">
+        <p><img loading="lazy" src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="40%" /></p>
+    </div>
+    <div style="clear: both;"></div>
 </div>
-<div id="day16_FM_smear" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_SL1_F-M.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_SL3_F-M.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-M1</th>
-<th>F3-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>692</td>
-<td>781</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>9713</td>
-<td>9625</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>37</td>
-<td>36</td>
-</tr>
-</tbody>
-</table>
+
+
+<div id="day18_FM" class="tabcontent">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day18_FM_smear')">Smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'day18_FM_volcano')">Volcano plot</button>
+    </div>
+
+    <div id="day18_FM_smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day18_SL1_F-M.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day18_SL3_F-M.png" width="32%" />
+        </p>
+    </div>
+    <div id="day18_FM_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_day18_SL1_F-M_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
+        </p>
+    </div>
+
+    <div style="float: left;width: 25%;">
+        <table>
+            <thead>
+                <tr>
+                    <th><code>glmQLFTest</code></th>
+                    <th>F1-M1</th>
+                    <th>F3-M3</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downregulated</td>
+                    <td>1044</td>
+                    <td>843</td>
+                </tr>
+                <tr>
+                    <td>no difference</td>
+                    <td>10141</td>
+                    <td>10359</td>
+                </tr>
+                <tr>
+                    <td>Upregulated</td>
+                    <td>19</td>
+                    <td>2</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="float: right;width: 75%;">
+        <p><img loading="lazy" src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="40%" /></p>
+    </div>
+    <div style="clear: both;"></div>
 </div>
-<div id="day16_FM_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_SL1_F-M_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_SL3_F-M_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day16_sex_bias_by_line.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-M1</th>
-<th>F3-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>692</td>
-<td>781</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>9713</td>
-<td>9625</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>37</td>
-<td>36</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="day18_FM_smear" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_SL1_F-M.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_SL3_F-M.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day18_sex_bias_by_line.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-M1</th>
-<th>F3-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>1044</td>
-<td>843</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10141</td>
-<td>10359</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>19</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="day18_FM_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_SL1_F-M_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_SL3_F-M_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/Venn_day18_sex_bias_by_line.png" width="32%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>F1-M1</th>
-<th>F3-M3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>1044</td>
-<td>843</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10141</td>
-<td>10359</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>19</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-</div>
+
+
 <h4>Interaction sex-bias by line-bias</h4>
+
 <p><code>(F_1 - M_1) - (F_3 - M_3)</code>: Female-biased in one line and male-biased in the other. Also plot a scatter of the genes significant in the interaction in the same scatter plot as above if they are significant.</p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'day14_interaction_smear')">Day 14 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day14_interaction_volcano')">Day 14 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_interaction_smear')">Day 16 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_interaction_volcano')">Day 16 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_interaction_smear')">Day 18 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_interaction_volcano')">Day 18 (Volcano plot)</button>
+  <button class="tablinks" onclick="openTab(event, 'day14_interaction')">Day 14</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_interaction')">Day 16</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_interaction')">Day 18</button>
 </div>
-<div id="day14_interaction_smear" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_F-M_by_1-3.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_line_bias.png" width="25%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_sex_bias.png" width="25%" />  
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>(F_1 - M_1) - (F_3 - M_3)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>160</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10097</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>141</td>
-</tr>
-</tbody>
-</table>
+<div id="day14_interaction" class="tabcontent">
+    <div style="float: left;width: 40%;">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'day14_interaction_smear')">Smear plot</button>
+            <button class="tablinks" onclick="openTab(event, 'day14_interaction_volcano')">Volcano plot</button>
+        </div>
+
+        <div id="day14_interaction_smear" class="tabcontent">
+            <p float="left"><img loading="lazy" src="data/DE_figures_python/smear_day14_F-M_by_1-3.png" width="100%" /></p>
+        </div>
+        <div id="day14_interaction_volcano" class="tabcontent">
+            <p float="left"><img loading="lazy" src="data/DE_figures_python/smear_day14_F-M_by_1-3_volcano.png" width="100%" /></p>
+        </div>
+    </div>
+    <div style="float: left;width: 59%;">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_line_bias.png" width="49%" />
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_sex_bias.png" width="49%" />  
+        </p>
+    </div>
+    <div style="clear: both;"></div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th><code>glmQLFTest</code></th>
+                    <th>(F_1 - M_1) - (F_3 - M_3)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downregulated</td>
+                    <td>160</td>
+                </tr>
+                <tr>
+                    <td>no difference</td>
+                    <td>10097</td>
+                </tr>
+                <tr>
+                    <td>Upregulated</td>
+                    <td>141</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<div id="day14_interaction_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day14_F-M_by_1-3_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_line_bias.png" width="25%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_sex_bias.png" width="25%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>(F_1 - M_1) - (F_3 - M_3)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>160</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10097</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>141</td>
-</tr>
-</tbody>
-</table>
+
+
+<div id="day16_interaction" class="tabcontent">
+    <div style="float: left;width: 40%;">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'day16_interaction_smear')">Smear plot</button>
+            <button class="tablinks" onclick="openTab(event, 'day16_interaction_volcano')">Volcano plot</button>
+        </div>
+
+        <div id="day16_interaction_smear" class="tabcontent">
+            <p float="left"><img loading="lazy" src="data/DE_figures_python/smear_day16_F-M_by_1-3.png" width="100%" /></p>
+        </div>
+        <div id="day16_interaction_volcano" class="tabcontent">
+            <p float="left"><img loading="lazy" src="data/DE_figures_python/smear_day16_F-M_by_1-3_volcano.png" width="100%" /></p>
+        </div>
+    </div>
+    <div style="float: left;width: 59%;">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_line_bias.png" width="49%" />
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_sex_bias.png" width="49%" />  
+        </p>
+    </div>
+    <div style="clear: both;"></div>
+    
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th><code>glmQLFTest</code></th>
+                    <th>(F_1 - M_1) - (F_3 - M_3)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downregulated</td>
+                    <td>173</td>
+                </tr>
+                <tr>
+                    <td>no difference</td>
+                    <td>10161</td>
+                </tr>
+                <tr>
+                    <td>Upregulated</td>
+                    <td>108</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<div id="day16_interaction_smear" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_F-M_by_1-3.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_line_bias.png" width="25%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_sex_bias.png" width="25%" />  
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>(F_1 - M_1) - (F_3 - M_3)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>173</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10161</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>108</td>
-</tr>
-</tbody>
-</table>
+
+
+<div id="day18_interaction" class="tabcontent">
+    <div style="float: left;width: 40%;">
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'day18_interaction_smear')">Smear plot</button>
+            <button class="tablinks" onclick="openTab(event, 'day18_interaction_volcano')">Volcano plot</button>
+        </div>
+
+        <div id="day18_interaction_smear" class="tabcontent">
+            <p float="left"><img loading="lazy" src="data/DE_figures_python/smear_day18_F-M_by_1-3.png" width="100%" /></p>
+        </div>
+        <div id="day18_interaction_volcano" class="tabcontent">
+            <p float="left"><img loading="lazy" src="data/DE_figures_python/smear_day18_F-M_by_1-3_volcano.png" width="100%" /></p>
+        </div>
+    </div>
+    <div style="float: left;width: 59%;">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_line_bias.png" width="49%" />
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_sex_bias.png" width="49%" />  
+        </p>
+    </div>
+    <div style="clear: both;"></div>
+    <div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th><code>glmQLFTest</code></th>
+                    <th>(F_1 - M_1) - (F_3 - M_3)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Downregulated</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>no difference</td>
+                    <td>11190</td>
+                </tr>
+                <tr>
+                    <td>Upregulated</td>
+                    <td>11</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<div id="day16_interaction_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day16_F-M_by_1-3_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_line_bias.png" width="25%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_sex_bias.png" width="25%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>(F_1 - M_1) - (F_3 - M_3)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>173</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>10161</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>108</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="day18_interaction_smear" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_F-M_by_1-3.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_line_bias.png" width="25%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_sex_bias.png" width="25%" />  
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>(F_1 - M_1) - (F_3 - M_3)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>3</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>11190</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>11</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="day18_interaction_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_day18_F-M_by_1-3_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_line_bias.png" width="25%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_sex_bias.png" width="25%" />
-</p>
-<table>
-<thead>
-<tr>
-<th><code>glmQLFTest</code></th>
-<th>(F_1 - M_1) - (F_3 - M_3)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Downregulated</td>
-<td>3</td>
-</tr>
-<tr>
-<td>no difference</td>
-<td>11190</td>
-</tr>
-<tr>
-<td>Upregulated</td>
-<td>11</td>
-</tr>
-</tbody>
-</table>
-</div>
+
+
+
 <h4>Overlap of DE scatterplots</h4>
+
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'day14_scatter')">Day 14</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_scatter')">Day 16</button>
-  <button class="tablinks" onclick="openTab(event, 'day18_scatter')">Day 18</button>
+    <button class="tablinks" onclick="openTab(event, 'day14_scatter')">Day 14</button>
+    <button class="tablinks" onclick="openTab(event, 'day16_scatter')">Day 16</button>
+    <button class="tablinks" onclick="openTab(event, 'day18_scatter')">Day 18</button>
 </div>
+
 <div id="day14_scatter" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day14_line_bias_by_sex.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day14_sex_bias_by_line.png" width="32%" />
-</p>
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day14_line_bias_by_sex.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day14_sex_bias_by_line.png" width="32%" />
+    </p>
 </div>
+
 <div id="day16_scatter" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day16_line_bias_by_sex.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day16_sex_bias_by_line.png" width="32%" />
-</p>
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day16_line_bias_by_sex.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day16_sex_bias_by_line.png" width="32%" />
+    </p>
 </div>
+
 <div id="day18_scatter" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day18_line_bias_by_sex.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day18_sex_bias_by_line.png" width="32%" />
-</p>
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day18_line_bias_by_sex.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/LFC_scatter_day18_sex_bias_by_line.png" width="32%" />
+    </p>
 </div>
 
 <h4>Upsetplot of sig DE genes between lines and sexes</h4>
