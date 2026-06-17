@@ -721,12 +721,9 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 <details>
     <summary>Code summary</summary>
 
-    <pre>
-        <code>
-    groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
-    y <- DGEList(counts=counts_M, group=groups)
-    MM <- model.matrix(~ 0+ groups, data = y$samples)</code>
-    </pre>
+    <pre><code> groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
+ y <- DGEList(counts=counts_M, group=groups)
+ MM <- model.matrix(~ 0+ groups, data = y$samples)</code></pre>
 </details>
 
 <p>
@@ -735,10 +732,8 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
     day 14 and 16, which becomes reduced in day 18.
 </p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males (Smear plots)</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE')">females (Smear plots)</button>
-  <button class="tablinks" onclick="openTab(event, 'males_lines_DE_volcano')">males (Volcano plots)</button>
-  <button class="tablinks" onclick="openTab(event, 'females_lines_DE_volcano')">females (Volcano plots)</button>
+  <button class="tablinks" onclick="openTab(event, 'males_lines_DE')">males</button>
+  <button class="tablinks" onclick="openTab(event, 'females_lines_DE')">females</button>
 </div>
 
 <div id="males_lines_DE" class="tabcontent">
@@ -772,11 +767,26 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
     </tr>
     </tbody>
   </table>
-  <p float="left">
-    <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day14.png" width="32%" />
-    <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day16.png" width="32%" />
-    <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day18.png" width="32%" />
-  </p>
+  
+  <div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'males_lines_DE_smear')">Smear plots</button>
+    <button class="tablinks" onclick="openTab(event, 'males_lines_DE_volcano')">Volcano plots</button>
+</div>
+
+<div id="males_lines_DE_smear" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day14.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day16.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day18.png" width="32%" />
+    </p>
+</div>
+<div id="males_lines_DE_volcano" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day14_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day16_volcano.png" width="32%" />
+        <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day18_volcano.png" width="32%" />
+      </p>
+</div>
   <p>Upregulation here means that genes are expressed higher in SL1 than SL3. Day 14 and 16 have more significantly differentially expressed genes than day 18. In day 18, the larvae are close to pupation, which could mean that they are switching from gene expression related to grwoth and digestion to what they need for pupation instead, which is not related to the Y-haplotype difference any more, resulting in less DE between the lines on day 18.</p>
   <p float="left">
     <img loading="lazy" src="data/DE_figures_python/Venn_males_age_by_line_bias.png" width="32%" />
@@ -815,11 +825,25 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
     </tbody>
   </table>
 
-  <p float="left">
-    <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day14.png" width="32%" />
-    <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day16.png" width="32%" />
-    <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day18.png" width="32%" />
-  </p>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'females_lines_DE_smear')">Smear plots</button>
+        <button class="tablinks" onclick="openTab(event, 'females_lines_DE_volcano')">Volcano plots</button>
+    </div>
+
+    <div id="females_lines_DE_smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day14.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day16.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day18.png" width="32%" />
+        </p>
+    </div>
+    <div id="females_lines_DE_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day14_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day16_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day18_volcano.png" width="32%" />
+          </p>
+    </div>
   <p>Fewer DE genes than males in day 14 and 16, and similar number in day 18. Within females, similar amounts of DE genes on day 14, 16, and 18, 
     which is different from the male samples where day 18 is a clear outlier. This supports the hypothesis that this is caused by the line difference 
     in growth which impacts day 14 and 16 more than 18, and therefore the DE genes here are not related to the growth differences between the lines that 
@@ -850,23 +874,10 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   </details>
 </div>
 
-<div id="males_lines_DE_volcano" class="tabcontent">
-  <p float="left">
-    <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day14_volcano.png" width="32%" />
-    <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day16_volcano.png" width="32%" />
-    <img loading="lazy" src="data/DE_figures_python/smear_M_1-3_day18_volcano.png" width="32%" />
-  </p>
-  For venn-diagrams see smear plots
-</div>
-<div id="females_lines_DE_volcano" class="tabcontent">
-<p float="left">
-  <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day14_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day16_volcano.png" width="32%" />
-  <img loading="lazy" src="data/DE_figures_python/smear_F_1-3_day18_volcano.png" width="32%" />
-</p>
-<p>For venn-diagrams see smear plots</p>
-</div>
+
+
 <h4>Scatterplots of pairwise comparisons</h4>
+
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
   <button class="tablinks" onclick="openTab(event, 'females_day_DE')">females</button>

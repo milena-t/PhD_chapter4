@@ -585,7 +585,7 @@ if __name__ == "__main__":
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
-    if False:
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -593,9 +593,9 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            # if separation != "sex_separated":
-            #     print(f"ignore {separation}")
-            #     continue
+            if separation != "sex_separated":
+                print(f"ignore {separation}")
+                continue
             print(f"\n=========================== {separation} ===========================")
             
             # for upsetplot
@@ -701,6 +701,7 @@ if __name__ == "__main__":
     ## standard sets matching the tabs in the html
     if False:
         venn_sets = {
+            "no_separation" : { "all_samples" : {"" : []}},
             "sex_separated" : {
                 "females" : {
                     "age by line bias" :["SL1_14 - SL3_14","SL1_16 - SL3_16","SL1_18 - SL3_18"],
@@ -737,6 +738,8 @@ if __name__ == "__main__":
                 print(f"\n ------------------- {category} -------------------")
 
                 for venn_cat, venn_contrasts_list in venn_sets[separation][category].items():
+                    if venn_contrasts_list == []:
+                        continue
                     print(f"{venn_cat} : {venn_contrasts_list}")
                     venn_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in venn_contrasts_list}
                     venn_filename_ = venn_cat.replace(" ", "_")
@@ -750,7 +753,7 @@ if __name__ == "__main__":
     ###########################################
 
     ## compare if the same genes are DE between lines within days in males as in females
-    if True:
+    if False:
         venn_sets_day = {
             "sex_separated" : {
                 "day14" : {

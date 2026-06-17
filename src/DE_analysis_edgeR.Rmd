@@ -229,8 +229,8 @@ The analysis can be run separately for males and females, if use_males=True then
 or only line differences are tested
 
 ```{r} 
-use_males<-FALSE # only run on male samples (if False only run on female samples)
-use_time<-FALSE # contrasts that take time into account (if False then only line contrasts)
+use_males<-TRUE # only run on male samples (if False only run on female samples)
+use_time<-TRUE # contrasts that take time into account (if False then only line contrasts)
 ```
 
 
