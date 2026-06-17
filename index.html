@@ -262,60 +262,89 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
     <pre>
         <code>
  groups <- factor(paste(meta_data$line, meta_data$sex, sep="_"))
- y <- DGEList(counts=counts_M)
+ y <- DGEList(counts=counts_M, group=groups)
  # see Rmd file for filter min expr. and normalize library sizes
  day <- factor(meta_data$day)
- MM <- model.matrix(~ 0 + line:sex + day, data = y$samples)
- colnames(MM) <- c("day14", "day16", "day18", "SL1_F", "SL3_F", "SL1_M", "SL3_M")</code>
+ MM <- model.matrix(~ 0 + groups + day, data = y$samples)
+ colnames(MM) <- c("SL1_F", "SL1_M", "SL3_F", "SL3_M", "day16", "day18")</code>
     </pre>
 </details>
 
-<p>First I check if there are general time differences</p>
+<p>
+  First I check if there are general time differences with model coefficients and then use contrasts for sex and line bias. 
+  For the differential expression between the sexes I add a |log2FC| > 1 threshold.
+</p>
 
 <div class="tab">
-    <button class="tablinks" onclick="openTab(event, 'day14_day16_whole_dataset')">day14 - day16</button>
-    <button class="tablinks" onclick="openTab(event, 'day16_day18_whole_dataset')">day16 - day18</button>
-    <button class="tablinks" onclick="openTab(event, 'day14_day18_whole_dataset')">day14 - day18</button>
-</div>
-
-<div id="day14_day16_whole_dataset" class="tabcontent">
-    <table>
-        <thead>
-        <tr>
-          <th><code>SL1_F - SL1_M</code></th>
-          <th>any LFC</th>
-        </tr>
-        </thead>
-        <tbody>
-          <tr>
-          <td>Downregulated</td>
-          <td>1127</td>
-          </tr>
-        <tr>
-          <td>no difference</td>
-          <td>9379</td>
-        </tr>
-        <tr>
-          <td>Upregulated</td>
-          <td>90</td>
-        </tr>
-        </tbody>
-    </table>
-    <p float="left">
-        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_SL1_F-M.png" width="32%" />
-        <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_ignored_SL1_F-M_volcano.png" width="32%" />
-        <img loading="lazy" src="data/DE_figures_python/Venn_all_samples_sex_bias_no_age.png" width="32%" />
-    </p>
-</div>
-
-<p>For the differential expression between the sexes I add a |log2FC| > 1 threshold.</p>
-
-<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'day effect')">day effect</button>
     <button class="tablinks" onclick="openTab(event, 'sex bias SL1')">sex bias SL1</button>
     <button class="tablinks" onclick="openTab(event, 'sex bias SL3')">sex bias SL3</button>
     <button class="tablinks" onclick="openTab(event, 'line bias females')">line bias females</button>
     <button class="tablinks" onclick="openTab(event, 'line bias males')">line bias males</button>
     <button class="tablinks" onclick="openTab(event, 'line by sex interaction')">line by sex interaction</button>
+</div>
+
+<div id="day effect" class="tabcontent">
+
+    <p>There is an extremely strong day effect across all samples.</p>
+
+    <div style="float: left;width: 25%;">
+    <table>
+        <thead>
+        <tr>
+          <th>coefficients</th>
+          <th>day 16</th>
+          <th>day 18</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td>Downregulated</td>
+          <td>2531</td>
+          <td>2213</td>
+          </tr>
+        <tr>
+          <td>no difference</td>
+          <td>5142</td>
+          <td>5142</td>
+        </tr>
+        <tr>
+          <td>Upregulated</td>
+          <td>2923</td>
+          <td>3241</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <div style="float: right;width: 75%;">
+        <details>
+            <summary>code summary</summary>
+            <pre>
+<code> colnames(MM) <- c("SL1_F", "SL1_M", "SL3_F", "SL3_M", "day16", "day18")
+ fit <- glmQLFit(y, MM)
+ qlf <- glmQLFTest(fit, coef=c("day16", "day18"))</code></pre>
+        </details>
+    </div>
+    <div style="clear: both;"></div>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day effect smear')">smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'day effect volcano')">volcano plot</button>
+    </div>
+
+    <div id="day effect smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_random_factor_days_diff_day16.png" width="40%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_random_factor_days_diff_day18.png" width="40%" />
+        </p>
+    </div>
+    <div id="day effect volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_random_factor_days_diff_day16_volcano.png" width="40%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_day_random_factor_days_diff_day18_volcano.png" width="40%" />
+        </p>
+    </div>
+
 </div>
 
 <div id="sex bias SL1" class="tabcontent">

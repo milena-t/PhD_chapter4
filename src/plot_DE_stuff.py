@@ -26,9 +26,7 @@ def get_tables(username = "miltr339"):
                 "SL1_F - SL3_F" : f"{tables_dir}full_dataset_day_ignored_F_SL1-SL3.txt",
                 "SL1_M - SL3_M" : f"{tables_dir}full_dataset_day_ignored_M_SL1-SL3.txt",
                 "(SL1_F - SL3_F) - (SL1_M - SL3_M)" : f"{tables_dir}full_dataset_day_ignored_line_sex_interaction.txt",
-                "day14 - day16" : f"{tables_dir}full_dataset_day_random_factor_day14_day16.txt",
-                "day16 - day18" : f"{tables_dir}full_dataset_day_random_factor_day16_day18.txt",
-                "day14 - day18" : f"{tables_dir}full_dataset_day_random_factor_day14_day18.txt",
+                "day16,day18" : f"{tables_dir}full_dataset_day_random_factor_days_diff.txt",
             },
         },
         
@@ -143,11 +141,12 @@ def get_tables(username = "miltr339"):
         "SL1_F - SL3_F" : "SL1-SL3 F",
         "SL1_M - SL3_M" : "SL1-SL3 M",
         "(SL1_F - SL3_F) - (SL1_M - SL3_M)" : " line by sex interaction",
+        "day16,day18" : "day effect"
     }
     return out_dict,contrast_plot_titles
 
 
-def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC", excl_genes_list = [], x_axis = "logcpm", plot = True):
+def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC", excl_genes_list = [], x_axis = "logcpm", plot = True, coefficients=False):
     """
     replicate smear-plot from R, logCPM by logFC, significance highlighted in red
     return the number of up/downregulated and no difference genes
@@ -173,85 +172,161 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     df_nonsig = df.loc[df['FDR'] >= p_sig]
     df_sig = df.loc[df['FDR'] < p_sig]
     print(f"\tnum sig genes: {df_sig.shape[0]}")
-    if min_LFC>0:
+    
+    if min_LFC>0 and coefficients==False:
         df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
         print(f"\tnum sig genes with LFC > {min_LFC}: {df_sig.shape[0]}")
+    
+    if coefficients==True:
+        # make individual plots for each coefficient
+        logfc_colnames = [ coln for coln in df.columns if "logFC" in coln]
+        sig_dfs_coeff = {logfc_colname : df_sig.loc[abs(df_sig[logfc_colname]) >= min_LFC] for logfc_colname in logfc_colnames}
+        out_dict = {logfc_colname.split(".")[-1] : {} for logfc_colname in logfc_colnames}
 
-    if plot:
-        if  x_axis == "logcpm":
-            fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
-        elif x_axis == "fdr_p":
-            fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
+        for logfc_colname, sig_df_coeff in sig_dfs_coeff.items():
 
-        if  x_axis == "logcpm":
-            ax.scatter(df_nonsig["logCPM"], df_nonsig["logFC"], color = cols["nonsig"], alpha=0.5, s=ps)
-            ax.scatter(df_sig["logCPM"], df_sig["logFC"], color = cols["sig"], alpha=1, s=ps)
-        elif x_axis == "fdr_p":
-            ax.scatter(df_nonsig["logFC"], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps)
-            ax.scatter(df_sig["logFC"], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps)
+            coeff_name = logfc_colname.split(".")[-1]
+            print(f"\tcoef:{coeff_name} num sig genes with LFC > {min_LFC}: {sig_df_coeff.shape[0]}")
+            if  x_axis == "logcpm":
+                fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
+            elif x_axis == "fdr_p":
+                fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
+
+            if  x_axis == "logcpm":
+                ax.scatter(df_nonsig["logCPM"], df_nonsig[logfc_colname], color = cols["nonsig"], alpha=0.5, s=ps)
+                ax.scatter(df_sig["logCPM"], df_sig[logfc_colname], color = cols["sig"], alpha=1, s=ps)
+            elif x_axis == "fdr_p":
+                ax.scatter(df_nonsig[logfc_colname], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps)
+                ax.scatter(df_sig[logfc_colname], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps)
         
-        if "SL" in contrast and "/2" not in contrast:
-            if "SL1" in contrast and "SL3" in contrast:
+            if  x_axis == "logcpm":
+                ax.set_ylabel(f"{logfc_colname}", fontsize = fs)
+                ax.set_xlabel(f"log CPM", fontsize = fs)
+            elif x_axis == "fdr_p":
+                ax.set_xlabel(f"{logfc_colname}", fontsize = fs)
+                ax.set_ylabel(f"log10  FDR p-value", fontsize = fs)
+                ax.yaxis.set_inverted(True) 
+            ax.tick_params(axis='x', labelsize=fs*0.9)
+            ax.tick_params(axis='y', labelsize=fs*0.9)
+            coeff_title = f"{title}:{coeff_name}"
+            ax.set_title(coeff_title, fontsize = fs*1.25)
+
+            if  x_axis == "logcpm":
+                min_line = min(df["logCPM"])-0.25
+                max_line = max(df["logCPM"])+0.25
+                if min_LFC > 0:
+                    ax.hlines(y=min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                    ax.hlines(y=-1*min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                else:
+                    ax.hlines(y=1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                    ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                ax.set_xlim([min_line,max_line])
+            elif x_axis == "fdr_p":
+                pass
+
+            smear_plot_name_coeff = smear_plot_name.replace(".png", f"_{coeff_name}.png")
+            if x_axis == "fdr_p":
+                smear_plot_name_coeff = smear_plot_name.replace(".png", f"_{coeff_name}_volcano.png")
+            
+            plt.tight_layout()
+            fig.subplots_adjust(left=0.125) # or whatever
+            plt.savefig(smear_plot_name_coeff, dpi = 300, transparent = True)
+            print(f"plot saved in current working directory as: {smear_plot_name_coeff}")
+            plt.clf()
+            plt.cla()
+            plt.close()
+
+            # numbers for table
+            upreg = df_sig.loc[df_sig[logfc_colname] > 0]
+            # upreg = upreg.shape[0]
+            upreg = upreg["Gene"].tolist()
+            downreg = df_sig.loc[df_sig[logfc_colname] < 0]
+            # downreg = downreg.shape[0]
+            downreg = downreg["Gene"].tolist()
+            # all_rows = df.shape[0]
+            # nodiff = all_rows - upreg - downreg
+            df_nonsig = df.drop(index=downreg, errors='ignore')
+            df_nonsig = df_nonsig.drop(index=upreg, errors='ignore')
+            nodiff = df_nonsig["Gene"].tolist()
+
+            out_dict[coeff_name] = {"Downregulated" : downreg, "no difference" : nodiff,  "Upregulated" : upreg}
+
+    else:    
+        if plot:
+            if  x_axis == "logcpm":
+                fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
+            elif x_axis == "fdr_p":
+                fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
+
+            if  x_axis == "logcpm":
+                ax.scatter(df_nonsig["logCPM"], df_nonsig["logFC"], color = cols["nonsig"], alpha=0.5, s=ps)
+                ax.scatter(df_sig["logCPM"], df_sig["logFC"], color = cols["sig"], alpha=1, s=ps)
+            elif x_axis == "fdr_p":
+                ax.scatter(df_nonsig["logFC"], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps)
+                ax.scatter(df_sig["logFC"], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps)
+            
+            if "SL" in contrast and "/2" not in contrast:
+                if "SL1" in contrast and "SL3" in contrast:
+                    label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
+                else:
+                    label_contrast = contrast.replace("SL1_", "day ").replace("SL3_", "day ")    
+            elif "F" in contrast and "(" not in contrast:
                 label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
             else:
-                label_contrast = contrast.replace("SL1_", "day ").replace("SL3_", "day ")    
-        elif "F" in contrast and "(" not in contrast:
-            label_contrast = contrast.replace("_14", "").replace("_16", "").replace("_18", "")
-        else:
-            label_contrast = contrast.replace("SL1", "day").replace("SL3", "day")
-        if  x_axis == "logcpm":
-            ax.set_ylabel(f"logFC ({label_contrast})", fontsize = fs)
-            ax.set_xlabel(f"log CPM", fontsize = fs)
-        elif x_axis == "fdr_p":
-            ax.set_xlabel(f"logFC ({label_contrast})", fontsize = fs)
-            ax.set_ylabel(f"log10  FDR p-value", fontsize = fs)
-            ax.yaxis.set_inverted(True) 
-        ax.tick_params(axis='x', labelsize=fs*0.9)
-        ax.tick_params(axis='y', labelsize=fs*0.9)
-        ax.set_title(title, fontsize = fs*1.25)
+                label_contrast = contrast.replace("SL1", "day").replace("SL3", "day")
+            if  x_axis == "logcpm":
+                ax.set_ylabel(f"logFC ({label_contrast})", fontsize = fs)
+                ax.set_xlabel(f"log CPM", fontsize = fs)
+            elif x_axis == "fdr_p":
+                ax.set_xlabel(f"logFC ({label_contrast})", fontsize = fs)
+                ax.set_ylabel(f"log10  FDR p-value", fontsize = fs)
+                ax.yaxis.set_inverted(True) 
+            ax.tick_params(axis='x', labelsize=fs*0.9)
+            ax.tick_params(axis='y', labelsize=fs*0.9)
+            ax.set_title(title, fontsize = fs*1.25)
 
-        if  x_axis == "logcpm":
-            min_line = min(df["logCPM"])-0.25
-            max_line = max(df["logCPM"])+0.25
-            if min_LFC > 0:
-                ax.hlines(y=min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-                ax.hlines(y=-1*min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-            else:
-                ax.hlines(y=1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-                ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-            ax.set_xlim([min_line,max_line])
-        elif x_axis == "fdr_p":
-            pass
-            # min_line = min(df["logFC"])
-            # max_line = max(df["logFC"])
-            # ax.vlines(x=0, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-            # ax.set_xlim([min_line,max_line])
-        
+            if  x_axis == "logcpm":
+                min_line = min(df["logCPM"])-0.25
+                max_line = max(df["logCPM"])+0.25
+                if min_LFC > 0:
+                    ax.hlines(y=min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                    ax.hlines(y=-1*min_LFC, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                else:
+                    ax.hlines(y=1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                    ax.hlines(y=-1, xmin=min_line, xmax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                ax.set_xlim([min_line,max_line])
+            elif x_axis == "fdr_p":
+                pass
+                # min_line = min(df["logFC"])
+                # max_line = max(df["logFC"])
+                # ax.vlines(x=0, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
+                # ax.set_xlim([min_line,max_line])
+            
 
-        if x_axis == "fdr_p":
-            smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
-        plt.tight_layout()
-        fig.subplots_adjust(left=0.125) # or whatever
-        plt.savefig(smear_plot_name, dpi = 300, transparent = True)
-        print(f"plot saved in current working directory as: {smear_plot_name}")
-        plt.clf()
-        plt.cla()
-        plt.close()
+            if x_axis == "fdr_p":
+                smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
+            plt.tight_layout()
+            fig.subplots_adjust(left=0.125) # or whatever
+            plt.savefig(smear_plot_name, dpi = 300, transparent = True)
+            print(f"plot saved in current working directory as: {smear_plot_name}")
+            plt.clf()
+            plt.cla()
+            plt.close()
 
-    # numbers for table
-    upreg = df_sig.loc[df_sig['logFC'] > 0]
-    # upreg = upreg.shape[0]
-    upreg = upreg["Gene"].tolist()
-    downreg = df_sig.loc[df_sig['logFC'] < 0]
-    # downreg = downreg.shape[0]
-    downreg = downreg["Gene"].tolist()
-    # all_rows = df.shape[0]
-    # nodiff = all_rows - upreg - downreg
-    df_nonsig = df.drop(index=downreg, errors='ignore')
-    df_nonsig = df_nonsig.drop(index=upreg, errors='ignore')
-    nodiff = df_nonsig["Gene"].tolist()
+        # numbers for table
+        upreg = df_sig.loc[df_sig['logFC'] > 0]
+        # upreg = upreg.shape[0]
+        upreg = upreg["Gene"].tolist()
+        downreg = df_sig.loc[df_sig['logFC'] < 0]
+        # downreg = downreg.shape[0]
+        downreg = downreg["Gene"].tolist()
+        # all_rows = df.shape[0]
+        # nodiff = all_rows - upreg - downreg
+        df_nonsig = df.drop(index=downreg, errors='ignore')
+        df_nonsig = df_nonsig.drop(index=upreg, errors='ignore')
+        nodiff = df_nonsig["Gene"].tolist()
 
-    out_dict = {"Downregulated" : downreg, "no difference" : nodiff,  "Upregulated" : upreg}
+        out_dict = {"Downregulated" : downreg, "no difference" : nodiff,  "Upregulated" : upreg}
 
     return out_dict
 
@@ -500,7 +575,7 @@ if __name__ == "__main__":
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
-    if False:
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -523,14 +598,21 @@ if __name__ == "__main__":
                 sig_DE_genes = {}
                 
                 for contrast, table_path in paths_dict.items():
-                    
+
                     if "F" in contrast and "M" in contrast:
                         # sex-biased contrast -> use |LFC| = 1 as min
                         # only for plot, don't do this for the output tables
                         min_LFC = 1
                     else:
                         min_LFC = 0
-                    print(f"{separation}:{category} --> contrast: {contrast}")
+
+                    if contrast == "day16,day18":
+                        # this is not a contrasts but a test for the effect of coefficients, therefore the output table is structured a little differently and the plotting function needs to know
+                        coefficients = True
+                        print(f"{separation}:{category} --> coefficients: {contrast}")
+                    else:
+                        coefficients = False
+                        print(f"{separation}:{category} --> contrast: {contrast}")
 
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"
@@ -548,38 +630,43 @@ if __name__ == "__main__":
                         print(f"\texcluding genes from list '{excl_list_name}'")
         
                     # smear plot
-                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot)
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot, coefficients=coefficients)
                     # volcano plot
-                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot)
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot, coefficients=coefficients)
                     
                     if False:
                         Downlist = smear_lists["Downregulated"]
                         Uplist = smear_lists["Upregulated"]
                         print(f"\t * Downregulated : {Downlist}\n\t * Upregulated : {Uplist}")
-                    else:
+                    elif coefficients==False:
                         DE_list = smear_lists["Downregulated"]+smear_lists["Upregulated"]
                         nonDE_list = smear_lists["no difference"]
 
-                    if make_list_outfiles:
-                        sig_list_outfile = table_path.split("/")[-1].replace("DE_genes_", "sig_DE_list_")
-                        sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
-                        with open(sig_list_outfile, "w") as sig_list_file:
-                            DE_list_outfile = [f"{geneID},1" for geneID in DE_list]
-                            DE_string = "\n".join(DE_list_outfile)
-                            sig_list_file.write(f"geneID,sig_DE\n{DE_string}\n") 
-                            nonDE_list_outfile = [f"{geneID},0" for geneID in nonDE_list]
-                            nonDE_string = "\n".join(nonDE_list_outfile)
-                            sig_list_file.write(f"{nonDE_string}\n") # needs the newline character so that R can read the list right
+                        if make_list_outfiles:
+                            sig_list_outfile = table_path.split("/")[-1].replace("DE_genes_", "sig_DE_list_")
+                            sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
+                            with open(sig_list_outfile, "w") as sig_list_file:
+                                DE_list_outfile = [f"{geneID},1" for geneID in DE_list]
+                                DE_string = "\n".join(DE_list_outfile)
+                                sig_list_file.write(f"geneID,sig_DE\n{DE_string}\n") 
+                                nonDE_list_outfile = [f"{geneID},0" for geneID in nonDE_list]
+                                nonDE_string = "\n".join(nonDE_list_outfile)
+                                sig_list_file.write(f"{nonDE_string}\n") # needs the newline character so that R can read the list right
 
-                        print(f" * list of sig DE genes written to: {sig_list_outfile}")
+                            print(f" * list of sig DE genes written to: {sig_list_outfile}")
 
-                    smear_nums = {gene_set : len(gene_list) for gene_set,gene_list in smear_lists.items()}
-                    numbers[contrast] = smear_nums
+                        smear_nums = {gene_set : len(gene_list) for gene_set,gene_list in smear_lists.items()}
+                        numbers[contrast] = smear_nums
 
-                    if "(" not in contrast:
-                        # don't include interactions in upset plot
-                        sig_DE_genes[contrast] = DE_list
-                        sep_DE_genes[f"{category}: {contrast}"] = DE_list
+                        if "(" not in contrast:
+                            # don't include interactions in upset plot
+                            sig_DE_genes[contrast] = DE_list
+                            sep_DE_genes[f"{category}: {contrast}"] = DE_list
+                    
+                    elif coefficients:
+                        for coeff, coeff_list in smear_lists.items():
+                            print(f"*{coeff}")
+                            numbers[f"coef:{coeff}"] = {gene_set : len(gene_list) for gene_set,gene_list in coeff_list.items()}
 
                 if plot:
                     for contrast, number in numbers.items():
@@ -800,7 +887,7 @@ if __name__ == "__main__":
     ######## MAKE ALL THE SB COMPARISONS #######
     ############################################
 
-    if True:
+    if False:
         LFC_comp_sets = {
             "no_separation" : {
                 "all_samples" : {

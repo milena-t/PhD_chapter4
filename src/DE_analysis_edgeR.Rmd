@@ -46,7 +46,7 @@ outdir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/"
 # outdir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_only_X/"
 ```
 
-Load all data first and compute right library sizes. Only split by sample after this.
+Load metadata 
 
 ```{r}
 
@@ -64,30 +64,10 @@ metadata <- sprintf("%slarvae_metadata.csv", outdir)
   meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
   # reorder so it's in the same order as the count data columns
   meta_data <- meta_data[names(count_data),]
+
   # check assumptions, should be TRUE
   all(colnames(count_data) %in% rownames(meta_data))
-  
-## normalize library sizes
-  # make sample groups that reflect line and day
-  groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
-  # read data into data structure
-  y <- DGEList(counts=count_data, group=groups)
-  #dim(y)
-  #[1] 15700    82
-
-## filter out low count genes
-  # minimum count of 5 in at least some samples, and a minimum total count of 15 across all samples 
-  # min.prop=0 so that the yTors stay even though they are only expressed in SL1-M
-  #   In general, all Y-exclusive genes should be kept this way since they are absent in all females
-  keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=5 , min.prop=0)
-  y <- y[keep, , keep.lib.sizes=FALSE]
-  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
-  # dim(y)
-  # [1] 11596    82
-  
-## normalize by library sizes
-  y <- calcNormFactors(y)
-
+  all(colnames(count_data) == rownames(meta_data))
 ```
 
 ### plot MDS
@@ -115,21 +95,18 @@ Export normalized counts to file. See Python scripting for the PCA plots based o
 # run whole dataset for basic analyses
 
 ```{r}
-
 counts_M <- count_data
 
 meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
-## adjust metadata
-meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
-# reorder so it's in the same order as the count data columns
-meta_data <- meta_data[names(counts_M),]
-# check assumptions, should be TRUE
-all(colnames(counts_M) %in% rownames(meta_data))
+meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")## adjust metadata
+meta_data <- meta_data[names(counts_M),]# reorder so it's in the same order as the count data columns
+all(colnames(counts_M) %in% rownames(meta_data))# check assumptions, should be TRUE
+all(colnames(counts_M) == rownames(meta_data))# check assumptions, should be TRUE
 
 # groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
 groups <- factor(paste(meta_data$line, meta_data$sex, sep="_"))
-# y <- DGEList(counts=counts_M, group=groups)
-y <- DGEList(counts=counts_M)
+y <- DGEList(counts=counts_M, group=groups)
+# y <- DGEList(counts=counts_M)
 
 ## filter out low count genes
 # filter by only line group and not day, since we aren't sure how the expression changes between days and we don't want to remove genes that are only rarely expressed
@@ -141,26 +118,19 @@ keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
 y <- calcNormFactors(y)
 
 # specify model
-line <- factor(paste("SL", meta_data$line, sep=""))
+line <- factor(meta_data$line)
 day <- factor(meta_data$day)
 sex <- factor(meta_data$sex)
-MM <- model.matrix(~ 0 + line:sex + day, data = y$samples)
-colnames(MM) <- c("day14", "day16", "day18", "SL1_F", "SL3_F", "SL1_M", "SL3_M")
+MM <- model.matrix(~ 0 + groups + day, data = y$samples)
+colnames(MM)
+qr(MM)$rank   # should be 6
+ncol(MM)      # should be 6
+colnames(MM) <- c("SL1_F", "SL1_M", "SL3_F", "SL3_M", "day16", "day18")
 rownames(MM) <- colnames(y)
 
 # estimate dispersion with edgeR
-y <- estimateDisp(y, MM) # edgeR doesn't work, error with coefficient SL3_M
+y <- estimateDisp(y, MM) 
 # plotBCV(y)
-
-# try limma 
-library(limma)
-y <- voom(y, MM, plot = FALSE)
-# plot
-# fit <- lmFit(y, MM)
-# fit <- contrasts.fit(fit, contrasts)
-# fit <- eBayes(fit)
-
-
 ```
 
 Differential expression analysis 
@@ -172,17 +142,34 @@ line1_F_M = SL1_F - SL1_M,
 line3_F_M = SL3_F - SL3_M,
 F_SL1_SL3 = SL1_F - SL3_F,
 M_SL1_SL3 = SL1_M - SL3_M,
-day14_day16 = day14 - day16,
-day16_day18 = day16 - day18,
-day14_day18 = day14 - day18,
 line_sex_interaction = (SL1_F - SL3_F) - (SL1_M - SL3_M),
 levels=MM)
 
-contrast_analysis_complete_ds <- function(y,MM,contrast, table_name, lfc_min){
-  ## function for limma, but probably not useable change back to other one below with edgeR stuff
-  fit <- lmFit(y, MM)
-  qlf <- contrasts.fit(fit, contrast=contrast)
-  de_qlf <- eBayes(qlf, p.value=0.05, lfc=lfc_min)
+coefficient_analysis_complete_ds <- function(y,MM,coefficients_vec, table_name, lfc_min){
+  
+  fit <- glmQLFit(y, MM)
+  qlf <- glmQLFTest(fit, coef=coefficients_vec)
+  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
+  print(coefficients_vec)
+  print(summary(de_qlf))
+  
+  print("--------------------------------------------")
+  
+  ## make output table
+  Tags <- topTags(qlf, n=Inf, p.value=1)						
+  Tags <- Tags$table
+  Tags$Gene <- rownames(Tags)
+  write.table(Tags, file=table_name, sep="\t")	
+  
+  output <- list(qlf=qlf,Tags=Tags)
+  return(output)
+}
+
+contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
+  
+  fit <- glmQLFit(y, MM)
+  qlf <- glmQLFTest(fit, contrast=contrast)
+  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
   print(contrast)
   print(summary(de_qlf))
   
@@ -199,6 +186,14 @@ contrast_analysis_complete_ds <- function(y,MM,contrast, table_name, lfc_min){
 }
 
 ```
+
+Check for overall day differences with coefficients
+
+```{r}
+day_diff_table = sprintf("%sfull_dataset_day_random_factor_days_diff.txt", outdir)
+day_diff_table <- coefficient_analysis_complete_ds(y=y,MM=MM,coef=c("day16","day18"),table_name=day_diff_table,lfc_min = 0)
+```
+
 
 sex bias in full dataset when age is not taken into account
 ```{r}
@@ -219,18 +214,6 @@ SL1_SL3_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_sex_inte
 
 ```
 
-Check for overall day differences 
-
-```{r}
-day14_day16_table = sprintf("%sfull_dataset_day_random_factor_day14_day16.txt", outdir)
-day14_day16_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line1_F_M"],table_name=day14_day16_table,lfc_min = 0)
-
-day16_day18_table = sprintf("%sfull_dataset_day_random_factor_day16_day18.txt", outdir)
-day16_day18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line3_F_M"],table_name=day16_day18_table,lfc_min = 0)
-
-day14_day18_table = sprintf("%sfull_dataset_day_random_factor_day14_day18.txt", outdir)
-day14_day18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line3_F_M"],table_name=day14_day18_table,lfc_min = 0)
-```
 
 # basic DE with only one sex
 
@@ -345,26 +328,6 @@ if (use_time){
   my.contrasts <- makeContrasts(
   line_no_time = SL1 - SL3,
   levels=MM)
-}
-
-contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
-  
-  fit <- glmQLFit(y, MM)
-  qlf <- glmQLFTest(fit, contrast=contrast)
-  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
-  print(contrast)
-  print(summary(de_qlf))
-  
-  print("--------------------------------------------")
-  
-  ## make output table
-  Tags <- topTags(qlf, n=Inf, p.value=1)						
-  Tags <- Tags$table
-  Tags$Gene <- rownames(Tags)
-  write.table(Tags, file=table_name, sep="\t")	
-  
-  output <- list(qlf=qlf,Tags=Tags)
-  return(output)
 }
 
 ```
