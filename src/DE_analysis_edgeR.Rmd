@@ -231,7 +231,6 @@ or only line differences are tested
 ```{r} 
 use_males<-FALSE # only run on male samples (if False only run on female samples)
 use_time<-FALSE # contrasts that take time into account (if False then only line contrasts)
-use_full_set<-False # no filtering, but merge the days in the groups for DGEList 
 ```
 
 
@@ -245,21 +244,15 @@ counts_M <- count_data[,grepl("-F_", colnames(count_data))]
 }
 
 meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
-## adjust metadata
 meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")
-# reorder so it's in the same order as the count data columns
 meta_data <- meta_data[names(counts_M),]
-# check assumptions, should be TRUE
 all(colnames(counts_M) %in% rownames(meta_data))
+all(colnames(counts_M) == rownames(meta_data))
 
 # make sample groups that reflect line and day
 groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
 # read data into data structure
-if (use_time){
-  y <- DGEList(counts=counts_M, group=groups)
-}else{
-  y <- DGEList(counts=counts_M, group=line)
-}
+y <- DGEList(counts=counts_M, group=groups)
 
 ## filter out low count genes
 # filter by only line group and not day, since we aren't sure how the expression changes between days and we don't want to remove genes that are only rarely expressed
@@ -270,13 +263,17 @@ keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
 # normalize by library sizes
 y <- calcNormFactors(y)
 
+line <- factor(meta_data$line)
+day <- factor(meta_data$day)
 if (use_time){
   MM <- model.matrix(~0 + groups, data = y$samples)
+  colnames(MM)
   colnames(MM) <- c("SL1_14", "SL1_16", "SL1_18", "SL3_14",  "SL3_16", "SL3_18")
   rownames(MM) <- colnames(y)
 }else{
-  MM <- model.matrix(~ 0+ line, data = y$samples)
-  colnames(MM) <- c("SL1", "SL3")
+  MM <- model.matrix(~ 0+ line + day, data = y$samples)
+  colnames(MM)
+  colnames(MM) <- c("SL1", "SL3", "day16", "day18")
   rownames(MM) <- colnames(y)
 }
 

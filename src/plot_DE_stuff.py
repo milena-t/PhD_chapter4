@@ -46,7 +46,7 @@ def get_tables(username = "miltr339"):
                 "(SL1_18 - SL1_14) - (SL3_18 - SL3_14)" : f"{tables_dir}DE_genes_F_SL_1_3_18_14.txt",
                 "(SL1_14 - SL1_16) - (SL3_14 - SL3_16)" : f"{tables_dir}DE_genes_F_SL_1_3_14_16.txt",
                 "(SL1_18 - SL1_16) - (SL3_18 - SL3_16)" : f"{tables_dir}DE_genes_F_SL_1_3_18_16.txt",
-                "SL1 - SL3" : f"{tables_dir}only_M_no_time_DE_genes_1-3.txt",
+                "SL1 - SL3" : f"{tables_dir}only_F_no_time_DE_genes_1-3.txt",
             },
             "males" : {
                 "SL1_14 - SL3_14" : f"{tables_dir}DE_genes_M_1-3_day14.txt",
@@ -63,7 +63,7 @@ def get_tables(username = "miltr339"):
                 "(SL1_18 - SL1_14) - (SL3_18 - SL3_14)" : f"{tables_dir}DE_genes_M_SL_1_3_18_14.txt",
                 "(SL1_14 - SL1_16) - (SL3_14 - SL3_16)" : f"{tables_dir}DE_genes_M_SL_1_3_14_16.txt",
                 "(SL1_18 - SL1_16) - (SL3_18 - SL3_16)" : f"{tables_dir}DE_genes_M_SL_1_3_18_16.txt",
-                "SL1 - SL3" : f"{tables_dir}only_F_no_time_DE_genes_1-3.txt",
+                "SL1 - SL3" : f"{tables_dir}only_M_no_time_DE_genes_1-3.txt",
             }
         },
         "line_separated" : {
@@ -593,7 +593,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            # if separation != "no_separation":
+            # if separation != "sex_separated":
             #     print(f"ignore {separation}")
             #     continue
             print(f"\n=========================== {separation} ===========================")
@@ -856,7 +856,7 @@ if __name__ == "__main__":
                 print(f"{len(shared_list)} genes : \n{shared_list}")
 
     ## compare sex bias and interaction on full dataset with days merged/ignored
-    if False:
+    if True:
         venn_sets_all = {
             "no_separation" : {
                 "all_samples:sex_bias" : {

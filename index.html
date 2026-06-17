@@ -628,13 +628,13 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 <details>
     <summary>Code summary</summary>
-    There is no control for time as a random factor.
-    <pre>
-        <code>
+    <p>I control for time as a fixed factor.</p>
+    <pre><code> groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
+ y <- DGEList(counts=counts_M, group=groups)
  line <- factor(meta_data$line)
- y <- DGEList(counts=counts_M, group=line)
- MM <- model.matrix(~ 0+ line, data = y$samples)</code>
-    </pre>
+ day <- factor(meta_data$day)
+ MM <- model.matrix(~ 0+ line + day, data = y$samples)
+ colnames(MM) <- c("SL1", "SL3", "day16", "day18")</code></pre>
 </details>
 
 <div class="tab">
@@ -653,15 +653,15 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
         <tbody>
           <tr>
           <td>Downregulated</td>
-          <td>256</td>
+          <td>352</td>
           </tr>
         <tr>
           <td>no difference</td>
-          <td>10023</td>
+          <td>9778</td>
         </tr>
         <tr>
           <td>Upregulated</td>
-          <td>358</td>
+          <td>507</td>
         </tr>
         </tbody>
     </table>
@@ -684,15 +684,15 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
         <tbody>
           <tr>
           <td>Downregulated</td>
-          <td>107</td>
+          <td>92</td>
           </tr>
         <tr>
           <td>no difference</td>
-          <td>9390</td>
+          <td>9420</td>
         </tr>
         <tr>
           <td>Upregulated</td>
-          <td>159</td>
+          <td>144</td>
         </tr>
         </tbody>
     </table>
