@@ -193,11 +193,11 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
                 fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
 
             if  x_axis == "logcpm":
-                ax.scatter(df_nonsig["logCPM"], df_nonsig[logfc_colname], color = cols["nonsig"], alpha=0.5, s=ps)
-                ax.scatter(df_sig["logCPM"], df_sig[logfc_colname], color = cols["sig"], alpha=1, s=ps)
+                ax.scatter(df_nonsig["logCPM"], df_nonsig[logfc_colname], color = cols["nonsig"], alpha=0.4, s=ps)
+                ax.scatter(df_sig["logCPM"], df_sig[logfc_colname], color = cols["sig"], alpha=0.4, s=ps)
             elif x_axis == "fdr_p":
-                ax.scatter(df_nonsig[logfc_colname], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps)
-                ax.scatter(df_sig[logfc_colname], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps)
+                ax.scatter(df_nonsig[logfc_colname], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.4, s=ps)
+                ax.scatter(df_sig[logfc_colname], df_sig["FDR_volc"], color = cols["sig"], alpha=0.4, s=ps)
         
             if  x_axis == "logcpm":
                 ax.set_ylabel(f"{logfc_colname}", fontsize = fs)
@@ -571,7 +571,7 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
@@ -611,6 +611,7 @@ if __name__ == "__main__":
                         coefficients = True
                         print(f"{separation}:{category} --> coefficients: {contrast}")
                     else:
+                        continue
                         coefficients = False
                         print(f"{separation}:{category} --> contrast: {contrast}")
 
