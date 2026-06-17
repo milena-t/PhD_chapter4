@@ -585,7 +585,7 @@ if __name__ == "__main__":
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
-    if True:
+    if False:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -750,7 +750,7 @@ if __name__ == "__main__":
     ###########################################
 
     ## compare if the same genes are DE between lines within days in males as in females
-    if False:
+    if True:
         venn_sets_day = {
             "sex_separated" : {
                 "day14" : {
@@ -856,7 +856,7 @@ if __name__ == "__main__":
                 print(f"{len(shared_list)} genes : \n{shared_list}")
 
     ## compare sex bias and interaction on full dataset with days merged/ignored
-    if True:
+    if False:
         venn_sets_all = {
             "no_separation" : {
                 "all_samples:sex_bias" : {

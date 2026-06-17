@@ -634,7 +634,8 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
  line <- factor(meta_data$line)
  day <- factor(meta_data$day)
  MM <- model.matrix(~ 0+ line + day, data = y$samples)
- colnames(MM) <- c("SL1", "SL3", "day16", "day18")</code></pre>
+ colnames(MM) <- c("SL1", "SL3", "day16", "day18")
+ my.contrasts <- makeContrasts(line_no_time = SL1 - SL3, levels=MM)</code></pre>
 </details>
 
 <div class="tab">
