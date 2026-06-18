@@ -581,7 +581,7 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
@@ -593,7 +593,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "sex_separated":
+            if separation != "day_separated":
                 print(f"ignore {separation}")
                 continue
             print(f"\n=========================== {separation} ===========================")
