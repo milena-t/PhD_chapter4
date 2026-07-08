@@ -34,10 +34,13 @@ ol {
   margin-block-end: 0em;
   padding-inline-start: 40px;
 }
+.tabcontent, details, pre {
+    min-width: 0;
+}
 code {
   background: #f8f9fa;
   color:#44506e;
-  padding: 0.1em 0.35em;
+  padding: 0.1em 0.1em;
   border-radius: 15px;
   font-size: 90%;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -47,6 +50,7 @@ pre {
   padding: 1em;
   border-radius: 10px;
   overflow-x: auto;
+  max-width: 100%;
 }
 details {
   background: #dddee5;
@@ -182,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "header-image header-image"
     "sidebar-contents main-body"
     "footer footer" 
-    / 1fr 4fr;
+    / minmax(0, 1fr) minmax(0, 4fr);
 }
 #header-image{
     grid-area: header-image;
@@ -285,7 +289,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 <p>Bianca continued here and assembled a transcriptome but I will not use it since we suspect that there are some problems that require further curation, such as a very high number of transcripts</p>
 
 <h2 data-no-sidebar>1.2 Evaluation and comparison of mapping pipelines</h2>
-<p>This was done by Sebastian Ellwe, see repository here: https://github.com/sellwe/Master_thesis_sebastian. He compared:</p>
+<p>This was done by Sebastian Ellwe, see repository <a href="https://github.com/sellwe/Master_thesis_sebastian">here</a>. He compared:</p>
 <ul>
   <li>STAR</li>
   <li>Salmon
@@ -637,7 +641,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
             in males compared to females, which is essential here. <span style="color:#BD351E">I am unsure what it means that there are only very few significant genes. Probably bad.</span>
         </p>
         <p>
-            I already did this analysis in the day-separated dataset (for each day individually, see 3.6, "interaction sex-bias by line-bias"), and there are a lot more genes here.
+            I already did this analysis in the day-separated dataset (for each day individually, see <a href="index.html#day-separated">3.6</a> sub-heading "interaction sex-bias by line-bias"), and there are a lot more genes here.
             Since the day effect in the first tab is very strong, I will use these ones instead (and keep this for posterity)
         </p>
     </div>
@@ -2484,7 +2488,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 </details>
 
-<h3 id="day_sep">3.6 Day-separated samples</h2>
+<h2 id="day-separated">3.6 Day-separated samples</h2>
 
 
 <p>Analyze line and sex differences in each time point.</p>
