@@ -8,16 +8,32 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   background-color: #eaebee;
-  max-width: 1500px;
+  max-width: 1800px;
   margin: 2em auto;
   padding: 0 1em;
   line-height: 1.5;
   color: #24292f;
 }
-h1, h2, h3 { margin-top: 1.6em; color:#44506e;}
+h1, h2, h3 { margin-top: 1.6em; margin-bottom: 0.6em; color:#44506e;}
 h4, h5, h6 { margin-top: 1.6em; }
 h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
 h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+
+ul {
+  /* user-agent styles */
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  padding-inline-start: 40px;
+}
+ol {
+  /* user-agent styles */
+  display: block;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  padding-inline-start: 40px;
+}
 code {
   background: #f8f9fa;
   color:#44506e;
@@ -58,6 +74,7 @@ a { color: #416793; }
   border: 1.5px solid #909bb5;
   background-color: #d0d4df;
   border-radius: 25px 25px 0 0;
+  margin-top: 1em;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -91,6 +108,7 @@ a { color: #416793; }
   border: 1.5px solid #909bb5;
   border-top: none;
   border-radius: 0 0 25px 25px;
+  margin-bottom: 1em;
 }
 
 </style>
@@ -136,22 +154,127 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 </style>
 
+<style>
+#sidebar-contents{
+    grid-area: sidebar-contents;
+    padding: 1em;
+    top:0;
+    height:max-content;
+    max-height: 80vh;
+    overflow-y: auto;
+    position:sticky;
+    display: grid;
+    grid-template: 
+    "sidebar-element"
+    / 1fr;
+}
+*{
+    border : 0 ;
+    margin : 0 ; 
+    padding : 0 ;
+    color: #394053;
+    font-family: Arial;
+}
+#outer-box{
+    background-color: #eaebee;
+    display : grid ;
+    grid-template:
+    "header-image header-image"
+    "sidebar-contents main-body"
+    "footer footer" 
+    / 1fr 4fr;
+}
+#header-image{
+    grid-area: header-image;
+    height: 12em;
+    background-color: #C2C8D6;
+}
+.center-content{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+}
+#sidebar-contents{
+    grid-area: sidebar-contents;
+    padding: 1em;
+    top:0;
+    height:max-content;
+    max-height: 80vh;
+    overflow-y: auto;
+    position:sticky;
+    display: grid;
+    grid-template: 
+    "sidebar-element"
+    / 1fr;
+}
+
+.sidebar-element{
+    background-color: #dddee5;
+    padding: 1em;
+    border-radius: 10px 10px 10px 10px;
+    border-bottom-style: solid;
+    border-bottom-color: #C2C8D6;
+    border-bottom-width: 0.1em;
+    text-decoration: none;
+}
+.sidebar-element:hover {
+    text-decoration: underline;
+}
+
+#main-body{
+    grid-area: main-body;
+    padding :1em;
+    max-width: 1500px;
+    padding-right: 4em;
+}
+#footer{
+    background-color: #929cb5;
+    grid-area: footer;
+    padding: 1em;
+}
+.project-link{
+    display: block;
+    font-weight: bold;
+    color: #44506e;
+}
+.subsection-link{
+    display: block;
+    color: #394053;
+    padding-left: 2.5em;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}   
+</style>
+
 </head>
 <body>
     <!--
         grey : #909bb5
         red : #BD351E
     -->
+<div id="outer-box">
+    <div id="header-image" style="border-radius: 50px 50px 50px 50px;">
+        <p style="font-size: 200%;margin-top: 2em"  class="center-content"><b>Differential expression analysis on Larval RNAseq data</b></p>
+    </div>
 
-<h1>Differential expression analysis on Larval RNAseq data</h1>
+<div id="sidebar-contents" >
+  <p class="center-content">Table of contents:</p>
+</div>
+<script src="automatic_sidebar.js"></script>
+
+<div id="main-body">
 
 PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository</a>
 
-<h2>1. Preprocessing and testing</h2>
+<h1 id="preprocessing">1. Preprocessing and testing</h1>
 
 <p>This analysis is based on a lot of work to properly filter the data and compare mapping pipelines to handle the high rRNA contamination rate and multimapping issues.</p>
 
-<h3>1.1 rRNA filtering and other reads preprocessing</h3>
+<h2 data-no-sidebar>1.1 rRNA filtering and other reads preprocessing</h2>
 
 <p>This was done by Bianca Sarcani, all data here: <code>RNA_data_processing</code>. Basically:</p>
 <ul>
@@ -161,7 +284,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </ul>
 <p>Bianca continued here and assembled a transcriptome but I will not use it since we suspect that there are some problems that require further curation, such as a very high number of transcripts</p>
 
-<h3>1.2 Evaluation and comparison of mapping pipelines</h3>
+<h2 data-no-sidebar>1.2 Evaluation and comparison of mapping pipelines</h2>
 <p>This was done by Sebastian Ellwe, see repository here: https://github.com/sellwe/Master_thesis_sebastian. He compared:</p>
 <ul>
   <li>STAR</li>
@@ -175,7 +298,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 <p>From his results I made the choice to use STAR, see <code>mapping_and_transcriptome</code>. 
   In short, with the new annotation the mapping rate is good enough with just STAR and not the complicated optimization algorithm that salmon uses.</p>
 
-<h3>1.3 yTor annotation manual curation</h3>
+<h2 data-no-sidebar>1.3 yTor annotation manual curation</h2>
 
 <p>This work is based on the selection lines evaluated by Kaufmann <em>et al.</em> (<a href="https://doi.org/10.1093/molbev/msad167">link</a>), 
   but I am using a different version of the <em>C. maculatus</em> annotation that does not have the gene structures of the Y TOR copy number variation. 
@@ -184,11 +307,11 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   <code>transcript-30111</code>, or <code>gene-30110</code>.</p>
 <p>The annotation is then functionally annotated using eggnog and the resulting functional annotation is used for GO-term enrichment analysis with topGO in R.</p>
 
-<h2>2. STAR mapping</h2>
+<h1 id="mapping">2. STAR mapping</h1>
 
 <p>See the <code>RNA_mapping</code> directory in this repository for by-sample mapping rate information. Mean uniquely mapped reads: 83.76% and mean multimapped reads: 9.74%.</p>
 
-<h2>3. DE analysis</h2>
+<h1 id="main-DE">3. DE analysis</h1>
 
 <p>I will use edgeR to get the logFC of all comparisons of interest below, but the plotting is done in python. In EdgeR, I am trying both <code>glmLRT</code> and <code>glmQLFTest</code> to test for differential expression, both fit negative binomial GLMs with the first one being more simple but having a higher false-positive error, while the second takes more variation in dispersion into account. I show both here and for the lines comparison, but I will only plot the results from <code>glmQLFTest</code>.</p>
 
@@ -216,7 +339,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
     </tbody>
 </table>
 
-<h3>3.1 yTor expression</h3>
+<h2 id="ytor-expression">3.1 yTor expression</h2>
 
 <p>After reading the data and filtering for minimum expression thresholds, yTor-A and yTor-C are expressed, but not yTor-B. Since we know that yTor-C (orange) 
   in SL1 is the closest to the SL3 yTor, it makes sense that it shows expression in SL1 and SL3, while yTor-A, which is more diverged from the SL3 yTor, 
@@ -251,7 +374,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </div>
 
 
-<h3>3.2 Basic analysis on full dataset</h3>
+<h2 id="basic-full-data">3.2 Basic analysis on full dataset</h2>
 
 <p>
     Test if there is an overall signal where males differ strongly between the lines and females do not. 
@@ -548,7 +671,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </p>
 
 
-<h3>3.3 Separation summary: PCA plots</h3>
+<h2 id="data-separation-pca">3.3 Separation summary: PCA plots</h2>
 
 <p>For the actual DE analysis, I am partitioning the data into three separate sub-analyses. This helps avoid three-way contrasts which are 
   complicated to define and confusing to interpret.</p>
@@ -611,7 +734,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   <p>Males and females are kind of but not super clearly separated, but for only male samples, the SL1 and SL3 border is relatively clear.</p>
 </details>
 
-<h3>3.4 Sex-separated samples</h3>
+<h2 id="sex-separated">3.4 Sex-separated samples</h2>
 
 <p>
     The contrasts are within each day (14, 16, 18), and always <code>SL1 - SL3</code>. <code>SL1</code> are the small males (three Tor copies), 
@@ -620,7 +743,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </p>
 
 
-<h4>Differential expression between SL1 and SL3: time points merged</h4>
+<h3>Differential expression between SL1 and SL3: time points merged</h3>
 
 <p>
     I only take line into account when making the contrasts, and day is ignored. The contrast is just <code>SL1 - SL3</code>
@@ -712,7 +835,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 </div>
 
-<h4>Differential expression between SL1 and SL3: split by time</h4>
+<h3>Differential expression between SL1 and SL3: split by time</h3>
 
 <p>
     Time is taken into account, and all Day and Line combinations are treated as six individual groups.
@@ -876,7 +999,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 
 
-<h4>Scatterplots of pairwise comparisons</h4>
+<h3>Scatterplots of pairwise comparisons</h3>
 
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'males_day_DE')">males</button>
@@ -1065,7 +1188,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </table>
 </div>
 
-<h4>Interaction of line by day effects</h4>
+<h3>Interaction of line by day effects</h3>
 
 <p>
     An interaction of line by day effects here would mean a significant change in line effects between days. This can be indicated by the scatterplot points above if there are points in the upper 
@@ -1210,7 +1333,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 <details>
   <summary>(OLD) Differential expression within lines between day18 and mean(day14,day16)</summary>
 
-  <h4>Differential expression within lines between day18 and mean(day14,day16)</h4>
+  <h3>Differential expression within lines between day18 and mean(day14,day16)</h3>
 
   <p>I hypothesize that day 14 and 16 are where a lot of growth happens and SL1 and SL3 differ, while day 18 is the transition to pupation where the line differences become less substantial. I will therefore see what genes are involved in growth specifically by looking at the contrast between day 18 and the mean of day 14 and day 16.</p>
   <div class="tab">
@@ -1363,7 +1486,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   </div>
 </details>
 
-<h4>Differential expression within lines with all pairwise day comparisons</h4>
+<h3>Differential expression within lines with all pairwise day comparisons</h3>
 
 <p>Males have a massive change in gene regulation, both up- and down between day 18 and the earlier stages (larger difference in SL3) but females change not at all in SL1 and only a little bit in SL3. To be sure that this is real I also do individual comparisons between all the days even though that is more difficult to interpret.</p>
 <div class="tab">
@@ -1585,7 +1708,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 
 
-<h4>Upsetplots of sig DE genes overlap within males and females</h4>
+<h3>Upsetplots of sig DE genes overlap within males and females</h3>
 
 <p>Check which genes are DE in more than one contrast.</p>
 <ul>
@@ -1621,7 +1744,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </p>
 </div>
 
-<h4>Upsetplots of sig enriched GO-terms overlap within males and females</h4>
+<h3>Upsetplots of sig enriched GO-terms overlap within males and females</h3>
 
 <p>See which enriched GO terms are shared between contrasts. Includes a list of the overlapping or exclusive ones for selected contrasts with functional information.</p>
 <div class="tab">
@@ -1811,7 +1934,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 <p>These are all still nonoverlapping, see the sex-separated GO-terms lists for functional information.</p>
 </div>
 
-<h3>3.5 Line-separated samples</h3>
+<h2 id="line-separated">3.5 Line-separated samples</h2>
 
 <details>
     <summary>Toggle down for analysis</summary>
@@ -1825,7 +1948,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   <img loading="lazy" src="data/DE_figures/MDS_SL3_only.png" width="32%" />
 </p>
 </details>
-<h4>Differential expression between males and females</h4>
+<h3>Differential expression between males and females</h3>
 <p>Almost all DE is because of upregulation in males (in all lines and time points).</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1 (Smear plot)</button>
@@ -1929,7 +2052,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   <img loading="lazy" src="data/DE_figures_python/smear_SL3_day18_F-M_volcano.png" width="32%" />
 </p>
 </div>
-<h4>Scatterplots of pairwise comparisons</h4>
+<h3>Scatterplots of pairwise comparisons</h3>
 <p>Since we are explicitly checking for sex-bias, it makes no sense to highlight genes with shared sex-bias in SL1 and SL3 for example, so I exclude the highlight here.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_overlap')">SL1</button>
@@ -2009,7 +2132,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </tbody>
 </table>
 </div>
-<h4>interaction of sex by day effects</h4>
+<h3>interaction of sex by day effects</h3>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_interaction_smear')">SL1 (Smear plot)</button>
   <button class="tablinks" onclick="openTab(event, 'SL3_interaction_smear')">SL3 (Smear plot)</button>
@@ -2169,7 +2292,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </table>
 </div>
 
-<h4>Upsetplots of sig DE genes overlap within SL1 and SL3</h4>
+<h3>Upsetplots of sig DE genes overlap within SL1 and SL3</h3>
 
 <p>Most sex-biased genes are sex-biased at all times in both lines!</p>
 <div class="tab">
@@ -2195,7 +2318,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </p>
 <p>Same genes are sex-biased even between the lines. (again outlier SL1 day14, not a lot of sex bias happening here yet)</p>
 </div>
-<h4>Upsetplots of sig enriched GO-terms overlap within SL1 and SL3</h4>
+<h3>Upsetplots of sig enriched GO-terms overlap within SL1 and SL3</h3>
 <p>Even though the genes that are sex biased overlap, the GO-term enrichment finds mostly different GO-terms in the enrichment?</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'SL1_GO')">SL1</button>
@@ -2361,11 +2484,11 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 </details>
 
-<h3 id="day_sep">3.6 Day-separated samples</h3>
+<h3 id="day_sep">3.6 Day-separated samples</h2>
 
 
 <p>Analyze line and sex differences in each time point.</p>
-<h4>Differential expression between SL1 and SL3</h4>
+<h3>Differential expression between SL1 and SL3</h3>
 <p>In Females, there should be no line bias, so all genes that show line-bias in females (see lists in tabs) are excluded for the day contrasts.</p>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_SL1-3')">Day 14</button>
@@ -2553,7 +2676,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 
 
-<h4>Differential expression between males and females</h4>
+<h3>Differential expression between males and females</h3>
 
 
 <p>This agrees very nicely with the line-separated analysis, most genes are male-biased, with SL1 on day 14 showing much less male-bias compared to all other tested contrasts.</p>
@@ -2727,7 +2850,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </div>
 
 
-<h4>Interaction sex-bias by line-bias</h4>
+<h3>Interaction sex-bias by line-bias</h3>
 
 <p><code>(F_1 - M_1) - (F_3 - M_3)</code>: Female-biased in one line and male-biased in the other. Also plot a scatter of the genes significant in the interaction in the same scatter plot as above if they are significant.</p>
 <div class="tab">
@@ -2882,7 +3005,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 
 
-<h4>Overlap of DE scatterplots</h4>
+<h3>Overlap of DE scatterplots</h3>
 
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'day14_scatter')">Day 14</button>
@@ -2911,7 +3034,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
     </p>
 </div>
 
-<h4>Upsetplot of sig DE genes between lines and sexes</h4>
+<h3>Upsetplot of sig DE genes between lines and sexes</h3>
 
 <p>Same as in the line-separated analysis, the sex-biased genes are the same between all days and lines, and if there are differences it is that genes are missing from day 14 where they are not sex-biased yet.</p>
 <div class="tab">
@@ -2940,7 +3063,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="50%" />
 </p>
 </div>
-<h4>Upsetplot of sig enriched GO-terms between lines and sexes</h4>
+<h3>Upsetplot of sig enriched GO-terms between lines and sexes</h3>
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_GO')">Day 14</button>
   <button class="tablinks" onclick="openTab(event, 'day16_GO')">Day 16</button>
@@ -3144,9 +3267,9 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </div>
 
 
-<h2>4. Y expression quantification</h2>
+<h1 id="y-expression">4. Y expression quantification</h1>
 
-<h3>4.1 median expression in all samples</h3>
+<h2 id="all-sample-median">4.1 median expression in all samples</h2>
 
 <p>The median expression of X and Y linked genes in all samples with 95% standard error</p>
 
@@ -3265,7 +3388,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 
 
 
-<h3>4.2 DE of only genes on the Y chromosome</h3>
+<h2 id="y-only-DE">4.2 DE of only genes on the Y chromosome</h2>
 
 <p>I filtered the raw counts file <code>PhD_chapter4/data/gene_counts_standard.txt</code> to only have genes that are on the Y according to the annotation, which is 63.</p>
 <div class="tab">
@@ -3287,7 +3410,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
   Maybe high multimapping makes gene prediction more difficult, resulting in fewer genes in the first place?</p>
 
 
-<h4>MSL2</h4>
+<h3>MSL2</h3>
 
 <p>MSL2 is a gene that controls dosage compensation in drosophila, there's a copy on <code>scaffold_26</code> (y-linked) in 
   Cmac which is expressed at comparable levels to the autosomal one (is multimapping an issue? not sure how many SNP differences they have?)</p>
@@ -3300,7 +3423,7 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
 </body>
 </html>
 
-<h3>4.3 Other genes in the TOR-pathways</h3>
+<h2 id="tor-pathway-expression">4.3 Other genes in the TOR-pathways</h2>
 
 <p>I just tried to search for the gene names in the annotation, these are the ones I found. A blast search would probably find more.
   The names are from my old notes about <a href="https://portlandpress.com/biochemj/article-abstract/425/1/13/45375/Molecular-mechanisms-of-metabolic-regulation-by?redirectedFrom=fulltext">this review</a>.
@@ -3439,4 +3562,6 @@ PhD Chapter 4, <a href="https://github.com/milena-t/PhD_chapter4">Git repository
       </iframe>  
     </div>
 
+</div>
+</div>
 </div>
