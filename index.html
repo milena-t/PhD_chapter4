@@ -416,32 +416,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <div id="day effect" class="tabcontent">
 
-    <p>This analysis is based on coefficients and not contrasts since day is modelled as a fixed factor with day14 as the intercept. There is an extremely strong day effect across all samples.</p>
+    <p>
+        This analysis is based on coefficients and not contrasts since day is modelled as a fixed factor with day14 as the intercept. There is an extremely strong day effect across all samples, 
+        and more genes are differentially expressed than not. <span style="color:#909bb5">the contrasts have the same amount of DE, just up/down is different. Is that by chance?</span>
+    </p>
 
     <div style="float: left;width: 25%;">
     <table>
         <thead>
         <tr>
-          <th>coefficients</th>
-          <th>day 16</th>
-          <th>day 18</th>
+            <th>coefficients</th>
+            <th>day 16</th>
+            <th>day 18</th>
         </tr>
         </thead>
         <tbody>
-          <tr>
-          <td>Downregulated</td>
-          <td>2531</td>
-          <td>2213</td>
-          </tr>
         <tr>
-          <td>no difference</td>
-          <td>5142</td>
-          <td>5142</td>
+            <td>Downregulated</td>
+            <td>2531</td>
+            <td>2213</td>
         </tr>
         <tr>
-          <td>Upregulated</td>
-          <td>2923</td>
-          <td>3241</td>
+            <td>no difference</td>
+            <td>5142</td>
+            <td>5142</td>
+        </tr>
+        <tr>
+            <td>Upregulated</td>
+            <td>2923</td>
+            <td>3241</td>
+        </tr>
+        <tr>
+            <td>differentially expr.</td>
+            <td>5454</td>
+            <td>5454</td>
         </tr>
         </tbody>
     </table>
