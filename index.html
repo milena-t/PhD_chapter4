@@ -640,7 +640,8 @@ document.addEventListener("DOMContentLoaded", function () {
     <div style="float: right;width: 65%;">
         <p>
             The sex by line interaction here checks if there are genes that are sig. <i>differently</i> sex biased in the two lines. This also tests for a significantly greater line-bias 
-            in males compared to females, which is essential here. <span style="color:#BD351E">I am unsure what it means that there are only very few significant genes. Probably bad.</span>
+            in males compared to females, which is essential here. There are only very few significant genes here which doesn't make this very useful, I think maybe because it's so many factors 
+            that the threshold for significance becomes very high.
         </p>
         <p>
             I already did this analysis in the day-separated dataset (for each day individually, see <a href="index.html#day-separated">3.6</a> sub-heading "interaction sex-bias by line-bias"), and there are a lot more genes here.
@@ -1194,7 +1195,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </table>
 </div>
 
-<h3>Interaction of line by day effects</h3>
+<h3 id="sex-separated-interaction">Interaction of line by day effects</h3>
 
 <p>
     An interaction of line by day effects here would mean a significant change in line effects between days. This can be indicated by the scatterplot points above if there are points in the upper 

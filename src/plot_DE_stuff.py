@@ -593,7 +593,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "day_separated":
+            if separation != "no_separation":
                 print(f"ignore {separation}")
                 continue
             print(f"\n=========================== {separation} ===========================")
