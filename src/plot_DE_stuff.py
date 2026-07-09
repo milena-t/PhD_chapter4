@@ -162,7 +162,7 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
 
     cols = {"nonsig" : "#243742", "sig" : "#BD351E"}
 
-    fs = 50
+    fs = 55
     fig_width=18
     fig_height=15
     point_size_factor = 5
@@ -239,7 +239,7 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             
             # layout rect=(left, bottom, right, top)
             plt.tight_layout()# rect=[0.0, 0.05, 1, 1])
-            fig.subplots_adjust(left=0.165) # or whatever
+            fig.subplots_adjust(left=0.175) # or whatever
             plt.savefig(smear_plot_name_coeff, dpi = 300, transparent = True)
             print(f"plot saved in current working directory as: {smear_plot_name_coeff}")
             plt.clf()
@@ -601,9 +601,9 @@ if __name__ == "__main__":
 
         for separation, seps_dict in table_paths.items():
             # if separation != "no_separation":
-            # if separation != "day_separated":
-            #     print(f"ignore {separation}")
-            #     continue
+            if separation != "day_separated":
+                print(f"ignore {separation}")
+                continue
             print(f"\n=========================== {separation} ===========================")
             
             # for upsetplot
@@ -634,7 +634,11 @@ if __name__ == "__main__":
 
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"
-                    smear_title = contrast_plot_titles[contrast]
+
+                    if "day" in category:
+                        smear_title = f"{category} {contrast_plot_titles[contrast]}"
+                    else:
+                        smear_title = contrast_plot_titles[contrast]
 
                     excl_line_bias = excl_line_bias_lists[separation]
                     excl_list = []
