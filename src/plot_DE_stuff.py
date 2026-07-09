@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib_venn import venn2,venn3
 import math
+import numpy as np
 import upsetplot
 
 def get_tables(username = "miltr339"):
@@ -172,11 +173,12 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     if x_axis == "fdr_p":
         df['FDR_volc'] = df['FDR'].transform(lambda x: math.log10(x))
     ### plot the unsignificant first so they are below and the significant ones are above
-    df_nonsig = df.loc[df['FDR'] >= p_sig]
+    df_nonsig = df.loc[df['FDR'] >= p_sig] 
     df_sig = df.loc[df['FDR'] < p_sig]
     print(f"\tnum sig genes: {df_sig.shape[0]}")
     
     if min_LFC>0 and coefficients==False:
+        df_nonsig = df.loc[(df['FDR'] >= p_sig) | (abs(df['logFC']) < min_LFC)]
         df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
         print(f"\tnum sig genes with LFC > {min_LFC}: {df_sig.shape[0]}")
     
@@ -313,17 +315,19 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
                 ax.set_xlim([min_line,max_line])
             elif x_axis == "fdr_p":
                 min_line = min(df["FDR_volc"])-0.25
-                max_line = max(df["FDR_volc"])+0.25
+                max_line = max(df["FDR_volc"])+0.1
                 if min_LFC > 0:
                     ax.vlines(x=min_LFC, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
                     ax.vlines(x=-1*min_LFC, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
                 else:
                     ax.vlines(x=1, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
                     ax.vlines(x=-1, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")            
+                ax.set_ylim([max_line, min_line])
 
             if x_axis == "fdr_p":
                 smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
                 ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
+            
 
             plt.tight_layout()
             fig.subplots_adjust(left=0.125) # or whatever
