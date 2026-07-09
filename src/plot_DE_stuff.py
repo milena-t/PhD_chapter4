@@ -162,7 +162,9 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
 
     cols = {"nonsig" : "#243742", "sig" : "#BD351E"}
 
-    fs = 35
+    fs = 50
+    fig_width=18
+    fig_height=15
     point_size_factor = 5
     ps = fs*point_size_factor # point size
     
@@ -188,9 +190,9 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             coeff_name = logfc_colname.split(".")[-1]
             print(f"\tcoef:{coeff_name} num sig genes with LFC > {min_LFC}: {sig_df_coeff.shape[0]}")
             if  x_axis == "logcpm":
-                fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
+                fig, ax = plt.subplots(1,1, figsize=(fig_width, fig_height-5)) 
             elif x_axis == "fdr_p":
-                fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
+                fig, ax = plt.subplots(1,1, figsize=(fig_width, fig_height)) 
 
             if  x_axis == "logcpm":
                 ax.scatter(df_nonsig["logCPM"], df_nonsig[logfc_colname], color = cols["nonsig"], alpha=0.4, s=ps)
@@ -235,8 +237,9 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             if x_axis == "fdr_p":
                 smear_plot_name_coeff = smear_plot_name.replace(".png", f"_{coeff_name}_volcano.png")
             
-            plt.tight_layout()
-            fig.subplots_adjust(left=0.125) # or whatever
+            # layout rect=(left, bottom, right, top)
+            plt.tight_layout()# rect=[0.0, 0.05, 1, 1])
+            fig.subplots_adjust(left=0.165) # or whatever
             plt.savefig(smear_plot_name_coeff, dpi = 300, transparent = True)
             print(f"plot saved in current working directory as: {smear_plot_name_coeff}")
             plt.clf()
@@ -261,9 +264,9 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     else:    
         if plot:
             if  x_axis == "logcpm":
-                fig, ax = plt.subplots(1,1, figsize=(18, 10)) 
+                fig, ax = plt.subplots(1,1, figsize=(fig_width, fig_height-5))
             elif x_axis == "fdr_p":
-                fig, ax = plt.subplots(1,1, figsize=(18, 12)) 
+                fig, ax = plt.subplots(1,1, figsize=(fig_width, fig_height))
 
             if  x_axis == "logcpm":
                 ax.scatter(df_nonsig["logCPM"], df_nonsig["logFC"], color = cols["nonsig"], alpha=0.5, s=ps)
@@ -282,15 +285,20 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             else:
                 label_contrast = contrast.replace("SL1", "day").replace("SL3", "day")
             if  x_axis == "logcpm":
-                ax.set_ylabel(f"logFC ({label_contrast})", fontsize = fs)
+                ax.set_ylabel(f"log2FC ({label_contrast})", fontsize = fs)
                 ax.set_xlabel(f"log CPM", fontsize = fs)
             elif x_axis == "fdr_p":
-                ax.set_xlabel(f"logFC ({label_contrast})", fontsize = fs)
+                ax.set_xlabel(f"logFC", fontsize = fs)
                 ax.set_ylabel(f"log10  FDR p-value", fontsize = fs)
                 ax.yaxis.set_inverted(True) 
             ax.tick_params(axis='x', labelsize=fs*0.9)
             ax.tick_params(axis='y', labelsize=fs*0.9)
-            ax.set_title(title, fontsize = fs*1.25)
+
+            title_ = title.replace("SL1-3", "line-bias")
+            title_ = title_.replace("SL1-SL3", "line-bias")
+            title_ = title_.replace("SL1", "small-Y").replace("SL3", "large-Y")
+            print(f"\t plot title: {title_}")
+            ax.set_title(title_, fontsize = fs*1.25)
 
             if  x_axis == "logcpm":
                 min_line = min(df["logCPM"])-0.25
@@ -310,8 +318,7 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
                     ax.vlines(x=-1*min_LFC, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
                 else:
                     ax.vlines(x=1, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-                    ax.vlines(x=-1, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")
-            
+                    ax.vlines(x=-1, ymin=min_line, ymax=max_line, linewidth=point_size_factor, linestyle = ":", color="#818181")            
 
             if x_axis == "fdr_p":
                 smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
@@ -581,7 +588,7 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
@@ -593,9 +600,10 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "no_separation":
-                print(f"ignore {separation}")
-                continue
+            # if separation != "no_separation":
+            # if separation != "day_separated":
+            #     print(f"ignore {separation}")
+            #     continue
             print(f"\n=========================== {separation} ===========================")
             
             # for upsetplot
@@ -634,10 +642,10 @@ if __name__ == "__main__":
                     if excl_list_name in excl_line_bias:
                         # only do the exclusion list when it's actually in a relevant contrast
                         excl_list = excl_line_bias[excl_list_name]
-                        print(f"\texcluding genes from list '{excl_list_name}'")
+                        print(f"\texcluding {len(excl_list)} genes from list '{excl_list_name}'")
                     elif "day" in separation and category in excl_line_bias:
                         excl_list = excl_line_bias[category]
-                        print(f"\texcluding genes from list '{excl_list_name}'")
+                        print(f"\texcluding {len(excl_list)} genes from list '{excl_list_name}'")
         
                     # smear plot
                     smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot, coefficients=coefficients)
