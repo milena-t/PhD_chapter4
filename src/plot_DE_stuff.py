@@ -608,9 +608,9 @@ if __name__ == "__main__":
 
         for separation, seps_dict in table_paths.items():
             # if separation != "no_separation":
-            if separation != "day_separated":
-                print(f"ignore {separation}")
-                continue
+            # if separation == "day_separated":
+            #     print(f"ignore {separation}")
+            #     continue
             print(f"\n=========================== {separation} ===========================")
             
             # for upsetplot
