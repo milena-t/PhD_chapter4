@@ -5,6 +5,7 @@ I will use the tables in data made with the topTags() function with no filtering
 
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 from matplotlib_venn import venn2,venn3
 import math
 import upsetplot
@@ -322,6 +323,8 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
 
             if x_axis == "fdr_p":
                 smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
+                ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
+
             plt.tight_layout()
             fig.subplots_adjust(left=0.125) # or whatever
             plt.savefig(smear_plot_name, dpi = 300, transparent = True)
