@@ -123,3 +123,9 @@ for (sig_list in day_sep_d16){GO_enrichment_analysis(sig_infile = sig_list, anno
 for (sig_list in day_sep_d18){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
 
 ```
+
+list for genes that are sig line-biased in males in both day14 and day16
+```{r}
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day_sep_M1-M3_day14and16.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)
+```

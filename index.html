@@ -3084,12 +3084,16 @@ document.addEventListener("DOMContentLoaded", function () {
 </p>
 </div>
 <div id="all_upset" class="tabcontent">
+    <p>
+        Upsetplot of the male line-biased genes (M1-M3) left, upsetplot of all contrasts right
+    </p>
 <p float="left">
-  <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="50%" />
-  <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_male_line_bias.png" width="40%" />
+    <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_male_line_bias.png" width="40%" />
+    <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="50%" />
 </p>
 <p>
-    List of genes that are sig. line-biased in at least two days and the gene description from eggnogmapper
+    List of genes that are sig. line-biased in at least two days and the gene description from eggnogmapper. The gene that is shared between 
+    all days (right upset) is <code>gene-395158</code> and it is annotated but of unknown function
 </p>
 
 <iframe
@@ -3099,6 +3103,8 @@ document.addEventListener("DOMContentLoaded", function () {
     scrolling="auto"
     style="width:100%; height:30vh;">
 </iframe>
+
+GO-enrichment of these (against any gene passing the expression threshold in at least one day) is not very conclusive, see <a href="https://github.com/milena-t/PhD_chapter4/data/sig_DE_genes_lists/GO_enrichment_day_sep_M1-M3_day14and16.txt">here</a>
 
 </div>
 

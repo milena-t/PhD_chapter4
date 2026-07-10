@@ -658,6 +658,8 @@ if __name__ == "__main__":
             
             # for upsetplot
             sep_DE_genes = {}
+            # for intersetction geneIDs to use in GO enrichment
+            gneIDs_all = []
 
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
@@ -713,6 +715,7 @@ if __name__ == "__main__":
                     elif coefficients==False:
                         DE_list = smear_lists["Downregulated"]+smear_lists["Upregulated"]
                         nonDE_list = smear_lists["no difference"]
+                        all_geneIDs = gneIDs_all + smear_lists["Downregulated"]+smear_lists["Upregulated"]+smear_lists["no difference"]
 
                         if make_list_outfiles:
                             sig_list_outfile = table_path.split("/")[-1].replace("DE_genes_", "sig_DE_list_")
@@ -760,18 +763,37 @@ if __name__ == "__main__":
                 plot_title_ = f""
                 upset_data = plot_sig_gene_overlap(sep_DE_genes_, plot_filename= f"{out_path_figs}/upsetplot_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
                 
-                print(f"\n\n\n\n ---<>> male line bias upset data")
-                print(f"filtered for all geneIDs that are sig in at least two:")
+                if True and separation == "day_separated":
 
-                # filter to only include genes that are sig. in at least two days
-                mask = (
-                    upset_data.index.get_level_values('day14').astype(int) +
-                    upset_data.index.get_level_values('day16').astype(int) +
-                    upset_data.index.get_level_values('day18').astype(int)
-                ) >= 2
-                upset_data = upset_data[mask]
+                    # make list of day sep overlap
+                    print(f"\n\n\n\n ---<>--> male line bias upset data")
+                    print(f"filtered for all geneIDs that are sig in at least two:")
 
-                upset_data.to_csv(f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt", sep="\t")
+                    # filter to only include genes that are sig. in at least two days
+                    mask = (
+                        upset_data.index.get_level_values('day14').astype(int) +
+                        upset_data.index.get_level_values('day16').astype(int) +
+                        upset_data.index.get_level_values('day18').astype(int)
+                    ) >= 2
+                    filt = upset_data[mask]
+                    print(f"{len(filt)}")
+
+                    filt.to_csv(f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt", sep="\t")
+
+                    # filter to only include genes that are sig. only day 14 and 16
+                    filt = upset_data[upset_data.index.get_level_values('day14') & upset_data.index.get_level_values('day16')]
+                    filt = filt["id"].tolist()
+                    nonsig_geneIDs = [id for id in list(set(all_geneIDs)) if id not in filt]
+                    nonsig = ",0\n".join(nonsig_geneIDs)+",0\n"
+
+                    filt = ",1\n".join(filt)+",1\n"
+                    outfile_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day_sep_M1-M3_day14and16.txt"
+                    with open(outfile_path, "w") as outfile:
+                        outfile.write("geneID,sig_DE\n")
+                        outfile.write(filt)
+                        outfile.write(nonsig)
+
+                        
 
 
     ############################################
