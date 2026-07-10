@@ -3086,9 +3086,27 @@ document.addEventListener("DOMContentLoaded", function () {
 <div id="all_upset" class="tabcontent">
 <p float="left">
   <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="50%" />
+  <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_male_line_bias.png" width="40%" />
 </p>
+<p>
+    List of genes that are sig. line-biased in at least two days and the gene description from eggnogmapper
+</p>
+
+<iframe
+    src="data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs_functional_annotation.txt"
+    frameBorder="0"
+    class=""
+    scrolling="auto"
+    style="width:100%; height:30vh;">
+</iframe>
+
 </div>
+
+
 <h3>Upsetplot of sig enriched GO-terms between lines and sexes</h3>
+
+
+
 <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'day14_GO')">Day 14</button>
   <button class="tablinks" onclick="openTab(event, 'day16_GO')">Day 16</button>
@@ -3139,7 +3157,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </iframe>
 </div>
 <div id="day14_males_GO" class="tabcontent">
-<p><code>upsetplot_GO_terms_day_separated_day14_males.txt</code> some locomotion but mostly unsure how to interpret. <span style="color: #BD351E"> Nothing related to feeding/digestion (which is male-biased in the line-separated data for day14 in SL3).</span></p>
+<p><code>upsetplot_GO_terms_day_separated_day14_males.txt</code> Catabolic process and other metabolism, a bit of development. <span style="color: #BD351E"> Nothing related to feeding/digestion (which is male-biased in the line-separated data for day14 in SL3).</span></p>
 <iframe
     src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day14_males.txt"
     frameBorder="0"
@@ -3161,15 +3179,15 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div id="day16_GO" class="tabcontent">
 <p float="left">
-  <img loading="lazy" src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16.png" width="32%" />
+    <img loading="lazy" src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_day16.png" width="32%" />
 </p>
 <p><strong>GO-terms of relevant contrast comparison</strong></p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'day16_SL1_GO')">SL1 F-M</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_SL3_GO')">SL3 F-M</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_both_GO')">both F-M</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_males_GO')">males SL1-3</button>
-  <button class="tablinks" onclick="openTab(event, 'day16_females_GO')">females SL1-3</button>
+    <button class="tablinks" onclick="openTab(event, 'day16_SL1_GO')">SL1 F-M</button>
+    <button class="tablinks" onclick="openTab(event, 'day16_SL3_GO')">SL3 F-M</button>
+    <button class="tablinks" onclick="openTab(event, 'day16_both_GO')">both F-M</button>
+    <button class="tablinks" onclick="openTab(event, 'day16_males_GO')">males SL1-3</button>
+    <button class="tablinks" onclick="openTab(event, 'day16_females_GO')">females SL1-3</button>
 </div>
 <div id="day16_SL1_GO" class="tabcontent">
 <p><code>upsetplot_GO_terms_day_separated_day16_SL1.txt</code>: some digestion/glucose-related stuff. a litte bit of spermatogenesis/mating behaviour.</p>
@@ -3287,7 +3305,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div id="all_GO" class="tabcontent">
 <p float="left">
-  <img loading="lazy" src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_all.png" width="75%" />
+    <img loading="lazy" src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_all.png" width="70%" />
+    <img loading="lazy" src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_day_separated_male_line_bias.png" width="29%" />
 </p>
 </div>
 

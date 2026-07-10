@@ -9,6 +9,7 @@ from matplotlib.ticker import MaxNLocator
 from matplotlib_venn import venn2,venn3
 import math
 import numpy as np
+from collections import defaultdict
 import upsetplot
 
 def get_tables(username = "miltr339"):
@@ -589,13 +590,15 @@ def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = ""
     else:
         upsetplot.UpSet(data, subset_size="count", sort_by="cardinality", show_counts=True, min_subset_size=min_overlap).plot()
 
-    plt.title(plot_title)
+    if len(plot_title)>0:
+        plt.title(plot_title)
     plt.tight_layout()
     plt.savefig(plot_filename, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {plot_filename}")
     plt.clf()
     plt.cla()
     plt.close()
+    return data
 
 
 if __name__ == "__main__":
@@ -633,13 +636,13 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
-    if False:
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -647,10 +650,10 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
+            if separation != "day_separated":
             # if separation != "no_separation":
-            # if separation == "day_separated":
-            #     print(f"ignore {separation}")
-            #     continue
+                print(f"ignore {separation}")
+                continue
             print(f"\n=========================== {separation} ===========================")
             
             # for upsetplot
@@ -751,7 +754,25 @@ if __name__ == "__main__":
                 min_overlap = 15
                 plot_title = f"{separation}: all categories\nsig. DE genes overlap (min. overlap size: {min_overlap})"
                 plot_sig_gene_overlap(sep_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_all_categories.png", plot_title = plot_title, min_overlap = min_overlap)
-            
+
+                sep_DE_genes_ = {sep.replace(": M_1 - M_3", "") : l_ for sep,l_ in sep_DE_genes.items() if "M_1 - M_3" in sep}
+                min_overlap_ = 0
+                plot_title_ = f""
+                upset_data = plot_sig_gene_overlap(sep_DE_genes_, plot_filename= f"{out_path_figs}/upsetplot_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
+                
+                print(f"\n\n\n\n ---<>> male line bias upset data")
+                print(f"filtered for all geneIDs that are sig in at least two:")
+
+                # filter to only include genes that are sig. in at least two days
+                mask = (
+                    upset_data.index.get_level_values('day14').astype(int) +
+                    upset_data.index.get_level_values('day16').astype(int) +
+                    upset_data.index.get_level_values('day18').astype(int)
+                ) >= 2
+                upset_data = upset_data[mask]
+
+                upset_data.to_csv(f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt", sep="\t")
+
 
     ############################################
     ######## MAKE ALL THE VENN DIAGRAMS ########
@@ -1062,7 +1083,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if True:
+    if False:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             "day_separated" : {

@@ -107,12 +107,23 @@
         \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day18_line_bias.png}
         \end{center}        
     \end{subfigure}
+
+
+    \begin{center}
+        \begin{subfigure}[t]{0.6\linewidth}
+            \begin{picture}(0,0)
+                \put(90,180){\textbf{G}} % adjust the x and y values here
+            \end{picture}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/upsetplot_day_separated_male_line_bias.png}
+        \end{subfigure}
+    \end{center}
     
     
     \caption{\textbf{Line-biased genes in males}. 
     (\textbf{A}, \textbf{B}, \textbf{C}): Genes significantly differentially expressed (red=FDR-p $<$ 0.05) in each developmental timepoint (301 genes in day 14, 281 genes in day 16, 14 genes in day 18). 
     Genes that are also line-biased in females are not shown. All genes are also significant in the line-by-sex interaction.
     (\textbf{D}, \textbf{E}, \textbf{F}): log2FC of genes that show significant line-bias in male samples, female samples or both.  
+    (\textbf{G}): Upsetplot showing the overlap of line-significant genes identified in A-F.
     }\label{day_split}
     
 \end{figure}

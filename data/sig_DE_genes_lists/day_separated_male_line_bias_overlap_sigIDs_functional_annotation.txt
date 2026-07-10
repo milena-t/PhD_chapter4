@@ -1,0 +1,55 @@
+day14	day16	day18	id	Description
+True	True	False	gene-124877	Belongs to the heparin-binding growth factors family
+True	True	False	gene-223758	Structural constituent of cuticle
+True	True	False	gene-424750	Alcohol dehydrogenase transcription factor Myb/SANT-like
+True	True	False	gene-127740	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates. Specific peripheric component of RNA polymerase III which synthesizes small RNAs, such as 5S rRNA and tRNAs
+True	True	False	gene-90190	Carboxylesterase family
+True	True	False	gene-87554	---not_annotated---
+True	True	False	gene-426056	Serendipity locus alpha protein (SRY-A)
+True	True	False	gene-230270	Peptidase family M48
+True	True	False	gene-232048	Odorant binding protein
+True	True	False	gene-38977	Reverse transcriptase (RNA-dependent DNA polymerase)
+True	True	False	gene-231604	---not_annotated---
+True	True	False	gene-223318	Belongs to the heat shock protein 70 family
+True	True	False	gene-222737	---not_annotated---
+True	True	False	gene-88032	Functions as a component of the nuclear pore complex (NPC). NPC components, collectively referred to as nucleoporins (NUPs)
+True	True	False	gene-372264	---not_annotated---
+True	True	False	gene-223419	Ribosomal L37ae protein family
+True	True	False	gene-346228	Subunit of the peripheral V1 complex of vacuolar ATPase. Subunit C is necessary for the assembly of the catalytic sector of the enzyme and is likely to have a specific function in its catalytic activity. V-ATPase is responsible for acidifying a variety of intracellular compartments in eukaryotic cells
+True	True	False	gene-125638	Glyceraldehyde 3-phosphate dehydrogenase, NAD binding domain
+True	True	False	gene-240397	LSM domain
+True	True	False	gene-336688	protein serine threonine kinase
+True	True	False	gene-227137	no_description
+True	True	False	gene-263126	Catalyzes the reversible isomerization between hydroxypyruvate and 2-hydroxy-3-oxopropanoate (also termed tartronate semialdehyde)
+True	True	False	gene-127607	Domain of unknown function (DUF389)
+True	True	False	gene-266887	---not_annotated---
+True	True	False	gene-229506	---not_annotated---
+True	True	False	gene-241506	---not_annotated---
+True	True	False	gene-57335	Required for nuclear transport of RNA pol II C-terminus 1
+True	True	False	gene-68612	Calcium-activated chloride channel
+True	True	False	gene-271655	AAR2 protein
+True	True	False	gene-224369	large 1 tumor suppressor
+True	True	False	gene-120660	Belongs to the peptidase S10 family
+True	True	False	gene-421265	---not_annotated---
+True	True	False	gene-84577	GMC oxidoreductase
+True	True	False	gene-370643	Dyggve-Melchior-Clausen syndrome protein
+True	True	False	gene-240602	no_description
+True	True	False	gene-217099	---not_annotated---
+True	True	True	gene-395158	Domain of unknown function DUF21
+True	True	False	gene-370842	peptidase inhibitor activity
+True	False	True	gene-301479	Belongs to the transient receptor (TC 1.A.4) family
+True	True	False	gene-417051	Protein OPI10 homolog
+True	True	False	gene-81581	Inositol monophosphatase family
+True	True	False	gene-81458	Casein kinase 1 gamma C terminal
+True	True	False	gene-81476	JAB1/Mov34/MPN/PAD-1 ubiquitin protease
+True	True	False	gene-81675	nucleic acid binding
+True	True	False	gene-81418	---not_annotated---
+True	True	False	gene-80415	Tetraspanin family
+True	True	False	gene-87700	Insect pheromone-binding family, A10/OS-D
+True	True	False	gene-225355	PA domain
+True	True	False	gene-237857	Domain of unknown function (DUF384)
+True	True	False	gene-219157	Zinc-finger associated domain (zf-AD)
+True	True	False	gene-400426	Calcium ion binding
+True	True	False	gene-125849	Belongs to the mitochondrial carrier (TC 2.A.29) family
+True	True	False	gene-119684	Tudor domain
+False	True	True	gene-428071	---not_annotated---

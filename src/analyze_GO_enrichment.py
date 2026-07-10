@@ -175,7 +175,8 @@ def plot_enriched_GO_overlap(GO_Terms_dict:dict, plot_filename:str, plot_title  
 
         if min_overlap >0:
             plt.subplots_adjust(top=0.85)    
-        plt.title(plot_title)
+        if len(plot_title)>0:
+            plt.title(plot_title)
         plt.tight_layout()
         plt.savefig(plot_filename, dpi = 300, transparent = True)
         print(f"plot saved in current working directory as: {plot_filename}")
@@ -220,6 +221,35 @@ def plot_enriched_GO_overlap(GO_Terms_dict:dict, plot_filename:str, plot_title  
 
 
 
+def add_finctional_information_to_geneIDs(infile_path, annotation_file):
+    outfile_path = infile_path.replace(".txt", "_functional_annotation.txt")
+
+    annotation_header = ["query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs"]
+    annotation_df = pd.read_csv(annotation_file, sep="\t", comment="#", names=annotation_header)
+
+    print(annotation_df)
+
+    with open(infile_path, "r") as infile, open(outfile_path, "w") as outfile:
+        infile_lines = infile.readlines()
+        header = infile_lines[0].strip()
+        header_ = f"{header}\tDescription\n"
+        outfile.write(header_)
+        for i, line_full in enumerate(infile_lines[1:]):
+            line = line_full.strip()
+            geneID = line.split("\t")[-1]
+            try:
+                desc = annotation_df.loc[annotation_df["query"] == geneID, "Description"].iloc[0]
+            except:
+                desc = "---not_annotated---"
+            if desc == "-":
+                desc = "no_description"
+
+            print(f"{i}\t{geneID}\t{desc}")
+            outfile.write(f"{line}\t{desc}\n")
+
+
+
+
 if __name__ == "__main__":
     username = "miltr339"
     go_tables_paths = get_tables(username=username)
@@ -227,7 +257,7 @@ if __name__ == "__main__":
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment"
     
     ## don't plot only get lists of all the GO terms in each interaction
-    plot = False
+    plot = True
 
     ### TODO analyze go enrichment
     # get functional information about GO terms
@@ -237,8 +267,12 @@ if __name__ == "__main__":
         print(f"...done!")
         
 
-    if True:
+    if False:
         for separation, seps_dict in go_tables_paths.items():
+            if separation!="day_separated":
+                print(f"ignore {separation}")
+                continue
+
             print(f"\n=========================== {separation} ===========================")
 
             sep_GO_terms = {}
@@ -263,11 +297,11 @@ if __name__ == "__main__":
                 
                 if plot:
                     ## plot intersection sizes
-                    plot_enriched_GO_overlap(sig_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap, plot=plot)
+                    plot_enriched_GO_overlap(GO_Terms_dict = sig_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap)
                 else:
                     ## do semantic clustering on contrasts of interest
                     contrasts_dict = contrasts_of_interest[separation][category]
-                    plot_enriched_GO_overlap(sig_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap, contrasts_of_interest=contrasts_dict)
+                    plot_enriched_GO_overlap(GO_Terms_dict = sig_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap, contrasts_of_interest=contrasts_dict)
 
             if plot:
                 min_overlap = 5
@@ -275,6 +309,20 @@ if __name__ == "__main__":
                     plot_title = f"{separation_}:all categories\nsig. GO:terms overlap\n(min. overlap size: {min_overlap})"
                 else:
                     plot_title = f"{separation_}:all categories\nsig. GO:terms overlap"
-                plot_enriched_GO_overlap(sep_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_all.png", plot_title = plot_title, min_overlap = min_overlap, plot=plot)
-        
-            
+                plot_enriched_GO_overlap(GO_Terms_dict = sep_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_all.png", plot_title = plot_title, min_overlap = min_overlap)
+
+                if separation=="day_separated":
+                    print(sep_GO_terms.keys())
+                    # sep_GO_terms_ = {sep : sep_GO_terms[sep] for sep in ['males: SL1_14 - SL3_14', 'males: SL1_16 - SL3_16', 'males: SL1_18 - SL3_18']}
+                    sep_GO_terms_ = {sep : l_ for sep,l_ in sep_GO_terms.items() if "M_1 - M_3" in sep}
+                    min_overlap_ = 0
+                    plot_title_ = f""
+                    plot_enriched_GO_overlap(GO_Terms_dict = sep_GO_terms_, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
+
+
+    if True:
+        ## add gene annotation information to a previously generated list of sig. geneIDs
+        day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt"
+        annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
+
+        add_finctional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path)
