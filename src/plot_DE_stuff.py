@@ -473,14 +473,14 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     for cat in lists.keys():
         for geneID in lists[cat]:
             try:
-                x = tables_df_all[table_a].loc[geneID,"logFC"]
-            except:
-                x = 0
-                print(geneID)
-            try:
-                y = tables_df_all[table_b].loc[geneID,"logFC"]
+                y = tables_df_all[table_a].loc[geneID,"logFC"]
             except:
                 y = 0
+                print(geneID)
+            try:
+                x = tables_df_all[table_b].loc[geneID,"logFC"]
+            except:
+                x = 0
                 print(geneID)
             if len(excl_geneIDs)>0:
                 if geneID in excl_geneIDs:
@@ -500,12 +500,12 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     label_a = label_a.replace("SL1-SL3", "line-bias")
     label_a = label_a.replace("F-M", "sex-bias")
     label_a = label_a.replace("SL1", "small-Y").replace("SL3", "large-Y")
-    ax.set_xlabel(f"logFC {label_a}", fontsize = fs)
+    ax.set_ylabel(f"logFC {label_a}", fontsize = fs)
     label_b = table_b.replace("SL1-3", "line-bias")
     label_b = label_b.replace("SL1-SL3", "line-bias")
     label_b = label_b.replace("F-M", "sex-bias")
     label_b = label_b.replace("SL1", "small-Y").replace("SL3", "large-Y")
-    ax.set_ylabel(f"logFC {label_b}", fontsize = fs)
+    ax.set_xlabel(f"logFC {label_b}", fontsize = fs)
     ax.tick_params(axis='x', labelsize=fs*0.9)
     ax.tick_params(axis='y', labelsize=fs*0.9)
     ax.set_title(LFC_title, fontsize = fs)
