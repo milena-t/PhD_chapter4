@@ -498,10 +498,12 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
 
     label_a = table_a.replace("SL1-3", "line-bias")
     label_a = label_a.replace("SL1-SL3", "line-bias")
+    label_a = label_a.replace("F-M", "sex-bias")
     label_a = label_a.replace("SL1", "small-Y").replace("SL3", "large-Y")
     ax.set_xlabel(f"logFC {label_a}", fontsize = fs)
     label_b = table_b.replace("SL1-3", "line-bias")
     label_b = label_b.replace("SL1-SL3", "line-bias")
+    label_b = label_b.replace("F-M", "sex-bias")
     label_b = label_b.replace("SL1", "small-Y").replace("SL3", "large-Y")
     ax.set_ylabel(f"logFC {label_b}", fontsize = fs)
     ax.tick_params(axis='x', labelsize=fs*0.9)
@@ -562,6 +564,8 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
 
     main_sig_legend = plt.legend(handles = main_sig, fontsize = fs*0.75, title ="gene sig. in\nmain effect", title_fontsize = fs*0.7, loc='lower right')
     ax.add_artist(int_legend)
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
+
     plt.tight_layout()
     plt.savefig(LFC_filename, dpi = 300, transparent = True)
     if excl_geneIDs != []:
