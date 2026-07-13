@@ -636,7 +636,7 @@ if __name__ == "__main__":
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
     
-    ### genes that are line-biased in both males and females (should be excluded from male analysis since they can't be related to the Y-haplotype)
+    ### genes that are line-biased in both males and females (should be excluded from male analysis in the sex-separated data since they can't be related to the Y-haplotype)
     excl_line_bias_lists = {
         "no_separation" : {
             "all_samples" : [],
@@ -665,7 +665,7 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
     make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
@@ -708,10 +708,10 @@ if __name__ == "__main__":
                     if contrast == "day16,day18" or contrast == "line3":
                         # this is not a contrasts but a test for the effect of coefficients, therefore the output table is structured a little differently and the plotting function needs to know
                         coefficients = True
-                        print(f"{separation}:{category} --> coefficient(s): {contrast}")
+                        print(f" ---<>--> {separation}:{category} --> coefficient(s): {contrast}")
                     else:
                         coefficients = False
-                        print(f"{separation}:{category} --> contrast: {contrast}")
+                        print(f" ---<>--> {separation}:{category} --> contrast: {contrast}")
 
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"
@@ -762,8 +762,12 @@ if __name__ == "__main__":
                         smear_nums = {gene_set : len(gene_list) for gene_set,gene_list in smear_lists.items()}
                         numbers[contrast] = smear_nums
 
-                        if "(" not in contrast:
-                            # don't include interactions in upset plot
+                        if category =="line_random":
+                            # for full dataset line random effect DO include interactions
+                            sig_DE_genes[contrast] = DE_list
+                            sep_DE_genes[f"{category}: {contrast}"] = DE_list
+                        elif "(" not in contrast:
+                            # if not full dataset line random effect DON'T include interactions in upset plot
                             sig_DE_genes[contrast] = DE_list
                             sep_DE_genes[f"{category}: {contrast}"] = DE_list
                     
@@ -779,6 +783,10 @@ if __name__ == "__main__":
                     ## upsetplot within each separation
                     min_overlap = 15
                     plot_title = f"{separation}: all categories\nsig. DE genes overlap (min. overlap size: {min_overlap})"
+                    if separation == "no_separation":
+                        # fix the contrast names when the interaction is included in the no_separation data
+                        sig_DE_genes = { contrast_plot_titles[key] : val for key,val in sig_DE_genes.items()}
+                        plot_title = f"sig. DE genes overlap (min. overlap size: {min_overlap})"
                     plot_sig_gene_overlap(sig_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap)
 
             if make_upset:
@@ -787,10 +795,12 @@ if __name__ == "__main__":
                 plot_title = f"{separation}: all categories\nsig. DE genes overlap (min. overlap size: {min_overlap})"
                 plot_sig_gene_overlap(sep_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_all_categories.png", plot_title = plot_title, min_overlap = min_overlap)
 
-                sep_DE_genes_ = {sep.replace(": M_1 - M_3", "") : l_ for sep,l_ in sep_DE_genes.items() if "M_1 - M_3" in sep}
-                min_overlap_ = 0
-                plot_title_ = f""
-                upset_data = plot_sig_gene_overlap(sep_DE_genes_, plot_filename= f"{out_path_figs}/upsetplot_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
+                if separation == "day_separated":
+                    # plot only male line bias in the day separated data
+                    sep_DE_genes_ = {sep.replace(": M_1 - M_3", "") : l_ for sep,l_ in sep_DE_genes.items() if "M_1 - M_3" in sep}
+                    min_overlap_ = 0
+                    plot_title_ = f""
+                    upset_data = plot_sig_gene_overlap(sep_DE_genes_, plot_filename= f"{out_path_figs}/upsetplot_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
 
                 #######################################
                 #### make list of all the significantly line-biased genes from Fig 1 to do the GO enrichment                
