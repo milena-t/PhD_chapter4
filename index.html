@@ -382,22 +382,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <h2 id="basic-full-data">3.2 Basic analysis on full dataset</h2>
 
+<h3 id="full-data-random-day">Time as fixed effect</h3>
+
 <p>
     Test if there is an overall signal where males differ strongly between the lines and females do not. 
     For this purpose the time effect is not taken into account for the contrast but controlled for in the model as a random factor.
 </p>
 
 <details>
-    <summary>Code summary</summary>
-    <pre>
-        <code>
- groups <- factor(paste(meta_data$line, meta_data$sex, sep="_"))
+    <summary>Code summary with time as fixed effect (for line-by-sex interaction)</summary>
+    <pre><code> groups <- factor(paste(meta_data$line, meta_data$sex, sep="_"))
  y <- DGEList(counts=counts_M, group=groups)
  # see Rmd file for filter min expr. and normalize library sizes
  day <- factor(meta_data$day)
  MM <- model.matrix(~ 0 + groups + day, data = y$samples)
- colnames(MM) <- c("SL1_F", "SL1_M", "SL3_F", "SL3_M", "day16", "day18")</code>
-    </pre>
+ colnames(MM) <- c("SL1_F", "SL1_M", "SL3_F", "SL3_M", "day16", "day18")</code></pre>
 </details>
 
 <p>
@@ -587,6 +586,8 @@ document.addEventListener("DOMContentLoaded", function () {
     </p>
 
 </div>
+
+
 <div id="line bias males" class="tabcontent">
     <table>
         <thead>
@@ -687,6 +688,190 @@ document.addEventListener("DOMContentLoaded", function () {
     The genes from the interaction here are significantly different in line bias between males and females, and theoretically should be intersected with the sig. DE genes 
     in the sex biased samples below.
 </p>
+
+
+<h3 id="full-data-random-line">Line as fixed effect</h3>
+
+<p>
+    Since the line-by-sex interaction does not show much of an effect, I will assess the time-by-sex interaction with line as a fixed effect next.
+</p>
+
+<details>
+    <summary>Code summary with line as batch effect (for time-by-sex interaction)</summary>
+    <pre><code> groups <- factor(paste(meta_data$day, meta_data$sex, sep="_"))
+ y <- DGEList(counts=counts_M, group=groups)
+ # see Rmd file for filter min expr. and normalize library sizes
+ line <- factor(meta_data$line)
+ MM <- model.matrix(~ 0 + groups + line, data = y$samples)
+ colnames(MM) <- c("day14_F", "day14_M", "day16_F", "day16_M", "day18_F", "day18_M", "line3")</code></pre>
+</details>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'line effect')">line effect</button>
+    <button class="tablinks" onclick="openTab(event, 'sex bias day14')">sex bias day 14</button>
+    <button class="tablinks" onclick="openTab(event, 'sex bias day16')">sex bias day 16</button>
+    <button class="tablinks" onclick="openTab(event, 'sex bias day18')">sex bias day 18</button>
+    <button class="tablinks" onclick="openTab(event, 'day by sex interaction')">day by sex interaction</button>
+</div>
+
+<div id="line effect" class="tabcontent">
+    <p>
+        This analysis is based on coefficients and not contrasts since line is modelled as a fixed factor with line1 as the intercept.
+    </p>
+
+    <div style="float: left;width: 20%;">
+    <table>
+        <thead>
+        <tr>
+            <th>coefficients</th>
+            <th>line 3</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Downregulated</td>
+            <td>793</td>
+        </tr>
+        <tr>
+            <td>no difference</td>
+            <td>9067</td>
+        </tr>
+        <tr>
+            <td>Upregulated</td>
+            <td>736</td>
+        </tr>
+        <tr>
+            <td>differentially expr.</td>
+            <td>1529</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <div style="float: right;width: 80%;">
+        <details>
+            <summary>code summary</summary>
+            <pre>
+<code> colnames(MM) <- c("day14_F", "day14_M", "day16_F", "day16_M", "day18_F", "day18_M", "line3")
+ fit <- glmQLFit(y, MM)
+ qlf <- glmQLFTest(fit, coef=c("line3"))</code></pre>
+        </details>
+    </div>
+    <div style="clear: both;"></div>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'line effect smear')">smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'line effect volcano')">volcano plot</button>
+    </div>
+
+    <div id="line effect smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_random_factor_line_diff_logFC.png" width="40%" />
+        </p>
+    </div>
+    <div id="line effect volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_random_factor_line_diff_logFC_volcano.png" width="40%" />
+        </p>
+    </div>
+
+</div>
+
+<div id="sex bias day14" class="tabcontent">
+
+    <p>
+        Conrast: <code>day14_F - day14_M</code>, for numbers see volcano plot legend.
+    </p>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'sex bias day14 smear')">smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'sex bias day14 volcano')">volcano plot</button>
+    </div>
+
+    <div id="sex bias day14 smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day14_F-M.png" width="40%" />
+        </p>
+    </div>
+    <div id="sex bias day14 volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day14_F-M_volcano.png" width="40%" />
+        </p>
+    </div>
+
+</div>
+
+
+<div id="sex bias day16" class="tabcontent">
+
+    <p>
+        Conrast: <code>day16_F - day16_M</code>, for numbers see volcano plot legend.
+    </p>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'sex bias day16 smear')">smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'sex bias day16 volcano')">volcano plot</button>
+    </div>
+
+    <div id="sex bias day16 smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day16_F-M.png" width="40%" />
+        </p>
+    </div>
+    <div id="sex bias day16 volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day16_F-M_volcano.png" width="40%" />
+        </p>
+    </div>
+
+</div>
+
+
+<div id="sex bias day18" class="tabcontent">
+
+    <p>
+        Conrast: <code>day18_F - day18_M</code>, for numbers see volcano plot legend.
+    </p>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'sex bias day18 smear')">smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'sex bias day18 volcano')">volcano plot</button>
+    </div>
+
+    <div id="sex bias day18 smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day18_F-M.png" width="40%" />
+        </p>
+    </div>
+    <div id="sex bias day18 volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day18_F-M_volcano.png" width="40%" />
+        </p>
+    </div>
+
+</div>
+
+<div id="day by sex interaction" class="tabcontent">
+
+    <p>
+        Conrast: <code>(day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M)</code>, for numbers see volcano plot legend.
+    </p>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day by sex interaction smear')">smear plot</button>
+        <button class="tablinks" onclick="openTab(event, 'day by sex interaction volcano')">volcano plot</button>
+    </div>
+
+    <div id="day by sex interaction smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day_sex_interaction.png" width="40%" />
+        </p>
+    </div>
+    <div id="day by sex interaction volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day_sex_interaction_volcano.png" width="40%" />
+        </p>
+    </div>
+
+</div>
+
+
+
 
 
 <h2 id="data-separation-pca">3.3 Separation summary: PCA plots</h2>

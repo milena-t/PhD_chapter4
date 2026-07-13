@@ -94,6 +94,7 @@ Export normalized counts to file. See Python scripting for the PCA plots based o
 
 # run whole dataset for basic analyses
 
+
 ```{r}
 counts_M <- count_data
 
@@ -102,7 +103,11 @@ meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")## ad
 meta_data <- meta_data[names(counts_M),]# reorder so it's in the same order as the count data columns
 all(colnames(counts_M) %in% rownames(meta_data))# check assumptions, should be TRUE
 all(colnames(counts_M) == rownames(meta_data))# check assumptions, should be TRUE
+```
 
+## Day as random factor for line-by-sex interaction
+
+```{r}
 # groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
 groups <- factor(paste(meta_data$line, meta_data$sex, sep="_"))
 y <- DGEList(counts=counts_M, group=groups)
@@ -113,7 +118,6 @@ y <- DGEList(counts=counts_M, group=groups)
 keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
   y <- y[keep, , keep.lib.sizes=FALSE]
   y$samples$lib.size <- colSums(y$counts) # recompute library sizes
-  
 # normalize by library sizes
 y <- calcNormFactors(y)
 
@@ -131,11 +135,6 @@ rownames(MM) <- colnames(y)
 # estimate dispersion with edgeR
 y <- estimateDisp(y, MM) 
 # plotBCV(y)
-```
-
-Differential expression analysis 
-
-```{r}
 
 my.contrasts <- makeContrasts(
 line1_F_M = SL1_F - SL1_M,
@@ -144,6 +143,11 @@ F_SL1_SL3 = SL1_F - SL3_F,
 M_SL1_SL3 = SL1_M - SL3_M,
 line_sex_interaction = (SL1_F - SL3_F) - (SL1_M - SL3_M),
 levels=MM)
+```
+
+Differential expression analysis 
+
+```{r}
 
 coefficient_analysis_complete_ds <- function(y,MM,coefficients_vec, table_name, lfc_min){
   
@@ -195,7 +199,7 @@ day_diff_table <- coefficient_analysis_complete_ds(y=y,MM=MM,coef=c("day16","day
 ```
 
 
-sex bias in full dataset when age is not taken into account
+sex bias in full dataset when age is not part of the contrast
 ```{r}
 SL1_F_M = sprintf("%sfull_dataset_day_ignored_SL1_F-M.txt", outdir)
 SL1_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line1_F_M"],table_name=SL1_F_M,lfc_min = 0)
@@ -211,9 +215,67 @@ M_SL1_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"M_SL1_SL3"],tab
 
 SL1_SL3_F_M = sprintf("%sfull_dataset_day_ignored_line_sex_interaction.txt", outdir)
 SL1_SL3_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_sex_interaction"],table_name=SL1_SL3_F_M,lfc_min = 0)
-
 ```
 
+
+## Line as random factor for day-by-sex interaction
+
+```{r}
+# groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
+groups <- factor(paste(meta_data$day, meta_data$sex, sep="_"))
+y <- DGEList(counts=counts_M, group=groups)
+# y <- DGEList(counts=counts_M)
+
+## filter out low count genes
+keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
+  y <- y[keep, , keep.lib.sizes=FALSE]
+  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
+# normalize by library sizes
+y <- calcNormFactors(y)
+
+# specify model
+line <- factor(meta_data$line)
+day <- factor(meta_data$day)
+sex <- factor(meta_data$sex)
+MM <- model.matrix(~ 0 + groups + line, data = y$samples)
+colnames(MM)
+qr(MM)$rank   # should be 7
+ncol(MM)      # should be 7
+colnames(MM) <- c("day14_F", "day14_M", "day16_F", "day16_M", "day18_F", "day18_M", "line3")
+rownames(MM) <- colnames(y)
+
+# estimate dispersion with edgeR
+y <- estimateDisp(y, MM) 
+# plotBCV(y)
+
+my.contrasts <- makeContrasts(
+day14_F_M = day14_F - day14_M,
+day16_F_M = day16_F - day16_M,
+day18_F_M = day18_F - day18_M,
+day_sex_interaction = (day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M),
+levels=MM)
+```
+
+Check for overall Line differences with coefficients
+```{r}
+line_diff_table = sprintf("%sfull_dataset_line_random_factor_line_diff.txt", outdir)
+line_diff_table <- coefficient_analysis_complete_ds(y=y,MM=MM,coef=c("line3"),table_name=line_diff_table,lfc_min = 0)
+```
+
+sex bias in full dataset when line is not part of the contrast
+```{r}
+day14_F_M_table = sprintf("%sfull_dataset_line_ignored_day14_F-M.txt", outdir)
+day14_F_M_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14_F_M"],table_name=day14_F_M_table,lfc_min = 0)
+
+day16_F_M_table = sprintf("%sfull_dataset_line_ignored_day16_F-M.txt", outdir)
+day16_F_M_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16_F_M"],table_name=day16_F_M_table,lfc_min = 0)
+
+day18_F_M_table = sprintf("%sfull_dataset_line_ignored_day18_F-M.txt", outdir)
+day18_F_M_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18_F_M"],table_name=day18_F_M_table,lfc_min = 0)
+
+day_sex_interaction_table = sprintf("%sfull_dataset_line_ignored_day_sex_interaction.txt", outdir)
+day_sex_interaction_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day_sex_interaction"],table_name=day_sex_interaction_table,lfc_min = 0)
+```
 
 # basic DE with only one sex
 

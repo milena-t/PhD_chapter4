@@ -23,13 +23,20 @@ def get_tables(username = "miltr339"):
     out_dict = {
 
         "no_separation" : {
-            "all_samples" : {
+            "day_random" : {
                 "SL1_F - SL1_M" : f"{tables_dir}full_dataset_day_ignored_SL1_F-M.txt",
                 "SL3_F - SL3_M" : f"{tables_dir}full_dataset_day_ignored_SL3_F-M.txt",
                 "SL1_F - SL3_F" : f"{tables_dir}full_dataset_day_ignored_F_SL1-SL3.txt",
                 "SL1_M - SL3_M" : f"{tables_dir}full_dataset_day_ignored_M_SL1-SL3.txt",
                 "(SL1_F - SL3_F) - (SL1_M - SL3_M)" : f"{tables_dir}full_dataset_day_ignored_line_sex_interaction.txt",
                 "day16,day18" : f"{tables_dir}full_dataset_day_random_factor_days_diff.txt",
+            },
+            "line_random" : {
+                "day14_F - day14_M" : f"{tables_dir}full_dataset_line_ignored_day14_F-M.txt",
+                "day16_F - day16_M" : f"{tables_dir}full_dataset_line_ignored_day16_F-M.txt",
+                "day18_F - day18_M" : f"{tables_dir}full_dataset_line_ignored_day18_F-M.txt",
+                "(day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M)" : f"{tables_dir}full_dataset_line_ignored_day_sex_interaction.txt",
+                "line3" : f"{tables_dir}full_dataset_line_random_factor_line_diff.txt",
             },
         },
         
@@ -144,7 +151,12 @@ def get_tables(username = "miltr339"):
         "SL1_F - SL3_F" : "SL1-SL3 F",
         "SL1_M - SL3_M" : "SL1-SL3 M",
         "(SL1_F - SL3_F) - (SL1_M - SL3_M)" : " line by sex interaction",
-        "day16,day18" : "day effect"
+        "day16,day18" : "day effect",
+        "day14_F - day14_M" : "day 14 sex bias",
+        "day16_F - day16_M" : "day 16 sex bias",
+        "day18_F - day18_M" : "day 18 sex bias",
+        "(day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M)" : "day by sex interaction",
+        "line3" : "line effect",
     }
     return out_dict,contrast_plot_titles
 
@@ -184,12 +196,14 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
         df_nonsig = df.loc[(df['FDR'] >= p_sig) | (abs(df['logFC']) < min_LFC)]
         df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
         print(f"\tnum sig genes with LFC > {min_LFC}: {df_sig.shape[0]}")
-    num_nonsig = df_nonsig.shape[0]
-    num_up = df_sig.loc[df_sig['logFC'] > min_LFC].shape[0]
-    num_down = df_sig.loc[df_sig['logFC'] < min_LFC].shape[0]
+    
+    if coefficients == False:
+        num_up = df_sig.loc[df_sig['logFC'] > min_LFC].shape[0]
+        num_down = df_sig.loc[df_sig['logFC'] < min_LFC].shape[0]
+        label_sig = f"up:         {num_up}\ndown:    {num_down}"
 
+    num_nonsig = df_nonsig.shape[0]
     label_nonsig = f"nonsig.: {num_nonsig}"
-    label_sig = f"up:         {num_up}\ndown:    {num_down}"
     
     if coefficients==True:
         # make individual plots for each coefficient
@@ -198,6 +212,9 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
         out_dict = {logfc_colname.split(".")[-1] : {} for logfc_colname in logfc_colnames}
 
         for logfc_colname, sig_df_coeff in sig_dfs_coeff.items():
+            num_up = sig_df_coeff.loc[sig_df_coeff[logfc_colname] > min_LFC].shape[0]
+            num_down = sig_df_coeff.loc[sig_df_coeff[logfc_colname] < min_LFC].shape[0]
+            label_sig = f"up:         {num_up}\ndown:    {num_down}"
 
             coeff_name = logfc_colname.split(".")[-1]
             print(f"\tcoef:{coeff_name} num sig genes with LFC > {min_LFC}: {sig_df_coeff.shape[0]}")
@@ -210,8 +227,8 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
                 ax.scatter(df_nonsig["logCPM"], df_nonsig[logfc_colname], color = cols["nonsig"], alpha=0.4, s=ps)
                 ax.scatter(df_sig["logCPM"], df_sig[logfc_colname], color = cols["sig"], alpha=0.4, s=ps)
             elif x_axis == "fdr_p":
-                ax.scatter(df_nonsig[logfc_colname], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.4, s=ps)
-                ax.scatter(df_sig[logfc_colname], df_sig["FDR_volc"], color = cols["sig"], alpha=0.4, s=ps)
+                ax.scatter(df_nonsig[logfc_colname], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.4, s=ps, label=label_nonsig)
+                ax.scatter(df_sig[logfc_colname], df_sig["FDR_volc"], color = cols["sig"], alpha=0.4, s=ps, label=label_sig)
         
             if  x_axis == "logcpm":
                 ax.set_ylabel(f"{logfc_colname}", fontsize = fs)
@@ -249,9 +266,11 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             if x_axis == "fdr_p":
                 smear_plot_name_coeff = smear_plot_name.replace(".png", f"_{coeff_name}_volcano.png")
             
+            if x_axis == "fdr_p":
+                plt.legend(fontsize = fs, loc='upper center') #, title ="gene counts", title_fontsize = fs*0.7
             # layout rect=(left, bottom, right, top)
             plt.tight_layout()# rect=[0.0, 0.05, 1, 1])
-            fig.subplots_adjust(left=0.175) # or whatever
+            fig.subplots_adjust(left=0.18) # or whatever
             plt.savefig(smear_plot_name_coeff, dpi = 300, transparent = True)
             print(f"plot saved in current working directory as: {smear_plot_name_coeff}")
             plt.clf()
@@ -340,7 +359,7 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             if x_axis == "fdr_p":
                 plt.legend(fontsize = fs, loc='upper center') #, title ="gene counts", title_fontsize = fs*0.7
             plt.tight_layout()
-            fig.subplots_adjust(left=0.125) # or whatever
+            fig.subplots_adjust(left=0.14) # or whatever
             plt.savefig(smear_plot_name, dpi = 300, transparent = True)
             print(f"plot saved in current working directory as: {smear_plot_name}")
             plt.clf()
@@ -660,8 +679,8 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "day_separated":
-            # if separation != "no_separation":
+            # if separation != "day_separated":
+            if separation != "no_separation":
                 print(f"ignore {separation}")
                 continue
             print(f"\n=========================== {separation} ===========================")
@@ -686,10 +705,10 @@ if __name__ == "__main__":
                     else:
                         min_LFC = 0
 
-                    if contrast == "day16,day18":
+                    if contrast == "day16,day18" or contrast == "line3":
                         # this is not a contrasts but a test for the effect of coefficients, therefore the output table is structured a little differently and the plotting function needs to know
                         coefficients = True
-                        print(f"{separation}:{category} --> coefficients: {contrast}")
+                        print(f"{separation}:{category} --> coefficient(s): {contrast}")
                     else:
                         coefficients = False
                         print(f"{separation}:{category} --> contrast: {contrast}")
