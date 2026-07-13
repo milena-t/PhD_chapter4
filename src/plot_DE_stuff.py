@@ -665,7 +665,7 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
     make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
@@ -680,7 +680,7 @@ if __name__ == "__main__":
 
         for separation, seps_dict in table_paths.items():
             # if separation != "day_separated":
-            if separation != "no_separation":
+            if separation != "sex_separated":
                 print(f"ignore {separation}")
                 continue
             print(f"\n=========================== {separation} ===========================")
@@ -720,6 +720,7 @@ if __name__ == "__main__":
                         smear_title = f"{category} {contrast_plot_titles[contrast]}"
                     else:
                         smear_title = contrast_plot_titles[contrast]
+                        smear_title = smear_title.replace(" days merged", "")
 
                     excl_line_bias = excl_line_bias_lists[separation]
                     excl_list = []

@@ -687,10 +687,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <div id="random day upset" class="tabcontent">
     
-    <p float="left">
-        <img loading="lazy" src="data/DE_figures_python/upsetplot_no_separation_day_random.png" width="50%" />
+    <div style="float: left;width: 50%;">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/upsetplot_no_separation_day_random.png" width="100%" />
+        </p>
+    </div>
+    <div style="float: right;width: 50%;">
+    <p>
+        The interaction is excluded here because there are only very few significantly differentially expressed genes.
     </p>
-
+    </div>
+    <div style="clear: both;"></div>
 </div>
 
 
@@ -892,7 +899,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     <div style="float: right;width: 50%;">
         <p>
-            Most genes that are significantly sex biased in any of the day contrasts are also significant in the interaction. 
+            Most genes that are significantly sex biased in any of the day contrasts are also significant in the interaction. I am unsure how to best handle this, do I only include these in the analysis
+            since we care about developmental differences between males and females? That was the original approac for the above section where day is the fixed effect and we care about 
         </p>
     </div>
     <div style="clear: both;"></div>
@@ -972,15 +980,14 @@ document.addEventListener("DOMContentLoaded", function () {
 </p>
 
 
-<h3>Differential expression between SL1 and SL3: time points merged</h3>
+<h3 id="sex-separated-all-days">Differential expression between SL1 and SL3: time points merged</h3>
 
 <p>
-    I only take line into account when making the contrasts, and day is ignored. The contrast is just <code>SL1 - SL3</code>
+    I only take line into account when making the contrasts, and day modeled as a fixed effect. The contrast is just <code>SL1 - SL3</code>
 </p>
 
 <details>
     <summary>Code summary</summary>
-    <p>I control for time as a fixed factor.</p>
     <pre><code> groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
  y <- DGEList(counts=counts_M, group=groups)
  line <- factor(meta_data$line)
@@ -1064,7 +1071,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </div>
 
-<h3>Differential expression between SL1 and SL3: split by time</h3>
+<h3 id="sex-separated-day-split">Differential expression between SL1 and SL3: split by time</h3>
 
 <p>
     Time is taken into account, and all Day and Line combinations are treated as six individual groups.

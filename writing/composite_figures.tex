@@ -124,10 +124,31 @@
     Figure legend shows numbers of nonsignificant (nonsig.) genes, and genes that are significantly up- or downregulated.
     (\textbf{D}, \textbf{E}, \textbf{F}): log2FC of genes that show significant line-bias in male samples, female samples or both. All genes that are exclusively male-biased (yellow) are also 
     significant in the line-by-sex interaction. 
-    (\textbf{G}): Upsetplot showing the overlap of line-significant genes identified in A-F.
+    (\textbf{G}): UpSet plot showing the overlap of line-significant genes identified in A-F.
     }\label{day_split}
     
 \end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{center}
+        \begin{subfigure}[t]{0.75\linewidth}
+            \begin{picture}(0,0)
+                \put(90,180){\textbf{A}} % adjust the x and y values here
+            \end{picture}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/upsetplot_no_separation_line_random.png}
+        \end{subfigure}
+    \end{center}
+    
+    
+    \caption{\textbf{Sex bias across developmental stages}. 
+    (\textbf{A}): UpSet plot showing the overlap of significantly sex-biased genes during different time points with each other and the genes that are significant in the day-by-sex interaction.
+    Only intersections with at least 15 genes are shown.
+    }\label{sex_split}
+    
+\end{figure}
+
 
 
 
