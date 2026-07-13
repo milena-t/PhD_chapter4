@@ -9,7 +9,7 @@ from matplotlib.ticker import MaxNLocator
 from matplotlib_venn import venn2,venn3
 import math
 import numpy as np
-from collections import defaultdict
+import warnings
 import upsetplot
 
 def get_tables(username = "miltr339"):
@@ -174,14 +174,22 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
     if x_axis == "fdr_p":
         df['FDR_volc'] = df['FDR'].transform(lambda x: math.log10(x))
     ### plot the unsignificant first so they are below and the significant ones are above
+    # if no sex bias so no minLFC threshold
     df_nonsig = df.loc[df['FDR'] >= p_sig] 
     df_sig = df.loc[df['FDR'] < p_sig]
     print(f"\tnum sig genes: {df_sig.shape[0]}")
     
+    # if sex bias and minLFC threshold
     if min_LFC>0 and coefficients==False:
         df_nonsig = df.loc[(df['FDR'] >= p_sig) | (abs(df['logFC']) < min_LFC)]
         df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
         print(f"\tnum sig genes with LFC > {min_LFC}: {df_sig.shape[0]}")
+    num_nonsig = df_nonsig.shape[0]
+    num_up = df_sig.loc[df_sig['logFC'] > min_LFC].shape[0]
+    num_down = df_sig.loc[df_sig['logFC'] < min_LFC].shape[0]
+
+    label_nonsig = f"nonsig.: {num_nonsig}"
+    label_sig = f"up:         {num_up}\ndown:    {num_down}"
     
     if coefficients==True:
         # make individual plots for each coefficient
@@ -276,8 +284,8 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
                 ax.scatter(df_nonsig["logCPM"], df_nonsig["logFC"], color = cols["nonsig"], alpha=0.5, s=ps)
                 ax.scatter(df_sig["logCPM"], df_sig["logFC"], color = cols["sig"], alpha=1, s=ps)
             elif x_axis == "fdr_p":
-                ax.scatter(df_nonsig["logFC"], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps)
-                ax.scatter(df_sig["logFC"], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps)
+                ax.scatter(df_nonsig["logFC"], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps, label=label_nonsig)
+                ax.scatter(df_sig["logFC"], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps, label=label_sig)
             
             if "SL" in contrast and "/2" not in contrast:
                 if "SL1" in contrast and "SL3" in contrast:
@@ -328,8 +336,9 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             if x_axis == "fdr_p":
                 smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
                 ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
-            
 
+            if x_axis == "fdr_p":
+                plt.legend(fontsize = fs, loc='upper center') #, title ="gene counts", title_fontsize = fs*0.7
             plt.tight_layout()
             fig.subplots_adjust(left=0.125) # or whatever
             plt.savefig(smear_plot_name, dpi = 300, transparent = True)
@@ -603,6 +612,7 @@ def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = ""
 
 if __name__ == "__main__":
 
+    warnings.filterwarnings("ignore")
     username = "miltr339"
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
@@ -636,9 +646,9 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
@@ -762,10 +772,12 @@ if __name__ == "__main__":
                 min_overlap_ = 0
                 plot_title_ = f""
                 upset_data = plot_sig_gene_overlap(sep_DE_genes_, plot_filename= f"{out_path_figs}/upsetplot_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
-                
-                if True and separation == "day_separated":
 
-                    # make list of day sep overlap
+                #######################################
+                #### make list of all the significantly line-biased genes from Fig 1 to do the GO enrichment                
+                #######################################
+                if False and separation == "day_separated":
+
                     print(f"\n\n\n\n ---<>--> male line bias upset data")
                     print(f"filtered for all geneIDs that are sig in at least two:")
 
