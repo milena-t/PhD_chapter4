@@ -14,13 +14,19 @@ def get_tables(username="miltr339"):
     tables_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/"
 
     out_dict = {
-        
+        "no_separation" : {
+            "line_random" : {
+                "(day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M)" : f"{tables_dir}tfull_dataset_line_ignored_day_sex_interaction_GO_enrichment.txt",
+            }
+        },
         "sex_separated" : {
             "females" :{
                 "SL1_14 - SL3_14" : f"{tables_dir}GO_enrichment_F_1-3_day14.txt",
                 "SL1_16 - SL3_16" : f"{tables_dir}GO_enrichment_F_1-3_day16.txt",
                 "SL1_18 - SL3_18" : f"{tables_dir}GO_enrichment_F_1-3_day18.txt",
                 "SL3_18 - SL3_14" : f"{tables_dir}GO_enrichment_F_SL3_18_14.txt",
+                "day14 - day16" : f"{tables_dir}only_F_no_line_GO_enrichment_day_14-16.txt",
+                "day14 - day18" : f"{tables_dir}only_F_no_line_GO_enrichment_day_14-18.txt",
             },
             "males" : {
                 "SL1_14 - SL3_14" : f"{tables_dir}GO_enrichment_M_1-3_day14.txt",
@@ -32,6 +38,9 @@ def get_tables(username="miltr339"):
                 "SL3_18 - SL3_14" : f"{tables_dir}GO_enrichment_M_SL3_18_14.txt",
                 "SL3_18 - SL3_16" : f"{tables_dir}GO_enrichment_M_SL3_18_16.txt",
                 "SL3_14 - SL3_16" : f"{tables_dir}GO_enrichment_M_SL3_14_16.txt",
+                "day14 - day16" : f"{tables_dir}only_M_no_line_GO_enrichment_day_14-16.txt",
+                "day16 - day18" : f"{tables_dir}only_M_no_line_GO_enrichment_day_16-18.txt",
+                "day14 - day18" : f"{tables_dir}only_M_no_line_GO_enrichment_day_14-18.txt",
             }
         },
         "line_separated" : {
@@ -89,6 +98,7 @@ def get_interesting_GO_overlap_lists():
                 "day16" : ["SL1_16 - SL3_16"],
                 "day18" : ["SL1_18 - SL3_18"],
                 "SL3_day18-14" : ["SL3_18 - SL3_14"],
+                "day18-14" : ["day18 - day14"],
             },
             "males" : {
                 "day14" : ["SL1_14 - SL3_14"],
@@ -100,6 +110,9 @@ def get_interesting_GO_overlap_lists():
                 "SL3_day18-14" : ["SL3_18 - SL3_14"],
                 "SL3_day18-16" : ["SL3_18 - SL3_16"],
                 "SL3_day14-16" : ["SL3_14 - SL3_16"],
+                "day18-14" : ["day18 - day14"],
+                "day18-16" : ["day18 - day16"],
+                "day14-16" : ["day14 - day16"],
             }
         },
         "line_separated" : {
@@ -267,7 +280,7 @@ if __name__ == "__main__":
         print(f"...done!")
         
 
-    if False:
+    if True:
         for separation, seps_dict in go_tables_paths.items():
             if separation!="day_separated":
                 print(f"ignore {separation}")
@@ -320,7 +333,7 @@ if __name__ == "__main__":
                     plot_enriched_GO_overlap(GO_Terms_dict = sep_GO_terms_, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
 
 
-    if True:
+    if False:
         ## add gene annotation information to a previously generated list of sig. geneIDs
         day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt"
         annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"

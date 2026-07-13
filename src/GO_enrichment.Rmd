@@ -58,9 +58,9 @@ lists of significant geneIDs for all contrasts
 indir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
 # sex separated
 ## females
-sex_sep_F <- c(sprintf("%s/sig_DE_list_F_1-3_day14.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day16.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day18.txt",indir),sprintf("%s/sig_DE_list_F_SL1.txt",indir),sprintf("%s/sig_DE_list_F_SL1_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3.txt",indir),sprintf("%s/sig_DE_list_F_SL3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_16.txt",indir))
+sex_sep_F <- c(sprintf("%s/sig_DE_list_F_1-3_day14.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day16.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day18.txt",indir),sprintf("%s/sig_DE_list_F_SL1.txt",indir),sprintf("%s/sig_DE_list_F_SL1_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3.txt",indir),sprintf("%s/sig_DE_list_F_SL3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_16.txt",indir),sprintf("%s/only_F_no_line_sig_DE_list_day_14-16.txt",indir),sprintf("%s/only_F_no_line_sig_DE_list_day_16-18.txt",indir),sprintf("%s/only_F_no_line_sig_DE_list_day_14-18.txt",indir))
 ## males
-sex_sep_M <- c(sprintf("%s/sig_DE_list_M_1-3_day14.txt",indir),sprintf("%s/sig_DE_list_M_1-3_day16.txt",indir),sprintf("%s/sig_DE_list_M_1-3_day18.txt",indir),sprintf("%s/sig_DE_list_M_SL1.txt",indir),sprintf("%s/sig_DE_list_M_SL1_14_16.txt",indir),sprintf("%s/sig_DE_list_M_SL1_18_14.txt",indir),sprintf("%s/sig_DE_list_M_SL1_18_16.txt",indir),sprintf("%s/sig_DE_list_M_SL3.txt",indir),sprintf("%s/sig_DE_list_M_SL3_14_16.txt",indir),sprintf("%s/sig_DE_list_M_SL3_18_14.txt",indir),sprintf("%s/sig_DE_list_M_SL3_18_16.txt",indir),sprintf("%s/sig_DE_list_M_SL_1_3_14_16.txt",indir),sprintf("%s/sig_DE_list_M_SL_1_3_18_14.txt",indir),sprintf("%s/sig_DE_list_M_SL_1_3_18_16.txt",indir))
+sex_sep_M <- c(sprintf("%s/sig_DE_list_M_1-3_day14.txt",indir),sprintf("%s/sig_DE_list_M_1-3_day16.txt",indir),sprintf("%s/sig_DE_list_M_1-3_day18.txt",indir),sprintf("%s/sig_DE_list_M_SL1.txt",indir),sprintf("%s/sig_DE_list_M_SL1_14_16.txt",indir),sprintf("%s/sig_DE_list_M_SL1_18_14.txt",indir),sprintf("%s/sig_DE_list_M_SL1_18_16.txt",indir),sprintf("%s/sig_DE_list_M_SL3.txt",indir),sprintf("%s/sig_DE_list_M_SL3_14_16.txt",indir),sprintf("%s/sig_DE_list_M_SL3_18_14.txt",indir),sprintf("%s/sig_DE_list_M_SL3_18_16.txt",indir),sprintf("%s/sig_DE_list_M_SL_1_3_14_16.txt",indir),sprintf("%s/sig_DE_list_M_SL_1_3_18_14.txt",indir),sprintf("%s/sig_DE_list_M_SL_1_3_18_16.txt",indir),sprintf("%s/only_M_no_line_sig_DE_list_day_14-16.txt",indir),sprintf("%s/only_M_no_line_sig_DE_list_day_16-18.txt",indir),sprintf("%s/only_M_no_line_sig_DE_list_day_14-18.txt",indir))
 
 # line separated
 ## SL1
@@ -81,7 +81,6 @@ day_sep_d18 <- c(sprintf("%s/sig_DE_list_day18_F-M_by_1-3.txt",indir),sprintf("%
 
 make GO enrichment object for each contrast
 ```{r}
-
 GO_enrichment_analysis <- function(sig_infile, annotation_df){
   # prepare input data
   sig_df <- read.csv(sig_infile, sep=",", header=TRUE)
@@ -103,6 +102,7 @@ GO_enrichment_analysis <- function(sig_infile, annotation_df){
     allRes <- GenTable(GOdata,classicFisher = result,orderBy = "classicFisher",topNodes = 1000)
     # write to outfile
     outfile_name <- str_replace(sig_infile, "sig_DE_list_", "GO_enrichment_")
+    outfile_name <- str_replace(sig_infile, "interaction", "interaction_GO_enrichment")
     write.csv(allRes, outfile_name, row.names=TRUE)
     return(allRes)
   }
@@ -127,5 +127,11 @@ for (sig_list in day_sep_d18){GO_enrichment_analysis(sig_infile = sig_list, anno
 list for genes that are sig line-biased in males in both day14 and day16
 ```{r}
 sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day_sep_M1-M3_day14and16.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)
+```
+
+list for genes that are sig in the day-sex interaction of the full dataset
+```{r}
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignored_day_sex_interaction.txt"
 GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)
 ```
