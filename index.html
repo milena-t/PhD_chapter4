@@ -980,7 +980,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </p>
 
 
-<h3 id="sex-separated-all-days">Differential expression between SL1 and SL3: time points merged</h3>
+<h3 id="sex-separated-line-split">Differential expression between SL1 and SL3</h3>
 
 <p>
     I only take line into account when making the contrasts, and day modeled as a fixed effect. The contrast is just <code>SL1 - SL3</code>
@@ -1071,7 +1071,88 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </div>
 
-<h3 id="sex-separated-day-split">Differential expression between SL1 and SL3: split by time</h3>
+
+<h3 id="sex-separated-day-split">Differential expression between day 14, 16 and 18</h3>
+
+<p>
+    I only take day into account when making the contrasts, and line modeled as a fixed effect. The contrast is all pairwise day combinations
+</p>
+
+<details>
+    <summary>Code summary</summary>
+    <pre><code> groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
+ y <- DGEList(counts=counts_M, group=groups)
+ line <- factor(meta_data$line)
+ day <- factor(meta_data$day)
+ MM <- model.matrix(~ 0 + day + line, data = y$samples)
+ colnames(MM) <- c("day14","day16","day18","SL3")
+ my.contrasts <- makeContrasts(line_no_time = SL1 - SL3, levels=MM)</code></pre>
+</details>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'males_time_DE_no_line')">males</button>
+    <button class="tablinks" onclick="openTab(event, 'females_time_DE_no_line')">females</button>
+    <button class="tablinks" onclick="openTab(event, 'overlap_time_DE_no_line')">Upset plots</button>
+</div>
+
+<div id="males_time_DE_no_line" class="tabcontent">
+    <p>see volcano plot legend for numbers</p>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'males_time_DE_no_line_volcano')">volcano plot</button>
+        <button class="tablinks" onclick="openTab(event, 'males_time_DE_no_line_smear')">smear plot</button>
+    </div>
+
+    <div id="males_time_DE_no_line_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_only_M_no_line_day_14-16_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_only_M_no_line_day_16-18_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_only_M_no_line_day_14-18_volcano.png" width="32%" />
+        </p>
+    </div>
+    <div id="males_time_DE_no_line_smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_only_M_no_line_day_14-16.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_only_M_no_line_day_16-18.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_only_M_no_line_day_14-18.png" width="32%" />
+        </p>
+    </div>
+
+</div>
+<div id="females_time_DE_no_line" class="tabcontent">
+
+    <p>see volcano plot legend for numbers</p>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'females_time_DE_no_line_volcano')">volcano plot</button>
+        <button class="tablinks" onclick="openTab(event, 'females_time_DE_no_line_smear')">smear plot</button>
+    </div>
+
+    <div id="females_time_DE_no_line_volcano" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_only_F_no_line_day_14-16_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_only_F_no_line_day_16-18_volcano.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_only_F_no_line_day_14-18_volcano.png" width="32%" />
+        </p>
+    </div>
+    <div id="females_time_DE_no_line_smear" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/smear_only_F_no_line_day_14-16.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_only_F_no_line_day_16-18.png" width="32%" />
+            <img loading="lazy" src="data/DE_figures_python/smear_only_F_no_line_day_14-18.png" width="32%" />
+        </p>
+    </div>
+</div>
+
+<div id="overlap_time_DE_no_line" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/upsetplot_sex_separated_day_bias.png" width="75%" />
+    </p>
+</div>
+
+
+
+<h3 id="sex-separated-line-day-split">Differential expression between lines and days</h3>
 
 <p>
     Time is taken into account, and all Day and Line combinations are treated as six individual groups.

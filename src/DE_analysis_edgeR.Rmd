@@ -291,8 +291,11 @@ The analysis can be run separately for males and females, if use_males=True then
 or only line differences are tested
 
 ```{r} 
-use_males<-TRUE # only run on male samples (if False only run on female samples)
-use_time<-TRUE # contrasts that take time into account (if False then only line contrasts)
+use_males<-FALSE # only run on male samples (if False only run on female samples)
+
+# model either time or line as fixed effect with intercept in the contrasts
+use_time<-FALSE # contrasts that take time into account (if False then only line contrasts with time as fixed factor)
+use_line<-TRUE # contrasts that take line into account (if False then only time with line as fixed factor)
 ```
 
 
@@ -328,14 +331,19 @@ y <- calcNormFactors(y)
 line <- factor(meta_data$line)
 day <- factor(meta_data$day)
 if (use_time){
+  MM <- model.matrix(~ 0 + line + day, data = y$samples)
+  colnames(MM)
+  colnames(MM) <- c("SL1", "SL3", "day16", "day18")
+  rownames(MM) <- colnames(y)
+} else if (use_line){
+  MM <- model.matrix(~ 0 + day + line, data = y$samples)
+  colnames(MM)
+  colnames(MM) <- c("day14","day16","day18","SL3")
+  rownames(MM) <- colnames(y)
+}else{
   MM <- model.matrix(~0 + groups, data = y$samples)
   colnames(MM)
   colnames(MM) <- c("SL1_14", "SL1_16", "SL1_18", "SL3_14",  "SL3_16", "SL3_18")
-  rownames(MM) <- colnames(y)
-}else{
-  MM <- model.matrix(~ 0+ line + day, data = y$samples)
-  colnames(MM)
-  colnames(MM) <- c("SL1", "SL3", "day16", "day18")
   rownames(MM) <- colnames(y)
 }
 
@@ -369,6 +377,16 @@ Contrasts are within day between line and pairwise comparisons within lines betw
 ```{r}
 if (use_time){
   my.contrasts <- makeContrasts(
+  line_no_time = SL1 - SL3,
+  levels=MM)
+}else if (use_line){
+  my.contrasts <- makeContrasts(
+  day14_16 = day14 - day16,
+  day14_18 = day14 - day18,
+  day16_18 = day16 - day18,
+  levels=MM)
+}else{
+  my.contrasts <- makeContrasts(
   day14 =	SL1_14 - SL3_14, 
   day16 =	SL1_16 - SL3_16, 
   day18 = SL1_18 - SL3_18,
@@ -383,16 +401,12 @@ if (use_time){
   line_1_3_18_14 = (SL1_18 - SL3_18) - (SL1_14 - SL3_14),
   line_by_day = (SL1_14 - SL3_14) - (SL1_16 - SL3_16) - (SL1_18 - SL3_18),
   levels=MM)
-}else{
-  my.contrasts <- makeContrasts(
-  line_no_time = SL1 - SL3,
-  levels=MM)
 }
 
 ```
 
 
-line contrasts if age is not taken into account
+line contrasts for day as fixed effect
 ```{r}
 if (use_time==FALSE){
   if (use_males){
@@ -404,7 +418,35 @@ if (use_time==FALSE){
 }
 ```
 
-line contrasts for each day if time is taken into account
+day contrasts for line as fixed effect
+
+```{r}
+if (use_line){
+  if (use_males){
+  day14_16_table = sprintf("%sonly_M_no_line_DE_genes_day_14-16.txt", outdir)
+  }else{
+  day14_16_table = sprintf("%sonly_F_no_line_DE_genes_day_14-16.txt", outdir)
+  }
+  day14_16_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14_16"],table_name=day14_16_table,lfc_min = 0)
+
+  if (use_males){
+  day14_18_table = sprintf("%sonly_M_no_line_DE_genes_day_14-18.txt", outdir)
+  }else{
+  day14_18_table = sprintf("%sonly_F_no_line_DE_genes_day_14-18.txt", outdir)
+  }
+  day14_18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14_18"],table_name=day14_18_table,lfc_min = 0)
+
+  if (use_males){
+  day16_18_table = sprintf("%sonly_M_no_line_DE_genes_day_16-18.txt", outdir)
+  }else{
+  day16_18_table = sprintf("%sonly_F_no_line_DE_genes_day_16-18.txt", outdir)
+  }
+  day16_18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16_18"],table_name=day16_18_table,lfc_min = 0)
+}
+```
+
+line and day contrasts for each day if time is taken into account
+if use_time==FALSE and use_line==FALSE
 ```{r}
 if (use_males){
 d14_table = sprintf("%sDE_genes_M_1-3_day14.txt", outdir)
