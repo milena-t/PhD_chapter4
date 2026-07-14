@@ -1,0 +1,48 @@
+GO:0009113	purine nucleobase biosynthetic process
+GO:0043094	metabolic compound salvage
+GO:0043967	OBSOLETE
+GO:0007406	negative regulation of neuroblast proliferation
+GO:0009743	response to carbohydrate
+GO:0006760	folic acid-containing compound metabolic process
+GO:0072329	monocarboxylic acid catabolic process
+GO:0042908	xenobiotic transport
+GO:0006012	galactose metabolic process
+GO:0072655	OBSOLETE
+GO:0070585	protein localization to mitochondrion
+GO:0006575	modified amino acid metabolic process
+GO:0019395	fatty acid oxidation
+GO:0016310	phosphorylation
+GO:0009062	fatty acid catabolic process
+GO:2000647	negative regulation of stem cell proliferation
+GO:0042335	cuticle development
+GO:0010378	temperature compensation of the circadian clock
+GO:1903220	OBSOLETE
+GO:1903218	OBSOLETE
+GO:0032438	melanosome organization
+GO:0030240	skeletal muscle thin filament assembly
+GO:0051353	positive regulation of oxidoreductase activity
+GO:0034440	lipid oxidation
+GO:0042558	pteridine-containing compound metabolic process
+GO:0044281	small molecule metabolic process
+GO:0007418	ventral midline development
+GO:0006586	OBSOLETE
+GO:0090527	OBSOLETE
+GO:0032241	positive regulation of nucleobase-containing compound transport
+GO:0046833	positive regulation of RNA export from nucleus
+GO:0061085	OBSOLETE
+GO:0033539	fatty acid beta-oxidation using acyl-CoA dehydrogenase
+GO:0006862	nucleotide transport
+GO:0006334	nucleosome assembly
+GO:0034728	nucleosome organization
+GO:0031589	cell-substrate adhesion
+GO:0015748	organophosphate ester transport
+GO:0072091	regulation of stem cell proliferation
+GO:0097305	response to alcohol
+GO:0006493	protein O-linked glycosylation
+GO:0097164	OBSOLETE
+GO:0051881	regulation of mitochondrial membrane potential
+GO:0007221	positive regulation of transcription of Notch receptor target
+GO:0080009	OBSOLETE
+GO:0006346	DNA methylation-dependent constitutive heterochromatin formation
+GO:0055093	response to hyperoxia
+GO:0044242	OBSOLETE

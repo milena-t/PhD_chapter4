@@ -1,0 +1,99 @@
+GO:0007099	centriole replication
+GO:0035293	chitin-based larval cuticle pattern formation
+GO:0040003	chitin-based cuticle development
+GO:0031109	microtubule polymerization or depolymerization
+GO:0006022	aminoglycan metabolic process
+GO:0045879	negative regulation of smoothened signaling pathway
+GO:0072523	purine-containing compound catabolic process
+GO:0006208	pyrimidine nucleobase catabolic process
+GO:0009435	NAD+ biosynthetic process
+GO:0009206	purine ribonucleoside triphosphate biosynthetic process
+GO:0006359	regulation of transcription by RNA polymerase III
+GO:0000305	response to oxygen radical
+GO:0072002	Malpighian tubule development
+GO:0061326	renal tubule development
+GO:0046031	ADP metabolic process
+GO:1901292	nucleoside phosphate catabolic process
+GO:0008652	amino acid biosynthetic process
+GO:0006903	OBSOLETE
+GO:0000096	sulfur amino acid metabolic process
+GO:0006757	OBSOLETE
+GO:0001655	urogenital system development
+GO:0072001	renal system development
+GO:0001539	cilium or flagellum-dependent cell motility
+GO:0046785	microtubule polymerization
+GO:0070507	regulation of microtubule cytoskeleton organization
+GO:0044282	small molecule catabolic process
+GO:0006029	proteoglycan metabolic process
+GO:0030166	proteoglycan biosynthetic process
+GO:0015012	heparan sulfate proteoglycan biosynthetic process
+GO:0030201	heparan sulfate proteoglycan metabolic process
+GO:0043649	dicarboxylic acid catabolic process
+GO:0034389	lipid droplet organization
+GO:0006555	L-methionine metabolic process
+GO:0097237	cellular response to toxic substance
+GO:0098754	detoxification
+GO:1990748	cellular detoxification
+GO:0098869	cellular oxidant detoxification
+GO:0009101	glycoprotein biosynthetic process
+GO:0019682	glyceraldehyde-3-phosphate metabolic process
+GO:0007020	microtubule nucleation
+GO:0048619	embryonic hindgut morphogenesis
+GO:0006040	amino sugar metabolic process
+GO:0006030	chitin metabolic process
+GO:0033692	OBSOLETE
+GO:0009067	aspartate family amino acid biosynthetic process
+GO:0000271	polysaccharide biosynthetic process
+GO:0046605	regulation of centrosome cycle
+GO:0045199	maintenance of epithelial cell apical/basal polarity
+GO:0008343	adult feeding behavior
+GO:1901071	OBSOLETE
+GO:0019318	hexose metabolic process
+GO:1901607	OBSOLETE
+GO:0046113	nucleobase catabolic process
+GO:0019287	isopentenyl diphosphate biosynthetic process, mevalonate pathway
+GO:0051851	host-mediated perturbation of symbiont process
+GO:0050680	negative regulation of epithelial cell proliferation
+GO:0050678	regulation of epithelial cell proliferation
+GO:0071596	ubiquitin-dependent protein catabolic process via the N-end rule pathway
+GO:0003143	embryonic heart tube morphogenesis
+GO:0097062	dendritic spine maintenance
+GO:0032529	follicle cell microvillus organization
+GO:0044788	host-mediated perturbation of viral process
+GO:0006426	glycyl-tRNA aminoacylation
+GO:0046490	isopentenyl diphosphate metabolic process
+GO:0006117	acetaldehyde metabolic process
+GO:0006145	purine nucleobase catabolic process
+GO:0044806	OBSOLETE
+GO:0046110	xanthine metabolic process
+GO:0016114	terpenoid biosynthetic process
+GO:0019080	viral gene expression
+GO:0008315	G2/MI transition of meiotic cell cycle
+GO:0000303	response to superoxide
+GO:0035821	modulation of process of another organism
+GO:0034627	OBSOLETE
+GO:0034628	'de novo' NAD+ biosynthetic process from L-aspartate
+GO:0000461	endonucleolytic cleavage to generate mature 3'-end of SSU-rRNA from (SSU-rRNA, 5.8S rRNA, LSU-rRNA)
+GO:0070150	mitochondrial glycyl-tRNA aminoacylation
+GO:0048491	retrograde synaptic vesicle transport
+GO:0071450	cellular response to oxygen radical
+GO:0071451	cellular response to superoxide
+GO:0006801	superoxide metabolic process
+GO:0006533	L-aspartate catabolic process
+GO:0006616	SRP-dependent cotranslational protein targeting to membrane, translocation
+GO:0048213	OBSOLETE
+GO:0009115	xanthine catabolic process
+GO:0019430	removal of superoxide radicals
+GO:0009240	isopentenyl diphosphate biosynthetic process
+GO:0051702	biological process involved in interaction with symbiont
+GO:0015960	diadenosine polyphosphate biosynthetic process
+GO:0015965	OBSOLETE
+GO:0015966	diadenosine tetraphosphate biosynthetic process
+GO:0015959	diadenosine polyphosphate metabolic process
+GO:0045216	cell-cell junction organization
+GO:0005996	monosaccharide metabolic process
+GO:0008039	synaptic target recognition
+GO:0016054	OBSOLETE
+GO:0009185	ribonucleoside diphosphate metabolic process
+GO:0009179	purine ribonucleoside diphosphate metabolic process
+GO:0009135	purine nucleoside diphosphate metabolic process

@@ -1,0 +1,88 @@
+GO:0000027	ribosomal large subunit assembly
+GO:0044262	OBSOLETE
+GO:0033108	mitochondrial respiratory chain complex assembly
+GO:0071390	cellular response to ecdysone
+GO:0046677	response to antibiotic
+GO:0008535	respiratory chain complex IV assembly
+GO:0044331	cell-cell adhesion mediated by cadherin
+GO:1902275	regulation of chromatin organization
+GO:0033044	regulation of chromosome organization
+GO:0016339	calcium-dependent cell-cell adhesion
+GO:0044458	motile cilium assembly
+GO:0016330	second mitotic wave involved in compound eye morphogenesis
+GO:0009081	branched-chain amino acid metabolic process
+GO:0051567	OBSOLETE
+GO:0018344	protein geranylgeranylation
+GO:0006544	glycine metabolic process
+GO:0090251	protein localization involved in establishment of planar polarity
+GO:0048149	behavioral response to ethanol
+GO:0007224	smoothened signaling pathway
+GO:0051307	meiotic chromosome separation
+GO:0009070	serine family amino acid biosynthetic process
+GO:0071383	cellular response to steroid hormone stimulus
+GO:0048545	response to steroid hormone
+GO:0043401	steroid hormone receptor signaling pathway
+GO:0035076	ecdysone receptor signaling pathway
+GO:0051646	mitochondrion localization
+GO:0044782	cilium organization
+GO:0043038	amino acid activation
+GO:0007445	determination of imaginal disc primordium
+GO:0035225	determination of genital disc primordium
+GO:0016080	OBSOLETE
+GO:0071324	cellular response to disaccharide stimulus
+GO:0010821	regulation of mitochondrion organization
+GO:0030518	nuclear receptor-mediated steroid hormone signaling pathway
+GO:0065002	intracellular protein transmembrane transport
+GO:0043039	tRNA aminoacylation
+GO:0008407	chaeta morphogenesis
+GO:0005976	polysaccharide metabolic process
+GO:0044264	OBSOLETE
+GO:0120316	sperm flagellum assembly
+GO:0007288	sperm axoneme assembly
+GO:1902882	regulation of response to oxidative stress
+GO:0044743	protein transmembrane import into intracellular organelle
+GO:1905515	non-motile cilium assembly
+GO:0072593	reactive oxygen species metabolic process
+GO:0031060	OBSOLETE
+GO:0045924	regulation of female receptivity
+GO:0044275	OBSOLETE
+GO:2001013	epithelial cell proliferation involved in renal tubule morphogenesis
+GO:0019184	nonribosomal peptide biosynthetic process
+GO:0043470	regulation of carbohydrate catabolic process
+GO:0000712	resolution of meiotic recombination intermediates
+GO:0009310	amine catabolic process
+GO:0071689	muscle thin filament assembly
+GO:0042430	indole-containing compound metabolic process
+GO:0010032	meiotic chromosome condensation
+GO:0042402	biogenic amine catabolic process
+GO:0061331	epithelial cell proliferation involved in Malpighian tubule morphogenesis
+GO:0090254	cell elongation involved in imaginal disc-derived wing morphogenesis
+GO:0070734	OBSOLETE
+GO:0007370	ventral furrow formation
+GO:0009309	amine biosynthetic process
+GO:0046112	nucleobase biosynthetic process
+GO:1903578	regulation of ATP metabolic process
+GO:0000470	maturation of LSU-rRNA
+GO:0060180	female mating behavior
+GO:1902099	regulation of metaphase/anaphase transition of cell cycle
+GO:0030071	regulation of mitotic metaphase/anaphase transition
+GO:2000736	regulation of stem cell differentiation
+GO:0035067	OBSOLETE
+GO:0090559	regulation of membrane permeability
+GO:1901984	negative regulation of protein acetylation
+GO:2001169	regulation of ATP biosynthetic process
+GO:1900408	negative regulation of cellular response to oxidative stress
+GO:0008542	visual learning
+GO:0008637	apoptotic mitochondrial changes
+GO:0071896	protein localization to adherens junction
+GO:0006108	malate metabolic process
+GO:0150105	protein localization to cell-cell junction
+GO:1902883	negative regulation of response to oxidative stress
+GO:0036058	filtration diaphragm assembly
+GO:2000757	negative regulation of peptidyl-lysine acetylation
+GO:0046902	regulation of mitochondrial membrane permeability
+GO:0045214	sarcomere organization
+GO:0033866	nucleoside bisphosphate biosynthetic process
+GO:0034030	ribonucleoside bisphosphate biosynthetic process
+GO:0034033	purine nucleoside bisphosphate biosynthetic process
+GO:0035017	cuticle pattern formation

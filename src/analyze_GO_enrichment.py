@@ -6,6 +6,7 @@ import pandas as pd
 import upsetplot
 import matplotlib.pyplot as plt
 from goatools.obo_parser import GODag
+import warnings
 
 def get_tables(username="miltr339"):
     """
@@ -16,7 +17,7 @@ def get_tables(username="miltr339"):
     out_dict = {
         "no_separation" : {
             "line_random" : {
-                "(day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M)" : f"{tables_dir}tfull_dataset_line_ignored_day_sex_interaction_GO_enrichment.txt",
+                "(day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M)" : f"{tables_dir}full_dataset_line_ignored_day_sex_interaction_GO_enrichment.txt",
             }
         },
         "sex_separated" : {
@@ -25,7 +26,7 @@ def get_tables(username="miltr339"):
                 "SL1_16 - SL3_16" : f"{tables_dir}GO_enrichment_F_1-3_day16.txt",
                 "SL1_18 - SL3_18" : f"{tables_dir}GO_enrichment_F_1-3_day18.txt",
                 "SL3_18 - SL3_14" : f"{tables_dir}GO_enrichment_F_SL3_18_14.txt",
-                "day14 - day16" : f"{tables_dir}only_F_no_line_GO_enrichment_day_14-16.txt",
+                # "day14 - day16" : f"{tables_dir}only_F_no_line_GO_enrichment_day_14-16.txt",
                 "day14 - day18" : f"{tables_dir}only_F_no_line_GO_enrichment_day_14-18.txt",
             },
             "males" : {
@@ -90,6 +91,7 @@ def get_tables(username="miltr339"):
 def get_interesting_GO_overlap_lists():
     """
     list of contrasts whose intersection of enriched GO terms is interesting
+    Plot one upsetplot for each category within a separation, labels are the dict keys
     """    
     out_dict = {
         "sex_separated" : {
@@ -99,6 +101,7 @@ def get_interesting_GO_overlap_lists():
                 "day18" : ["SL1_18 - SL3_18"],
                 "SL3_day18-14" : ["SL3_18 - SL3_14"],
                 "day18-14" : ["day18 - day14"],
+                "day14-18" : ['day14 - day18'],
             },
             "males" : {
                 "day14" : ["SL1_14 - SL3_14"],
@@ -113,6 +116,9 @@ def get_interesting_GO_overlap_lists():
                 "day18-14" : ["day18 - day14"],
                 "day18-16" : ["day18 - day16"],
                 "day14-16" : ["day14 - day16"],
+                "day16-18" : ["day16 - day18"],
+                "day14-18" : ["day14 - day18"],
+                "all_days" : ["males: day14 - day16","males: day16 - day18","males: day14 - day18","females: day14 - day18"]
             }
         },
         "line_separated" : {
@@ -198,19 +204,27 @@ def plot_enriched_GO_overlap(GO_Terms_dict:dict, plot_filename:str, plot_title  
         plt.close()
     else:
         # make a table that gives a GO term list of all the contrasts of interest as they appear in the upsetplot
+        print(f"make no plot only GO lists")
         membership_cols = data.index.names
         df = data.reset_index()
         table_filename = plot_filename.replace(".png", f".txt")
         with open(table_filename, "w") as table_out:
 
             for subset_name , contrasts_list in contrasts_of_interest.items():
-                
+                print(f"{subset_name} : [{contrasts_list}]")
                 ## get intersection GO list
-                intersection = df[df[contrasts_list].all(axis=1) & (df[membership_cols].sum(axis=1) == len(contrasts_list))] # all contrasts_list are true & sum of all is the same length as contrasts_list (therefore all others must be false)
+                try:
+                    intersection = df[df[contrasts_list].all(axis=1) & (df[membership_cols].sum(axis=1) == len(contrasts_list))] # all contrasts_list are true & sum of all is the same length as contrasts_list (therefore all others must be false)
+                except:
+                    print(f"data columns: {df.columns}")
+                    print(f"contrasts: {contrasts_list}")
+                    print(f"member cols: {membership_cols}")
+                    raise RuntimeError(f"some contrasts not found in columns")
                 intersection = intersection["id"].tolist()
 
                 ## write to table with functions
                 table_filename_func = plot_filename.replace(".png", f"_{subset_name}.txt")
+                table_filename_func = table_filename_func.replace(" ", "")
                 GO_list = []
                 for GO_term in intersection:
                     try:
@@ -223,7 +237,7 @@ def plot_enriched_GO_overlap(GO_Terms_dict:dict, plot_filename:str, plot_title  
                         table_out_func.write(GO_line)
 
                 ## write just lists to summary outfile
-                print(f"\t - {subset_name} : {len(intersection)} GO:terms")
+                print(f"\t - {subset_name} : {len(intersection)} GO:terms ({table_filename_func})")
                 contrasts_string = " AND ".join(contrasts_list)
                 intersection_string = ",".join(intersection)
                 outfile_line = f"{subset_name}\t{contrasts_string}\t{intersection_string}\n"
@@ -234,7 +248,7 @@ def plot_enriched_GO_overlap(GO_Terms_dict:dict, plot_filename:str, plot_title  
 
 
 
-def add_finctional_information_to_geneIDs(infile_path, annotation_file):
+def add_functional_information_to_geneIDs(infile_path, annotation_file):
     outfile_path = infile_path.replace(".txt", "_functional_annotation.txt")
 
     annotation_header = ["query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs"]
@@ -264,17 +278,19 @@ def add_finctional_information_to_geneIDs(infile_path, annotation_file):
 
 
 if __name__ == "__main__":
-    username = "miltr339"
+
+    warnings.filterwarnings("ignore")
+    username = "milena"
     go_tables_paths = get_tables(username=username)
     contrasts_of_interest = get_interesting_GO_overlap_lists()
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment"
     
-    ## don't plot only get lists of all the GO terms in each interaction
+    ########## if False: don't plot only get lists of all the GO terms in each interaction
     plot = True
+    ##########
 
-    ### TODO analyze go enrichment
     # get functional information about GO terms
-    if plot==False:
+    if True:
         print(f"read GO-terms definitions...")
         go = GODag(f"/Users/{username}/work/go-basic.obo") # wget https://current.geneontology.org/ontology/go-basic.obo
         print(f"...done!")
@@ -282,12 +298,16 @@ if __name__ == "__main__":
 
     if True:
         for separation, seps_dict in go_tables_paths.items():
-            if separation!="day_separated":
+            if separation!="sex_separated":
                 print(f"ignore {separation}")
                 continue
+            ## if no special stuff below then just do an empty string
+            suffix = "_line_ign" # for making only the model with line fixed effect and day contrasts plots, 
 
             print(f"\n=========================== {separation} ===========================")
 
+            contrast_keys_list = []
+            contrast_sep_list = []
             sep_GO_terms = {}
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
@@ -296,33 +316,54 @@ if __name__ == "__main__":
                 for contrast, table_path in paths_dict.items():
                     
                     print(f"{table_path}")
+                    ### only plot the day ones
+                    if len(suffix)==0 or "day" not in contrast:
+                        continue
                     if "(" not in contrast:
+                        contrast_keys_list.append(contrast)
                         GO_list = read_R_GO_table(table_filepath=table_path)
                         sig_GO_terms[contrast] = GO_list
                         sep_GO_terms[f"{category}: {contrast}"] = GO_list
+                    if "day" in contrast:
+                        contrast_sep_list.append(f"{category}: {contrast}")
 
                 min_overlap = 5
                 separation_  = separation.replace("_", "-")
-                if min_overlap>0:
+                if len(suffix)>0:
+                    min_overlap = 0
+                    plot_title = f"{category}\nGO terms"
+                elif min_overlap>0:
                     plot_title = f"{separation_}:{category}\nsig. GO:terms overlap\n(min. overlap size: {min_overlap})"
                 else:
                     plot_title = f"{separation_}:{category}\nsig. GO:terms overlap"
                 
-                if plot:
+                if plot==True and len(sig_GO_terms)>1:
                     ## plot intersection sizes
-                    plot_enriched_GO_overlap(GO_Terms_dict = sig_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap)
+                    plot_enriched_GO_overlap(GO_Terms_dict = sig_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_{category}{suffix}.png", plot_title = plot_title, min_overlap = min_overlap)
+                elif plot==False:
+                    contrasts_dict = {name : contrast for name, contrast in contrasts_of_interest[separation][category].items() if any([True for c in contrast_keys_list if c in contrast])}
+                    if len(contrasts_dict)==0:
+                        print(f"no GO-enrichment lists for no contrasts of interest in {category}")
+                        continue
+                    print(f"CONTRASTS: {contrasts_dict}")
+                    plot_enriched_GO_overlap(GO_Terms_dict = sig_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_{category}{suffix}.png", plot_title = plot_title, min_overlap = min_overlap, contrasts_of_interest=contrasts_dict)
+                    contrast_keys_list = []
                 else:
-                    ## do semantic clustering on contrasts of interest
-                    contrasts_dict = contrasts_of_interest[separation][category]
-                    plot_enriched_GO_overlap(GO_Terms_dict = sig_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap, contrasts_of_interest=contrasts_dict)
+                    print(f"no GO-enrichment overlap for only one test: {sig_GO_terms.keys()}")
+
+            
+            print(f"\n ------------------- all categories in '{separation}' -------------------")
 
             if plot:
                 min_overlap = 5
-                if min_overlap>0:
+                if len(suffix)>0:
+                    min_overlap = 0
+                    plot_title = f"GO terms"
+                elif min_overlap>0:
                     plot_title = f"{separation_}:all categories\nsig. GO:terms overlap\n(min. overlap size: {min_overlap})"
                 else:
                     plot_title = f"{separation_}:all categories\nsig. GO:terms overlap"
-                plot_enriched_GO_overlap(GO_Terms_dict = sep_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_all.png", plot_title = plot_title, min_overlap = min_overlap)
+                plot_enriched_GO_overlap(GO_Terms_dict = sep_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_all{suffix}.png", plot_title = plot_title, min_overlap = min_overlap)
 
                 if separation=="day_separated":
                     print(sep_GO_terms.keys())
@@ -331,6 +372,16 @@ if __name__ == "__main__":
                     min_overlap_ = 0
                     plot_title_ = f""
                     plot_enriched_GO_overlap(GO_Terms_dict = sep_GO_terms_, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
+            
+            
+            elif separation=="sex_separated" and plot==False:
+                # Merge the individual day contrasts with the list of intersections from the relevant contrasts list
+                contrasts_dict_ind = {c : [c] for c in contrast_sep_list}
+                contrasts_dict_int = {name : contrast for name, contrast in contrasts_of_interest[separation]["males"].items() if any([True for c in contrast if "day" in c]) and len(contrast)>1}
+                contrasts_dict = contrasts_dict_ind | contrasts_dict_int # merge dicts
+                print(f"CONTRASTS: {contrasts_dict}")
+                # contrasts_dict = {name : contrast for name, contrast in contrasts_of_interest[separation][category].items() if any([True for c in contrast_sep_list if c in contrast])}
+                plot_enriched_GO_overlap(GO_Terms_dict = sep_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_all{suffix}.png", plot_title = plot_title, min_overlap = min_overlap, contrasts_of_interest=contrasts_dict)
 
 
     if False:
@@ -338,4 +389,4 @@ if __name__ == "__main__":
         day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt"
         annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
 
-        add_finctional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path)
+        add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path)

@@ -1,0 +1,19 @@
+GO:0009167	purine ribonucleoside monophosphate metabolic process
+GO:0046034	ATP metabolic process
+GO:0006120	mitochondrial electron transport, NADH to ubiquinone
+GO:0009168	purine ribonucleoside monophosphate biosynthetic process
+GO:0006099	tricarboxylic acid cycle
+GO:0006101	citrate metabolic process
+GO:0006122	mitochondrial electron transport, ubiquinol to cytochrome c
+GO:0015985	energy coupled proton transport, down electrochemical gradient
+GO:0006754	ATP biosynthetic process
+GO:0006123	mitochondrial electron transport, cytochrome c to oxygen
+GO:0042866	pyruvate biosynthetic process
+GO:0006551	L-leucine metabolic process
+GO:0042133	OBSOLETE
+GO:0015986	proton motive force-driven ATP synthesis
+GO:0006096	glycolytic process
+GO:0009166	nucleotide catabolic process
+GO:0046653	tetrahydrofolate metabolic process
+GO:0009063	amino acid catabolic process
+GO:0016051	carbohydrate biosynthetic process

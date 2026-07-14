@@ -159,19 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </style>
 
 <style>
-#sidebar-contents{
-    grid-area: sidebar-contents;
-    padding: 1em;
-    top:0;
-    height:max-content;
-    max-height: 80vh;
-    overflow-y: auto;
-    position:sticky;
-    display: grid;
-    grid-template: 
-    "sidebar-element"
-    / 1fr;
-}
 *{
     border : 0 ;
     margin : 0 ; 
@@ -198,12 +185,13 @@ document.addEventListener("DOMContentLoaded", function () {
     grid-template-columns: auto;
     justify-content: center;
 }
+
 #sidebar-contents{
     grid-area: sidebar-contents;
     padding: 1em;
     top:0;
     height:max-content;
-    max-height: 80vh;
+    max-height: 95vh;
     overflow-y: auto;
     position:sticky;
     display: grid;
@@ -211,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
     "sidebar-element"
     / 1fr;
 }
-
 .sidebar-element{
     background-color: #dddee5;
     padding: 1em;
@@ -1092,7 +1079,8 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="tab">
     <button class="tablinks" onclick="openTab(event, 'males_time_DE_no_line')">males</button>
     <button class="tablinks" onclick="openTab(event, 'females_time_DE_no_line')">females</button>
-    <button class="tablinks" onclick="openTab(event, 'overlap_time_DE_no_line')">Upset plots</button>
+    <button class="tablinks" onclick="openTab(event, 'overlap_time_DE_no_line')">sig. DE genes overlap</button>
+    <button class="tablinks" onclick="openTab(event, 'overlap_time_GO_no_line')">sig. GO-terms overlap</button>
 </div>
 
 <div id="males_time_DE_no_line" class="tabcontent">
@@ -1145,11 +1133,101 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 
 <div id="overlap_time_DE_no_line" class="tabcontent">
+    <p>
+        Overlap of the significantly DE genes in all relevant contrasts.
+    </p>
     <p float="left">
         <img loading="lazy" src="data/DE_figures_python/upsetplot_sex_separated_day_bias.png" width="75%" />
     </p>
 </div>
 
+<div id="overlap_time_GO_no_line" class="tabcontent">
+    <p>
+        Do a GO-enrichment for all the contrasts that have a good amount of significantly differentially expressed genes (so all males but only 14-18 in females).
+    </p>
+
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign.png" width="100%" />
+    </p>
+
+    <p>GO terms lists of overlaps. lists are exclusive to the specified contrast unless an intersection is listed</p>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'males_time_DE_no_line_GO_m1416')">males: day 14 - day 16</button>
+        <button class="tablinks" onclick="openTab(event, 'males_time_DE_no_line_GO_m1618')">males: day 16 - day 18</button>
+        <button class="tablinks" onclick="openTab(event, 'males_time_DE_no_line_GO_m1418')">males: day 14 - day 18</button>
+        <button class="tablinks" onclick="openTab(event, 'females_time_DE_no_line_GO_m1418')">females: day 14 - day 18</button>
+        <button class="tablinks" onclick="openTab(event, 'all_time_DE_no_line_GO')">all</button>
+    </div>
+
+    <div id="males_time_DE_no_line_GO_m1416" class="tabcontent">
+        <p>
+            130 GO-terms<br>
+            <code>data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day14-day16.txt</code>
+        </p>
+        <iframe
+            src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day14-day16.txt"
+            frameBorder="0"
+            class=""
+            scrolling="auto"
+            style="width:100%; height:30vh;">
+        </iframe>
+    </div>
+
+    <div id="males_time_DE_no_line_GO_m1618" class="tabcontent">
+        <p>
+            99 GO-terms<br>
+            <code>data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day16-day18.txtxt</code>
+        </p>
+        <iframe
+            src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day16-day18.txt"
+            frameBorder="0"
+            class=""
+            scrolling="auto"
+            style="width:100%; height:30vh;">
+        </iframe>
+    </div>
+    <div id="males_time_DE_no_line_GO_m1418" class="tabcontent">
+        <p>
+            88 GO-terms<br>
+            <code>data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day14-day18.txtxt</code>
+        </p>
+        <iframe
+            src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day14-day18.txt"
+            frameBorder="0"
+            class=""
+            scrolling="auto"
+            style="width:100%; height:30vh;">
+        </iframe>
+    </div>
+    <div id="females_time_DE_no_line_GO_m1418" class="tabcontent">
+        <p>
+            48 GO-terms<br>
+            <code>data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_females:day14-day18.txt</code>
+        </p>
+        <iframe
+            src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_females:day14-day18.txt"
+            frameBorder="0"
+            class=""
+            scrolling="auto"
+            style="width:100%; height:30vh;">
+        </iframe>
+    </div>
+
+    <div id="all_time_DE_no_line_GO" class="tabcontent">
+        <p>
+            19 GO-terms<br>
+            <code>data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign.txt</code>
+        </p>
+        <iframe
+            src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign.txt"
+            frameBorder="0"
+            class=""
+            scrolling="auto"
+            style="width:100%; height:30vh;">
+        </iframe>
+    </div>
+</div>
 
 
 <h3 id="sex-separated-line-day-split">Differential expression between lines and days</h3>
