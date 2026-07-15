@@ -147,6 +147,32 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+</script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script>
+    function loadCSVTable(csvPath, elementId) {
+      Papa.parse(csvPath, {
+        download: true,
+        header: false,
+        complete: function(results) {
+          const rows = results.data;
+          let html = "<table style='width:100%; border-collapse:collapse;'>";
+    
+          rows.forEach(row => {
+            html += "<tr>";
+            row.forEach(cell => {
+              html += `<td style="border:1px solid #ccc; padding:4px;">${cell}</td>`;
+            });
+            html += "</tr>";
+          });
+    
+          html += "</table>";
+          document.getElementById(elementId).innerHTML = html;
+        }
+      });
+    }
+</script>
+
 <style>
     .left-div {
        float: left;
@@ -801,6 +827,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day14_F-M_volcano.png" width="40%" />
         </p>
     </div>
+    <script>
+        loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day14_F-M.txt", "all_AX_table");
+    </script>
 
 </div>
 
@@ -826,6 +855,9 @@ document.addEventListener("DOMContentLoaded", function () {
         </p>
     </div>
 
+    <script>
+        loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day16_F-M.txt", "all_AX_table");
+    </script>
 </div>
 
 
@@ -850,6 +882,9 @@ document.addEventListener("DOMContentLoaded", function () {
         </p>
     </div>
 
+    <script>
+        loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day18_F-M.txt", "all_AX_table");
+    </script>
 </div>
 
 <div id="day by sex interaction" class="tabcontent">

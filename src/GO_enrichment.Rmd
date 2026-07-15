@@ -26,6 +26,7 @@ library(topGO)
 library(plyr)
 library(ViSEAGO)
 library(stringr)
+library(lintr)
 ```
 
 ## read input files
@@ -33,12 +34,11 @@ library(stringr)
 annotation and background gene set
 
 ```{r}
-annotation_path="/Users/miltr339/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs" # created from the eggnogmapper output with /Users/miltr339/work/PhD_code/PhD_chapter4/src/make_annot_with_geneIDs.py
+annotation_path="/Users/milena/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs" # created from the eggnogmapper output with /Users/miltr339/work/PhD_code/PhD_chapter4/src/make_annot_with_geneIDs.py
 
 make_annotation_df_from_eggnog <- function(annotation_path){
-
     annot_header = c("query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs")
-    annotation = read.csv(annotation_path, sep="\t", comment.char = "#", header=FALSE, col.names = annot_header)
+    annotation <- read.csv(annotation_path, sep="\t", comment.char = "#", header=FALSE, col.names = annot_header)
     background_geneIDs <- annotation$query
     # prepare for input
     valid <- !is.na(annotation$GOs) & annotation$GOs != "-"
@@ -55,7 +55,7 @@ annotation_df <- make_annotation_df_from_eggnog(annotation_path)
 lists of significant geneIDs for all contrasts
 
 ```{r}
-indir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
+indir <- "/Users/milena/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
 # sex separated
 ## females
 sex_sep_F <- c(sprintf("%s/sig_DE_list_F_1-3_day14.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day16.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day18.txt",indir),sprintf("%s/sig_DE_list_F_SL1.txt",indir),sprintf("%s/sig_DE_list_F_SL1_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3.txt",indir),sprintf("%s/sig_DE_list_F_SL3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_16.txt",indir),sprintf("%s/only_F_no_line_sig_DE_list_day_14-16.txt",indir),sprintf("%s/only_F_no_line_sig_DE_list_day_16-18.txt",indir),sprintf("%s/only_F_no_line_sig_DE_list_day_14-18.txt",indir))
@@ -75,6 +75,10 @@ day_sep_d14 <- c(sprintf("%s/sig_DE_list_day14_F-M_by_1-3.txt",indir),sprintf("%
 day_sep_d16 <- c(sprintf("%s/sig_DE_list_day16_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day16_SL3_F-M.txt",indir))
 ## day 18
 day_sep_d18 <- c(sprintf("%s/sig_DE_list_day18_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day18_SL3_F-M.txt",indir))
+
+# no separation
+## line ignored
+line_ig_sex_bias <- c(sprintf("%s/full_dataset_line_ignored_day14_F-M.txt", indir),sprintf("%s/full_dataset_line_ignored_day16_F-M.txt", indir),sprintf("%s/full_dataset_line_ignored_day18_F-M.txt", indir)) 
 ```
 
 ## run enrichment
@@ -90,7 +94,7 @@ GO_enrichment_analysis <- function(sig_infile, annotation_df){
   counts <- count(geneList)
   sigs_num <- length(geneList[geneList==1])
 
-  ## only run if there are at least 10 significantly differentially expressed genes!
+  ## only run if there are at least 10 significantly differentially expressed genes! # nolint
   if (sigs_num > 9){
     gene2GO <- annotation_df[names(annotation_df) %in% names(geneList)]
     ## create topGO object
@@ -102,7 +106,8 @@ GO_enrichment_analysis <- function(sig_infile, annotation_df){
     allRes <- GenTable(GOdata,classicFisher = result,orderBy = "classicFisher",topNodes = 1000)
     # write to outfile
     outfile_name <- str_replace(sig_infile, "sig_DE_list_", "GO_enrichment_")
-    outfile_name <- str_replace(sig_infile, "interaction", "interaction_GO_enrichment")
+    outfile_name <- str_replace(sig_infile, "interaction", "interaction_GO_enrichment") 
+    outfile_name <- str_replace(sig_infile, "ignore", "ignore_GO_enrichment") 
     write.csv(allRes, outfile_name, row.names=TRUE)
     return(allRes)
   }
@@ -122,6 +127,7 @@ for (sig_list in day_sep_d14){GO_enrichment_analysis(sig_infile = sig_list, anno
 for (sig_list in day_sep_d16){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
 for (sig_list in day_sep_d18){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
 
+for (sig_list in line_ig_sex_bias){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
 ```
 
 list for genes that are sig line-biased in males in both day14 and day16

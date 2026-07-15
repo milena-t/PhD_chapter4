@@ -9,7 +9,8 @@ import parse_gff as gff
 
 if __name__ == "__main__":
     
-    annot_dir = "/Users/miltr339/work/c_maculatus"
+    username = "milena"
+    annot_dir = f"/Users/{username}/work/c_maculatus"
     funcannot_filepath = f"{annot_dir}/C_mac_eggnog_diamond.emapper.annotations"
     funcannot_filepath_out = f"{annot_dir}/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
     gff_filepath = f"{annot_dir}/Cmac_Lome_yes_yTor.gff"
