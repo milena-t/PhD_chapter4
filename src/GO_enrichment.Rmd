@@ -108,6 +108,7 @@ GO_enrichment_analysis <- function(sig_infile, annotation_df){
     outfile_name <- str_replace(sig_infile, "sig_DE_list_", "GO_enrichment_")
     outfile_name <- str_replace(sig_infile, "interaction", "interaction_GO_enrichment") 
     outfile_name <- str_replace(sig_infile, "ignore", "ignore_GO_enrichment") 
+    outfile_name <- str_replace(outfile_name, ".txt", ".csv") 
     write.csv(allRes, outfile_name, row.names=TRUE)
     return(allRes)
   }
