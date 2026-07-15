@@ -641,7 +641,7 @@ def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = ""
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
-    username = "miltr339"
+    username = "milena"
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
     
@@ -676,7 +676,7 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
@@ -690,8 +690,8 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            # if separation != "day_separated":
-            if separation == "day_separated" or separation == "line_separated":
+            if separation != "no_separation":
+            # if separation == "day_separated" or separation == "line_separated":
                 print(f"ignore {separation}")
                 continue
 
@@ -704,6 +704,10 @@ if __name__ == "__main__":
 
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
+
+                if "day" in category:
+                    print(f"ignore {category}")
+                    continue
 
                 numbers = {}
                 sig_DE_genes = {}
@@ -732,7 +736,10 @@ if __name__ == "__main__":
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"
 
-                    if "day" in category or "day" in contrast:
+
+                    if "random" in category:
+                        smear_title = f"{contrast_plot_titles[contrast]}"
+                    elif "day" in category or "day" in contrast:
                         smear_title = f"{category} {contrast_plot_titles[contrast]}"
                     else:
                         smear_title = contrast_plot_titles[contrast]
