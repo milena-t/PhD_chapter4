@@ -172,6 +172,14 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 </script>
+<style>
+/* Style the scrollable table that displays csv files */
+.tableframe {
+    height:30vh; 
+    overflow:auto; 
+    border:1px solid #909bb5;
+}
+</style>
 
 <style>
     .left-div {
@@ -827,10 +835,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day14_F-M_volcano.png" width="40%" />
         </p>
     </div>
+    <div id="line_ignore_GO_enrichmentd_day14_F-M" class="tableframe"></div>
     <script>
-        loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day14_F-M.txt", "all_AX_table");
+        loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day14_F-M.txt", "line_ignore_GO_enrichmentd_day14_F-M");
     </script>
-
 </div>
 
 
@@ -854,10 +862,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day16_F-M_volcano.png" width="40%" />
         </p>
     </div>
-
-    <script>
-        loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day16_F-M.txt", "all_AX_table");
-    </script>
+    <div id="line_ignore_GO_enrichmentd_day16_F-M" class="tableframe"></div>
+        <script>
+            loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day16_F-M.txt", "line_ignore_GO_enrichmentd_day16_F-M");
+        </script>
 </div>
 
 
@@ -881,10 +889,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day18_F-M_volcano.png" width="40%" />
         </p>
     </div>
-
-    <script>
-        loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day18_F-M.txt", "all_AX_table");
-    </script>
+    <div id="line_ignore_GO_enrichmentd_day18_F-M" class="tableframe"></div>
+        <script>
+            loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day18_F-M.txt", "line_ignore_GO_enrichmentd_day18_F-M");
+        </script>
 </div>
 
 <div id="day by sex interaction" class="tabcontent">
