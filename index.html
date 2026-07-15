@@ -751,6 +751,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <button class="tablinks" onclick="openTab(event, 'sex bias day18')">sex bias day 18</button>
     <button class="tablinks" onclick="openTab(event, 'day by sex interaction')">day by sex interaction</button>
     <button class="tablinks" onclick="openTab(event, 'random line upset')">Upsetplot of sig. DE genes</button>
+    <button class="tablinks" onclick="openTab(event, 'random line GO upset')">Upsetplot of sig. GO terms</button>
 </div>
 
 <div id="line effect" class="tabcontent">
@@ -835,6 +836,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day14_F-M_volcano.png" width="40%" />
         </p>
     </div>
+    <p>GO-enrichment of significantly sex-biased genes:</p>
+
+    <p><code>data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day14_F-M.csv</code></p>
     <div id="line_ignore_GO_enrichmentd_day14_F-M" class="tableframe"></div>
     <script>
         loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day14_F-M.csv", "line_ignore_GO_enrichmentd_day14_F-M");
@@ -862,6 +866,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day16_F-M_volcano.png" width="40%" />
         </p>
     </div>
+    <p>GO-enrichment of significantly sex-biased genes:</p>
+
+    <p><code>data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day16_F-M.csv</code></p>
     <div id="line_ignore_GO_enrichmentd_day16_F-M" class="tableframe"></div>
         <script>
             loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day16_F-M.csv", "line_ignore_GO_enrichmentd_day16_F-M");
@@ -889,6 +896,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <img loading="lazy" src="data/DE_figures_python/smear_full_dataset_line_ignored_day18_F-M_volcano.png" width="40%" />
         </p>
     </div>
+    <p>GO-enrichment of significantly sex-biased genes:</p>
+
+    <p><code>data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day18_F-M.csv</code></p>
     <div id="line_ignore_GO_enrichmentd_day18_F-M" class="tableframe"></div>
         <script>
             loadCSVTable("data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day18_F-M.csv", "line_ignore_GO_enrichmentd_day18_F-M");
@@ -936,6 +946,32 @@ document.addEventListener("DOMContentLoaded", function () {
     <div style="clear: both;"></div>
 </div>
 
+
+<div id="random line GO upset" class="tabcontent">
+    
+    <div style="float: left;width: 50%;">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_no_separation_line_random_line_ign.png" width="100%" />
+        </p>
+    </div>
+
+    <div style="float: right;width: 50%;">
+        <p>
+            Lots of GO terms are enriched in the sex bias of all three time points.
+        </p>
+    </div>
+    <div style="clear: both;"></div>
+    <p>GO-terms that are in the intersection of all three days (for full list of individual days see tabs with volcano plots)</p>
+    <p><code>data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_no_separation_line_random_line_ign_alldays.txt</code></p>
+    <iframe
+      src="data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_no_separation_line_random_line_ign_alldays.txt"
+      frameBorder="0"
+      class=""
+      scrolling="auto"
+      style="width:100%; height:30vh;">
+  </iframe>
+
+</div>
 
 
 <h2 id="data-separation-pca">3.3 Separation summary: PCA plots</h2>

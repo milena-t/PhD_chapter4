@@ -1,0 +1,38 @@
+GO:0030317	flagellated sperm motility
+GO:0046034	ATP metabolic process
+GO:0035082	axoneme assembly
+GO:0009167	purine ribonucleoside monophosphate metabolic process
+GO:0050982	detection of mechanical stimulus
+GO:0007618	mating
+GO:0006123	mitochondrial electron transport, cytochrome c to oxygen
+GO:0060271	cilium assembly
+GO:0018094	protein polyglycylation
+GO:0003341	cilium movement
+GO:0006730	one-carbon metabolic process
+GO:1902600	proton transmembrane transport
+GO:0019343	OBSOLETE
+GO:0019346	transsulfuration
+GO:0071266	'de novo' L-methionine biosynthetic process
+GO:0003407	neural retina development
+GO:0001580	detection of chemical stimulus involved in sensory perception of bitter taste
+GO:0006651	diacylglycerol biosynthetic process
+GO:0007054	spindle assembly involved in male meiosis I
+GO:0008377	OBSOLETE
+GO:0007605	sensory perception of sound
+GO:0043052	thermotaxis
+GO:0035092	sperm DNA condensation
+GO:0046693	sperm storage
+GO:0009132	nucleoside diphosphate metabolic process
+GO:0009142	nucleoside triphosphate biosynthetic process
+GO:0060285	cilium-dependent cell motility
+GO:1905515	non-motile cilium assembly
+GO:0072525	pyridine-containing compound biosynthetic process
+GO:0071260	cellular response to mechanical stimulus
+GO:0006754	ATP biosynthetic process
+GO:0009206	purine ribonucleoside triphosphate biosynthetic process
+GO:0009145	purine nucleoside triphosphate biosynthetic process
+GO:0009201	ribonucleoside triphosphate biosynthetic process
+GO:0009168	purine ribonucleoside monophosphate biosynthetic process
+GO:0009127	purine nucleoside monophosphate biosynthetic process
+GO:0007638	mechanosensory behavior
+GO:0015800	acidic amino acid transport

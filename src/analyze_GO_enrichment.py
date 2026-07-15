@@ -18,6 +18,9 @@ def get_tables(username="miltr339"):
         "no_separation" : {
             "line_random" : {
                 "(day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M)" : f"{tables_dir}full_dataset_line_ignored_day_sex_interaction_GO_enrichment.txt",
+                "day14_F - day14_M" : f"{tables_dir}full_dataset_line_ignore_GO_enrichmentd_day14_F-M.csv",
+                "day16_F - day16_M" : f"{tables_dir}full_dataset_line_ignore_GO_enrichmentd_day16_F-M.csv",
+                "day18_F - day18_M" : f"{tables_dir}full_dataset_line_ignore_GO_enrichmentd_day18_F-M.csv",
             }
         },
         "sex_separated" : {
@@ -94,6 +97,11 @@ def get_interesting_GO_overlap_lists():
     Plot one upsetplot for each category within a separation, labels are the dict keys
     """    
     out_dict = {
+        "no_separation" : {
+            "line_random" : {
+                "all days" : ["day14_F - day14_M","day16_F - day16_M","day18_F - day18_M"]
+            }
+        },
         "sex_separated" : {
             "females" :{
                 "day14" : ["SL1_14 - SL3_14"],
@@ -286,7 +294,7 @@ if __name__ == "__main__":
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment"
     
     ########## if False: don't plot only get lists of all the GO terms in each interaction
-    plot = True
+    plot = False
     ##########
 
     # get functional information about GO terms
@@ -298,7 +306,7 @@ if __name__ == "__main__":
 
     if True:
         for separation, seps_dict in go_tables_paths.items():
-            if separation!="sex_separated":
+            if separation!="no_separation":
                 print(f"ignore {separation}")
                 continue
             ## if no special stuff below then just do an empty string
@@ -331,7 +339,10 @@ if __name__ == "__main__":
                 separation_  = separation.replace("_", "-")
                 if len(suffix)>0:
                     min_overlap = 0
-                    plot_title = f"{category}\nGO terms"
+                    if category=="line_random":
+                        plot_title = f"GO terms"
+                    else:    
+                        plot_title = f"{category}\nGO terms"
                 elif min_overlap>0:
                     plot_title = f"{separation_}:{category}\nsig. GO:terms overlap\n(min. overlap size: {min_overlap})"
                 else:
@@ -351,7 +362,8 @@ if __name__ == "__main__":
                 else:
                     print(f"no GO-enrichment overlap for only one test: {sig_GO_terms.keys()}")
 
-            
+            if separation == "no_separation":
+                continue
             print(f"\n ------------------- all categories in '{separation}' -------------------")
 
             if plot:
