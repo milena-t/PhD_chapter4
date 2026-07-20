@@ -485,9 +485,9 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     set_b = set(sig_geneIDs_lists[table_b])
 
     lists = {
-        "shared" : list(set_a & set_b),
         table_a : list(set_a - set_b),
-        table_b : list(set_b - set_a)
+        table_b : list(set_b - set_a),
+        "shared" : list(set_a & set_b),
         }
 
     fig, ax = plt.subplots(1,1, figsize=(13, 13)) 
@@ -498,17 +498,18 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     sig_colors = ["#BD351E","#EA882C"] # red , orange
     colors_dict = {table_title : sig_colors[i] for i,table_title in enumerate(tables_dict.keys())}
     colors_dict["shared"] = "#3C7FA7" # blue
-    colors_dict["nonsig"] = "#4B3B47" # mauve shadow
+    colors_dict["neither"] = "#4B3B47" # mauve shadow
 
     if len(incl_geneIDs) == 0:
         excl_counter = { cat : 0 for cat in [table_a,table_b,"shared"]}
     else:
-        excl_counter = { cat : 0 for cat in ["nonsig",table_a,table_b,"shared"]}
+        excl_counter = { cat : 0 for cat in [table_a,table_b,"shared","neither"]}
         all_sig = lists['shared']+lists[table_a]+lists[table_b]
         nonsig_cat_list = [geneID for geneID in incl_geneIDs if geneID not in all_sig]
         if len(nonsig_cat_list) > 0:
-            lists["nonsig"] = nonsig_cat_list
+            lists["neither"] = nonsig_cat_list
     for cat in lists.keys():
+        print(f"\t*{cat}")
         for geneID in lists[cat]:
             try:
                 y = tables_df_all[table_a].loc[geneID,"logFC"]
@@ -572,36 +573,47 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     
     ax.hlines(y=0, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor, linestyle = ":", color="#2F3E1D",zorder=0)
     ax.vlines(x=0, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor, linestyle = ":", color="#2F3E1D",zorder=0)
-    
-    ## make legend points
-    main_sig = []
-    for cat in reversed(list(lists.keys())):
-        legend_label = cat.replace("SL1-3", "line-bias")
-        legend_label = legend_label.replace("SL1-SL3", "line-bias")
-        legend_label = legend_label.replace("females", "F")
-        legend_label = legend_label.replace("males", "M")
-        legend_label = legend_label.replace("shared", "both")
-        legend_label = legend_label.replace("SL1", "small-Y").replace("SL3", "large-Y")
-        main_sig_ind = ax.scatter(1000,1000,color = colors_dict[cat], s=ps, alpha = 0.75, label = legend_label, marker="s")
-        main_sig.append(main_sig_ind)
 
     if excl_geneIDs != []:
         if "females" in LFC_filename:
             shared_lab = "also DE\nin males"
         else:
             shared_lab = "also DE\nin females"
-        int_sig, = ax.scatter(1000,1000,color = "#666666", s=ps*1.5, alpha = 1, label = shared_lab, marker="1")
-                
+        int_sig = ax.scatter(1000,1000,color = "#666666", s=ps*1.5, alpha = 1, label = shared_lab, marker="1")
+        int_legend="No"
+
     elif incl_geneIDs != []:
         int_nonsig = ax.scatter(1000,1000,color = "#666666", s=ps*1.5, alpha = 1, label = "nonsig.", marker="1")
         int_sig = ax.scatter(1000,1000,color = "#666666", s=ps*1.5, alpha = 1, label = "significant", marker="o")
         int_legend = plt.legend(handles = [int_sig, int_nonsig], fontsize = fs*0.75, title ="line-by-sex\ninteraction", title_fontsize = fs*0.7, loc='upper left')
+    else:
+        int_legend="No"
+
+    ## make legend points
+    main_sig = []
+    if int_legend!="No":
+        markertype="s"
+    if int_legend=="No":
+        markertype="o"
+    # for cat in reversed(list(lists.keys())):
+    for cat in list(lists.keys()):
+        legend_label = cat.replace("SL1-3", "line-bias")
+        legend_label = legend_label.replace("SL1-SL3", "line-bias")
+        legend_label = legend_label.replace("females", "F")
+        legend_label = legend_label.replace("males", "M")
+        legend_label = legend_label.replace("shared", "both")
+        legend_label = legend_label.replace("SL1", "small-Y").replace("SL3", "large-Y")
+        main_sig_ind = ax.scatter(1000,1000,color = colors_dict[cat], s=ps, alpha = 0.75, label = legend_label, marker=markertype)
+        main_sig.append(main_sig_ind)
 
     ax.set_ylim([min_yline,max_yline])
     ax.set_xlim([min_xline,max_xline])
 
-    main_sig_legend = plt.legend(handles = main_sig, fontsize = fs*0.75, title ="gene sig. in\nmain effect", title_fontsize = fs*0.7, loc='lower right')
-    ax.add_artist(int_legend)
+    if int_legend!="No":
+        main_sig_legend = plt.legend(handles = main_sig, fontsize = fs*0.75, title ="gene sig. in\nmain effect", title_fontsize = fs*0.7, loc='lower right')
+        ax.add_artist(int_legend)
+    if int_legend=="No":
+        main_sig_legend = plt.legend(handles = main_sig, fontsize = fs*0.75, title ="gene sig. in\nmain effect", title_fontsize = fs*0.7, loc='lower right')
     ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
 
     plt.tight_layout()
@@ -641,7 +653,7 @@ def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = ""
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
-    username = "milena"
+    username = "miltr339"
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
     
@@ -674,9 +686,9 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
@@ -815,7 +827,7 @@ if __name__ == "__main__":
                     if separation == "no_separation":
                         # fix the contrast names when the interaction is included in the no_separation data
                         sig_DE_genes = { contrast_plot_titles[key] : val for key,val in sig_DE_genes.items()}
-                        plot_title = f"sig. DE genes overlap (min. overlap size: {min_overlap})"
+                        plot_title = f"min. overlap size: {min_overlap}"
                     plot_sig_gene_overlap(sig_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap)
 
             if make_upset:
@@ -1078,7 +1090,8 @@ if __name__ == "__main__":
     ############################################
     ######## MAKE ALL THE SB COMPARISONS #######
     ############################################
-
+    ##
+    ## plot the scatterplots to compare LogFC of two different contrasts
     if False:
         LFC_comp_sets = {
             "no_separation" : {
@@ -1141,9 +1154,11 @@ if __name__ == "__main__":
             return list(set(excl_list))
 
         for separation, seps_dict in table_paths.items():
-            # if separation != "no_separation":
-            #     print(f"ignore {separation}")
-            #     continue
+
+            if separation == "day_separated":
+                print(f"ignore {separation}")
+                continue
+            
             print(f"\n=========================== {separation} ===========================")
 
             for category, paths_dict in seps_dict.items():
