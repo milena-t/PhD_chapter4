@@ -3515,7 +3515,7 @@ document.addEventListener("DOMContentLoaded", function () {
     </p>
 </div>
 
-<h3>Upsetplot of sig DE genes between lines and sexes</h3>
+<h3 id="day-sep-intersections">Upsetplot of sig DE genes between lines and sexes</h3>
 
 <p>Same as in the line-separated analysis, the sex-biased genes are the same between all days and lines, and if there are differences it is that genes are missing from day 14 where they are not sex-biased yet.</p>
 <div class="tab">
@@ -3526,41 +3526,98 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <div id="day14_upset" class="tabcontent">
 <p float="left">
-  <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_day14.png" width="25%" />
+    <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_day14.png" width="25%" />
 </p>
 </div>
 <div id="day16_upset" class="tabcontent">
 <p float="left">
-  <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_day16.png" width="32%" />
+    <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_day16.png" width="32%" />
 </p>
 </div>
 <div id="day18_upset" class="tabcontent">
 <p float="left">
-  <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_day18.png" width="32%" />
+    <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_day18.png" width="32%" />
 </p>
 </div>
+
 <div id="all_upset" class="tabcontent">
-    <p>
-        Upsetplot of the male line-biased genes (M1-M3) left, upsetplot of all contrasts right
-    </p>
-<p float="left">
-    <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_male_line_bias.png" width="40%" />
-    <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="50%" />
-</p>
-<p>
-    List of genes that are sig. line-biased in at least two days and the gene description from eggnogmapper. The gene that is shared between 
-    all days (right upset) is <code>gene-395158</code> and it is annotated but of unknown function
-</p>
 
-<iframe
-    src="data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs_functional_annotation.txt"
-    frameBorder="0"
-    class=""
-    scrolling="auto"
-    style="width:100%; height:30vh;">
-</iframe>
+    <div class="left-div">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_male_line_bias.png" width="90%" />
+        </p>
+        <p style="width:90%">
+            Genes that are line-biased in two days (mostly day 14 and 16):
+        </p>
+        <iframe
+            src="data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs_functional_annotation.txt"
+            frameBorder="0"
+            class=""
+            scrolling="auto"
+            style="width:95%; height:43vh;">
+        </iframe>
+        <p style="width:90%">
+            GO-enrichment of these (against any gene passing the expression threshold in at least one day) is not very conclusive, see <a href="https://github.com/milena-t/PhD_chapter4/tree/main/data/sig_DE_genes_lists/GO_enrichment_day_sep_M1-M3_day14and16.txt">here</a>
+        </p>
+    </div>
 
-GO-enrichment of these (against any gene passing the expression threshold in at least one day) is not very conclusive, see <a href="https://github.com/milena-t/PhD_chapter4/tree/main/data/sig_DE_genes_lists/GO_enrichment_day_sep_M1-M3_day14and16.txt">here</a>
+    <div class="right-div">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_all_lines_sex_bias.png" width="90%" />
+        </p>
+        
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'all_SB_GO')">sex-biased in all</button>
+            <button class="tablinks" onclick="openTab(event, 'late_SB_GO')">sex biased day 16 and 18</button>
+            <button class="tablinks" onclick="openTab(event, 'early_SB_GO')">sex biased day 14</button>
+        </div>
+        <div id="all_SB_GO" class="tabcontent">
+            <p>
+                Sig. enriched GO-terms of genes that are sex-biased in all days/lines against all expressed genes.
+            </p>
+        <iframe
+            src="data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs_sig_GO.txt"
+            frameBorder="0"
+            class=""
+            scrolling="auto"
+            style="width:100%; height:30vh;">
+        </iframe>
+        </div>
+
+        <div id="late_SB_GO" class="tabcontent">
+            <p>
+                Sig. enriched GO-terms of genes that are sex-biased in day 16 and 18 in both lines against all expressed genes.
+            </p>
+        <iframe
+            src="data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day1618_sigIDs_sig_GO.txt"
+            frameBorder="0"
+            class=""
+            scrolling="auto"
+            style="width:100%; height:30vh;">
+        </iframe>
+        </div>
+
+        <div id="early_SB_GO" class="tabcontent">
+            <p>
+                Sig. enriched GO-terms of genes that are sex-biased in day 14 in one or both lines against all expressed genes.
+            </p>
+            <iframe
+                src="data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs_sig_GO.txt"
+                frameBorder="0"
+                class=""
+                scrolling="auto"
+                style="width:100%; height:30vh;">
+            </iframe>
+        </div>
+    </div>
+        
+    <div style="clear: both;"></div>
+    <details>
+        <summary>Upsetplot of all contrasts</summary>
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/upsetplot_day_separated_all_categories.png" width="75%" />
+        </p>
+    </details>
 
 </div>
 

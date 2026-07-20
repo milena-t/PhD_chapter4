@@ -1,0 +1,73 @@
+data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day1618_sigIDs_sig_GO.txt
+
+GO:0003341	cilium movement
+GO:0006730	one-carbon metabolic process
+GO:0036159	inner dynein arm assembly
+GO:0036158	outer dynein arm assembly
+GO:0060285	cilium-dependent cell motility
+GO:0034394	protein localization to cell surface
+GO:0009612	response to mechanical stimulus
+GO:0018094	protein polyglycylation
+GO:0050852	T cell receptor signaling pathway
+GO:0048250	iron import into the mitochondrion
+GO:0070498	interleukin-1-mediated signaling pathway
+GO:0070423	OBSOLETE
+GO:0043123	positive regulation of canonical NF-kappaB signal transduction
+GO:0050910	detection of mechanical stimulus involved in sensory perception of sound
+GO:0007605	sensory perception of sound
+GO:0050982	detection of mechanical stimulus
+GO:0050832	defense response to fungus
+GO:0051606	detection of stimulus
+GO:0007320	insemination
+GO:0046692	sperm competition
+GO:0044706	multi-multicellular organism process
+GO:0009620	response to fungus
+GO:0033108	mitochondrial respiratory chain complex assembly
+GO:0050709	negative regulation of protein secretion
+GO:0045739	positive regulation of DNA repair
+GO:0042631	cellular response to water deprivation
+GO:0033182	OBSOLETE
+GO:0061738	late endosomal microautophagy
+GO:0071462	cellular response to water stimulus
+GO:0071465	cellular response to desiccation
+GO:0022417	OBSOLETE
+GO:0060271	cilium assembly
+GO:0045089	positive regulation of innate immune response
+GO:0050954	sensory perception of mechanical stimulus
+GO:0044782	cilium organization
+GO:0007620	copulation
+GO:0097722	sperm motility
+GO:0030317	flagellated sperm motility
+GO:0060294	cilium movement involved in cell motility
+GO:0009269	response to desiccation
+GO:2000008	regulation of protein localization to cell surface
+GO:0007054	spindle assembly involved in male meiosis I
+GO:0071332	cellular response to fructose stimulus
+GO:0009750	response to fructose
+GO:0060586	multicellular organismal-level iron ion homeostasis
+GO:0032098	regulation of appetite
+GO:0007631	feeding behavior
+GO:0009581	detection of external stimulus
+GO:0009582	detection of abiotic stimulus
+GO:0006848	pyruvate transport
+GO:1901475	pyruvate transmembrane transport
+GO:0010996	response to auditory stimulus
+GO:0071326	cellular response to monosaccharide stimulus
+GO:2001022	OBSOLETE
+GO:0071331	cellular response to hexose stimulus
+GO:0071632	optomotor response
+GO:0007634	optokinetic behavior
+GO:0035092	sperm DNA condensation
+GO:0009414	response to water deprivation
+GO:0033499	galactose catabolic process via UDP-galactose, Leloir pathway
+GO:0070534	protein K63-linked ubiquitination
+GO:0000729	DNA double-strand break processing
+GO:0071496	cellular response to external stimulus
+GO:0034284	response to monosaccharide
+GO:0006939	smooth muscle contraction
+GO:0006303	double-strand break repair via nonhomologous end joining
+GO:0009746	response to hexose
+GO:0051092	OBSOLETE
+GO:0051928	positive regulation of calcium ion transport
+GO:0019388	galactose catabolic process
+GO:0061077	OBSOLETE

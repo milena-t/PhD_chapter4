@@ -702,7 +702,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "no_separation":
+            if separation !=  "day_separated":#  "no_separation":
             # if separation == "day_separated" or separation == "line_separated":
                 print(f"ignore {separation}")
                 continue
@@ -717,7 +717,7 @@ if __name__ == "__main__":
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
-                if "day" in category:
+                if separation == "no_separation" and "day" in category:
                     print(f"ignore {category}")
                     continue
 
@@ -838,10 +838,18 @@ if __name__ == "__main__":
 
                 if separation == "day_separated":
                     # plot only male line bias in the day separated data
-                    sep_DE_genes_ = {sep.replace(": M_1 - M_3", "") : l_ for sep,l_ in sep_DE_genes.items() if "M_1 - M_3" in sep}
+                    sep_DE_genes_line = {sep.replace(": M_1 - M_3", ": males") : l_ for sep,l_ in sep_DE_genes.items() if "M_1 - M_3" in sep}
                     min_overlap_ = 0
-                    plot_title_ = f""
-                    upset_data = plot_sig_gene_overlap(sep_DE_genes_, plot_filename= f"{out_path_figs}/upsetplot_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
+                    plot_title_ = f"male line-biased genes\n(small-large)"
+                    upset_data_line = plot_sig_gene_overlap(sep_DE_genes_line, plot_filename= f"{out_path_figs}/upsetplot_{separation}_male_line_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
+                    # plot only sex bias for each line in the day separated data
+                    sep_DE_genes_1 = {sep.replace(": F_1 - M_1", ": small-Y") : l_ for sep,l_ in sep_DE_genes.items() if "F_1 - M_1" in sep}
+                    sep_DE_genes_3 = {sep.replace(": F_3 - M_3", ": large-Y") : l_ for sep,l_ in sep_DE_genes.items() if "F_3 - M_3" in sep}
+                    sep_DE_genes__ = sep_DE_genes_1|sep_DE_genes_3
+                    sep_DE_genes_sex = dict(reversed(sep_DE_genes__.items()))
+                    min_overlap_ = 30
+                    plot_title_ = f"Sex biased genes\n(min. overlap size: {min_overlap})"
+                    upset_data_sex = plot_sig_gene_overlap(sep_DE_genes_sex, plot_filename= f"{out_path_figs}/upsetplot_{separation}_all_lines_sex_bias.png", plot_title = plot_title_, min_overlap = min_overlap_)
 
                 if separation == "sex_separated":
                     # plot only male line bias in the day separated data
@@ -854,36 +862,112 @@ if __name__ == "__main__":
                 #######################################
                 #### make list of all the significantly line-biased genes from Fig 1 to do the GO enrichment                
                 #######################################
-                if False and separation == "day_separated":
+                if True and separation == "day_separated":
 
                     print(f"\n\n\n\n ---<>--> male line bias upset data")
-                    print(f"filtered for all geneIDs that are sig in at least two:")
 
-                    # filter to only include genes that are sig. in at least two days
-                    mask = (
-                        upset_data.index.get_level_values('day14').astype(int) +
-                        upset_data.index.get_level_values('day16').astype(int) +
-                        upset_data.index.get_level_values('day18').astype(int)
-                    ) >= 2
-                    filt = upset_data[mask]
-                    print(f"{len(filt)}")
+                    ######### male samples line bias
+                    if False:
+                        # filter to only include genes that are sig. in at least two days
+                        mask = (
+                            upset_data_line.index.get_level_values('day14: males').astype(int) +
+                            upset_data_line.index.get_level_values('day16: males').astype(int) +
+                            upset_data_line.index.get_level_values('day18: males').astype(int)
+                        ) >= 2
+                        filt = upset_data[mask]
+                        print(f"filtered for all geneIDs that are sig in at least two:")
+                        print(f"{len(filt)}")
 
-                    filt.to_csv(f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt", sep="\t")
+                        filt.to_csv(f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt", sep="\t")
 
-                    # filter to only include genes that are sig. only day 14 and 16
-                    filt = upset_data[upset_data.index.get_level_values('day14') & upset_data.index.get_level_values('day16')]
-                    filt = filt["id"].tolist()
-                    nonsig_geneIDs = [id for id in list(set(all_geneIDs)) if id not in filt]
-                    nonsig = ",0\n".join(nonsig_geneIDs)+",0\n"
+                        # filter to only include genes that are sig. only day 14 and 16
+                        filt = upset_data[upset_data.index.get_level_values('day14: males') & upset_data.index.get_level_values('day16: males')]
+                        filt = filt["id"].tolist()
+                        nonsig_geneIDs = [id for id in list(set(all_geneIDs)) if id not in filt]
+                        nonsig = ",0\n".join(nonsig_geneIDs)+",0\n"
 
-                    filt = ",1\n".join(filt)+",1\n"
-                    outfile_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day_sep_M1-M3_day14and16.txt"
-                    with open(outfile_path, "w") as outfile:
-                        outfile.write("geneID,sig_DE\n")
-                        outfile.write(filt)
-                        outfile.write(nonsig)
+                        filt = ",1\n".join(filt)+",1\n"
+                        outfile_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day_sep_M1-M3_day14and16.txt"
+                        with open(outfile_path, "w") as outfile:
+                            outfile.write("geneID,sig_DE\n")
+                            outfile.write(filt)
+                            outfile.write(nonsig)
 
+                    ######### all lines sex bias
+                    if True:
+                        # filter to only include genes that are sig. in at least two days
+                        mask_all = (
+                            upset_data_sex.index.get_level_values('day14: small-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day16: small-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day18: small-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day14: large-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day16: large-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day18: large-Y').astype(int)
+                        ) ==6
+                        filt_all = upset_data_sex[mask_all]
+                        print(f"filtered for all geneIDs that are sig in all:")
+                        print(f"{len(filt_all)}")
+
+                        # filt_all.to_csv(f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs.txt", sep="\t")
+                        filt_all = filt_all["id"].tolist()
+                        nonsig_geneIDs = [id for id in list(set(all_geneIDs)) if id not in filt_all]
+                        nonsig = ",0\n".join(nonsig_geneIDs)+",0\n"
+
+                        filt_all = ",1\n".join(filt_all)+",1\n"
+                        outfile_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs.txt"
+                        with open(outfile_path, "w") as outfile:
+                            outfile.write("geneID,sig_DE\n")
+                            outfile.write(filt_all)
+                            outfile.write(nonsig)
+
+
+                        # filter to only include genes that are sig. only day 16 and 18 in both lines
+                        mask_late = (
+                            upset_data_sex.index.get_level_values('day14: small-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day16: small-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day18: small-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day14: large-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day16: large-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day18: large-Y').astype(int)
+                        ) ==4
+                        filt_late = upset_data_sex[mask_late]
+                        filt_late = filt_late[filt_late.index.get_level_values('day16: small-Y') & filt_late.index.get_level_values('day18: small-Y') & filt_late.index.get_level_values('day16: large-Y') & filt_late.index.get_level_values('day18: large-Y')]
+                        print(f"filtered for all geneIDs that are sig day 16 and 18 both lines:")
+                        print(f"{len(filt_late)}")
+                        filt_late = filt_late["id"].tolist()
+                        nonsig_geneIDs = [id for id in list(set(all_geneIDs)) if id not in filt_late]
+                        nonsig = ",0\n".join(nonsig_geneIDs)+",0\n"
+
+                        filt_late = ",1\n".join(filt_late)+",1\n"
+                        outfile_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day1618_sigIDs.txt"
+                        with open(outfile_path, "w") as outfile:
+                            outfile.write("geneID,sig_DE\n")
+                            outfile.write(filt_late)
+                            outfile.write(nonsig)
                         
+                        # filter only genes that are sig. only in day 14
+                        mask_early = (
+                            upset_data_sex.index.get_level_values('day14: small-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day16: small-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day18: small-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day14: large-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day16: large-Y').astype(int) +
+                            upset_data_sex.index.get_level_values('day18: large-Y').astype(int)
+                        ) <=2
+                        filt_early = upset_data_sex[mask_early]
+                        filt_early = filt_early[filt_early.index.get_level_values('day14: small-Y') | filt_early.index.get_level_values('day14: large-Y')]
+                        print(f"filtered for all geneIDs that are sig 14 in one or both lines:")
+                        print(f"{len(filt_early)}")
+                        filt_early = filt_early["id"].tolist()
+                        nonsig_geneIDs = [id for id in list(set(all_geneIDs)) if id not in filt_early]
+                        nonsig = ",0\n".join(nonsig_geneIDs)+",0\n"
+
+                        filt_early = ",1\n".join(filt_early)+",1\n"
+                        outfile_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs.txt"
+                        with open(outfile_path, "w") as outfile:
+                            outfile.write("geneID,sig_DE\n")
+                            outfile.write(filt_early)
+                            outfile.write(nonsig)
 
 
     ############################################

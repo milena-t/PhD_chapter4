@@ -1,0 +1,96 @@
+data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs_sig_GO.txt
+
+GO:0009142	nucleoside triphosphate biosynthetic process
+GO:0007289	spermatid nucleus differentiation
+GO:0046034	ATP metabolic process
+GO:0009167	purine ribonucleoside monophosphate metabolic process
+GO:0072525	pyridine-containing compound biosynthetic process
+GO:0070935	3'-UTR-mediated mRNA stabilization
+GO:0060287	epithelial cilium movement involved in determination of left/right asymmetry
+GO:0006165	OBSOLETE
+GO:0060271	cilium assembly
+GO:0097722	sperm motility
+GO:0030317	flagellated sperm motility
+GO:0044782	cilium organization
+GO:0060294	cilium movement involved in cell motility
+GO:0045727	positive regulation of translation
+GO:0048490	anterograde synaptic vesicle transport
+GO:0048491	retrograde synaptic vesicle transport
+GO:0006735	NADH regeneration
+GO:0008315	G2/MI transition of meiotic cell cycle
+GO:0042822	pyridoxal 5'-phosphate metabolic process
+GO:0042823	pyridoxal 5'-phosphate biosynthetic process
+GO:0042819	vitamin B6 biosynthetic process
+GO:0046341	CDP-diacylglycerol metabolic process
+GO:0016024	CDP-diacylglycerol biosynthetic process
+GO:0061718	glucose catabolic process to pyruvate
+GO:0061620	glycolytic process through glucose-6-phosphate
+GO:0061621	canonical glycolysis
+GO:0001539	cilium or flagellum-dependent cell motility
+GO:0060285	cilium-dependent cell motility
+GO:0010868	negative regulation of triglyceride biosynthetic process
+GO:0042816	vitamin B6 metabolic process
+GO:0009092	L-homoserine metabolic process
+GO:0099514	synaptic vesicle cytoskeletal transport
+GO:0099517	synaptic vesicle transport along microtubule
+GO:0044771	meiotic cell cycle phase transition
+GO:0031991	regulation of actomyosin contractile ring contraction
+GO:0051055	negative regulation of lipid biosynthetic process
+GO:0006007	glucose catabolic process
+GO:0010511	regulation of phosphatidylinositol biosynthetic process
+GO:0010513	positive regulation of phosphatidylinositol biosynthetic process
+GO:0019343	OBSOLETE
+GO:0019344	L-cysteine biosynthetic process
+GO:0019346	transsulfuration
+GO:0071073	positive regulation of phospholipid biosynthetic process
+GO:0061615	glycolytic process through fructose-6-phosphate
+GO:0071266	'de novo' L-methionine biosynthetic process
+GO:1903727	positive regulation of phospholipid metabolic process
+GO:0046184	aldehyde biosynthetic process
+GO:0006796	phosphate-containing compound metabolic process
+GO:0006754	ATP biosynthetic process
+GO:0006661	phosphatidylinositol biosynthetic process
+GO:0016310	phosphorylation
+GO:0003341	cilium movement
+GO:0009145	purine nucleoside triphosphate biosynthetic process
+GO:0009206	purine ribonucleoside triphosphate biosynthetic process
+GO:0006793	phosphorus metabolic process
+GO:0045948	positive regulation of translational initiation
+GO:0097720	calcineurin-mediated signaling
+GO:0033173	calcineurin-NFAT signaling cascade
+GO:0035092	sperm DNA condensation
+GO:0071071	regulation of phospholipid biosynthetic process
+GO:1904886	beta-catenin destruction complex disassembly
+GO:0009201	ribonucleoside triphosphate biosynthetic process
+GO:0009168	purine ribonucleoside monophosphate biosynthetic process
+GO:0009127	purine nucleoside monophosphate biosynthetic process
+GO:0009060	aerobic respiration
+GO:0046474	glycerophospholipid biosynthetic process
+GO:0009435	NAD+ biosynthetic process
+GO:0050667	homocysteine metabolic process
+GO:0009156	ribonucleoside monophosphate biosynthetic process
+GO:0009124	nucleoside monophosphate biosynthetic process
+GO:0010866	regulation of triglyceride biosynthetic process
+GO:0046471	phosphatidylglycerol metabolic process
+GO:0048016	OBSOLETE
+GO:0006750	glutathione biosynthetic process
+GO:0006655	phosphatidylglycerol biosynthetic process
+GO:0120031	plasma membrane bounded cell projection assembly
+GO:0009165	nucleotide biosynthetic process
+GO:0046488	phosphatidylinositol metabolic process
+GO:0007018	microtubule-based movement
+GO:0034250	OBSOLETE
+GO:0045333	cellular respiration
+GO:0050817	coagulation
+GO:0006734	OBSOLETE
+GO:0090209	negative regulation of triglyceride metabolic process
+GO:0047496	vesicle transport along microtubule
+GO:0042364	water-soluble vitamin biosynthetic process
+GO:0019184	nonribosomal peptide biosynthetic process
+GO:0007599	hemostasis
+GO:0042381	hemolymph coagulation
+GO:0099518	vesicle cytoskeletal trafficking
+GO:0006534	OBSOLETE
+GO:0071265	L-methionine biosynthetic process
+GO:0045017	glycerolipid biosynthetic process
+GO:0030031	cell projection assembly

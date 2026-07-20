@@ -1,0 +1,73 @@
+data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs_sig_GO.txt
+
+GO:0007602	phototransduction
+GO:1905515	non-motile cilium assembly
+GO:0055074	calcium ion homeostasis
+GO:1905349	ciliary transition zone assembly
+GO:0045132	meiotic chromosome segregation
+GO:0150063	visual system development
+GO:0048880	sensory system development
+GO:0001654	eye development
+GO:0090311	regulation of protein deacetylation
+GO:0090312	positive regulation of protein deacetylation
+GO:0097010	eukaryotic translation initiation factor 4F complex assembly
+GO:0008377	OBSOLETE
+GO:0030704	vitelline membrane formation
+GO:0006651	diacylglycerol biosynthetic process
+GO:0035803	egg coat formation
+GO:0031063	OBSOLETE
+GO:0031065	OBSOLETE
+GO:0007305	vitelline membrane formation involved in chorion-containing eggshell formation
+GO:0071482	cellular response to light stimulus
+GO:0007127	meiosis I
+GO:0003407	neural retina development
+GO:0001580	detection of chemical stimulus involved in sensory perception of bitter taste
+GO:0060086	circadian temperature homeostasis
+GO:0060041	retina development in camera-type eye
+GO:0046339	diacylglycerol metabolic process
+GO:0001659	temperature homeostasis
+GO:0007129	homologous chromosome pairing at meiosis
+GO:0007130	synaptonemal complex assembly
+GO:0071478	cellular response to radiation
+GO:0051482	OBSOLETE
+GO:0045143	homologous chromosome segregation
+GO:0061512	protein localization to cilium
+GO:0043010	camera-type eye development
+GO:0010496	intercellular transport
+GO:0019932	OBSOLETE
+GO:0009620	response to fungus
+GO:0007423	sensory organ development
+GO:0035721	intraciliary retrograde transport
+GO:0051282	OBSOLETE
+GO:0051283	OBSOLETE
+GO:0071214	cellular response to abiotic stimulus
+GO:0104004	cellular response to environmental stimulus
+GO:0043153	entrainment of circadian clock by photoperiod
+GO:0007200	phospholipase C-activating G protein-coupled receptor signaling pathway
+GO:0051208	OBSOLETE
+GO:0007189	adenylate cyclase-activating G protein-coupled receptor signaling pathway
+GO:0007601	visual perception
+GO:0048871	multicellular organismal-level homeostasis
+GO:0009416	response to light stimulus
+GO:0042330	taxis
+GO:0000712	resolution of meiotic recombination intermediates
+GO:2000370	positive regulation of clathrin-dependent endocytosis
+GO:0009648	photoperiodism
+GO:0007440	foregut morphogenesis
+GO:0001731	formation of translation preinitiation complex
+GO:0045572	positive regulation of imaginal disc growth
+GO:0070193	synaptonemal complex organization
+GO:0046671	negative regulation of retinal cell programmed cell death
+GO:0046673	negative regulation of compound eye retinal cell programmed cell death
+GO:0050953	sensory perception of light stimulus
+GO:0042752	regulation of circadian rhythm
+GO:2000369	regulation of clathrin-dependent endocytosis
+GO:0051307	meiotic chromosome separation
+GO:0085029	extracellular matrix assembly
+GO:0048749	compound eye development
+GO:0061982	meiosis I cell cycle process
+GO:0050912	detection of chemical stimulus involved in sensory perception of taste
+GO:0050913	sensory perception of bitter taste
+GO:0042676	compound eye cone cell fate commitment
+GO:0002183	cytoplasmic translational initiation
+GO:0048260	positive regulation of receptor-mediated endocytosis

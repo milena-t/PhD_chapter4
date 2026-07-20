@@ -255,6 +255,26 @@ def plot_enriched_GO_overlap(GO_Terms_dict:dict, plot_filename:str, plot_title  
         print(f"GO:terms of specified intersections saved as: {table_filename}")
 
 
+def make_table_sig_GO_terms(infile_path):
+    outfile_path = infile_path.replace(".csv", "_sig_GO.txt")
+    GO_file = pd.read_csv(infile_path)
+    count_sig = 0
+    with open(outfile_path, "w") as outfile:
+        outfile.write(outfile_path.split("PhD_chapter4/")[-1]+"\n\n")
+        for GO_term,pval in zip(GO_file["GO.ID"], GO_file["classicFisher"]):
+            if pval>0.05:
+                continue
+            try:
+                go_name = go[GO_term].name 
+            except:
+                go_name = "OBSOLETE" # obsolete go terms are not read into 'go' and therefore should be skipped
+            GO_line = f"{GO_term}\t{go_name}\n"
+            outfile.write(GO_line)
+            count_sig+=1
+    
+    print(f"file with {count_sig} sig GO terms written to \n{outfile_path}")
+
+
 
 def add_functional_information_to_geneIDs(infile_path, annotation_file):
     outfile_path = infile_path.replace(".txt", "_functional_annotation.txt")
@@ -268,7 +288,7 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file):
         infile_lines = infile.readlines()
         header = infile_lines[0].strip()
         header_ = f"{header}\tDescription\n"
-        outfile.write(header_)
+        # outfile.write(header_)
         for i, line_full in enumerate(infile_lines[1:]):
             line = line_full.strip()
             geneID = line.split("\t")[-1]
@@ -280,7 +300,9 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file):
                 desc = "no_description"
 
             print(f"{i}\t{geneID}\t{desc}")
-            outfile.write(f"{line}\t{desc}\n")
+            outfile.write(f"{geneID}\t{desc}\n")
+
+    print(f"file written to: \n{outfile_path}")
 
 
 
@@ -288,7 +310,7 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file):
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
-    username = "milena"
+    username = "miltr339"
     go_tables_paths = get_tables(username=username)
     contrasts_of_interest = get_interesting_GO_overlap_lists()
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment"
@@ -304,7 +326,7 @@ if __name__ == "__main__":
         print(f"...done!")
         
 
-    if True:
+    if False:
         for separation, seps_dict in go_tables_paths.items():
             if separation!="no_separation":
                 print(f"ignore {separation}")
@@ -395,6 +417,15 @@ if __name__ == "__main__":
                 # contrasts_dict = {name : contrast for name, contrast in contrasts_of_interest[separation][category].items() if any([True for c in contrast_sep_list if c in contrast])}
                 plot_enriched_GO_overlap(GO_Terms_dict = sep_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_all{suffix}.png", plot_title = plot_title, min_overlap = min_overlap, contrasts_of_interest=contrasts_dict)
 
+
+    if True:
+        ## make an output list based on the R csv table with full function names and only p<0.05
+        all_days=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs.csv"
+        make_table_sig_GO_terms(infile_path=all_days)
+        late_days=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day1618_sigIDs.csv"
+        make_table_sig_GO_terms(infile_path=late_days)
+        early_days=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs.csv"
+        make_table_sig_GO_terms(infile_path=early_days)
 
     if False:
         ## add gene annotation information to a previously generated list of sig. geneIDs

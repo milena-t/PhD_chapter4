@@ -34,8 +34,6 @@ library(lintr)
 annotation and background gene set
 
 ```{r}
-annotation_path="/Users/milena/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs" # created from the eggnogmapper output with /Users/miltr339/work/PhD_code/PhD_chapter4/src/make_annot_with_geneIDs.py
-
 make_annotation_df_from_eggnog <- function(annotation_path){
     annot_header = c("query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs")
     annotation <- read.csv(annotation_path, sep="\t", comment.char = "#", header=FALSE, col.names = annot_header)
@@ -48,8 +46,9 @@ make_annotation_df_from_eggnog <- function(annotation_path){
     return(annotation_df)
 }
 
-annotation_df <- make_annotation_df_from_eggnog(annotation_path)
+annotation_path="/Users/miltr339/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs" # created from the eggnogmapper output with /Users/miltr339/work/PhD_code/PhD_chapter4/src/make_annot_with_geneIDs.py
 
+annotation_df <- make_annotation_df_from_eggnog(annotation_path)
 ```
 
 lists of significant geneIDs for all contrasts
@@ -141,4 +140,14 @@ list for genes that are sig in the day-sex interaction of the full dataset
 ```{r}
 sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignored_day_sex_interaction.txt"
 GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)
+```
+
+list for genes that are sig. sex biased in the day separated dataset for multiple days
+```{r}
+sig_list_late = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day1618_sigIDs.txt"
+GO_enrichment_analysis(sig_infile = sig_list_late, annotation_df = annotation_df)
+sig_list_early = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs.txt"
+GO_enrichment_analysis(sig_infile = sig_list_early, annotation_df = annotation_df)
+sig_list_all = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs.txt"
+GO_enrichment_analysis(sig_infile = sig_list_all, annotation_df = annotation_df)
 ```
