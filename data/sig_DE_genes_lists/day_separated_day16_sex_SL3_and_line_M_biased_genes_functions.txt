@@ -1,0 +1,28 @@
+gene-372264	---not_annotated---
+gene-23413	Belongs to the ubiquitin-activating E1 family
+gene-24120	RNA polymerase II transcription cofactor activity. It is involved in the biological process described with regulation of transcription from RNA polymerase II promoter
+gene-224357	Peptidase S24-like
+gene-15763	7 transmembrane receptor (rhodopsin family)
+gene-23365	Belongs to the TRAFAC class myosin-kinesin ATPase superfamily. Myosin family
+gene-349163	Reverse transcriptase (RNA-dependent DNA polymerase)
+gene-24203	Leucine-rich repeat-containing protein
+gene-24221	C-terminal domain on Strawberry notch homologue
+gene-24167	Transport and Golgi organisation 2
+gene-23689	Formin Homology 2 Domain
+gene-225030	Belongs to the heat shock protein 70 family
+gene-12075	---not_annotated---
+gene-24290	Conserved hypothetical ATP binding protein
+gene-410366	no_description
+gene-24052	Pfam:DUF3588
+gene-423321	---not_annotated---
+gene-23514	Belongs to the ubiquitin-activating E1 family
+gene-24079	---not_annotated---
+gene-24088	Mob1/phocein family
+gene-7220	---not_annotated---
+gene-24132	Guanylylate cyclase
+gene-23840	FKBP-type peptidyl-prolyl cis-trans isomerase
+gene-23597	Myosin tail
+gene-24185	Phosphotransferase activity, for other substituted phosphate groups. It is involved in the biological process described with phospholipid biosynthetic process
+gene-23538	twin BRCT domain
+gene-27466	GTP binding. It is involved in the biological process described with
+gene-220249	axonemal central apparatus assembly

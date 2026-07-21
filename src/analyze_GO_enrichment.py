@@ -276,31 +276,45 @@ def make_table_sig_GO_terms(infile_path):
 
 
 
-def add_functional_information_to_geneIDs(infile_path, annotation_file):
-    outfile_path = infile_path.replace(".txt", "_functional_annotation.txt")
+def add_functional_information_to_geneIDs(infile_path, annotation_file, IDs_list = []):
 
     annotation_header = ["query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs"]
     annotation_df = pd.read_csv(annotation_file, sep="\t", comment="#", names=annotation_header)
 
-    print(annotation_df)
+    if IDs_list == []:
+        outfile_path = infile_path.replace(".txt", "_functional_annotation.txt")
+        with open(infile_path, "r") as infile, open(outfile_path, "w") as outfile:
+            infile_lines = infile.readlines()
+            header = infile_lines[0].strip()
+            header_ = f"{header}\tDescription\n"
+            # outfile.write(header_)
+            for i, line_full in enumerate(infile_lines[1:]):
+                line = line_full.strip()
+                geneID = line.split("\t")[-1]
+                try:
+                    desc = annotation_df.loc[annotation_df["query"] == geneID, "Description"].iloc[0]
+                except:
+                    desc = "---not_annotated---"
+                if desc == "-":
+                    desc = "no_description"
 
-    with open(infile_path, "r") as infile, open(outfile_path, "w") as outfile:
-        infile_lines = infile.readlines()
-        header = infile_lines[0].strip()
-        header_ = f"{header}\tDescription\n"
-        # outfile.write(header_)
-        for i, line_full in enumerate(infile_lines[1:]):
-            line = line_full.strip()
-            geneID = line.split("\t")[-1]
-            try:
-                desc = annotation_df.loc[annotation_df["query"] == geneID, "Description"].iloc[0]
-            except:
-                desc = "---not_annotated---"
-            if desc == "-":
-                desc = "no_description"
+                print(f"{i+1}\t{geneID}\t{desc}")
+                outfile.write(f"{geneID}\t{desc}\n")
+    else:
+        outfile_path = infile_path
+        with open(outfile_path, "w") as outfile:
+            # header_ = f"geneID\tDescription\n"
+            # outfile.write(header_)
+            for i, geneID in enumerate(IDs_list):
+                try:
+                    desc = annotation_df.loc[annotation_df["query"] == geneID, "Description"].iloc[0]
+                except:
+                    desc = "---not_annotated---"
+                if desc == "-":
+                    desc = "no_description"
 
-            print(f"{i}\t{geneID}\t{desc}")
-            outfile.write(f"{geneID}\t{desc}\n")
+                print(f"{i+1}\t{geneID}\t{desc}")
+                outfile.write(f"{geneID}\t{desc}\n")
 
     print(f"file written to: \n{outfile_path}")
 
@@ -310,7 +324,7 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file):
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
-    username = "miltr339"
+    username = "milena"
     go_tables_paths = get_tables(username=username)
     contrasts_of_interest = get_interesting_GO_overlap_lists()
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment"
@@ -418,7 +432,7 @@ if __name__ == "__main__":
                 plot_enriched_GO_overlap(GO_Terms_dict = sep_GO_terms, plot_filename= f"{out_path_figs}/upsetplot_GO_terms_{separation}_all{suffix}.png", plot_title = plot_title, min_overlap = min_overlap, contrasts_of_interest=contrasts_dict)
 
 
-    if True:
+    if False:
         ## make an output list based on the R csv table with full function names and only p<0.05
         all_days=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs.csv"
         make_table_sig_GO_terms(infile_path=all_days)
@@ -433,3 +447,22 @@ if __name__ == "__main__":
         annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
 
         add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path)
+        
+    if True:
+        SB_LB_genes = {
+            "day14" : {
+                "SL1" : ['gene-225158', 'gene-222430', 'gene-372264', 'gene-117712'],
+                "SL3" : ['gene-149137', 'gene-372264', 'gene-227137', 'gene-224956', 'gene-414353', 'gene-39545', 'gene-115312', 'gene-130081', 'gene-371957', 'gene-204669', 'gene-166391', 'gene-246615', 'gene-277078', 'gene-406603', 'gene-158197', 'gene-122220', 'gene-100036', 'gene-143368', 'gene-130096', 'gene-398993', 'gene-220249'],
+            },
+            "day16" : {
+                "SL1" : ['gene-372264', 'gene-23884', 'gene-24278', 'gene-90918', 'gene-279676', 'gene-240602', 'gene-225158', 'gene-80062', 'gene-222332', 'gene-30595', 'gene-411056', 'gene-329410', 'gene-431362', 'gene-13404', 'gene-48598', 'gene-104371', 'gene-351334', 'gene-55869', 'gene-390687', 'gene-127707', 'gene-63245', 'gene-240860', 'gene-23834', 'gene-122692'],
+                "SL3" : ['gene-372264', 'gene-23413', 'gene-24120', 'gene-224357', 'gene-15763', 'gene-23365', 'gene-349163', 'gene-24203', 'gene-24221', 'gene-24167', 'gene-23689', 'gene-225030', 'gene-12075', 'gene-24290', 'gene-410366', 'gene-24052', 'gene-423321', 'gene-23514', 'gene-24079', 'gene-24088', 'gene-7220', 'gene-24132', 'gene-23840', 'gene-23597', 'gene-24185', 'gene-23538', 'gene-27466', 'gene-220249'],
+            }
+        }
+        annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
+        for day, line_dict in SB_LB_genes.items():
+            for line, IDs_list in line_dict.items():
+                print(f"\n ------------------- {day}:{line} ({len(IDs_list)}) -------------------")
+
+                day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_{day}_sex_{line}_and_line_M_biased_genes_functions.txt"
+                add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path, IDs_list=IDs_list)

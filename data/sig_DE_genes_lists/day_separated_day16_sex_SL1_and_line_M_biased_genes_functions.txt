@@ -1,0 +1,24 @@
+gene-372264	---not_annotated---
+gene-23884	---not_annotated---
+gene-24278	---not_annotated---
+gene-90918	---not_annotated---
+gene-279676	Collagen triple helix repeat (20 copies)
+gene-240602	no_description
+gene-225158	---not_annotated---
+gene-80062	---not_annotated---
+gene-222332	Endoribonuclease L-PSP
+gene-30595	---not_annotated---
+gene-411056	Sarcolemmal associated protein
+gene-329410	Belongs to the ligand-gated ion channel (TC 1.A.9) family
+gene-431362	Ribosomal protein L22p/L17e
+gene-13404	Haloacid dehalogenase-like hydrolase
+gene-48598	glutathione s-transferase
+gene-104371	no_description
+gene-351334	cytoplasmic mRNA processing body assembly
+gene-55869	Catalyzes the hydrolysis of N-formyl-L-kynurenine to L- kynurenine, the second step in the kynurenine pathway of tryptophan degradation. Required for elimination of toxic metabolites
+gene-390687	---not_annotated---
+gene-127707	UPF0193 protein
+gene-63245	no_description
+gene-240860	Ring finger domain
+gene-23834	---not_annotated---
+gene-122692	Phosphatidylcholine 1-acylhydrolase activity. It is involved in the biological process described with lipid metabolic process

@@ -3484,7 +3484,126 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 </div>
 
+<h3>Sex bias and line bias overlap</h3>
 
+<p>Are there genes that are sex biased as well as line biased? Do they overlap with the interaction?</p>
+
+<div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'day14_sex_line_bias_overlap')">Day 14</button>
+  <button class="tablinks" onclick="openTab(event, 'day16_sex_line_bias_overlap')">Day 16</button>
+  <button class="tablinks" onclick="openTab(event, 'day18_sex_line_bias_overlap')">Day 18</button>
+</div>
+
+<div id="day14_sex_line_bias_overlap" class="tabcontent">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day14_male_line_bias_overlap')">male line bias</button>
+        <button class="tablinks" onclick="openTab(event, 'day14_female_line_bias_overlap')">female line bias</button>
+    </div>
+    <div id="day14_male_line_bias_overlap" class="tabcontent">
+        <div class="left-div">
+
+            <p float="left">
+                <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_sb_SL1_lb_M.png" width="75%" />
+            </p>
+            <p><b>Sex- and line-biased genes:</b></p>
+            <iframe
+                src="data/sig_DE_genes_lists/day_separated_day14_sex_SL1_and_line_M_biased_genes_functions.txt"
+                frameBorder="0"
+                class=""
+                scrolling="auto"
+                style="width:95%; height:43vh;">
+        </iframe>
+        </div>
+        <div class="right-div">
+
+            <p float="left">
+                <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_sb_SL3_lb_M.png" width="75%" />
+            </p>
+            <p><b>Sex- and line-biased genes:</b></p>
+            <iframe
+                src="data/sig_DE_genes_lists/day_separated_day14_sex_SL3_and_line_M_biased_genes_functions.txt"
+                frameBorder="0"
+                class=""
+                scrolling="auto"
+                style="width:95%; height:43vh;">
+            </iframe>
+        </div>
+        <div style="clear: both;"></div>    
+    </div>
+    <div id="day14_female_line_bias_overlap" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_sb_SL1_lb_F.png" width="35%" />
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day14_sb_SL3_lb_F.png" width="35%" />
+        </p>
+    </div>
+</div>
+
+<div id="day16_sex_line_bias_overlap" class="tabcontent">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day16_male_line_bias_overlap')">male line bias</button>
+        <button class="tablinks" onclick="openTab(event, 'day16_female_line_bias_overlap')">female line bias</button>
+    </div>
+    <div id="day16_male_line_bias_overlap" class="tabcontent">
+        <div class="left-div">
+
+            <p float="left">
+                <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_sb_SL1_lb_M.png" width="75%" />
+            </p>
+            <p><b>Sex- and line-biased genes:</b></p>
+            <iframe
+                src="data/sig_DE_genes_lists/day_separated_day16_sex_SL1_and_line_M_biased_genes_functions.txt"
+                frameBorder="0"
+                class=""
+                scrolling="auto"
+                style="width:95%; height:43vh;">
+        </iframe>
+        </div>
+        <div class="right-div">
+
+            <p float="left">
+                <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_sb_SL3_lb_M.png" width="75%" />
+            </p>
+            <p><b>Sex- and line-biased genes:</b></p>
+            <iframe
+                src="data/sig_DE_genes_lists/day_separated_day16_sex_SL3_and_line_M_biased_genes_functions.txt"
+                frameBorder="0"
+                class=""
+                scrolling="auto"
+                style="width:95%; height:43vh;">
+            </iframe>
+        </div>
+        <div style="clear: both;"></div>    
+    </div>
+    <div id="day16_female_line_bias_overlap" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_sb_SL1_lb_F.png" width="35%" />
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day16_sb_SL3_lb_F.png" width="35%" />
+        </p>
+    </div>
+</div>
+
+<div id="day18_sex_line_bias_overlap" class="tabcontent">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'day18_male_line_bias_overlap')">male line bias</button>
+        <button class="tablinks" onclick="openTab(event, 'day18_female_line_bias_overlap')">female line bias</button>
+    </div>
+    <div id="day18_male_line_bias_overlap" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_sb_SL1_lb_M.png" width="35%" />
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_sb_SL3_lb_M.png" width="35%" />
+        </p>
+        <p>
+            The one female-biased and line-biased gene in the small-Y line (behind the interaction legend) is <code>gene-428104</code>, which is annotated 
+            as Lactamase_B, part of the Metallo-beta-lactamase superfamily.
+        </p>
+    </div>
+    <div id="day18_female_line_bias_overlap" class="tabcontent">
+        <p float="left">
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_sb_SL1_lb_F.png" width="35%" />
+            <img loading="lazy" src="data/DE_figures_python/LFC_scatter_interaction_day18_sb_SL3_lb_F.png" width="35%" />
+        </p>
+    </div>
+</div>
 
 <h3>Overlap of DE scatterplots</h3>
 

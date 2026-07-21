@@ -448,7 +448,7 @@ def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filenam
             return None
 
 
-def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs =[], incl_geneIDs = []):
+def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs =[], incl_geneIDs = [], intersection_nums = False):
     """ 
     plot a scatterplot of sig. DE genes with LFC values
     """
@@ -511,7 +511,11 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     nonsig_incl = 0
     sig_incl = 0
     for cat in lists.keys():
-        print(f"\t*{cat}")
+        if len(lists[cat])>50 or cat!="shared":
+            print(f"\t* {cat} ({len(lists[cat])})")
+        else:
+            print(f"\t* {cat} ({len(lists[cat])})\n\t{lists[cat]}")
+
         for geneID in lists[cat]:
             try:
                 y = tables_df_all[table_a].loc[geneID,"logFC"]
@@ -550,7 +554,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     ax.set_xlabel(f"logFC {label_b}", fontsize = fs)
     ax.tick_params(axis='x', labelsize=fs*0.9)
     ax.tick_params(axis='y', labelsize=fs*0.9)
-    ax.set_title(LFC_title, fontsize = fs)
+    ax.set_title(LFC_title, fontsize = fs*0.95)
 
     min_yline,max_yline = ax.get_ylim()
     min_xline,max_xline = ax.get_xlim()
@@ -606,6 +610,8 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
         legend_label = legend_label.replace("males", "M")
         legend_label = legend_label.replace("shared", "both")
         legend_label = legend_label.replace("SL1", "small-Y").replace("SL3", "large-Y")
+        if intersection_nums and legend_label=="both":
+            legend_label = f"both ({len(lists['shared'])})"
         main_sig_ind = ax.scatter(1000,1000,color = colors_dict[cat], s=ps, alpha = 0.75, label = legend_label, marker=markertype)
         main_sig.append(main_sig_ind)
 
@@ -695,7 +701,7 @@ if __name__ == "__main__":
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
-    if True:
+    if False:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -1304,6 +1310,10 @@ if __name__ == "__main__":
             "day_separated" : {
                 "sex bias" : ["F_1 - M_1","F_3 - M_3"],
                 "line bias" : ["F_1 - F_3","M_1 - M_3"],
+                "sb_SL1 lb_F" : ["F_1 - M_1","F_1 - F_3"], # sex bias SL1, line bias Females
+                "sb_SL3 lb_F" : ["F_3 - M_3","F_1 - F_3"],
+                "sb_SL1 lb_M" : ["F_1 - M_1","M_1 - M_3"],
+                "sb_SL3 lb_M" : ["F_3 - M_3","M_1 - M_3"],
             }
         }
 
@@ -1318,8 +1328,16 @@ if __name__ == "__main__":
                 print(f"\n ------------------- {category} -------------------")
 
                 for bias_cat, contrasts_list in contrasts_interaction_list[separation].items():
+                    
+                    if "bias" in bias_cat or "lb_F" in bias_cat:
+                        print(f"skip {bias_cat}:{contrasts_list}")
+                        continue
 
-                    incl_geneIDs = sig_IDs_list[separation][category]
+                    try:
+                        incl_geneIDs = sig_IDs_list[separation][category]
+                    except:
+                        print(f"no interaction genes included for category '{category}'") 
+                        incl_geneIDs = []
                     print(f"{bias_cat} : {len(incl_geneIDs)} genes")
 
                     LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in contrasts_list}
@@ -1327,8 +1345,13 @@ if __name__ == "__main__":
                     LFC_filename = f"{out_path_figs}/LFC_scatter_interaction_{category}_{LFC_filename_}.png"
                     # plot_title = f"{bias_cat} in males and females"
                     category_ = category.replace("day", "day ")
-                    plot_title = f"{category_}: {bias_cat} and interaction"
+                    bias_cat_ = bias_cat.replace("sb_", "sex-bias ").replace("lb_", ", line-bias ")
+                    bias_cat_ = bias_cat_.replace("SL1", "small-Y").replace("SL3", "large-Y")
+
+                    plot_title = f"{category_}: {bias_cat_} and interaction"
+                    if len(plot_title)>33:
+                        plot_title = plot_title.replace(" and", "\nand")
                     
-                    numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs)
+                    numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
                     print(f"\t{numbers}")
 
