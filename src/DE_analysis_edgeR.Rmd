@@ -36,8 +36,8 @@ Load either whole gene set, or filtered to only include X or Y genes.
 
 ```{r}
 # in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
-in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard_merge_yTor.txt"
-outdir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/"
+in_filename <- "/Users/milena/work/PhD_code/PhD_chapter4/data/gene_counts_standard_merge_yTor.txt"
+outdir <- "/Users/milena/work/PhD_code/PhD_chapter4/data/"
 
 # in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard_only_Y.txt"
 # outdir <- ("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_only_Y/"
@@ -46,7 +46,7 @@ outdir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/"
 # outdir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_only_X/"
 ```
 
-Load metadata 
+Load metadata and match to count data
 
 ```{r}
 
@@ -553,7 +553,7 @@ out_SL1_18_16 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_by_day
 
 ```
 
-## Developmental sex differences (split by line)
+# Developmental sex differences (split by line)
 
 I will see if there are sex differences in the different developmental stages within each line. Specify which line first.
 
@@ -679,12 +679,12 @@ d18_16_table = sprintf("%sDE_genes_SL3_day18_16_F-M.txt", outdir)
 out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18_16"],table_name=d18_16_table,lfc_min = 0)
 ```
 
-## Line sex difference (split by day)
+# Line sex difference (split by day)
 
 Look at the sex-bias and line stuff by splitting the data by day
 
 ```{r}
-day <- "18" # "14" or "16" or "18"
+day <- "14" # "14" or "16" or "18"
 ```
 
 ```{r} 
@@ -731,6 +731,7 @@ line3 =	F_3 - M_3,
 females = F_1 - F_3,
 males = M_1 - M_3,
 sex_line = (F_1 - M_1) - (F_3 - M_3),
+line_sex = (F_1 - F_3) - (M_1 - M_3),
 levels=MM)
 ```
 
@@ -744,9 +745,12 @@ out_SL3 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line3"],table_nam
 females_table <- sprintf("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_F_1-3.txt", day)
 out_f <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"females"],table_name=females_table,lfc_min = 0)
 
-males_table <- sprintf("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_M_1-3.txt", day)
+males_table <- sprintf("/Users/milena/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_M_1-3.txt", day)
 out_m <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"males"],table_name=males_table,lfc_min = 0)
 
-interaction_table <- sprintf("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_F-M_by_1-3.txt", day)
-out_m <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"males"],table_name=interaction_table,lfc_min = 0)
+interaction_table <- sprintf("/Users/milena/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_F-M_by_1-3.txt", day)
+out_int <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"sex_line"],table_name=interaction_table,lfc_min = 0)
+
+interaction_table <- sprintf("/Users/milena/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_F-M_by_1-3_rev.txt", day)
+out_int <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_sex"],table_name=interaction_table,lfc_min = 0)
 ```
