@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib_venn import venn2,venn3
 import math
-import numpy as np
+import scipy.stats as sts
 import warnings
 import upsetplot
 
@@ -659,6 +659,126 @@ def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = ""
     return data
 
 
+
+def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, plot_filename  = "LogFC_boxplot.png", plot_title = ""):
+    """
+    Make boxplot of abs LogFC of sig DE genes for all files specified in infiles_dict with the dict keys as axis labels
+    """
+    tables_list = []
+    xtick_labels = []
+    for name,table_path in infiles_dict.items():
+        df = pd.read_csv(table_path, sep="\t", skiprows=0)
+        df_sig = df.loc[df['FDR'] < p_sig]
+        if min_LFC!=0:
+            # df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
+            df_sig = df_sig.loc[df_sig['logFC'] < min_LFC]
+        data = df_sig["logFC"].tolist()
+        tables_list.append(data)
+        name_ = name.replace("SL1", "small-Y").replace("SL3", "large-Y").replace(":", f"\n")
+        xtick_labels.append(f"{name_}\n({len(data)})")
+        # sig_geneIDs_lists[name] = df_sig["Gene"].tolist()
+    tick_pos = range(len(xtick_labels))
+
+    colors_dict = {
+        "fill" : "#F2933A", # uniform_filtered orange
+        "edge" : "#C36711", # darker orange
+        "medians" : "#FFBB7C", # lighter orange
+        "X_fill" : "#b82946", # native red
+        "X_edge" : "#861D32", #dark red
+        "X_medians" : "#D86A80" # light red
+    }
+    
+    fs = 50 # font size
+    lw = 6
+    width = 0.7
+    # set figure aspect ratio
+    aspect_ratio = 14 / 8
+    height_pixels = 1500  # Height in pixels
+    width_pixels = int(height_pixels * aspect_ratio)  # Width in pixels
+    fig, ax = plt.subplots(1,1,figsize=(width_pixels / 100, height_pixels / 100), dpi=100)
+
+    bp = ax.boxplot(tables_list, positions=tick_pos, widths=width, patch_artist=True)
+    if min_LFC>0:
+        ax.axhline(y=0, color='#B78F85', linestyle='--', linewidth=lw)
+
+    ax.tick_params(axis='y', labelsize=fs*0.9)
+    ax.tick_params(axis='x', labelsize=fs*0.9)
+    ax.set_xticklabels(xtick_labels, fontsize=fs)
+    ax.set_ylabel("log2FC (F - M)", fontsize = fs)#, x=0.0, y=0.625)
+    if len(plot_title)>0:
+        ax.set_title(plot_title, fontsize=fs*1.2)#, fontstyle='italic')
+
+    ## modify boxplot colors
+    if True:
+        for i, box in enumerate(bp['boxes']):
+            if i%2==0:
+                box.set(facecolor=colors_dict["fill"], edgecolor=colors_dict["edge"], linewidth=2)
+            else:
+                box.set(facecolor=colors_dict["X_fill"], edgecolor=colors_dict["X_edge"], linewidth=2)
+        for i, median in enumerate(bp['medians']):
+            if i%2==0:
+                median.set(color=colors_dict['medians'], linewidth=lw)
+            else:
+                median.set(color=colors_dict['X_medians'], linewidth=lw)
+        for i, whisker in enumerate(bp['whiskers']):
+            # print(f"whisker: {i}")
+            if i//2 % 2==0:
+                whisker.set(color=colors_dict['edge'], linestyle='-',linewidth=lw)
+            else:
+                whisker.set(color=colors_dict['X_edge'], linestyle='-',linewidth=lw)
+        for i, cap in enumerate(bp['caps']):
+            if i//2 % 2==0:
+                cap.set(color=colors_dict['edge'],linewidth=lw)
+            else:
+                cap.set(color=colors_dict['X_edge'],linewidth=lw)
+        for i, flier in enumerate(bp['fliers']):
+            if i%2==0:
+                flier.set(marker='.', markersize = lw*6, markerfacecolor=colors_dict['edge'], markeredgecolor=colors_dict['edge'])
+            else:
+                flier.set(marker='.', markersize = lw*6, markerfacecolor=colors_dict['X_edge'], markeredgecolor=colors_dict['X_edge'])
+
+    ## make statistical annotation
+    if True:
+        def add_significance_bar_log(ax, x1, x2, data, y, factor=1.1, color='black', lw=lw, fs=fs):
+            """
+            This function was modified from one created by claude code
+            """
+            # run the test
+            data1 = data[x1]
+            data2 = data[x2]
+            stat, p = sts.mannwhitneyu(data1, data2, alternative='two-sided')
+
+            # convert p-value to stars
+            text = 'ns'
+            color="#8e8e8e" #light grey
+            tick_top = y + factor*0.7
+            if p < 0.05:
+                text = '*'
+                color="#343434"# darker grey
+                ax.text((x1+x2)/2, tick_top*0.975, text, ha='center', va='bottom', color=color, fontsize=fs)
+                print(f"  * Mann-Whitney {xtick_labels[x1]}-{xtick_labels[x2]} : \t U statistic: {stat}, p-value: {p}")
+            else:
+                print(f"    Mann-Whitney {xtick_labels[x1]}-{xtick_labels[x2]} : \t U statistic: {stat}, p-value: {p}")
+                ax.text((x1+x2)/2, tick_top*0.975, text, ha='center', va='bottom', color=color, fontsize=fs)
+            if y>0:
+                bar_raise = 0
+            else:
+                bar_raise = 0
+            ax.plot([x1, x1, x2, x2], [y+bar_raise, tick_top, tick_top, y+bar_raise], lw=lw, color=color)
+                
+        ymax = max([max(box) for box in tables_list])
+
+        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[1], data=tables_list, y=ymax+1, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[2], x2=tick_pos[3], data=tables_list, y=ymax+1, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[4], x2=tick_pos[5], data=tables_list, y=ymax+1, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[4], data=tables_list, y=ymax+3, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[1], x2=tick_pos[5], data=tables_list, y=ymax+5, lw=lw, fs=fs)
+    
+
+    plt.tight_layout()
+    plt.savefig(plot_filename, dpi = 300, transparent = True)
+    print(f"plot saved in current working directory as: {plot_filename}")
+
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
@@ -1296,7 +1416,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if True:
+    if False:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
@@ -1355,3 +1475,39 @@ if __name__ == "__main__":
                     numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
                     print(f"\t{numbers}")
 
+
+    #############################################
+    ####### PLOT LOGFC MAGNITUDE BOXPLOTS #######
+    #############################################
+
+    ## plot LogFC boxplots of male-biased genes of several contrasts within each separation
+    if True:
+        LFC_comp_sets = {
+            "day_separated" : {
+                "day14" : {
+                    "SL1" : "F_1 - M_1",
+                    "SL3" : "F_3 - M_3",
+                },
+                "day16" : {
+                    "SL1" : "F_1 - M_1",
+                    "SL3" : "F_3 - M_3",
+                    },
+                "day18" : {
+                    "SL1" : "F_1 - M_1",
+                    "SL3" : "F_3 - M_3",
+                    },
+            }
+        }
+        for separation, seps_dict in table_paths.items():
+            if separation not in LFC_comp_sets.keys():
+                continue
+            print(f"\n=========================== {separation} ===========================")
+
+            boxplot_contrasts = {}
+            for category, paths_dict in seps_dict.items():
+                print(f"\n ------------------- {category} -------------------")
+                for name, contrast in LFC_comp_sets[separation][category].items():
+                    boxplot_contrasts[f"{category}:{name}"] = paths_dict[LFC_comp_sets[separation][category][name]] 
+
+            # set minLFC to only include male-biased genes
+            plot_logFC_boxplots(infiles_dict= boxplot_contrasts, min_LFC=-1, plot_filename=f"{out_path_figs}/{separation}_sex_bias_LFC_boxplot.png")

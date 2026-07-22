@@ -2422,13 +2422,15 @@ document.addEventListener("DOMContentLoaded", function () {
   <img loading="lazy" src="data/DE_figures/MDS_SL3_only.png" width="32%" />
 </p>
 </details>
+
 <h3>Differential expression between males and females</h3>
+
 <p>Almost all DE is because of upregulation in males (in all lines and time points).</p>
 <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'SL3_smear')">SL3 (Smear plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'SL1_volcano')">SL1 (Volcano plot)</button>
-  <button class="tablinks" onclick="openTab(event, 'SL3_volcano')">SL3 (Volcano plot)</button>
+    <button class="tablinks" onclick="openTab(event, 'SL1_smear')">SL1 (Smear plot)</button>
+    <button class="tablinks" onclick="openTab(event, 'SL3_smear')">SL3 (Smear plot)</button>
+    <button class="tablinks" onclick="openTab(event, 'SL1_volcano')">SL1 (Volcano plot)</button>
+    <button class="tablinks" onclick="openTab(event, 'SL3_volcano')">SL3 (Volcano plot)</button>
 </div>
 <div id="SL1_smear" class="tabcontent">
 <p float="left">
@@ -3150,7 +3152,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<h3>Differential expression between males and females</h3>
+<h3 id="day-separated-sex-bias">Differential expression between males and females</h3>
 
 
 <p>This agrees very nicely with the line-separated analysis, most genes are male-biased, with SL1 on day 14 showing much less male-bias compared to all other tested contrasts.</p>
@@ -3158,6 +3160,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <button class="tablinks" onclick="openTab(event, 'day14_FM')">Day 14</button>
   <button class="tablinks" onclick="openTab(event, 'day16_FM')">Day 16</button>
   <button class="tablinks" onclick="openTab(event, 'day18_FM')">Day 18</button>
+  <button class="tablinks" onclick="openTab(event, 'all_Days_LFC_magnitude')">Magnitude LFC differences</button>
 </div>
 
 <div id="day14_FM" class="tabcontent">
@@ -3323,6 +3326,55 @@ document.addEventListener("DOMContentLoaded", function () {
     <div style="clear: both;"></div>
 </div>
 
+<div id="all_Days_LFC_magnitude" class="tabcontent">
+    <p>
+        Differences in the magnitude of <b>significantly male-biased</b> genes in all day samples and all lines.
+        Significant differences between all lines, and SL3 (largeY) decreases in magnitude during development. 
+        Sex-bias filtered to |log2FC| > 1, small Y (SL1) male bias magnitude stays relatively constant throughout development, 
+        but large Y (SL3) male bias decreases for older larvae.
+    </p>
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/day_separated_sex_bias_LFC_boxplot.png" width="75%" />
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Comparison</th>
+                <th>U statistic</th>
+                <th>p-value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>day 14 SL1-3</td>
+                <td>25774.0</td>
+                <td>p&lt;0.001</td>
+            </tr>
+            <tr>
+                <td>day 16 SL1-3</td>
+                <td>214252.0</td>
+                <td>p&lt;0.001</td>
+            </tr>
+            <tr>
+                <td>day 18 SL1-3</td>
+                <td>454324.0</td>
+                <td>p&lt;0.001</td>
+            </tr>
+
+            <tr>
+                <td>SL1 day 14-18</td>
+                <td>77026.0</td>
+                <td>p&lt;0.001</td>
+            </tr>
+            <tr>
+                <td>SL3 day 14-18</td>
+                <td>25774.0</td>
+                <td>0.875</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
 
 <h3 id="day-separated-interaction">Interaction sex-bias by line-bias</h3>
 
