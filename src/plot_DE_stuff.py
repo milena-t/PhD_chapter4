@@ -712,9 +712,9 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, plot_filename 
     if True:
         for i, box in enumerate(bp['boxes']):
             if i%2==0:
-                box.set(facecolor=colors_dict["fill"], edgecolor=colors_dict["edge"], linewidth=2)
+                box.set(facecolor=colors_dict["fill"], edgecolor=colors_dict["edge"], linewidth=lw)
             else:
-                box.set(facecolor=colors_dict["X_fill"], edgecolor=colors_dict["X_edge"], linewidth=2)
+                box.set(facecolor=colors_dict["X_fill"], edgecolor=colors_dict["X_edge"], linewidth=lw)
         for i, median in enumerate(bp['medians']):
             if i%2==0:
                 median.set(color=colors_dict['medians'], linewidth=lw)
@@ -782,7 +782,7 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, plot_filename 
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
-    username = "milena"
+    username = "miltr339"
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
     

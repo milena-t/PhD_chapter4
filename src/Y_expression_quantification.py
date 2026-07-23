@@ -3,7 +3,8 @@ Plot gene expression and compare Y and A
 """
 
 from basic_plotting import plot_counts
-
+from plot_DE_stuff import get_tables
+import warnings
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -265,7 +266,130 @@ def filter_counts_file(counts_path, out_path, IDs_list):
                 line_counts += 1
         print(f"filtering for {len(IDs_list)} genes : {line_counts} out of {line_counts_all} lines written to new file {out_path}")
             
-                
+
+
+def plot_LFC_sets(LFC_tables_contrasts:dict, geneIDs_dict:list, outfile_name:str, y_label="LogFC", legend_side="right"):
+    """
+    plot the logFC of the geneIDs in all samples
+    except samples where all samples have zero counts
+    gene_IDs_lists_dict is a dict of {'label' : [geneID_list]}, 
+    and the mean counts with error bars of each list are plotted
+    """
+    geneIDs_list = list(geneIDs_dict.values())
+    assert len(geneIDs_list)>0
+
+    LFC_df = {}
+    zero_samples = []
+    nonzero_samples = []
+    all_samples = []
+    for contrast,LFC_table in LFC_tables_contrasts.items():
+        df = pd.read_csv(LFC_table, sep="\t", index_col=0)
+        cols = df.columns.tolist()
+        contrast_df = pd.DataFrame(columns=cols, index=geneIDs_list)
+        for name,geneID in geneIDs_dict.items():
+            # print(f"---- {contrast} -- {name}")
+            try:
+                df_filt = df.loc[[geneID],:]
+                contrast_df.loc[geneID, :] = df.loc[geneID,:]
+                nonzero_samples.append(contrast)
+            except:
+                zero_row = [np.nan,np.nan,np.nan,1,1,geneID]
+                zero_df = pd.DataFrame(data = [zero_row],columns=cols, index=[geneID])
+                contrast_df.loc[geneID, :] = zero_row
+                zero_samples.append(contrast)
+            all_samples.append(contrast)
+        LFC_df[contrast] = contrast_df
+    
+    print(f"{len(zero_samples)} out of {len(all_samples)} have no expression for some of the genes in the input:\n --> {zero_samples}")
+    
+    # for contrast,df in LFC_df.items():
+    #     print(contrast)
+    #     print(df)
+    #     print(f"\n")
+    # print(f"\n\n")
+
+    ### plotting
+    fig, ax = plt.subplots(1,1, figsize=(20, 10)) # for more than three rows
+
+    fs = 30
+    ps = fs*0.8# * 1/len(geneIDs_lists_dict) # point size
+    sig_ps_fac = 40
+    lw=4
+    linest = ":"
+
+    # sort nonzero samples by days
+    samples_sorted = sorted(list(set(all_samples)))
+    tick_labels = [sample.replace(":", f"\n").replace("F-M_", f"") for sample in samples_sorted]
+    tick_pos = [i for i in range(len(samples_sorted))]
+    print(samples_sorted)
+
+    colors_list = ["#d2416e","#57b158","#c35dbd","#a6b541","#7965ca","#cd9445","#678ccc","#c85c3f","#4caf9a","#bd6b8f","#717935"]
+    c = 0
+    
+    gene_legend = []
+    gene_legend_add_manual_col = []
+    gene_legend_add_manual_name = []
+    for name,geneID in geneIDs_dict.items():
+        LFC_list = []
+        sig_pos = []
+        sig_LFC = []
+        for i, contrast in enumerate(samples_sorted):
+            contrast_LFC = LFC_df[contrast].loc[geneID]["logFC"]
+            LFC_list.append(contrast_LFC)
+
+            if LFC_df[contrast].loc[geneID]["FDR"] <= 0.05:
+                sig_pos.append(tick_pos[i])
+                sig_LFC.append(contrast_LFC)
+                print(f"\t* ({contrast})({name}) LFC = {contrast_LFC} (SIG. LFC)")
+            else:
+                print(f"\t* ({contrast})({name}) LFC = {contrast_LFC} (nonsig)")
+
+        ax.plot(tick_pos, LFC_list,color=colors_list[c], linewidth =lw, 
+                    marker = "1", markersize=ps*0.9, linestyle = linest)
+
+        if len(sig_LFC)>0:
+            ax.scatter(sig_pos, sig_LFC,color=colors_list[c], linewidth =lw, 
+                    marker = ".", s=ps*sig_ps_fac, label=name)
+        gene_legend_add_manual_col.append(colors_list[c])
+        gene_legend_add_manual_name.append(name)
+        c +=1
+
+    ybottom, ytop = plt.ylim()
+    xbottom, xtop = plt.xlim()
+    
+    main_sig = ax.scatter(-100, -100,color="#000000", linewidth =lw, marker = ".", s=ps*sig_ps_fac, linestyle ="" , label="sig. LFC")
+    main_nonsig = ax.scatter(-100, -100,color="#000000", linewidth =lw, marker = "1", s=ps*sig_ps_fac*0.8, linestyle = "" , label="nonsig.")
+    
+    # make the gene name legend manually
+    if len(gene_legend_add_manual_name) >0:
+        for col,name in zip(gene_legend_add_manual_col,gene_legend_add_manual_name):
+            gene_legend_point = ax.scatter(-100, -100,color=col, linewidth =lw, 
+                    marker = ".", s=ps*sig_ps_fac, label=name)
+            gene_legend.append(gene_legend_point)
+
+    ax.axhline(y=0, color='#B78F85', linestyle='--', linewidth=lw*0.7)
+
+    ax.set_ylim([ybottom, ytop])
+    ax.set_xlim([xbottom, xtop])
+    
+    sig_legend = plt.legend(handles = [main_sig,main_nonsig],fontsize = fs*0.75, loc=f'center {legend_side}')
+    
+    ax.set_xticks(tick_pos)
+    ax.set_xticklabels(tick_labels)
+    for tick_label,sample in zip(ax.get_xticklabels(), samples_sorted):
+        if sample in zero_samples:
+            tick_label.set_color("#9e9e9e")
+    
+    ax.tick_params(axis='x', labelsize=fs)#,labelrotation=90)#, colors)
+    ax.tick_params(axis='y', labelsize=fs)
+    ax.set_ylabel(f"{y_label}", fontsize = fs)
+    plt.tight_layout()
+    if len(geneIDs_list)>1:
+        genes_legend = plt.legend(handles = gene_legend, fontsize = fs*0.75, loc=f'lower {legend_side}')#, title ="gene sig. in\nmain effect", title_fontsize = fs*0.7)
+        ax.add_artist(sig_legend)
+
+    plt.savefig(outfile_name, dpi = 300, transparent = True)
+    print(f"plot saved in current working directory as: {outfile_name}")
 
 
 if __name__ == "__main__":
@@ -277,29 +401,69 @@ if __name__ == "__main__":
     samples_group_dict = samples_group()
     samples_group_dict_rev = {item: key for key, values in samples_group_dict.items() for item in values}
 
+    if False:
+        if True:
+            print(f"\n")
+            plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
+                        outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True)
+            print(f"\n")
+            plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
+                        outfile_name = f"{out_path}/y_x_genes_mean_expression.png", y_label= "normalized counts", errorbars=False)
+        if True:
+            print(f"\n")
+            plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
+                        outfile_name = f"{out_path}/y_genes_mean_expression_sample_groups.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
+            print(f"\n")
+            plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
+                        outfile_name = f"{out_path}/y_x_genes_mean_expression_sample_groups.png", y_label= "normalized counts", errorbars=False, samples_group_dict = samples_group_dict)
+        if True:
+            print(f"\n")
+            plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = tor_related, 
+                        outfile_name = f"{out_path}/tor_pathway_related_expression.png", y_label= "normalized counts", errorbars=True)
+            print(f"\n")
+            plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = tor_related, 
+                        outfile_name = f"{out_path}/tor_pathway_related_expression_sample_groups.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
+        
+        ### test stuff with edgeR on downsampled counts files, did not work! only here for posterity just in case
+        # filter_counts_file(counts_path=count_files["raw"], out_path = count_files["raw"].replace(".txt", "_only_Y.txt"), IDs_list=y_contigs["all"])
+        # filter_counts_file(counts_path=count_files["raw"], out_path = count_files["raw"].replace(".txt", "_only_X.txt"), IDs_list=x_contigs["all"])
+
+    if False: 
+        MSL2_IDs = { "Y-MSL2" : ["gene-371922"],"A-MSL2" : ["gene-343165"]} # Y-copy,A-copy
+        MSL2_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/MSL2_counts_sample_groups.png"
+        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict=MSL2_IDs, outfile_name=MSL2_plot, errorbars=True, samples_group_dict = samples_group_dict)
 
     if True:
-        print(f"\n")
-        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
-                    outfile_name = f"{out_path}/y_genes_mean_expression.png", y_label= "normalized counts", errorbars=True)
-        print(f"\n")
-        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
-                    outfile_name = f"{out_path}/y_x_genes_mean_expression.png", y_label= "normalized counts", errorbars=False)
-    if True:
-        print(f"\n")
-        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"]}, 
-                    outfile_name = f"{out_path}/y_genes_mean_expression_sample_groups.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
-        print(f"\n")
-        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"Y" : y_contigs["all"], "X" : x_contigs["all"]}, 
-                    outfile_name = f"{out_path}/y_x_genes_mean_expression_sample_groups.png", y_label= "normalized counts", errorbars=False, samples_group_dict = samples_group_dict)
-    if True:
-        print(f"\n")
-        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = tor_related, 
-                    outfile_name = f"{out_path}/tor_pathway_related_expression.png", y_label= "normalized counts", errorbars=True)
-        print(f"\n")
-        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = tor_related, 
-                    outfile_name = f"{out_path}/tor_pathway_related_expression_sample_groups.png", y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict)
-    
-    ### test stuff with edgeR on downsampled counts files, did not work! only here for posterity just in case
-    # filter_counts_file(counts_path=count_files["raw"], out_path = count_files["raw"].replace(".txt", "_only_Y.txt"), IDs_list=y_contigs["all"])
-    # filter_counts_file(counts_path=count_files["raw"], out_path = count_files["raw"].replace(".txt", "_only_X.txt"), IDs_list=x_contigs["all"])
+        warnings.filterwarnings("ignore")
+        table_paths,contrast_plot_titles = get_tables(username=username)
+
+
+        ###  plot sex bias
+        plot_day_sep_sex_bias_contrasts = {}
+        for day, subdict in table_paths["day_separated"].items():
+            for contrast,path in subdict.items():
+                if "F" in contrast and "M" in contrast and "(" not in contrast:
+                    contrast_=contrast.replace("M_1", "M_smallY").replace("M_3", "M_largeY").replace("F_1", "F").replace("F_3", "F").replace(" ", "")
+                    plot_day_sep_sex_bias_contrasts[f"{day}:{contrast_}"] = path
+        ## plot line bias
+        plot_day_sep_line_bias_contrasts = {}
+        for day, subdict in table_paths["day_separated"].items():
+            for contrast,path in subdict.items():
+                if "1" in contrast and "3" in contrast and "(" not in contrast:
+                    contrast_=contrast.replace("M_1", "M").replace("M_3", "").replace("F_1", "F").replace("F_3", "").replace("-", "").replace(" ", "")
+                    plot_day_sep_line_bias_contrasts[f"{day}:{contrast_}"] = path
+
+        if True:
+
+            yTor_dict = {"Y-Tor" : "yTor-all", "A-Tor" : "gene-30110",}
+            plot_LFC_sets(LFC_tables_contrasts=plot_day_sep_sex_bias_contrasts, geneIDs_dict = yTor_dict, 
+                        outfile_name = f"{out_path}/TOR_sex_bias_LFC.png", y_label= "log2FC (F-M contrast)")
+            plot_LFC_sets(LFC_tables_contrasts=plot_day_sep_line_bias_contrasts, geneIDs_dict = yTor_dict, 
+                        outfile_name = f"{out_path}/TOR_line_bias_LFC.png", y_label= "log2FC (small-large contrast)")
+
+        if True:
+            MSL2_IDs = { "Y-linked MSL2" : "gene-371922","autosomal MSL2" : "gene-343165"} # Y-copy,A-copy
+            plot_LFC_sets(LFC_tables_contrasts=plot_day_sep_sex_bias_contrasts, geneIDs_dict = MSL2_IDs, 
+                        outfile_name = f"{out_path}/MSL2_sex_bias_LFC.png", y_label= "log2FC (F-M contrast)", legend_side="left")
+            plot_LFC_sets(LFC_tables_contrasts=plot_day_sep_line_bias_contrasts, geneIDs_dict = MSL2_IDs, 
+                        outfile_name = f"{out_path}/MSL2_line_bias_LFC.png", y_label= "log2FC (small-large contrast)", legend_side="left")
