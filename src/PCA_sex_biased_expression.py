@@ -110,7 +110,13 @@ def plot_PCA_vst_counts(counts_path:str, metadata_path:str, plot_path:str="", co
     for key,value in sex_labels.items():
         ax.scatter(xleg,yleg,marker=value,s=ps,label=key, color='black')
     for key,value in org_labels.items():
-        ax.scatter(xleg,yleg,color=value,s=ps,label=key, marker="s")
+        if key>10:
+            label_ = f"Day {key}"
+        elif key ==1:
+            label_ = "small-Y"
+        elif key==3:
+            label_ = "large-Y"
+        ax.scatter(xleg,yleg,color=value,s=ps,label=label_, marker="s")
     ax.legend(fontsize=fs)
     plt.suptitle(f"Differential expression \nbased on {len(metadata)} samples", fontsize=fs*1.25)
     
@@ -235,7 +241,14 @@ def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", co
         for key,value in sex_labels.items():
             ax.scatter(xleg,yleg,marker=value,s=ps,label=key, color='black')
         for key,value in org_labels.items():
-            ax.scatter(xleg,yleg,color=value,s=ps,label=key, marker="s")
+            if key>10:
+                label_ = f"Day {key}"
+            elif key ==1:
+                label_ = "small-Y"
+            elif key==3:
+                label_ = "large-Y"
+            # print(f"label: {key}, {type(key)} --> {label_}")
+            ax.scatter(xleg,yleg,color=value,s=ps,label=label_, marker="s")
 
     elif day != "":
         for i, row in pca_df.iterrows():
@@ -281,14 +294,14 @@ if __name__ == "__main__":
     if True:
         counts_path, vst_path = counts_paths(username=username)
         metadata_path = metadata_paths(username=username)
-        if True:
+        if False:
             for condition in ["line", "day"]:
                 plot_PCA_vst_counts(
                     counts_path=vst_path, 
                     metadata_path=metadata_path, 
                     plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_{condition}_all_counts.png",
                     condition=condition)
-        if False:
+        if True:
             for sex in ["M", "F"] :
                 plot_PCA_separation(
                     counts_path=vst_path, 
