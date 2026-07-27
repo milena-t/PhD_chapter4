@@ -15,18 +15,36 @@ Detailed documentation is here: https://rdrr.io/bioc/topGO/f/inst/doc/topGO.pdf
 ```{r}
 if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
-BiocManager::install()
+
 BiocManager::install("topGO")
 BiocManager::install("GO.db")
-BiocManager::install("ViSEAGO")
+```
+```{r}
+
+### simplifyEnrichment package and dependencies:
+
+# There is an error in GlobalOptions where it imports findMatches from a wrong namespace that i fixed like this in the source code:
+# 1. download from source: 
+#     curl -O https://cloud.r-project.org/src/contrib/GlobalOptions_0.1.4.tar.gz
+#     tar -xzf GlobalOptions_0.1.4.tar.gz
+# 2. find the wrong import:
+#     grep -n "findMatches" GlobalOptions/NAMESPACE
+# 3. remove the wrong line:
+#     sed -i '' '/importFrom(utils,findMatches)/d' GlobalOptions/NAMESPACE
+# 4. build:
+#     R CMD build GlobalOptions
+install.packages("/Users/miltr339/work/software/GlobalOptions_0.1.4.tar.gz", repos = NULL, type = "source")
+library(GlobalOptions)
+install.packages("RcppParallel")
+library(RcppParallel)
+BiocManager::install("simplifyEnrichment")
 ```
 
 ```{r}
 library(topGO)
 library(plyr)
-library(ViSEAGO)
 library(stringr)
-library(lintr)
+library(simplifyEnrichment)
 ```
 
 ## read input files
@@ -54,7 +72,7 @@ annotation_df <- make_annotation_df_from_eggnog(annotation_path)
 lists of significant geneIDs for all contrasts
 
 ```{r}
-indir <- "/Users/milena/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
+indir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
 # sex separated
 ## females
 sex_sep_F <- c(sprintf("%s/sig_DE_list_F_1-3_day14.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day16.txt",indir),sprintf("%s/sig_DE_list_F_1-3_day18.txt",indir),sprintf("%s/sig_DE_list_F_SL1.txt",indir),sprintf("%s/sig_DE_list_F_SL1_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL1_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3.txt",indir),sprintf("%s/sig_DE_list_F_SL3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL3_18_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_14_16.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_14.txt",indir),sprintf("%s/sig_DE_list_F_SL_1_3_18_16.txt",indir),sprintf("%s/only_F_no_line_sig_DE_list_day_14-16.txt",indir),sprintf("%s/only_F_no_line_sig_DE_list_day_16-18.txt",indir),sprintf("%s/only_F_no_line_sig_DE_list_day_14-18.txt",indir))
@@ -69,11 +87,11 @@ line_sep_SL3 <- c(sprintf("%s/sig_DE_list_SL3_day14_16_F-M.txt",indir),sprintf("
 
 # day separated
 ## day 14
-day_sep_d14 <- c(sprintf("%s/sig_DE_list_day14_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day14_SL3_F-M.txt",indir))
+day_sep_d14 <- c(sprintf("%s/sig_DE_list_day14_M_1-3.txt",indir))#,sprintf("%s/sig_DE_list_day14_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day14_SL3_F-M.txt",indir))
 ## day 16
-day_sep_d16 <- c(sprintf("%s/sig_DE_list_day16_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day16_SL3_F-M.txt",indir))
+day_sep_d16 <- c(sprintf("%s/sig_DE_list_day16_M_1-3.txt",indir))#,sprintf("%s/sig_DE_list_day16_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day16_SL3_F-M.txt",indir))
 ## day 18
-day_sep_d18 <- c(sprintf("%s/sig_DE_list_day18_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day18_SL3_F-M.txt",indir))
+day_sep_d18 <- c(sprintf("%s/sig_DE_list_day18_M_1-3.txt",indir))#,sprintf("%s/sig_DE_list_day18_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day18_SL3_F-M.txt",indir))
 
 # no separation
 ## line ignored
@@ -84,7 +102,7 @@ line_ig_sex_bias <- c(sprintf("%s/full_dataset_line_ignored_day14_F-M.txt", indi
 
 make GO enrichment object for each contrast
 ```{r}
-GO_enrichment_analysis <- function(sig_infile, annotation_df){
+GO_enrichment_analysis <- function(sig_infile, annotation_df, semantic_clustering=FALSE){
   # prepare input data
   sig_df <- read.csv(sig_infile, sep=",", header=TRUE)
   geneList <- factor(as.integer(sig_df$sig_DE))
@@ -103,13 +121,30 @@ GO_enrichment_analysis <- function(sig_infile, annotation_df){
     result <- runTest(GOdata, algorithm = "elim", statistic = "fisher")
     ## about the "elim" algorithm from the documentation: "Here one computes the p-value of a GO term conditioned on the neighbouring terms. The tests are therefore not independent and the multiple testing theory does not directly apply. We like to interpret the p-values returned by these methods as corrected or not affected by multiple testing."
     allRes <- GenTable(GOdata,classicFisher = result,orderBy = "classicFisher",topNodes = 1000)
+    # make vector of sig. GO terms
+    allRes$classicFisher <- as.numeric(gsub("< ", "", allRes$classicFisher))
+    sigRes <- allRes[allRes$classicFisher < 0.05, ]
+    go_ids <- sigRes$GO.ID
     # write to outfile
     outfile_name <- str_replace(sig_infile, "sig_DE_list_", "GO_enrichment_")
     outfile_name <- str_replace(sig_infile, "interaction", "interaction_GO_enrichment") 
     outfile_name <- str_replace(sig_infile, "ignore", "ignore_GO_enrichment") 
     outfile_name <- str_replace(outfile_name, ".txt", ".csv") 
-    write.csv(allRes, outfile_name, row.names=TRUE)
-    return(allRes)
+    write.csv(sigRes, outfile_name, row.names=TRUE)
+
+    ## make enrichment visualization
+    # use simplifyEnrichment
+    # this takes super long, so only do when it's relevant, not worth it for everything
+    if(semantic_clustering){
+      outfile_name <- str_replace(outfile_name, ".csv", ".png") 
+      mat <- GO_similarity(go_ids, ont = "BP")  # biological process (BP) like above! needs to match
+      # do the clustering, this takes quite a while
+      png(outfile_name, width = 10, height = 8, units = "in", res = 300)
+      df <- simplifyGO(mat, use_raster = FALSE)
+      dev.off()
+    }
+
+    return(sigRes)
   }
 }
 ```
@@ -123,9 +158,9 @@ for (sig_list in sex_sep_M){GO_enrichment_analysis(sig_infile = sig_list, annota
 for (sig_list in line_sep_SL1){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
 for (sig_list in line_sep_SL3){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
 
-for (sig_list in day_sep_d14){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
-for (sig_list in day_sep_d16){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
-for (sig_list in day_sep_d18){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
+for (sig_list in day_sep_d14){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)}
+for (sig_list in day_sep_d16){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)}
+for (sig_list in day_sep_d18){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)}
 
 for (sig_list in line_ig_sex_bias){GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)}
 ```
@@ -149,5 +184,44 @@ GO_enrichment_analysis(sig_infile = sig_list_late, annotation_df = annotation_df
 sig_list_early = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs.txt"
 GO_enrichment_analysis(sig_infile = sig_list_early, annotation_df = annotation_df)
 sig_list_all = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs.txt"
-GO_enrichment_analysis(sig_infile = sig_list_all, annotation_df = annotation_df)
+GO_enrichment_analysis(sig_infile = sig_list_all, annotation_df = annotation_df, semantic_clustering=TRUE)
+```
+
+analyze GO term enrichment from upsetplot intersection lists
+```{r}
+semantic_clistering_from_table <- function(sig_infile){
+  # prepare input data
+  sig_df <- read.csv(sig_infile, sep="\t", header=FALSE)
+  go_ids <- sig_df$V1
+  sigs_num <- length(go_ids)
+
+  ## only run if there are at least 10 significantly differentially expressed genes! # nolint
+  if (sigs_num > 9){
+    outfile_name <- str_replace(sig_infile, ".txt", ".png") 
+
+    ## make enrichment visualization
+    # use simplifyEnrichment
+    mat <- GO_similarity(go_ids, ont = "BP")  # biological process (BP) like above! needs to match
+    # do the clustering, this takes quite a while
+    png(outfile_name, width = 10, height = 8, units = "in", res = 300)
+    df <- simplifyGO(mat, use_raster = FALSE)
+    dev.off()
+  }
+}
+```
+
+Full dataset line fixed effect: genes that are sex-biased on all days
+```{r}
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_no_separation_line_random_line_ign_alldays.txt"
+semantic_clistering_from_table(sig_infile=sig_list)
+```
+sex-separated dataset, genes that are day-biased in early (14-16) or late (16-18) comparisons in males
+
+```{r}
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day14-day16.txt"
+semantic_clistering_from_table(sig_infile=sig_list)
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day16-day18.txt"
+semantic_clistering_from_table(sig_infile=sig_list)
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day14-day18.txt"
+semantic_clistering_from_table(sig_infile=sig_list)
 ```
