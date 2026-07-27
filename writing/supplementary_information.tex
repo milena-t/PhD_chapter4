@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 %\usepackage[draft]{graphicx}
 
+\usepackage{grffile}
 \usepackage{amsmath}
 \usepackage{wrapfig}
 \usepackage{subcaption}
@@ -58,7 +59,7 @@
 \affil[2]{Philipp's current affiliation}
 
 \begin{document}
-\pagenumbering{gobble}
+% \pagenumbering{gobble}
 \maketitle
 \newpage
 \renewcommand{\arraystretch}{1.5}
@@ -67,6 +68,27 @@
 
 % pdflatex -pdf supplementary_information.tex
 
+\subsection*{Sample numbers}
+
+\begin{itemize}
+    \item Day 14
+    \begin{itemize}
+        \item Small-Y: 10 males, 3 females
+        \item Large-Y: 9 males, 6 females
+    \end{itemize}
+    \item Day 16
+    \begin{itemize}
+        \item Small-Y: 11 males, 3 females
+        \item Large-Y: 7 males, 6 females
+    \end{itemize}
+    \item Day 18
+    \begin{itemize}
+        \item Small-Y: 7 males, 5 females
+        \item Large-Y: 12 males, 3 females
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Additional results}
 
 \begin{figure}[H]
 
@@ -87,12 +109,200 @@
         \end{center}        
     \end{subfigure}
     
-    \caption{\textbf{Line-biased genes in males}. 
+    \caption{\textbf{PCA plots of full dataset}. 
     (\textbf{A}, \textbf{B}) PCA of all samples, hightlighted by Y-haplotype (A) or time point (B).
-    }\label{day_split}
+    }\label{PCA_all}
     
 \end{figure}
 
+\begin{figure}[H]
+\begin{center}
+    \begin{subfigure}[t]{0.35\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_day_random_factor_days_diff_day16_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.35\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_day_random_factor_days_diff_day18_volcano.png}
+        \end{center}        
+    \end{subfigure}
+\end{center}       
+    \caption{\textbf{Volcano plots of day-comparisons on full dataset}. 
+    The comparison is of coefficients day 16 (A) and day 18 (B) to the intercept (day 14).
+    }\label{PCA_sex_split}
+    
+\end{figure}
+
+
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.49\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_M_day_line.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_F_day_line.png}
+        \end{center}        
+    \end{subfigure}
+    
+    \caption{\textbf{PCA plots of male and female samples separated}. 
+    Separate analysis of male (A) and female (B) samples.
+    }\label{PCA_sex_split}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.32\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_M_SL_1_3_14_16_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_M_SL_1_3_18_14_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_M_SL_1_3_18_16_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    
+    \caption{\textbf{Volcano plot of male samples line-by-day interaction}. The interaction is calculated between the 
+    contrasts of smallY-largeY and each pairwise day comparison, day 14-16 (A), day 18-14 (B) and day 18-16 (C).
+    }\label{male_day-line_volcano}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+    \begin{subfigure}[t]{0.6\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_sex_day14_line.png}
+        \end{center}        
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.6\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_sex_day16_line.png}
+        \end{center}        
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.6\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_sex_day18_line.png}
+        \end{center}        
+    \end{subfigure}
+\end{center}   
+    \caption{\textbf{PCA plots of samples from each time point separately}. 
+    }\label{PCA_line-split}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.49\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(27,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day14_line_bias_by_sex.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \begin{picture}(0,0)
+            \put(27,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day16_line_bias_by_sex.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{center}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \begin{picture}(0,0)
+            \put(27,-30){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day18_line_bias_by_sex.png}
+        \end{center}        
+    \end{subfigure}
+    \end{center}
+    
+    \caption{\textbf{Overlap of line-biased genes between the sexes}. One overlap for each day, significance calculated 
+    on day-separated samples.
+    }\label{male-female-line-bias-venn}
+    
+\end{figure}
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.32\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_F-M_by_1-3_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_F-M_by_1-3_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_F-M_by_1-3_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    
+    \caption{\textbf{Volcano plot of line-by-sex interaction for each time point}.
+    }\label{days_sex-line_interaction_volcano}
+    
+\end{figure}
 
 
 \end{document}

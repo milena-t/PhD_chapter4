@@ -148,7 +148,10 @@ def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", co
     elif line != "":
         if line not in ["1","3"]:
             raise RuntimeError(f"invalid day specifier, you picked '{line}', pick '1' or '3'!")
-        cat_name = f"SL{line}"
+        if line == "1":
+            cat_name = f"small-Y"
+        if line == "3":
+            cat_name = f"large-Y"
     
     norm_counts = pd.read_csv(counts_path, sep="\t", comment="#", index_col=0)
     # read metadata and sort/order according to counts
@@ -214,9 +217,23 @@ def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", co
         xleg = xlim[0]-1e6
 
         for key,value in sex_labels.items():
-            ax.scatter(xleg,yleg,marker=value,s=ps,label=key, color='black')
+            key = int(key)
+            if key>10:
+                label_ = f"Day {key}"
+            elif key ==1:
+                label_ = "small-Y"
+            elif key==3:
+                label_ = "large-Y"
+            ax.scatter(xleg,yleg,marker=value,s=ps,label=label_, color='black')
         for key,value in org_labels.items():
-            ax.scatter(xleg,yleg,color=value,s=ps,label=key, marker="s")
+            key = int(key)
+            if key>10:
+                label_ = f"Day {key}"
+            elif key ==1:
+                label_ = "small-Y"
+            elif key==3:
+                label_ = "large-Y"
+            ax.scatter(xleg,yleg,color=value,s=ps,label=label_, marker="s")
 
     elif line != "":
         for i, row in pca_df.iterrows():
@@ -271,9 +288,31 @@ def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", co
         xleg = xlim[0]-1e6
 
         for key,value in sex_labels.items():
-            ax.scatter(xleg,yleg,marker=value,s=ps,label=key, color='black')
+            try:
+                key = int(key)
+                if key>10:
+                    label_ = f"Day {key}"
+                elif key ==1:
+                    label_ = "small-Y"
+                elif key==3:
+                    label_ = "large-Y"
+            except:
+                if key == "F" or key=="M":
+                    label_ = key
+            ax.scatter(xleg,yleg,marker=value,s=ps,label=label_, color='black')
         for key,value in org_labels.items():
-            ax.scatter(xleg,yleg,color=value,s=ps,label=key, marker="s")
+            try:
+                key = int(key)
+                if key>10:
+                    label_ = f"Day {key}"
+                elif key ==1:
+                    label_ = "small-Y"
+                elif key==3:
+                    label_ = "large-Y"
+            except:
+                if key == "F" or key=="M":
+                    label_ = key
+            ax.scatter(xleg,yleg,color=value,s=ps,label=label_, marker="s")
     ax.legend(fontsize=fs)
     plt.suptitle(f"Differential expression \nbased on {len(metadata)} {cat_name} samples", fontsize=fs*1.25)
     
@@ -287,7 +326,7 @@ def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", co
 
 if __name__ == "__main__":
 
-    username = "milena"
+    username = "miltr339"
 
 
     ### plot PCA

@@ -821,7 +821,7 @@ if __name__ == "__main__":
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
-    if False:
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -831,7 +831,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation !=  "day_separated":#  "no_separation":
+            if separation != "day_separated":
             # if separation == "day_separated" or separation == "line_separated":
                 print(f"ignore {separation}")
                 continue
@@ -846,9 +846,9 @@ if __name__ == "__main__":
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
-                if separation == "no_separation" and "day" in category:
-                    print(f"ignore {category}")
-                    continue
+                # if "day" not in category:
+                #     print(f"ignore {category}")
+                #     continue
             
                 numbers = {}
                 sig_DE_genes = {}
@@ -882,11 +882,13 @@ if __name__ == "__main__":
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"
 
-
                     if "random" in category:
                         smear_title = f"{contrast_plot_titles[contrast]}"
                     elif "day" in category or "day" in contrast:
-                        smear_title = f"{category} {contrast_plot_titles[contrast]}"
+                        if coefficients==False:
+                            smear_title = f"{category} {contrast_plot_titles[contrast]}"
+                        elif coefficients == True:
+                            smear_title = f"{contrast_plot_titles[contrast]}"
                     else:
                         smear_title = contrast_plot_titles[contrast]
                         smear_title = smear_title.replace(" days merged", "")
@@ -996,7 +998,7 @@ if __name__ == "__main__":
                 #######################################
                 #### make list of all the significantly line-biased genes from Fig 1 to do the GO enrichment                
                 #######################################
-                if True and separation == "day_separated":
+                if False and separation == "day_separated":
 
                     print(f"\n\n\n\n ---<>--> male line bias upset data")
 
@@ -1028,7 +1030,7 @@ if __name__ == "__main__":
                             outfile.write(nonsig)
 
                     ######### all lines sex bias
-                    if True:
+                    if False:
                         # filter to only include genes that are sig. in at least two days
                         mask_all = (
                             upset_data_sex.index.get_level_values('day14: small-Y').astype(int) +
@@ -1481,7 +1483,7 @@ if __name__ == "__main__":
     #############################################
 
     ## plot LogFC boxplots of male-biased genes of several contrasts within each separation
-    if True:
+    if False:
         LFC_comp_sets = {
             "day_separated" : {
                 "day14" : {
