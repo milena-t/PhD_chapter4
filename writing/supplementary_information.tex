@@ -686,6 +686,64 @@
 \label{tab:gene-list-sharedday16}
 \end{table}
 
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/yTor_analysis/TOR_y_counts_sample_groups.png}
+    \end{center}
+    
+    \caption{\textbf{y-TOR expression}.
+    }\label{yTor_counts}
+\end{figure}
+
+
+\begin{figure}[H]
+    \begin{center}
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                     \put(22,-15){\textbf{A}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_only_M_no_time_1-3_volcano_y_TOR.png}
+            \end{center}        
+        \end{subfigure}
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{B}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_M_1-3_day14_volcano_y_TOR.png}
+            \end{center}        
+        \end{subfigure}
+    
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{C}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_M_1-3_volcano_y_TOR.png}
+            \end{center}        
+        \end{subfigure}
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{D}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_F-M_by_1-3_volcano_y_TOR.png}
+            \end{center}        
+        \end{subfigure}
+    
+     \end{center}        
+        \caption{\textbf{Volcano plot of contrasts where y-TOR is significant}.
+        (\textbf{A}): Using only male samples, specifying the days as coefficients and the contrast as small-Y - large-Y.
+        (\textbf{B}): Using only male samples, specifying the day 14 small-Y - day14 large-Y contrast.
+        (\textbf{C}): Using only day 14 samples, using the males small-Y - males large-Y contrast.
+        (\textbf{D}): Using only day 14 samples, testing for the interaction of line-by-sex.
+        }\label{volcano_y_TOR_hightlight}
+        
+    \end{figure}
+
+
 \end{document}
 
 

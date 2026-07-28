@@ -170,7 +170,7 @@ def get_tables(username = "miltr339"):
     return out_dict,contrast_plot_titles
 
 
-def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC", excl_genes_list = [], x_axis = "logcpm", plot = True, coefficients=False):
+def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC", excl_genes_list = [], x_axis = "logcpm", plot = True, coefficients=False, highlight_yTOR=False):
     """
     replicate smear-plot from R, logCPM by logFC, significance highlighted in red
     return the number of up/downregulated and no difference genes
@@ -238,6 +238,12 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             elif x_axis == "fdr_p":
                 ax.scatter(df_nonsig[logfc_colname], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.4, s=ps, label=label_nonsig)
                 ax.scatter(df_sig[logfc_colname], df_sig["FDR_volc"], color = cols["sig"], alpha=0.4, s=ps, label=label_sig)
+                # if Y-TOR is significant highlight it
+                if highlight_yTOR:
+                    y_tor_sig_test = df_sig[df_sig["Gene"] == "yTor-all"]
+                    if not y_tor_sig_test.empty:
+                        y_tor_sig = y_tor_sig_test.iloc[[0]]   # double brackets keep it as a DataFrame, not a Series
+                        ax.scatter(y_tor_sig["logFC"], y_tor_sig["FDR_volc"], color = "#599BB7", alpha=1, s=ps, label="y-TOR")  
         
             if  x_axis == "logcpm":
                 ax.set_ylabel(f"{logfc_colname}", fontsize = fs)
@@ -314,6 +320,14 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             elif x_axis == "fdr_p":
                 ax.scatter(df_nonsig["logFC"], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps, label=label_nonsig)
                 ax.scatter(df_sig["logFC"], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps, label=label_sig)
+                # if Y-TOR is significant highlight it
+                if highlight_yTOR:
+                    y_tor_sig_test = df_sig[df_sig["Gene"] == "yTor-all"]
+                    if not y_tor_sig_test.empty:
+                        y_tor_sig = y_tor_sig_test.iloc[[0]]   # double brackets keep it as a DataFrame, not a Series
+                        ax.scatter(y_tor_sig["logFC"], y_tor_sig["FDR_volc"], color = "#599BB7", alpha=1, s=ps, label="y-TOR")  
+
+
             
             if "SL" in contrast and "/2" not in contrast:
                 if "SL1" in contrast and "SL3" in contrast:
@@ -364,6 +378,8 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             if x_axis == "fdr_p":
                 smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
                 ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
+            if highlight_yTOR:
+                smear_plot_name = smear_plot_name.replace(".png", "_y_TOR.png")
 
             if x_axis == "fdr_p":
                 plt.legend(fontsize = fs, loc='upper center') #, title ="gene counts", title_fontsize = fs*0.7
@@ -833,11 +849,12 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
+    highlight_yTOR = True
 
-    if False:
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -847,7 +864,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "day_separated":
+            if separation != "sex_separated":
             # if separation == "day_separated" or separation == "line_separated":
                 print(f"ignore {separation}")
                 continue
@@ -862,16 +879,16 @@ if __name__ == "__main__":
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
-                # if "day" not in category:
-                #     print(f"ignore {category}")
-                #     continue
+                if "female" in category:
+                    print(f"ignore {category}")
+                    continue
             
                 numbers = {}
                 sig_DE_genes = {}
                 
                 for contrast, table_path in paths_dict.items():
                     
-                    if "(" not in contrast:
+                    if "16" in contrast or "18" in contrast:
                         print(f"ignore {category}:{contrast}")
                         continue
 
@@ -923,7 +940,7 @@ if __name__ == "__main__":
                     # smear plot
                     smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot, coefficients=coefficients)
                     # volcano plot
-                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot, coefficients=coefficients)
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot, coefficients=coefficients, highlight_yTOR=True)
                     
                     if False:
                         Downlist = smear_lists["Downregulated"]
@@ -1449,7 +1466,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if True:
+    if False:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
