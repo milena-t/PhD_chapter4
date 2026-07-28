@@ -44,6 +44,8 @@ BiocManager::install("simplifyEnrichment")
 library(topGO)
 library(plyr)
 library(stringr)
+library(GlobalOptions)
+library(RcppParallel)
 library(simplifyEnrichment)
 ```
 
@@ -187,6 +189,26 @@ sig_list_all = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lis
 GO_enrichment_analysis(sig_infile = sig_list_all, annotation_df = annotation_df, semantic_clustering=TRUE)
 ```
 
+List of genes that are significant in the day-separated data for the line-by-sex interaction.
+```{r}
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day16_F-M_by_1-3.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
+# no day 18 because there's only 14 genes in the interaction
+```
+
+List of genes that are sex-biased in males and line-biased in SL3 (largeY) on day 16
+This enrichment is based on the LFC comparison plots of the same name, and the background is all genes in the plot, so the genes that are sig. in at least one axis.
+and the foreground is genes that are sig in both.
+```{r}
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/LFC_scatter_interaction_day16_sb_SL3_lb_M_shared_sig_DE_list.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/LFC_scatter_interaction_day14_sb_SL3_lb_M_shared_sig_DE_list.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
+```
+
+
 analyze GO term enrichment from upsetplot intersection lists
 ```{r}
 semantic_clistering_from_table <- function(sig_infile){
@@ -215,13 +237,21 @@ Full dataset line fixed effect: genes that are sex-biased on all days
 sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_no_separation_line_random_line_ign_alldays.txt"
 semantic_clistering_from_table(sig_infile=sig_list)
 ```
-sex-separated dataset, genes that are day-biased in early (14-16) or late (16-18) comparisons in males
 
+sex-separated dataset, genes that are day-biased in early (14-16) or late (16-18) comparisons in males
 ```{r}
 sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day14-day16.txt"
 semantic_clistering_from_table(sig_infile=sig_list)
 sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day16-day18.txt"
 semantic_clistering_from_table(sig_infile=sig_list)
 sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day14-day18.txt"
+semantic_clistering_from_table(sig_infile=sig_list)
+```
+
+Day-separated dataset, genes that are sex-biased in all days
+```{r}
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs_sig_GO.txt"
+semantic_clistering_from_table(sig_infile=sig_list)
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs_sig_GO.txt"
 semantic_clistering_from_table(sig_infile=sig_list)
 ```

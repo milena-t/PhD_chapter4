@@ -508,6 +508,22 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
         nonsig_cat_list = [geneID for geneID in incl_geneIDs if geneID not in all_sig]
         if len(nonsig_cat_list) > 0:
             lists["neither"] = nonsig_cat_list
+
+        if intersection_nums:
+            # make a list of the genes that are sig. in both in the format required for the GO enrichment
+            #### TODO 
+            sig_list_outfile = LFC_filename.split("/")[-1].replace(".png", "_shared_sig_DE_list.txt")
+            sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
+            with open(sig_list_outfile, "w") as sig_list_file:
+                DE_list_outfile = [f"{geneID},1" for geneID in lists['shared']]
+                DE_string = "\n".join(DE_list_outfile)
+                sig_list_file.write(f"geneID,sig_DE\n{DE_string}\n") 
+                singleDE_list_outfile = [f"{geneID},0" for geneID in lists[table_a]+lists[table_b]+nonsig_cat_list]
+                singleDE_string = "\n".join(singleDE_list_outfile)
+                sig_list_file.write(f"{singleDE_string}\n") # needs the newline character so that R can read the list right
+
+            print(f" * list of sig DE genes written to: {sig_list_outfile}")
+
     nonsig_incl = 0
     sig_incl = 0
     for cat in lists.keys():
@@ -817,11 +833,11 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
 
-    if True:
+    if False:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -1238,37 +1254,52 @@ if __name__ == "__main__":
 
     ## compare if the same genes are DE between lines within sexes in days
     if False:
-        venn_sets_all = {
+        venn_sets_day = {
             "day_separated" : {
                 "day14" : {
                     "males" : ["M_1 - M_3"],
                     "females" : ["F_1 - F_3"],
+                    "interaction" : ["(F_1 - M_1) - (F_3 - M_3)"],
                 },
                 "day16" : {
                     "males" : ["M_1 - M_3"],
                     "females" : ["F_1 - F_3"],
+                    "interaction" : ["(F_1 - M_1) - (F_3 - M_3)"],
                     },
                 "day18" : {
                     "males" : ["M_1 - M_3"],
                     "females" : ["F_1 - F_3"],
+                    "interaction" : ["(F_1 - M_1) - (F_3 - M_3)"],
                     },
             }
         }
         for separation, days_dict in venn_sets_day.items():
             print(f"\n=========================== {separation} ===========================")
+            interaction_paths = {}
             for day, sexes_contrasts_dict in days_dict.items():
                 print(f"\n ------------------- {day} -------------------")
 
                 venn_paths_dict = {}
                 for sex, venn_contrasts_list in sexes_contrasts_dict.items():
-                    print(f"{sex} : {venn_contrasts_list}")
 
-                    venn_paths_dict[sex] = table_paths[separation][day][venn_contrasts_list[0]]
-                
+                    if sex=="interaction":
+                        interaction_paths[day] = table_paths[separation][day][venn_contrasts_list[0]]
+                    else:
+                        print(f"{sex} : {venn_contrasts_list}")
+                        venn_paths_dict[sex] = table_paths[separation][day][venn_contrasts_list[0]]
+
                 venn_filename = f"{out_path_figs}/Venn_{day}_f_vs_m.png"
                 venn_title = f"sig. DE genes overlap ({day})\nfemales and males"
                 shared_list = plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title, get_shared_list=True, plot=False)
                 print(f"{len(shared_list)} genes : \n{shared_list}")
+
+            print(f"\n ------------------- all day interactions -------------------")
+            for day,path in interaction_paths.items():
+                print(f"{day} : {path}")
+            venn_filename = f"{out_path_figs}/Venn_day_sep_all_interactions.png"
+            venn_title = f"sig. DE genes overlap of all days\nline-by-sex interaction"
+            shared_list = plot_venn_DE_genes(interaction_paths, venn_filename=venn_filename, venn_title=venn_title, get_shared_list=True, plot=True)
+            # print(f"{len(shared_list)} genes : \n{shared_list}")
 
     ## compare sex bias and interaction on full dataset with days merged/ignored
     if False:
@@ -1418,7 +1449,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if False:
+    if True:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
