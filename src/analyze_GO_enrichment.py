@@ -324,7 +324,7 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file, IDs_list
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
-    username = "milena"
+    username = "miltr339"
     go_tables_paths = get_tables(username=username)
     contrasts_of_interest = get_interesting_GO_overlap_lists()
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/GO_enrichment"
@@ -448,7 +448,7 @@ if __name__ == "__main__":
 
         add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path)
         
-    if True:
+    if False:
         SB_LB_genes = {
             "day14" : {
                 "SL1" : ['gene-225158', 'gene-222430', 'gene-372264', 'gene-117712'],
@@ -465,4 +465,21 @@ if __name__ == "__main__":
                 print(f"\n ------------------- {day}:{line} ({len(IDs_list)}) -------------------")
 
                 day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_{day}_sex_{line}_and_line_M_biased_genes_functions.txt"
+                add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path, IDs_list=IDs_list)
+
+    if True:
+        sig_IDs_list = {
+            ## geneIDs that are significant in the day separated line-by-sex interaction
+            ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
+            "day_separated" : {
+                "day14" : ["gene-237342","gene-181562","gene-58400"],
+                "day18" : ["gene-426041","gene-48523","gene-73742","gene-2355","gene-237494","gene-279406","gene-237342","gene-276797","gene-367071"],
+            }
+        }
+        annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
+        for sep, day_dict in sig_IDs_list.items():
+            for day, IDs_list in day_dict.items():
+                print(f"\n ------------------- {day} ({len(IDs_list)}) -------------------")
+
+                day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_{day}_sex_by_line_interaction_sig_genes_functions.txt"
                 add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path, IDs_list=IDs_list)

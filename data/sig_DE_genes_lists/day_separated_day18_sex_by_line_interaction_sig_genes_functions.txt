@@ -1,0 +1,9 @@
+gene-426041	---not_annotated---
+gene-48523	no_description
+gene-73742	---not_annotated---
+gene-2355	Guanylate kinase
+gene-237494	Belongs to the complex I 49 kDa subunit family
+gene-279406	Zinc finger MYND domain-containing protein
+gene-237342	---not_annotated---
+gene-276797	Dihydroxyacetone kinase
+gene-367071	Peptidase S24-like
