@@ -298,8 +298,13 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file, IDs_list
                 if desc == "-":
                     desc = "no_description"
 
-                print(f"{i+1}\t{geneID}\t{desc}")
-                outfile.write(f"{geneID}\t{desc}\n")
+                try:
+                    name = annotation_df.loc[annotation_df["query"] == geneID, "Preferred_name"].iloc[0]
+                except:
+                    name = "-"
+
+                print(f"{i+1}\t{geneID}\t{name}\t{desc}")
+                outfile.write(f"{geneID}\t{name}\t{desc}\n")
     else:
         outfile_path = infile_path
         with open(outfile_path, "w") as outfile:
@@ -312,9 +317,13 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file, IDs_list
                     desc = "---not_annotated---"
                 if desc == "-":
                     desc = "no_description"
+                try:
+                    name = annotation_df.loc[annotation_df["query"] == geneID, "Preferred_name"].iloc[0]
+                except:
+                    name = "-"
 
-                print(f"{i+1}\t{geneID}\t{desc}")
-                outfile.write(f"{geneID}\t{desc}\n")
+                print(f"{i+1}\t{geneID}\t{name}\t{desc}")
+                outfile.write(f"{geneID}\t{name}\t{desc}\n")
 
     print(f"file written to: \n{outfile_path}")
 
@@ -467,7 +476,7 @@ if __name__ == "__main__":
                 day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_{day}_sex_{line}_and_line_M_biased_genes_functions.txt"
                 add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path, IDs_list=IDs_list)
 
-    if True:
+    if False:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days

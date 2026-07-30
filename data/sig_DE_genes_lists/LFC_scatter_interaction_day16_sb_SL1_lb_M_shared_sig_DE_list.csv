@@ -1,0 +1,30 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:1904456","negative regulation of neuronal action p...",1,1,0.02,0.017
+"2","GO:0042430","indole-containing compound metabolic pro...",1,1,0.02,0.017
+"3","GO:0006586","indolalkylamine metabolic process",1,1,0.02,0.017
+"4","GO:0042436","indole-containing compound catabolic pro...",1,1,0.02,0.017
+"5","GO:0001508","action potential",1,1,0.02,0.017
+"6","GO:0070189","kynurenine metabolic process",1,1,0.02,0.017
+"7","GO:0042537","benzene-containing compound metabolic pr...",1,1,0.02,0.017
+"8","GO:0019441","tryptophan catabolic process to kynureni...",1,1,0.02,0.017
+"9","GO:0045759","negative regulation of action potential",1,1,0.02,0.017
+"10","GO:0051969","regulation of transmission of nerve impu...",1,1,0.02,0.017
+"11","GO:0019226","transmission of nerve impulse",1,1,0.02,0.017
+"12","GO:0019228","neuronal action potential",1,1,0.02,0.017
+"13","GO:0060012","synaptic transmission, glycinergic",1,1,0.02,0.017
+"14","GO:0098900","regulation of action potential",1,1,0.02,0.017
+"15","GO:0098908","regulation of neuronal action potential",1,1,0.02,0.017
+"16","GO:0051970","negative regulation of transmission of n...",1,1,0.02,0.017
+"17","GO:0009072","aromatic amino acid family metabolic pro...",1,1,0.02,0.017
+"18","GO:0009074","aromatic amino acid family catabolic pro...",1,1,0.02,0.017
+"19","GO:0006568","tryptophan metabolic process",1,1,0.02,0.017
+"20","GO:0006569","tryptophan catabolic process",1,1,0.02,0.017
+"21","GO:0035637","multicellular organismal signaling",1,1,0.02,0.017
+"22","GO:0031644","regulation of nervous system process",1,1,0.02,0.017
+"23","GO:0031645","negative regulation of nervous system pr...",1,1,0.02,0.017
+"24","GO:0016042","lipid catabolic process",2,1,0.03,0.034
+"25","GO:0044057","regulation of system process",2,1,0.03,0.034
+"26","GO:0099565","chemical synaptic transmission, postsyna...",2,1,0.03,0.034
+"27","GO:0060079","excitatory postsynaptic potential",2,1,0.03,0.034
+"28","GO:0042402","cellular biogenic amine catabolic proces...",2,1,0.03,0.034
+"29","GO:0009310","amine catabolic process",2,1,0.03,0.034

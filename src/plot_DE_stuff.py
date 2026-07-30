@@ -530,7 +530,6 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
 
         if intersection_nums:
             # make a list of the genes that are sig. in both in the format required for the GO enrichment
-            #### TODO 
             sig_list_outfile = LFC_filename.split("/")[-1].replace(".png", "_shared_sig_DE_list.txt")
             sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
             with open(sig_list_outfile, "w") as sig_list_file:
@@ -852,12 +851,12 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
     highlight_yTOR = False
 
-    if True:
+    if False:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -867,7 +866,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "no_separation":
+            if separation != "day_separated":
             # if separation == "day_separated" or separation == "line_separated":
                 print(f"ignore {separation}")
                 continue
@@ -882,16 +881,16 @@ if __name__ == "__main__":
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
-                if "line_ignored" not in category:
-                    print(f"ignore {category}")
-                    continue
+                # if "line_random" not in category:
+                #     print(f"ignore {category}")
+                #     continue
     
                 numbers = {}
                 sig_DE_genes = {}
                 
                 for contrast, table_path in paths_dict.items():
                     
-                    if "(" not in contrast:
+                    if "(" in contrast:
                         print(f"ignore {category}:{contrast}")
                         continue
 
@@ -906,6 +905,9 @@ if __name__ == "__main__":
                         min_LFC = 1
                     else:
                         min_LFC = 0
+
+                    if "line_random" in category and "(" in contrast:
+                        min_LFC = 1
 
                     if contrast == "day16,day18" or contrast == "line3":
                         # this is not a contrasts but a test for the effect of coefficients, therefore the output table is structured a little differently and the plotting function needs to know
@@ -1469,7 +1471,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if False:
+    if True:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
@@ -1502,7 +1504,7 @@ if __name__ == "__main__":
 
                 for bias_cat, contrasts_list in contrasts_interaction_list[separation].items():
                     
-                    if "line bias" in bias_cat:# or "lb_F" in bias_cat:
+                    if "bias" in bias_cat or "lb_F" in bias_cat:
                         print(f"skip {bias_cat}:{contrasts_list}")
                         continue
 
