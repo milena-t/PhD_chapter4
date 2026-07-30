@@ -6,8 +6,9 @@
 % Useful packages
 
 \usepackage{graphicx}
-%\usepackage[draft]{graphicx}
+% \usepackage[draft]{graphicx}
 
+\usepackage{grffile}
 \usepackage{amsmath}
 \usepackage{wrapfig}
 \usepackage{subcaption}
@@ -17,6 +18,11 @@
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{lscape} 
 \usepackage{authblk}
+
+\usepackage{pgfplotstable}
+\usepackage{booktabs} 
+\usepackage[strings]{underscore}
+\pgfplotsset{table/search path={../data/sig_DE_genes_lists}}
 
 \renewcommand\arraystretch{1.25}
 
@@ -58,7 +64,7 @@
 \affil[2]{Philipp's current affiliation}
 
 \begin{document}
-\pagenumbering{gobble}
+% \pagenumbering{gobble}
 \maketitle
 \newpage
 \renewcommand{\arraystretch}{1.5}
@@ -67,6 +73,27 @@
 
 % pdflatex -pdf supplementary_information.tex
 
+\subsection*{Sample numbers}
+
+\begin{itemize}
+    \item Day 14
+    \begin{itemize}
+        \item Small-Y: 10 males, 3 females
+        \item Large-Y: 9 males, 6 females
+    \end{itemize}
+    \item Day 16
+    \begin{itemize}
+        \item Small-Y: 11 males, 3 females
+        \item Large-Y: 7 males, 6 females
+    \end{itemize}
+    \item Day 18
+    \begin{itemize}
+        \item Small-Y: 7 males, 5 females
+        \item Large-Y: 12 males, 3 females
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Additional results}
 
 \begin{figure}[H]
 
@@ -87,12 +114,629 @@
         \end{center}        
     \end{subfigure}
     
-    \caption{\textbf{Line-biased genes in males}. 
+    \caption{\textbf{PCA plots of full dataset}. 
     (\textbf{A}, \textbf{B}) PCA of all samples, hightlighted by Y-haplotype (A) or time point (B).
-    }\label{day_split}
+    }\label{PCA_all}
+    
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+    \begin{subfigure}[t]{0.35\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_day_random_factor_days_diff_day16_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.35\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_day_random_factor_days_diff_day18_volcano.png}
+        \end{center}        
+    \end{subfigure}
+\end{center}       
+    \caption{\textbf{Volcano plots of day-comparisons on full dataset}. 
+    The comparison is of coefficients day 16 (A) and day 18 (B) to the intercept (day 14).
+    }\label{PCA_sex_split}
     
 \end{figure}
 
 
 
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.49\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_M_day_line.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_F_day_line.png}
+        \end{center}        
+    \end{subfigure}
+    
+    \caption{\textbf{PCA plots of male and female samples separated}. 
+    Separate analysis of male (A) and female (B) samples.
+    }\label{PCA_sex_split}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.32\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_M_SL_1_3_14_16_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_M_SL_1_3_18_14_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_M_SL_1_3_18_16_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    
+    \caption{\textbf{Volcano plot of male samples line-by-day interaction}. The interaction is calculated between the 
+    contrasts of smallY-largeY and each pairwise day comparison, day 14-16 (A), day 18-14 (B) and day 18-16 (C).
+    }\label{male_day-line_volcano}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+    \begin{subfigure}[t]{0.6\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_sex_day14_line.png}
+        \end{center}        
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.6\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_sex_day16_line.png}
+        \end{center}        
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.6\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures/PCA_sex_day18_line.png}
+        \end{center}        
+    \end{subfigure}
+\end{center}   
+    \caption{\textbf{PCA plots of samples from each time point separately}. 
+    }\label{PCA_line-split}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.49\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(27,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day14_line_bias_by_sex.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \begin{picture}(0,0)
+            \put(27,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day16_line_bias_by_sex.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{center}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \begin{picture}(0,0)
+            \put(27,-30){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day18_line_bias_by_sex.png}
+        \end{center}        
+    \end{subfigure}
+    \end{center}
+    
+    \caption{\textbf{Overlap of line-biased genes between the sexes}. One overlap for each day, significance calculated 
+    on day-separated samples. SL1 refers to the small-Y haplotype and SL3 to the large-Y haplotype.
+    }\label{male-female-line-bias-venn}
+    
+\end{figure}
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.32\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_F-M_by_1-3_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_F-M_by_1-3_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_F-M_by_1-3_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    
+    \caption{\textbf{Volcano plot of line-by-sex interaction for each time point}. Three sig. genes in (A) have no functional annotation, 
+    of the nine sig. genes in (C) there are four with functional annotations. gene-2355: Guanylate kinase, gene-237494: Belongs to the complex I 49 kDa subunit family, 
+    gene-279406: Zinc finger MYND domain-containing protein, gene-276797: Dihydroxyacetone kinase and gene-367071: Peptidase S24-like.
+    }\label{days_sex-line_interaction_volcano}
+    
+\end{figure}
+
+\begin{figure}[H]
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/sig_DE_list_day14_M_1-3.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of male line-biased samples on day 14}.
+    }\label{GO_day14_male_linebias}
+    
+\end{figure}
+
+\begin{figure}[H]
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/sig_DE_list_day16_M_1-3.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of male line-biased samples on day 16}.
+    }\label{GO_day16_male_linebias}
+    
+\end{figure}
+
+\begin{figure}[H]
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/sig_DE_list_day18_M_1-3.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of male line-biased samples on day 18}.
+    }\label{GO_day18_male_linebias}
+    
+\end{figure}
+
+\begin{figure}[H]
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_no_separation_line_random_line_ign_alldays.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of genes that are sex-biased}. Full dataset with line as fixed effect, GO terms that are 
+    enriched in sex-biased genes of all three time points, intersection as specified in Fig. 2D
+    }\label{GO_full_line_fixed_sb_all_days_intersection}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{center}
+    \begin{subfigure}[t]{0.4\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_only_M_no_line_day_14-16_volcano.png}
+        \end{center}        
+    \end{subfigure}
+\end{center}  
+    \begin{subfigure}[t]{\linewidth}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day14-day16.png}
+        \end{center}        
+        \begin{picture}(0,0)
+            \put(5,375){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+    \end{subfigure}
+
+    \caption{\textbf{volcano plot, GO-term enrichment and semantic clustering of genes that are sex-biased}. Only male samples with day 14-16 comparison (Fig. 2E intersection). 
+    (A) shows the volcano plot, and (B) the semantic clustering of GO-terms that are enriched in sig. DE genes.
+    }\label{GO_males_day1416}
+    
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+    \begin{subfigure}[t]{0.4\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_only_M_no_line_day_16-18_volcano.png}
+        \end{center}        
+    \end{subfigure}
+\end{center}      
+    \begin{subfigure}[t]{\linewidth}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/GO_enrichment/upsetplot_GO_terms_sex_separated_all_line_ign_males:day16-day18.png}
+        \end{center}       
+        \begin{picture}(0,0)
+            \put(5,375){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+    \end{subfigure}
+    
+    \caption{\textbf{volcano plot, GO-term enrichment and semantic clustering of genes that are sex-biased}. Only male samples with day 16-18 comparison (Fig. 2E intersection)
+    (A) shows the volcano plot, and (B) the semantic clustering of GO-terms that are enriched in sig. DE genes.
+    }\label{GO_males_day1618}
+    
+\end{figure}
+
+
+
+\begin{figure}[H]
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs_sig_GO.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of genes that are sex-biased on all days}. Sex-bias is estimated separately for each time point in the day-split data,
+    genes that are sex-biased in both lines and all days are determined and GO-enrichment and semantic clustering is performed. 
+    }\label{GO_day_sep_sex_bias_all_days}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs_sig_GO.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of genes that are sex-biased on day 14}. Sex-bias is estimated separately for each time point in the day-split data,
+    genes that are sex-biased only on day 14 are determined and GO-enrichment and semantic clustering is performed. 
+    }\label{GO_day_sep_sex_bias_day14}
+    
+\end{figure}
+
+
+
+\begin{figure}[H]
+\begin{center}
+    \begin{subfigure}[t]{0.40\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_SL1_F-M_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.40\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_SL3_F-M_volcano.png}
+        \end{center}        
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.40\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_SL1_F-M_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.40\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{D}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_SL3_F-M_volcano.png}
+        \end{center}        
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.40\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{E}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_SL1_F-M_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.40\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{F}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_SL3_F-M_volcano.png}
+        \end{center}        
+    \end{subfigure}
+ \end{center}        
+    \caption{\textbf{Volcano plot of sex-bias within each line for samples of each time point}.
+    }\label{day_Sep_sex_bias_within_line_volcano}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.49\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(27,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day14_sex_bias_by_line.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \begin{picture}(0,0)
+            \put(27,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day16_sex_bias_by_line.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{center}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \begin{picture}(0,0)
+            \put(27,-30){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day18_sex_bias_by_line.png}
+        \end{center}        
+    \end{subfigure}
+    \end{center}
+    
+    \caption{\textbf{Overlap of sex-biased genes between the lines}. SL1 refers to small-Y males and SL3 refers to large-Y males. 
+    }\label{lines-sex-bias-venn}
+    
+\end{figure}
+
+
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.32\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_F-M_by_1-3_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_F-M_by_1-3_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_F-M_by_1-3_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    
+    \caption{\textbf{Volcano plot of line-by-sex interaction for samples of each time point}.
+    }\label{day_Sep_line-sex_interaction_volcano}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{center}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day_sep_all_interactions.png}
+        \end{center}        
+    \end{subfigure}
+    \end{center}
+    
+    \caption{\textbf{Overlap of genes significant in the line-by-sex interaction between all days}. 
+    }\label{days-line-sex-interaction-venn}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of genes that significant in the line-by-sex interaction on day 14}
+    }\label{GO_day_sep_line-sex_interaction_day14}
+    
+\end{figure}
+
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/sig_DE_list_day16_F-M_by_1-3.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of genes that significant in the line-by-sex interaction on day 16}
+    }\label{GO_day_sep_line-sex_interaction_day16}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+        \begin{subfigure}[t]{0.37\linewidth}
+            \begin{picture}(0,0)
+                     \put(13,-16){\textbf{A}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day18_sb_SL1_lb_M.png}
+            \end{center}        
+        \end{subfigure}
+        \begin{subfigure}[t]{0.37\linewidth}
+            \begin{picture}(0,0)
+                \put(13,-16){\textbf{B}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day18_sb_SL3_lb_M.png}
+            \end{center}        
+        \end{subfigure}
+    
+        \caption{\textbf{Intersection of sex bias and line bias across developmental stages day 18}.
+        Log2FC of sex-bias (females - males contrast) and line-bias (large-Y - small-Y) of day 18.
+        }\label{sex_split}
+        
+\end{figure}
+
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/LFC_scatter_interaction_day14_sb_SL3_lb_M_shared_sig_DE_list.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of genes that significant for sex-bias in large-Y lines and line-bias in males on day 14}.
+    The background of this is genes that are significant in large-Y sex bias, male line-bias or the sex-by-line interaction on day 14 (all genes shown in 
+    Fig. 4B).
+    }\label{GO_day_sep_line-sex_interaction_day16}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \pgfplotstabletypeset[
+        col sep=tab,
+        header=false, % if there are col-names: has-colnames instead of false
+        string type,
+        columns/0/.style={column name=Gene ID},
+        columns/1/.style={
+            column name=Description,
+            column type={p{13cm}},   % fixed width -> enables automatic line wrapping
+        },
+        every head row/.style={before row=\toprule, after row=\midrule},
+        every last row/.style={after row=\bottomrule}
+    ]{tableday14.txt}
+    \caption{Gene IDs and annotated functions (from eggnog) of genes sig. in both (blue) in Fig. 4B.}
+\label{tab:gene-list-sharedday16}
+\end{table}
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/LFC_scatter_interaction_day16_sb_SL3_lb_M_shared_sig_DE_list.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of genes that significant for sex-bias in large-Y lines and line-bias in males on day 16}.
+    The background of this is genes that are significant in large-Y sex bias, male line-bias or the sex-by-line interaction on day 16 (all genes shown in 
+    Fig. 4D).
+    }\label{GO_day_sep_line-sex_interaction_day16}
+\end{figure}
+
+
+\begin{table}[htbp]
+    \centering
+    \pgfplotstabletypeset[
+        col sep=tab,
+        header=false, % if there are col-names: has-colnames instead of false
+        string type,
+        columns/0/.style={column name=Gene ID},
+        columns/1/.style={
+            column name=Description,
+            column type={p{13cm}},   % fixed width -> enables automatic line wrapping
+        },
+        every head row/.style={before row=\toprule, after row=\midrule},
+        every last row/.style={after row=\bottomrule}
+    ]{tableday16.txt}
+    \caption{Gene IDs and annotated functions (from eggnog) of genes sig. in both (blue) in Fig. 4D.}
+\label{tab:gene-list-sharedday16}
+\end{table}
+
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/yTor_analysis/TOR_y_counts_sample_groups.png}
+    \end{center}
+    
+    \caption{\textbf{y-TOR expression}.
+    }\label{yTor_counts}
+\end{figure}
+
+
+\begin{figure}[H]
+    \begin{center}
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                     \put(22,-15){\textbf{A}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_only_M_no_time_1-3_volcano_y_TOR.png}
+            \end{center}        
+        \end{subfigure}
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{B}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_M_1-3_day14_volcano_y_TOR.png}
+            \end{center}        
+        \end{subfigure}
+    
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{C}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_M_1-3_volcano_y_TOR.png}
+            \end{center}        
+        \end{subfigure}
+    
+     \end{center}        
+        \caption{\textbf{Volcano plot of contrasts where y-TOR is significant}.
+        (\textbf{A}): Using only male samples, specifying the days as coefficients and the contrast as small-Y - large-Y.
+        (\textbf{B}): Using only male samples, specifying the day 14 small-Y - day14 large-Y contrast.
+        (\textbf{C}): Using only day 14 samples, using the males small-Y - males large-Y contrast.
+        }\label{volcano_y_TOR_hightlight}
+        
+    \end{figure}
+
+
 \end{document}
+
+

@@ -1,0 +1,14 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:0016042","lipid catabolic process",1,1,0.02,0.021
+"2","GO:0001659","temperature homeostasis",1,1,0.02,0.021
+"3","GO:0060086","circadian temperature homeostasis",1,1,0.02,0.021
+"4","GO:0007218","neuropeptide signaling pathway",1,1,0.02,0.021
+"5","GO:0019933","cAMP-mediated signaling",1,1,0.02,0.021
+"6","GO:0019935","cyclic-nucleotide-mediated signaling",1,1,0.02,0.021
+"7","GO:0007187","G protein-coupled receptor signaling pat...",1,1,0.02,0.021
+"8","GO:0007188","adenylate cyclase-modulating G protein-c...",1,1,0.02,0.021
+"9","GO:0007189","adenylate cyclase-activating G protein-c...",1,1,0.02,0.021
+"10","GO:0055070","copper ion homeostasis",1,1,0.02,0.021
+"11","GO:1905349","ciliary transition zone assembly",2,1,0.04,0.042
+"12","GO:0048871","multicellular organismal homeostasis",2,1,0.04,0.042
+"13","GO:0055076","transition metal ion homeostasis",2,1,0.04,0.042

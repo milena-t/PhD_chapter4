@@ -1,0 +1,114 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:1990511","piRNA biosynthetic process",2,2,0.05,0.00063
+"2","GO:1905349","ciliary transition zone assembly",2,2,0.05,0.00063
+"3","GO:0018990","ecdysis, chitin-based cuticle",14,3,0.35,0.00469
+"4","GO:0071481","cellular response to X-ray",6,2,0.15,0.0089
+"5","GO:0055093","response to hyperoxia",7,2,0.18,0.01225
+"6","GO:0070646","protein modification by small protein re...",56,5,1.42,0.01304
+"7","GO:0009629","response to gravity",20,3,0.51,0.01314
+"8","GO:0006032","chitin catabolic process",20,3,0.51,0.01314
+"9","GO:0042332","gravitaxis",20,3,0.51,0.01314
+"10","GO:0090175","regulation of establishment of planar po...",21,3,0.53,0.01505
+"11","GO:0008334","histone mRNA metabolic process",8,2,0.2,0.01607
+"12","GO:0006398","mRNA 3'-end processing by stem-loop bind...",8,2,0.2,0.01607
+"13","GO:0046348","amino sugar catabolic process",23,3,0.58,0.01932
+"14","GO:1901072","glucosamine-containing compound cataboli...",23,3,0.58,0.01932
+"15","GO:0036296","response to increased oxygen levels",9,2,0.23,0.02032
+"16","GO:1901136","carbohydrate derivative catabolic proces...",42,4,1.06,0.0208
+"17","GO:0006457","protein folding",88,6,2.22,0.0233
+"18","GO:0007309","oocyte axis specification",114,7,2.88,0.02472
+"19","GO:0051205","protein insertion into membrane",10,2,0.25,0.02498
+"20","GO:0045838","positive regulation of membrane potentia...",1,1,0.03,0.02527
+"21","GO:0032225","regulation of synaptic transmission, dop...",1,1,0.03,0.02527
+"22","GO:0071927","octopamine signaling pathway",1,1,0.03,0.02527
+"23","GO:0046080","dUTP metabolic process",1,1,0.03,0.02527
+"24","GO:0046081","dUTP catabolic process",1,1,0.03,0.02527
+"25","GO:0006244","pyrimidine nucleotide catabolic process",1,1,0.03,0.02527
+"26","GO:0030710","regulation of border follicle cell delam...",1,1,0.03,0.02527
+"27","GO:0032775","DNA methylation on adenine",1,1,0.03,0.02527
+"28","GO:0009149","pyrimidine nucleoside triphosphate catab...",1,1,0.03,0.02527
+"29","GO:0060814","posterior mRNA localization involved in ...",1,1,0.03,0.02527
+"30","GO:0009264","deoxyribonucleotide catabolic process",1,1,0.03,0.02527
+"31","GO:0009223","pyrimidine deoxyribonucleotide catabolic...",1,1,0.03,0.02527
+"32","GO:0080154","regulation of fertilization",1,1,0.03,0.02527
+"33","GO:0033058","directional locomotion",1,1,0.03,0.02527
+"34","GO:0009213","pyrimidine deoxyribonucleoside triphosph...",1,1,0.03,0.02527
+"35","GO:0010918","positive regulation of mitochondrial mem...",1,1,0.03,0.02527
+"36","GO:0009204","deoxyribonucleoside triphosphate catabol...",1,1,0.03,0.02527
+"37","GO:0016598","protein arginylation",1,1,0.03,0.02527
+"38","GO:0046386","deoxyribose phosphate catabolic process",1,1,0.03,0.02527
+"39","GO:0097120","receptor localization to synapse",1,1,0.03,0.02527
+"40","GO:0071454","cellular response to anoxia",1,1,0.03,0.02527
+"41","GO:0043056","forward locomotion",1,1,0.03,0.02527
+"42","GO:0043059","regulation of forward locomotion",1,1,0.03,0.02527
+"43","GO:0031123","RNA 3'-end processing",67,5,1.69,0.02648
+"44","GO:0035082","axoneme assembly",26,3,0.66,0.02685
+"45","GO:0007308","oocyte construction",116,7,2.93,0.02688
+"46","GO:0006026","aminoglycan catabolic process",27,3,0.68,0.02967
+"47","GO:0006030","chitin metabolic process",27,3,0.68,0.02967
+"48","GO:1905330","regulation of morphogenesis of an epithe...",27,3,0.68,0.02967
+"49","GO:0000338","protein deneddylation",11,2,0.28,0.03003
+"50","GO:0060251","regulation of glial cell proliferation",11,2,0.28,0.03003
+"51","GO:1902882","regulation of response to oxidative stre...",11,2,0.28,0.03003
+"52","GO:0014013","regulation of gliogenesis",11,2,0.28,0.03003
+"53","GO:0042246","tissue regeneration",11,2,0.28,0.03003
+"54","GO:0006066","alcohol metabolic process",47,4,1.19,0.03011
+"55","GO:0009628","response to abiotic stimulus",336,16,8.49,0.03469
+"56","GO:2000241","regulation of reproductive process",72,5,1.82,0.03475
+"57","GO:0030728","ovulation",12,2,0.3,0.03545
+"58","GO:1901616","organic hydroxy compound catabolic proce...",12,2,0.3,0.03545
+"59","GO:0014009","glial cell proliferation",12,2,0.3,0.03545
+"60","GO:0042810","pheromone metabolic process",12,2,0.3,0.03545
+"61","GO:0042811","pheromone biosynthetic process",12,2,0.3,0.03545
+"62","GO:0010529","negative regulation of transposition",12,2,0.3,0.03545
+"63","GO:0050821","protein stabilization",30,3,0.76,0.03899
+"64","GO:0048599","oocyte development",127,7,3.21,0.04108
+"65","GO:0000079","regulation of cyclin-dependent protein s...",13,2,0.33,0.04122
+"66","GO:0032196","transposition",13,2,0.33,0.04122
+"67","GO:0010528","regulation of transposition",13,2,0.33,0.04122
+"68","GO:0009408","response to heat",52,4,1.31,0.04153
+"69","GO:0001578","microtubule bundle formation",32,3,0.81,0.04594
+"70","GO:0060811","intracellular mRNA localization involved...",54,4,1.36,0.04669
+"71","GO:0030162","regulation of proteolysis",104,6,2.63,0.04719
+"72","GO:1904029","regulation of cyclin-dependent protein k...",14,2,0.35,0.04731
+"73","GO:0045849","negative regulation of nurse cell apopto...",2,1,0.05,0.04991
+"74","GO:0046963","3'-phosphoadenosine 5'-phosphosulfate tr...",2,1,0.05,0.04991
+"75","GO:2000114","regulation of establishment of cell pola...",2,1,0.05,0.04991
+"76","GO:0010387","COP9 signalosome assembly",2,1,0.05,0.04991
+"77","GO:0051382","kinetochore assembly",2,1,0.05,0.04991
+"78","GO:0001963","synaptic transmission, dopaminergic",2,1,0.05,0.04991
+"79","GO:0015886","heme transport",2,1,0.05,0.04991
+"80","GO:0006226","dUMP biosynthetic process",2,1,0.05,0.04991
+"81","GO:0046078","dUMP metabolic process",2,1,0.05,0.04991
+"82","GO:1901678","iron coordination entity transport",2,1,0.05,0.04991
+"83","GO:0030714","anterior/posterior axis specification, f...",2,1,0.05,0.04991
+"84","GO:0006067","ethanol metabolic process",2,1,0.05,0.04991
+"85","GO:0009176","pyrimidine deoxyribonucleoside monophosp...",2,1,0.05,0.04991
+"86","GO:0009177","pyrimidine deoxyribonucleoside monophosp...",2,1,0.05,0.04991
+"87","GO:0032878","regulation of establishment or maintenan...",2,1,0.05,0.04991
+"88","GO:0009143","nucleoside triphosphate catabolic proces...",2,1,0.05,0.04991
+"89","GO:1902559","3'-phospho-5'-adenylyl sulfate transmemb...",2,1,0.05,0.04991
+"90","GO:0046594","maintenance of pole plasm mRNA location",2,1,0.05,0.04991
+"91","GO:0007211","octopamine or tyramine signaling pathway",2,1,0.05,0.04991
+"92","GO:0009211","pyrimidine deoxyribonucleoside triphosph...",2,1,0.05,0.04991
+"93","GO:0071586","CAAX-box protein processing",2,1,0.05,0.04991
+"94","GO:0080120","CAAX-box protein maturation",2,1,0.05,0.04991
+"95","GO:0009200","deoxyribonucleoside triphosphate metabol...",2,1,0.05,0.04991
+"96","GO:0060623","regulation of chromosome condensation",2,1,0.05,0.04991
+"97","GO:0060625","regulation of protein deneddylation",2,1,0.05,0.04991
+"98","GO:0046487","glyoxylate metabolic process",2,1,0.05,0.04991
+"99","GO:0031952","regulation of protein autophosphorylatio...",2,1,0.05,0.04991
+"100","GO:0031954","positive regulation of protein autophosp...",2,1,0.05,0.04991
+"101","GO:0006305","DNA alkylation",2,1,0.05,0.04991
+"102","GO:0006306","DNA methylation",2,1,0.05,0.04991
+"103","GO:1904746","negative regulation of apoptotic process...",2,1,0.05,0.04991
+"104","GO:1902176","negative regulation of oxidative stress-...",2,1,0.05,0.04991
+"105","GO:0035520","monoubiquitinated protein deubiquitinati...",2,1,0.05,0.04991
+"106","GO:0006428","isoleucyl-tRNA aminoacylation",2,1,0.05,0.04991
+"107","GO:0035521","monoubiquitinated histone deubiquitinati...",2,1,0.05,0.04991
+"108","GO:0035522","monoubiquitinated histone H2A deubiquiti...",2,1,0.05,0.04991
+"109","GO:0006438","valyl-tRNA aminoacylation",2,1,0.05,0.04991
+"110","GO:1900244","positive regulation of synaptic vesicle ...",2,1,0.05,0.04991
+"111","GO:2000152","regulation of ubiquitin-specific proteas...",2,1,0.05,0.04991
+"112","GO:2000158","positive regulation of ubiquitin-specifi...",2,1,0.05,0.04991
+"113","GO:1903423","positive regulation of synaptic vesicle ...",2,1,0.05,0.04991

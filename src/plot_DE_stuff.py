@@ -170,7 +170,7 @@ def get_tables(username = "miltr339"):
     return out_dict,contrast_plot_titles
 
 
-def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC", excl_genes_list = [], x_axis = "logcpm", plot = True, coefficients=False):
+def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig = 0.05, min_LFC = 0, title = "significant logFC", excl_genes_list = [], x_axis = "logcpm", plot = True, coefficients=False, highlight_yTOR=False):
     """
     replicate smear-plot from R, logCPM by logFC, significance highlighted in red
     return the number of up/downregulated and no difference genes
@@ -238,6 +238,12 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             elif x_axis == "fdr_p":
                 ax.scatter(df_nonsig[logfc_colname], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.4, s=ps, label=label_nonsig)
                 ax.scatter(df_sig[logfc_colname], df_sig["FDR_volc"], color = cols["sig"], alpha=0.4, s=ps, label=label_sig)
+                # if Y-TOR is significant highlight it
+                if highlight_yTOR:
+                    y_tor_sig_test = df_sig[df_sig["Gene"] == "yTor-all"]
+                    if not y_tor_sig_test.empty:
+                        y_tor_sig = y_tor_sig_test.iloc[[0]]   # double brackets keep it as a DataFrame, not a Series
+                        ax.scatter(y_tor_sig["logFC"], y_tor_sig["FDR_volc"], color = "#599BB7", alpha=1, s=ps, label="y-TOR")  
         
             if  x_axis == "logcpm":
                 ax.set_ylabel(f"{logfc_colname}", fontsize = fs)
@@ -314,6 +320,14 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             elif x_axis == "fdr_p":
                 ax.scatter(df_nonsig["logFC"], df_nonsig["FDR_volc"], color = cols["nonsig"], alpha=0.5, s=ps, label=label_nonsig)
                 ax.scatter(df_sig["logFC"], df_sig["FDR_volc"], color = cols["sig"], alpha=1, s=ps, label=label_sig)
+                # if Y-TOR is significant highlight it
+                if highlight_yTOR:
+                    y_tor_sig_test = df_sig[df_sig["Gene"] == "yTor-all"]
+                    if not y_tor_sig_test.empty:
+                        y_tor_sig = y_tor_sig_test.iloc[[0]]   # double brackets keep it as a DataFrame, not a Series
+                        ax.scatter(y_tor_sig["logFC"], y_tor_sig["FDR_volc"], color = "#599BB7", alpha=1, s=ps, label="y-TOR")  
+
+
             
             if "SL" in contrast and "/2" not in contrast:
                 if "SL1" in contrast and "SL3" in contrast:
@@ -364,6 +378,8 @@ def plot_smear(table_path, contrast, smear_plot_name = "smear_plot.png", p_sig =
             if x_axis == "fdr_p":
                 smear_plot_name = smear_plot_name.replace(".png", "_volcano.png")
                 ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
+            if highlight_yTOR:
+                smear_plot_name = smear_plot_name.replace(".png", "_y_TOR.png")
 
             if x_axis == "fdr_p":
                 plt.legend(fontsize = fs, loc='upper center') #, title ="gene counts", title_fontsize = fs*0.7
@@ -502,12 +518,31 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
 
     if len(incl_geneIDs) == 0:
         excl_counter = { cat : 0 for cat in [table_a,table_b,"shared"]}
+        all_sig = lists['shared']+lists[table_a]+lists[table_b]
     else:
         excl_counter = { cat : 0 for cat in [table_a,table_b,"shared","neither"]}
         all_sig = lists['shared']+lists[table_a]+lists[table_b]
         nonsig_cat_list = [geneID for geneID in incl_geneIDs if geneID not in all_sig]
-        if len(nonsig_cat_list) > 0:
+        if len(nonsig_cat_list) > 0 and incl_geneIDs != [None]:
             lists["neither"] = nonsig_cat_list
+        elif incl_geneIDs == [None]:
+            lists["neither"] = []
+
+        if intersection_nums:
+            # make a list of the genes that are sig. in both in the format required for the GO enrichment
+            #### TODO 
+            sig_list_outfile = LFC_filename.split("/")[-1].replace(".png", "_shared_sig_DE_list.txt")
+            sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
+            with open(sig_list_outfile, "w") as sig_list_file:
+                DE_list_outfile = [f"{geneID},1" for geneID in lists['shared']]
+                DE_string = "\n".join(DE_list_outfile)
+                sig_list_file.write(f"geneID,sig_DE\n{DE_string}\n") 
+                singleDE_list_outfile = [f"{geneID},0" for geneID in lists[table_a]+lists[table_b]+nonsig_cat_list]
+                singleDE_string = "\n".join(singleDE_list_outfile)
+                sig_list_file.write(f"{singleDE_string}\n") # needs the newline character so that R can read the list right
+
+            print(f" * list of sig DE genes written to: {sig_list_outfile}")
+
     nonsig_incl = 0
     sig_incl = 0
     for cat in lists.keys():
@@ -527,7 +562,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
             except:
                 x = 0
                 print(geneID)
-            if len(excl_geneIDs)>0:
+            if len(excl_geneIDs)==0:
                 if geneID in excl_geneIDs:
                     excl_counter[cat]+=1
                     ax.scatter(x,y,color = colors_dict[cat], s=ps*1.5, alpha = 1, marker="1")
@@ -820,8 +855,9 @@ if __name__ == "__main__":
     make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
+    highlight_yTOR = False
 
-    if False:
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -831,7 +867,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation !=  "day_separated":#  "no_separation":
+            if separation != "no_separation":
             # if separation == "day_separated" or separation == "line_separated":
                 print(f"ignore {separation}")
                 continue
@@ -846,10 +882,10 @@ if __name__ == "__main__":
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
-                if separation == "no_separation" and "day" in category:
+                if "line_ignored" not in category:
                     print(f"ignore {category}")
                     continue
-            
+    
                 numbers = {}
                 sig_DE_genes = {}
                 
@@ -882,11 +918,13 @@ if __name__ == "__main__":
                     table_name = table_path.split("/")[-1].replace(".txt", "").replace("DE_genes_", "")
                     smear_name = f"{out_path_figs}/smear_{table_name}.png"
 
-
                     if "random" in category:
                         smear_title = f"{contrast_plot_titles[contrast]}"
                     elif "day" in category or "day" in contrast:
-                        smear_title = f"{category} {contrast_plot_titles[contrast]}"
+                        if coefficients==False:
+                            smear_title = f"{category} {contrast_plot_titles[contrast]}"
+                        elif coefficients == True:
+                            smear_title = f"{contrast_plot_titles[contrast]}"
                     else:
                         smear_title = contrast_plot_titles[contrast]
                         smear_title = smear_title.replace(" days merged", "")
@@ -905,7 +943,7 @@ if __name__ == "__main__":
                     # smear plot
                     smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot, coefficients=coefficients)
                     # volcano plot
-                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot, coefficients=coefficients)
+                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot, coefficients=coefficients, highlight_yTOR=highlight_yTOR)
                     
                     if False:
                         Downlist = smear_lists["Downregulated"]
@@ -996,7 +1034,7 @@ if __name__ == "__main__":
                 #######################################
                 #### make list of all the significantly line-biased genes from Fig 1 to do the GO enrichment                
                 #######################################
-                if True and separation == "day_separated":
+                if False and separation == "day_separated":
 
                     print(f"\n\n\n\n ---<>--> male line bias upset data")
 
@@ -1028,7 +1066,7 @@ if __name__ == "__main__":
                             outfile.write(nonsig)
 
                     ######### all lines sex bias
-                    if True:
+                    if False:
                         # filter to only include genes that are sig. in at least two days
                         mask_all = (
                             upset_data_sex.index.get_level_values('day14: small-Y').astype(int) +
@@ -1236,37 +1274,52 @@ if __name__ == "__main__":
 
     ## compare if the same genes are DE between lines within sexes in days
     if False:
-        venn_sets_all = {
+        venn_sets_day = {
             "day_separated" : {
                 "day14" : {
                     "males" : ["M_1 - M_3"],
                     "females" : ["F_1 - F_3"],
+                    "interaction" : ["(F_1 - M_1) - (F_3 - M_3)"],
                 },
                 "day16" : {
                     "males" : ["M_1 - M_3"],
                     "females" : ["F_1 - F_3"],
+                    "interaction" : ["(F_1 - M_1) - (F_3 - M_3)"],
                     },
                 "day18" : {
                     "males" : ["M_1 - M_3"],
                     "females" : ["F_1 - F_3"],
+                    "interaction" : ["(F_1 - M_1) - (F_3 - M_3)"],
                     },
             }
         }
         for separation, days_dict in venn_sets_day.items():
             print(f"\n=========================== {separation} ===========================")
+            interaction_paths = {}
             for day, sexes_contrasts_dict in days_dict.items():
                 print(f"\n ------------------- {day} -------------------")
 
                 venn_paths_dict = {}
                 for sex, venn_contrasts_list in sexes_contrasts_dict.items():
-                    print(f"{sex} : {venn_contrasts_list}")
 
-                    venn_paths_dict[sex] = table_paths[separation][day][venn_contrasts_list[0]]
-                
+                    if sex=="interaction":
+                        interaction_paths[day] = table_paths[separation][day][venn_contrasts_list[0]]
+                    else:
+                        print(f"{sex} : {venn_contrasts_list}")
+                        venn_paths_dict[sex] = table_paths[separation][day][venn_contrasts_list[0]]
+
                 venn_filename = f"{out_path_figs}/Venn_{day}_f_vs_m.png"
                 venn_title = f"sig. DE genes overlap ({day})\nfemales and males"
                 shared_list = plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title, get_shared_list=True, plot=False)
                 print(f"{len(shared_list)} genes : \n{shared_list}")
+
+            print(f"\n ------------------- all day interactions -------------------")
+            for day,path in interaction_paths.items():
+                print(f"{day} : {path}")
+            venn_filename = f"{out_path_figs}/Venn_day_sep_all_interactions.png"
+            venn_title = f"sig. DE genes overlap of all days\nline-by-sex interaction"
+            shared_list = plot_venn_DE_genes(interaction_paths, venn_filename=venn_filename, venn_title=venn_title, get_shared_list=True, plot=True)
+            # print(f"{len(shared_list)} genes : \n{shared_list}")
 
     ## compare sex bias and interaction on full dataset with days merged/ignored
     if False:
@@ -1373,7 +1426,7 @@ if __name__ == "__main__":
 
         for separation, seps_dict in table_paths.items():
 
-            if separation == "day_separated":
+            if separation != "day_separated":
                 print(f"ignore {separation}")
                 continue
             
@@ -1421,9 +1474,9 @@ if __name__ == "__main__":
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
             "day_separated" : {
-                "day14" : ["gene-124877","gene-124865","gene-239506","gene-223773","gene-224079","gene-223758","gene-424750","gene-223491","gene-371957","gene-127740","gene-429522","gene-90190","gene-87554","gene-426056","gene-231854","gene-230270","gene-288660","gene-232048","gene-220055","gene-77070","gene-290138","gene-120832","gene-39545","gene-286732","gene-130096","gene-241328","gene-218301","gene-76019","gene-166391","gene-130081","gene-38977","gene-231604","gene-223318","gene-39692","gene-158197","gene-414353","gene-241268","gene-266875","gene-222737","gene-88032","gene-115312","gene-372264","gene-122220","gene-288356","gene-70385","gene-204669","gene-268146","gene-374892","gene-375015","gene-406510","gene-326329","gene-407355","gene-327787","gene-210277","gene-125867","gene-223419","gene-346228","gene-143368","gene-39770","gene-414838","gene-161821","gene-125638","gene-39680","gene-75424","gene-78574","gene-217258","gene-149137","gene-210286","gene-53501","gene-240397","gene-336688","gene-95461","gene-100036","gene-71572","gene-227137","gene-236155","gene-241262","gene-351784","gene-336088","gene-263126","gene-188501","gene-127607","gene-6017","gene-223599","gene-24347","gene-73885","gene-302994","gene-215608","gene-62772","gene-266887","gene-391847","gene-223554","gene-246615","gene-289849","gene-60429","gene-229506","gene-233901","gene-124680","gene-244661","gene-69775","gene-272401","gene-89057","gene-286545","gene-124766","gene-346500","gene-2467","gene-83083","gene-89798","gene-2286","gene-333750","gene-311581","gene-406519","gene-67440","gene-241193","gene-161848","gene-283197","gene-223791","gene-72046","gene-85294","g11517","gene-241506","gene-224028","gene-129852","gene-335551","gene-223088","gene-73754","gene-39533","gene-266297","gene-218529","gene-323550","gene-250391","gene-377275","gene-83830","gene-68813","gene-425122","gene-57335","gene-269058","gene-238320","gene-347681","gene-215430","gene-53269","gene-31110","gene-68612","gene-212020","gene-55557","gene-223285","gene-280630","gene-211847","gene-271655","gene-406603","gene-277078","gene-203445","gene-77109","gene-120964","gene-7268","gene-179860","gene-62891","gene-77835","gene-30328","gene-127773","gene-227308","gene-224369","gene-225158","gene-221012","g14784","gene-125210","gene-224890","gene-238849","gene-403878","gene-120660","gene-237378","gene-119161","gene-241682","gene-243630","gene-218813","gene-421265","gene-84577","gene-370643","gene-240602","gene-227370","gene-240860","gene-5731","gene-330102","gene-217099","gene-48714","gene-81750","gene-370487","gene-90428","gene-395158","gene-217443","gene-371230","gene-303243","gene-124377","gene-68558","gene-370842","gene-215103","gene-62927","gene-301479","gene-370323","gene-64491","gene-227284","gene-118620","gene-221469","gene-417051","gene-250269","gene-370562","gene-333008","gene-392350","gene-82722","yTor-all","gene-264249","gene-81581","gene-407735","gene-73288","gene-272192","gene-262796","gene-81518","gene-226254","gene-57617","gene-408949","gene-120070","gene-81458","gene-398993","gene-81476","gene-334677","gene-421549","gene-370595","gene-425532","gene-241841","gene-81675","gene-118985","gene-81418","gene-65889","gene-88458","gene-240638","g11957","gene-80415","gene-87700","gene-225355","gene-76284","gene-401486","gene-227071","gene-399223","gene-263313","gene-313589","gene-288413","gene-166814","gene-237857","gene-65163","gene-87487","gene-229515","gene-219157","gene-350813","gene-234256","gene-64470","gene-57689","gene-263588","gene-242691","gene-294364","gene-400426","gene-222159","gene-268137","gene-88092","gene-324340","gene-262046","gene-90524","g5814","gene-410993","gene-399203","gene-215313","gene-358397","gene-361221","gene-417093","gene-261982","gene-378262","gene-131338","gene-77588","gene-152204","gene-26634","gene-58495","gene-221504","g1591","gene-392536","gene-407714","gene-370967","gene-266345","gene-153689","gene-125849","gene-5187","gene-331395","gene-55887","gene-130632","gene-73160","gene-263597","gene-331896","gene-271117","gene-59093","gene-431030","gene-397251","gene-283696","gene-119684"],
-                "day16" : ['gene-424768', 'gene-263126', 'gene-240397', 'gene-424750', 'gene-211137', 'gene-243753', 'gene-215596', 'gene-63245', 'gene-223722', 'gene-428089', 'gene-54363', 'gene-424726', 'gene-87554', 'gene-223758', 'gene-55869', 'gene-90190', 'gene-223419', 'gene-223734', 'gene-367523', 'gene-42302', 'gene-113411', 'gene-14276', 'gene-217473', 'gene-7220', 'gene-63617', 'gene-424863', 'gene-229506', 'gene-6223', 'gene-34632', 'gene-119402', 'gene-312890', 'gene-69401', 'gene-241506', 'gene-23181', 'gene-127607', 'gene-336178', 'gene-8365', 'gene-38885', 'gene-328746', 'gene-388769', 'gene-86738', 'gene-14252', 'gene-231493', 'gene-125638', 'gene-393138', 'gene-279676', 'gene-221980', 'gene-407280', 'gene-68612', 'gene-152989', 'gene-104371', 'gene-234686', 'gene-271655', 'gene-336688', 'gene-241856', 'gene-306977', 'gene-127740', 'gene-233883', 'gene-57335', 'gene-38977', 'gene-85401', 'gene-353013', 'gene-269365', 'gene-346228', 'gene-201605', 'gene-127849', 'gene-205849', 'gene-152165', 'gene-431362', 'gene-313040', 'gene-174594', 'gene-294618', 'gene-128145', 'gene-228118', 'gene-88032', 'gene-32436', 'gene-424896', 'gene-124877', 'gene-231604', 'gene-420308', 'gene-149557', 'gene-327074', 'gene-426056', 'gene-223318', 'gene-283260', 'gene-223512', 'gene-230270', 'gene-80062', 'gene-279912', 'gene-231540', 'gene-333603', 'gene-116902', 'gene-410561', 'gene-259467', 'gene-183665', 'gene-240184', 'gene-367095', 'gene-424914', 'gene-195335', 'gene-345135', 'gene-351334', 'gene-254128', 'gene-222737', 'gene-277218', 'gene-23163', 'gene-23042', 'gene-48598', 'gene-68000', 'gene-185170', 'gene-402875', 'gene-197114', 'gene-421566', 'gene-233485', 'gene-268996', 'gene-272072', 'gene-30322', 'gene-55240', 'gene-39933', 'gene-405355', 'gene-402536', 'gene-241238', 'gene-310012', 'gene-333433', 'gene-282008', 'gene-255088', 'gene-324223', 'gene-17262', 'gene-30595', 'gene-90918', 'gene-279975', 'gene-321078', 'gene-327616', 'gene-254639', 'gene-372264', 'gene-101822', 'gene-266887', 'gene-174585', 'gene-246732', 'gene-286289', 'gene-21635', 'gene-287310', 'gene-275750', 'gene-362311', 'gene-64360', 'gene-425173', 'gene-232048', 'gene-196966', 'gene-428194', 'gene-89219', 'gene-268975', 'gene-55252', 'gene-183393', 'gene-182960', 'gene-329366', 'gene-6199', 'gene-269228', 'gene-222746', 'gene-336348', 'gene-289528', 'gene-14156', 'gene-369289', 'gene-228465', 'gene-117360', 'gene-16790', 'gene-218421', 'gene-188158', 'gene-286744', 'gene-270896', 'gene-428071', 'gene-360503', 'gene-330422', 'gene-58752', 'gene-220788','gene-240602', 'gene-24185', 'gene-24290', 'gene-23840', 'gene-23597', 'gene-24203', 'gene-24120', 'gene-24132', 'gene-23538', 'gene-423321', 'gene-87700', 'gene-24088', 'gene-24221', 'gene-390687', 'gene-24278', 'gene-24167', 'gene-13404', 'gene-23514', 'gene-407253', 'gene-326882', 'gene-23365', 'gene-15763', 'gene-23689', 'gene-428729', 'gene-23413', 'gene-23834', 'gene-327441', 'gene-23893', 'gene-392224', 'gene-23884', 'gene-240935', 'gene-80466', 'gene-421265', 'gene-120660', 'gene-428774', 'gene-24052', 'gene-90307', 'gene-24079', 'gene-122692', 'gene-417051', 'gene-282611', 'gene-403700', 'gene-224250', 'gene-282641', 'gene-328764', 'gene-27466', 'gene-370842', 'gene-84577', 'gene-219019', 'gene-410366', 'gene-400426', 'gene-214979', 'gene-403652', 'gene-227164', 'gene-326810', 'gene-130665', 'gene-9713', 'gene-17601', 'gene-12075', 'gene-218086', 'gene-84224', 'gene-237372', 'gene-219157', 'gene-326873', 'gene-329410', 'gene-403706', 'gene-81551', 'gene-245743', 'gene-81599', 'gene-411056', 'gene-127707', 'gene-395158', 'gene-431788', 'gene-217099', 'gene-80484', 'gene-403851', 'gene-23911', 'gene-370550', 'gene-81675', 'g2779', 'gene-215563', 'gene-392159', 'gene-224369', 'gene-90503', 'gene-24914', 'gene-216914', 'gene-81418', 'gene-370643', 'gene-15918', 'gene-237351', 'gene-81476', 'gene-81581', 'gene-285127', 'gene-222242', 'gene-125849', 'gene-349163', 'gene-227137', 'gene-282437', 'gene-13124', 'gene-17046', 'gene-10767', 'gene-225355', 'gene-237857', 'gene-119684', 'gene-16667', 'gene-81458', 'gene-80415', 'gene-326825'],
-                "day18" : ['gene-428071', 'gene-233410', 'gene-428104','gene-396259', 'gene-395158', 'gene-224875', 'gene-395143', 'gene-90157', 'gene-224860', 'gene-428738', 'gene-395080', 'gene-224697', 'gene-301479', 'gene-242595'],
+                "day14" : ["gene-237342","gene-181562","gene-58400"],
+                "day16" : [None], # no sig. interaction
+                "day18" : ["gene-426041","gene-48523","gene-73742","gene-2355","gene-237494","gene-279406","gene-237342","gene-276797","gene-367071"],
             }
         }
         contrasts_interaction_list = {
@@ -1449,7 +1502,7 @@ if __name__ == "__main__":
 
                 for bias_cat, contrasts_list in contrasts_interaction_list[separation].items():
                     
-                    if "bias" in bias_cat or "lb_F" in bias_cat:
+                    if "line bias" in bias_cat:# or "lb_F" in bias_cat:
                         print(f"skip {bias_cat}:{contrasts_list}")
                         continue
 
@@ -1458,7 +1511,12 @@ if __name__ == "__main__":
                     except:
                         print(f"no interaction genes included for category '{category}'") 
                         incl_geneIDs = []
-                    print(f"{bias_cat} : {len(incl_geneIDs)} genes")
+
+                    if bias_cat != "line bias":
+                        incl_geneIDs = []
+                        print(f"{bias_cat} : no interaction included")
+                    else:
+                        print(f"{bias_cat} : interaction has {len(incl_geneIDs)} genes")
 
                     LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in contrasts_list}
                     LFC_filename_ = bias_cat.replace(" ", "_")
@@ -1468,7 +1526,10 @@ if __name__ == "__main__":
                     bias_cat_ = bias_cat.replace("sb_", "sex-bias ").replace("lb_", ", line-bias ")
                     bias_cat_ = bias_cat_.replace("SL1", "small-Y").replace("SL3", "large-Y")
 
-                    plot_title = f"{category_}: {bias_cat_} and interaction"
+                    if len(incl_geneIDs)>0:
+                        plot_title = f"{category_}: {bias_cat_} and interaction"
+                    else:
+                        plot_title = f"{category_}: {bias_cat_}"
                     if len(plot_title)>33:
                         plot_title = plot_title.replace(" and", "\nand")
                     
@@ -1481,7 +1542,7 @@ if __name__ == "__main__":
     #############################################
 
     ## plot LogFC boxplots of male-biased genes of several contrasts within each separation
-    if True:
+    if False:
         LFC_comp_sets = {
             "day_separated" : {
                 "day14" : {

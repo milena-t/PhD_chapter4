@@ -11,7 +11,7 @@ import numpy as np
 from scipy import stats
 
 
-def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name:str, y_label="normalized counts", errorbars = False, samples_group_dict = {}):
+def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name:str, y_label="normalized counts", errorbars = False, samples_group_dict = {}, do_median=True):
     """
     plot the counts of the geneIDs in all samples
     except samples where all samples have zero counts
@@ -83,7 +83,10 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
                     sample = nonzero_samples_sorted[i]
                     try:
                         curr_counts = gene_counts[sample].to_list()
-                        curr_med = np.median(curr_counts)
+                        if do_median:
+                            curr_med = np.median(curr_counts)
+                        else:
+                            curr_med = np.mean(curr_counts)
                         curr_sem = stats.sem(curr_counts)
                         count_expressed = len([count for count in curr_counts if count >0])
                     except:
@@ -103,7 +106,11 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
                     
                     sample_outstr = sample.replace("WJ-3841-","SL")
                     sample_outstr = sample_outstr.split("_S")[0]
+                if do_median:
                     out_str = f"{sample_outstr} ({len(curr_counts)} genes, {count_expressed} are expressed) :\t median: {curr_med:.3f}; std.err: {curr_sem:.3f}"
+                else:
+                    out_str = f"{sample_outstr} ({len(curr_counts)} genes, {count_expressed} are expressed) :\t mean: {curr_med:.3f}; std.err: {curr_sem:.3f}"
+                    
                     out_table.write(f"{out_str}\n")
                     # print(out_str)
                 
@@ -134,7 +141,10 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
                             pass
                         
                     if len(curr_counts)>0:
-                        curr_med = np.median(curr_counts)
+                        if do_median:
+                            curr_med = np.median(curr_counts)
+                        else:
+                            curr_med = np.mean(curr_counts)
                         curr_sem = stats.sem(curr_counts)
                         count_expressed = len([count for count in curr_counts if count >0])
                     else:
@@ -143,8 +153,12 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
 
                     medians_list.append(curr_med)
                     errors_list.append(curr_sem)
-
-                    out_str =f"{sample_group} ({count_expressed} expr. genes from {count_samples} samples) :\t median: {curr_med:.3f}; std.err: {curr_sem:.3f}"
+                    sample_group_ = sample_group.replace("SL1", "small-Y").replace("SL3", "large-Y").replace("_1", " day1").replace("_", " ")
+                    if do_median:
+                        out_str =f"{sample_group_}\t({count_expressed} expr. genes from {count_samples} samples)\t median: {curr_med:.3f}\tstd.err: {curr_sem:.3f}"
+                    else:
+                        out_str =f"{sample_group_}\t({count_expressed} expr. genes from {count_samples} samples)\t mean: {curr_med:.3f}\tstd.err: {curr_sem:.3f}"
+                        
                     # print(out_str)
                     out_table.write(f"{out_str}\n")
 
@@ -169,7 +183,7 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
 
     
     ax.set_xticks(tick_pos)
-    ax.set_xticklabels(tick_labels)
+    ax.set_xticklabels([tick.replace("SL1", "small-Y").replace("SL3", "large-Y").replace("_1", " day1").replace("_", " ") for tick in tick_labels])
     for tick_label, color in zip(ax.get_xticklabels(), tick_cols):
         tick_label.set_color(color)
     
@@ -434,6 +448,19 @@ if __name__ == "__main__":
         plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict=MSL2_IDs, outfile_name=MSL2_plot, errorbars=True, samples_group_dict = samples_group_dict)
 
     if True:
+        TOR_IDs = {
+            "Y-Tor" : ["yTor-all"],
+            "A-Tor" : ["gene-30110"],
+            }
+        TOR_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/TOR_counts_sample_groups.png"
+        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict=TOR_IDs, outfile_name=TOR_plot, errorbars=True, samples_group_dict = samples_group_dict, do_median=False)
+        TOR_IDs = {
+            "Y-Tor" : ["yTor-all"],
+            }
+        TOR_plot = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/yTor_analysis/TOR_y_counts_sample_groups.png"
+        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict=TOR_IDs, outfile_name=TOR_plot, errorbars=True, samples_group_dict = samples_group_dict, do_median=False)
+
+    if False:
         warnings.filterwarnings("ignore")
         table_paths,contrast_plot_titles = get_tables(username=username)
 

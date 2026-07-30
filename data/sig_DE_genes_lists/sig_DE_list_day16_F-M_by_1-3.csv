@@ -1,0 +1,92 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:0046496","nicotinamide nucleotide metabolic proces...",25,6,0.7,0.0019
+"2","GO:0043648","dicarboxylic acid metabolic process",23,4,0.64,0.0034
+"3","GO:0009063","cellular amino acid catabolic process",23,4,0.64,0.0034
+"4","GO:1901606","alpha-amino acid catabolic process",23,4,0.64,0.0034
+"5","GO:0042811","pheromone biosynthetic process",12,3,0.33,0.0039
+"6","GO:0046693","sperm storage",12,3,0.33,0.0039
+"7","GO:0016999","antibiotic metabolic process",55,6,1.53,0.004
+"8","GO:0019682","glyceraldehyde-3-phosphate metabolic pro...",4,2,0.11,0.0045
+"9","GO:0046653","tetrahydrofolate metabolic process",4,2,0.11,0.0045
+"10","GO:0030728","ovulation",13,3,0.36,0.005
+"11","GO:0045824","negative regulation of innate immune res...",13,3,0.36,0.005
+"12","GO:0046008","regulation of female receptivity, post-m...",14,3,0.39,0.0062
+"13","GO:1901605","alpha-amino acid metabolic process",72,11,2.01,0.0068
+"14","GO:0006551","leucine metabolic process",5,2,0.14,0.0073
+"15","GO:0006098","pentose-phosphate shunt",5,2,0.14,0.0073
+"16","GO:0006607","NLS-bearing protein import into nucleus",15,3,0.42,0.0076
+"17","GO:0019751","polyol metabolic process",15,3,0.42,0.0076
+"18","GO:0006544","glycine metabolic process",6,2,0.17,0.0108
+"19","GO:0006734","NADH metabolic process",6,2,0.17,0.0108
+"20","GO:0006099","tricarboxylic acid cycle",34,4,0.95,0.0141
+"21","GO:0006101","citrate metabolic process",34,4,0.95,0.0141
+"22","GO:0042180","cellular ketone metabolic process",52,5,1.45,0.0143
+"23","GO:0007599","hemostasis",7,2,0.2,0.0148
+"24","GO:0042381","hemolymph coagulation",7,2,0.2,0.0148
+"25","GO:0050817","coagulation",7,2,0.2,0.0148
+"26","GO:0071711","basement membrane organization",19,3,0.53,0.0148
+"27","GO:0046662","regulation of oviposition",19,3,0.53,0.0148
+"28","GO:0072350","tricarboxylic acid metabolic process",37,4,1.03,0.0188
+"29","GO:0019320","hexose catabolic process",8,2,0.22,0.0194
+"30","GO:0046365","monosaccharide catabolic process",8,2,0.22,0.0194
+"31","GO:0009065","glutamine family amino acid catabolic pr...",8,2,0.22,0.0194
+"32","GO:0060033","anatomical structure regression",57,5,1.59,0.0206
+"33","GO:0044282","small molecule catabolic process",82,9,2.29,0.0217
+"34","GO:0005975","carbohydrate metabolic process",124,8,3.46,0.0219
+"35","GO:0006091","generation of precursor metabolites and ...",180,12,5.02,0.022
+"36","GO:0018991","oviposition",22,3,0.61,0.0222
+"37","GO:0042744","hydrogen peroxide catabolic process",9,2,0.25,0.0245
+"38","GO:0035007","regulation of melanization defense respo...",9,2,0.25,0.0245
+"39","GO:0017001","antibiotic catabolic process",9,2,0.25,0.0245
+"40","GO:0043649","dicarboxylic acid catabolic process",9,2,0.25,0.0245
+"41","GO:0017038","protein import",82,6,2.29,0.0262
+"42","GO:0009081","branched-chain amino acid metabolic proc...",6,3,0.17,0.0276
+"43","GO:0009152","purine ribonucleotide biosynthetic proce...",83,6,2.31,0.0277
+"44","GO:0046952","ketone body catabolic process",1,1,0.03,0.0279
+"45","GO:0097120","receptor localization to synapse",1,1,0.03,0.0279
+"46","GO:1903461","Okazaki fragment processing involved in ...",1,1,0.03,0.0279
+"47","GO:0030710","regulation of border follicle cell delam...",1,1,0.03,0.0279
+"48","GO:0006528","asparagine metabolic process",1,1,0.03,0.0279
+"49","GO:0006530","asparagine catabolic process",1,1,0.03,0.0279
+"50","GO:0006539","glutamate catabolic process via 2-oxoglu...",1,1,0.03,0.0279
+"51","GO:0034514","mitochondrial unfolded protein response",1,1,0.03,0.0279
+"52","GO:0045838","positive regulation of membrane potentia...",1,1,0.03,0.0279
+"53","GO:1901569","fatty acid derivative catabolic process",1,1,0.03,0.0279
+"54","GO:0033345","asparagine catabolic process via L-aspar...",1,1,0.03,0.0279
+"55","GO:0006127","glycerophosphate shuttle",1,1,0.03,0.0279
+"56","GO:0019264","glycine biosynthetic process from serine",1,1,0.03,0.0279
+"57","GO:0014703","oscillatory muscle contraction",1,1,0.03,0.0279
+"58","GO:0006107","oxaloacetate metabolic process",1,1,0.03,0.0279
+"59","GO:0033501","galactose homeostasis",1,1,0.03,0.0279
+"60","GO:0009051","pentose-phosphate shunt, oxidative branc...",1,1,0.03,0.0279
+"61","GO:0003010","voluntary skeletal muscle contraction",1,1,0.03,0.0279
+"62","GO:0006021","inositol biosynthetic process",1,1,0.03,0.0279
+"63","GO:0010918","positive regulation of mitochondrial mem...",1,1,0.03,0.0279
+"64","GO:0019859","thymine metabolic process",1,1,0.03,0.0279
+"65","GO:0019674","NAD metabolic process",10,2,0.28,0.03
+"66","GO:0055092","sterol homeostasis",10,2,0.28,0.03
+"67","GO:0019915","lipid storage",43,4,1.2,0.0309
+"68","GO:0090407","organophosphate biosynthetic process",183,10,5.1,0.0311
+"69","GO:0006164","purine nucleotide biosynthetic process",87,6,2.43,0.0338
+"70","GO:0046390","ribose phosphate biosynthetic process",88,6,2.45,0.0355
+"71","GO:0009260","ribonucleotide biosynthetic process",88,6,2.45,0.0355
+"72","GO:0042743","hydrogen peroxide metabolic process",11,2,0.31,0.036
+"73","GO:0034446","substrate adhesion-dependent cell spread...",11,2,0.31,0.036
+"74","GO:0045454","cell redox homeostasis",11,2,0.31,0.036
+"75","GO:0072522","purine-containing compound biosynthetic ...",89,6,2.48,0.0372
+"76","GO:0009165","nucleotide biosynthetic process",113,7,3.15,0.0377
+"77","GO:0071456","cellular response to hypoxia",27,3,0.75,0.0381
+"78","GO:0046578","regulation of Ras protein signal transdu...",67,5,1.87,0.0382
+"79","GO:0051056","regulation of small GTPase mediated sign...",68,5,1.9,0.0404
+"80","GO:0044281","small molecule metabolic process",621,40,17.32,0.0404
+"81","GO:0045475","locomotor rhythm",47,4,1.31,0.041
+"82","GO:0036294","cellular response to decreased oxygen le...",28,3,0.78,0.0419
+"83","GO:0035069","larval midgut histolysis",28,3,0.78,0.0419
+"84","GO:0043455","regulation of secondary metabolic proces...",12,2,0.33,0.0425
+"85","GO:1901293","nucleoside phosphate biosynthetic proces...",116,7,3.24,0.0426
+"86","GO:0019693","ribose phosphate metabolic process",194,10,5.41,0.0437
+"87","GO:0010876","lipid localization",93,6,2.59,0.0446
+"88","GO:0006821","chloride transport",29,3,0.81,0.0458
+"89","GO:1902476","chloride transmembrane transport",29,3,0.81,0.0458
+"90","GO:0000387","spliceosomal snRNP assembly",13,2,0.36,0.0493
+"91","GO:0071453","cellular response to oxygen levels",30,3,0.84,0.0498

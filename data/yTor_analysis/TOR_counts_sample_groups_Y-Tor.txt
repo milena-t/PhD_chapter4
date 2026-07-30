@@ -1,0 +1,12 @@
+small-Y day14 M	(10 expr. genes from 10 samples)	 mean: 0.591	std.err: 0.052
+small-Y day16 M	(10 expr. genes from 11 samples)	 mean: 0.611	std.err: 0.135
+small-Y day18 M	(6 expr. genes from 7 samples)	 mean: 0.329	std.err: 0.104
+large-Y day14 M	(4 expr. genes from 9 samples)	 mean: 0.064	std.err: 0.029
+large-Y day16 M	(4 expr. genes from 7 samples)	 mean: 0.143	std.err: 0.060
+large-Y day18 M	(8 expr. genes from 12 samples)	 mean: 0.086	std.err: 0.021
+small-Y day14 F	(2 expr. genes from 3 samples)	 mean: 0.252	std.err: 0.183
+small-Y day16 F	(2 expr. genes from 3 samples)	 mean: 0.073	std.err: 0.039
+small-Y day18 F	(3 expr. genes from 5 samples)	 mean: 0.146	std.err: 0.071
+large-Y day14 F	(2 expr. genes from 6 samples)	 mean: 0.029	std.err: 0.018
+large-Y day16 F	(1 expr. genes from 6 samples)	 mean: 0.027	std.err: 0.027
+large-Y day18 F	(1 expr. genes from 3 samples)	 mean: 0.037	std.err: 0.037

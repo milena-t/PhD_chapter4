@@ -1,0 +1,80 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:0016319","mushroom body development",7,3,0.22,0.00084
+"2","GO:0035096","larval midgut cell programmed cell death",2,2,0.06,0.00094
+"3","GO:0006914","autophagy",9,3,0.29,0.00193
+"4","GO:0040008","regulation of growth",12,3,0.38,0.00478
+"5","GO:0008283","cell population proliferation",13,3,0.41,0.0061
+"6","GO:0002009","morphogenesis of an epithelium",26,4,0.83,0.00643
+"7","GO:0002066","columnar/cuboidal epithelial cell develo...",14,3,0.45,0.00762
+"8","GO:0030707","ovarian follicle cell development",14,3,0.45,0.00762
+"9","GO:0016322","neuron remodeling",5,2,0.16,0.00892
+"10","GO:0007498","mesoderm development",5,2,0.16,0.00892
+"11","GO:0042593","glucose homeostasis",6,2,0.19,0.01313
+"12","GO:0051056","regulation of small GTPase mediated sign...",6,2,0.19,0.01313
+"13","GO:0006974","cellular response to DNA damage stimulus",6,2,0.19,0.01313
+"14","GO:0046578","regulation of Ras protein signal transdu...",6,2,0.19,0.01313
+"15","GO:0048731","system development",73,8,2.32,0.0132
+"16","GO:0048563","post-embryonic animal organ morphogenesi...",17,3,0.54,0.01343
+"17","GO:0007560","imaginal disc morphogenesis",17,3,0.54,0.01343
+"18","GO:0048569","post-embryonic animal organ development",18,3,0.57,0.01581
+"19","GO:0009886","post-embryonic animal morphogenesis",23,5,0.73,0.01585
+"20","GO:0048707","instar larval or pupal morphogenesis",23,5,0.73,0.01585
+"21","GO:0007552","metamorphosis",23,5,0.73,0.01585
+"22","GO:0048513","animal organ development",50,7,1.59,0.01666
+"23","GO:0048869","cellular developmental process",82,8,2.61,0.01711
+"24","GO:0033500","carbohydrate homeostasis",7,2,0.22,0.01805
+"25","GO:0031032","actomyosin structure organization",7,2,0.22,0.01805
+"26","GO:0019915","lipid storage",7,2,0.22,0.01805
+"27","GO:0060562","epithelial tube morphogenesis",19,3,0.6,0.01842
+"28","GO:0035239","tube morphogenesis",20,3,0.64,0.02126
+"29","GO:0007444","imaginal disc development",20,3,0.64,0.02126
+"30","GO:0050794","regulation of cellular process",130,8,4.14,0.02668
+"31","GO:0048468","cell development",65,7,2.07,0.02824
+"32","GO:0002165","instar larval or pupal development",28,5,0.89,0.02862
+"33","GO:0007264","small GTPase mediated signal transductio...",9,2,0.29,0.02982
+"34","GO:0007265","Ras protein signal transduction",9,2,0.29,0.02982
+"35","GO:0051235","maintenance of location",9,2,0.29,0.02982
+"36","GO:0009791","post-embryonic development",29,5,0.92,0.03169
+"37","GO:0035215","genital disc development",1,1,0.03,0.03182
+"38","GO:0060438","trachea development",1,1,0.03,0.03182
+"39","GO:0060439","trachea morphogenesis",1,1,0.03,0.03182
+"40","GO:0090504","epiboly",1,1,0.03,0.03182
+"41","GO:0090505","epiboly involved in wound healing",1,1,0.03,0.03182
+"42","GO:0032233","positive regulation of actin filament bu...",1,1,0.03,0.03182
+"43","GO:0030335","positive regulation of cell migration",1,1,0.03,0.03182
+"44","GO:0046661","male sex differentiation",1,1,0.03,0.03182
+"45","GO:0007277","pole cell development",1,1,0.03,0.03182
+"46","GO:0007279","pole cell formation",1,1,0.03,0.03182
+"47","GO:0043149","stress fiber assembly",1,1,0.03,0.03182
+"48","GO:0030038","contractile actin filament bundle assemb...",1,1,0.03,0.03182
+"49","GO:0048803","imaginal disc-derived male genitalia mor...",1,1,0.03,0.03182
+"50","GO:0048805","imaginal disc-derived genitalia morphoge...",1,1,0.03,0.03182
+"51","GO:0048806","genitalia development",1,1,0.03,0.03182
+"52","GO:0048808","male genitalia morphogenesis",1,1,0.03,0.03182
+"53","GO:0035126","post-embryonic genitalia morphogenesis",1,1,0.03,0.03182
+"54","GO:0045785","positive regulation of cell adhesion",1,1,0.03,0.03182
+"55","GO:0035112","genitalia morphogenesis",1,1,0.03,0.03182
+"56","GO:0002011","morphogenesis of an epithelial sheet",1,1,0.03,0.03182
+"57","GO:0010810","regulation of cell-substrate adhesion",1,1,0.03,0.03182
+"58","GO:0010811","positive regulation of cell-substrate ad...",1,1,0.03,0.03182
+"59","GO:0090598","male anatomical structure morphogenesis",1,1,0.03,0.03182
+"60","GO:2000147","positive regulation of cell motility",1,1,0.03,0.03182
+"61","GO:0006465","signal peptide processing",1,1,0.03,0.03182
+"62","GO:0032528","microvillus organization",1,1,0.03,0.03182
+"63","GO:0007483","genital disc morphogenesis",1,1,0.03,0.03182
+"64","GO:0007484","imaginal disc-derived genitalia developm...",1,1,0.03,0.03182
+"65","GO:0051492","regulation of stress fiber assembly",1,1,0.03,0.03182
+"66","GO:0007485","imaginal disc-derived male genitalia dev...",1,1,0.03,0.03182
+"67","GO:0051496","positive regulation of stress fiber asse...",1,1,0.03,0.03182
+"68","GO:0030539","male genitalia development",1,1,0.03,0.03182
+"69","GO:1900024","regulation of substrate adhesion-depende...",1,1,0.03,0.03182
+"70","GO:1900026","positive regulation of substrate adhesio...",1,1,0.03,0.03182
+"71","GO:0044319","wound healing, spreading of cells",1,1,0.03,0.03182
+"72","GO:0044703","multi-organism reproductive process",61,5,1.94,0.03217
+"73","GO:0003006","developmental process involved in reprod...",43,6,1.37,0.03237
+"74","GO:0035295","tube development",24,3,0.76,0.03495
+"75","GO:0000209","protein polyubiquitination",10,2,0.32,0.0366
+"76","GO:0007165","signal transduction",63,5,2,0.03661
+"77","GO:0032989","cellular component morphogenesis",25,3,0.8,0.03896
+"78","GO:0009653","anatomical structure morphogenesis",72,9,2.29,0.04349
+"79","GO:0048646","anatomical structure formation involved ...",27,3,0.86,0.04767

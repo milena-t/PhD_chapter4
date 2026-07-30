@@ -18,11 +18,25 @@ if (FALSE){
   BiocManager::install("DESeq2") # compiled from source 
   BiocManager::install("edgeR")
   # install tidyverse (ggplot2 is in tidyverse)
-  install.packages("tidyverse") 
+  # BiocManager::install("tidyverse", force = TRUE) 
+  
+  ## if tidyverse does not work then get only these
+  install.packages(c("ggplot2", "dplyr", "tidyr", "readr", "purrr", "tibble", "stringr", "forcats", "lubridate"))
+  
   install.packages("gtable") 
   install.packages("VennDiagram") 
 }
-library(tidyverse)
+
+# library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(purrr)
+library(tibble)
+library(stringr)
+library(forcats)
+library(lubridate)
+
 library(ggplot2)
 library(edgeR)
 library(limma)
@@ -35,9 +49,11 @@ library(dplyr)
 Load either whole gene set, or filtered to only include X or Y genes.
 
 ```{r}
-# in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
-in_filename <- "/Users/milena/work/PhD_code/PhD_chapter4/data/gene_counts_standard_merge_yTor.txt"
-outdir <- "/Users/milena/work/PhD_code/PhD_chapter4/data/"
+in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard.txt"
+outdir <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/"
+# in_filename <- "/Users/milena/work/PhD_code/PhD_chapter4/data/gene_counts_standard_merge_yTor.txt"
+# outdir <- "/Users/milena/work/PhD_code/PhD_chapter4/data/"
+
 
 # in_filename <- "/Users/miltr339/work/PhD_code/PhD_chapter4/data/gene_counts_standard_only_Y.txt"
 # outdir <- ("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_only_Y/"
@@ -684,7 +700,7 @@ out_18 <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18_16"],table_n
 Look at the sex-bias and line stuff by splitting the data by day
 
 ```{r}
-day <- "14" # "14" or "16" or "18"
+day <- "18" # "14" or "16" or "18"
 ```
 
 ```{r} 
@@ -748,7 +764,7 @@ out_f <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"females"],table_nam
 males_table <- sprintf("/Users/milena/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_M_1-3.txt", day)
 out_m <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"males"],table_name=males_table,lfc_min = 0)
 
-interaction_table <- sprintf("/Users/milena/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_F-M_by_1-3.txt", day)
+interaction_table <- sprintf("/Users/miltr339/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_F-M_by_1-3.txt", day)
 out_int <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"sex_line"],table_name=interaction_table,lfc_min = 0)
 
 interaction_table <- sprintf("/Users/milena/work/PhD_code/PhD_chapter4/data/DE_genes_day%s_F-M_by_1-3_rev.txt", day)
