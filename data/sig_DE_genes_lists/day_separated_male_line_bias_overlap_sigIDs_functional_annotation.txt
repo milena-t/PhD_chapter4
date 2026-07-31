@@ -1,54 +1,54 @@
-gene-124877	Belongs to the heparin-binding growth factors family
-gene-223758	Structural constituent of cuticle
-gene-424750	Alcohol dehydrogenase transcription factor Myb/SANT-like
-gene-127740	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates. Specific peripheric component of RNA polymerase III which synthesizes small RNAs, such as 5S rRNA and tRNAs
-gene-90190	Carboxylesterase family
-gene-87554	---not_annotated---
-gene-426056	Serendipity locus alpha protein (SRY-A)
-gene-230270	Peptidase family M48
-gene-232048	Odorant binding protein
-gene-38977	Reverse transcriptase (RNA-dependent DNA polymerase)
-gene-231604	---not_annotated---
-gene-223318	Belongs to the heat shock protein 70 family
-gene-222737	---not_annotated---
-gene-88032	Functions as a component of the nuclear pore complex (NPC). NPC components, collectively referred to as nucleoporins (NUPs)
-gene-372264	---not_annotated---
-gene-223419	Ribosomal L37ae protein family
-gene-346228	Subunit of the peripheral V1 complex of vacuolar ATPase. Subunit C is necessary for the assembly of the catalytic sector of the enzyme and is likely to have a specific function in its catalytic activity. V-ATPase is responsible for acidifying a variety of intracellular compartments in eukaryotic cells
-gene-125638	Glyceraldehyde 3-phosphate dehydrogenase, NAD binding domain
-gene-240397	LSM domain
-gene-336688	protein serine threonine kinase
-gene-227137	no_description
-gene-263126	Catalyzes the reversible isomerization between hydroxypyruvate and 2-hydroxy-3-oxopropanoate (also termed tartronate semialdehyde)
-gene-127607	Domain of unknown function (DUF389)
-gene-266887	---not_annotated---
-gene-229506	---not_annotated---
-gene-241506	---not_annotated---
-gene-57335	Required for nuclear transport of RNA pol II C-terminus 1
-gene-68612	Calcium-activated chloride channel
-gene-271655	AAR2 protein
-gene-224369	large 1 tumor suppressor
-gene-120660	Belongs to the peptidase S10 family
-gene-421265	---not_annotated---
-gene-84577	GMC oxidoreductase
-gene-370643	Dyggve-Melchior-Clausen syndrome protein
-gene-240602	no_description
-gene-217099	---not_annotated---
-gene-395158	Domain of unknown function DUF21
-gene-370842	peptidase inhibitor activity
-gene-301479	Belongs to the transient receptor (TC 1.A.4) family
-gene-417051	Protein OPI10 homolog
-gene-81581	Inositol monophosphatase family
-gene-81458	Casein kinase 1 gamma C terminal
-gene-81476	JAB1/Mov34/MPN/PAD-1 ubiquitin protease
-gene-81675	nucleic acid binding
-gene-81418	---not_annotated---
-gene-80415	Tetraspanin family
-gene-87700	Insect pheromone-binding family, A10/OS-D
-gene-225355	PA domain
-gene-237857	Domain of unknown function (DUF384)
-gene-219157	Zinc-finger associated domain (zf-AD)
-gene-400426	Calcium ion binding
-gene-125849	Belongs to the mitochondrial carrier (TC 2.A.29) family
-gene-119684	Tudor domain
-gene-428071	---not_annotated---
+gene-124877	-	Belongs to the heparin-binding growth factors family
+gene-223758	-	Structural constituent of cuticle
+gene-424750	-	Alcohol dehydrogenase transcription factor Myb/SANT-like
+gene-127740	-	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates. Specific peripheric component of RNA polymerase III which synthesizes small RNAs, such as 5S rRNA and tRNAs
+gene-90190	Est-6	Carboxylesterase family
+gene-87554	-	---not_annotated---
+gene-426056	Sry-alpha	Serendipity locus alpha protein (SRY-A)
+gene-230270	-	Peptidase family M48
+gene-232048	-	Odorant binding protein
+gene-38977	-	Reverse transcriptase (RNA-dependent DNA polymerase)
+gene-231604	-	---not_annotated---
+gene-223318	Hsc70-5	Belongs to the heat shock protein 70 family
+gene-222737	-	---not_annotated---
+gene-88032	-	Functions as a component of the nuclear pore complex (NPC). NPC components, collectively referred to as nucleoporins (NUPs)
+gene-372264	-	---not_annotated---
+gene-223419	RpL37A	Ribosomal L37ae protein family
+gene-346228	Vha44	Subunit of the peripheral V1 complex of vacuolar ATPase. Subunit C is necessary for the assembly of the catalytic sector of the enzyme and is likely to have a specific function in its catalytic activity. V-ATPase is responsible for acidifying a variety of intracellular compartments in eukaryotic cells
+gene-125638	-	Glyceraldehyde 3-phosphate dehydrogenase, NAD binding domain
+gene-240397	-	LSM domain
+gene-336688	-	protein serine threonine kinase
+gene-227137	-	no_description
+gene-263126	Gip	Catalyzes the reversible isomerization between hydroxypyruvate and 2-hydroxy-3-oxopropanoate (also termed tartronate semialdehyde)
+gene-127607	-	Domain of unknown function (DUF389)
+gene-266887	-	---not_annotated---
+gene-229506	-	---not_annotated---
+gene-241506	-	---not_annotated---
+gene-57335	-	Required for nuclear transport of RNA pol II C-terminus 1
+gene-68612	-	Calcium-activated chloride channel
+gene-271655	-	AAR2 protein
+gene-224369	-	large 1 tumor suppressor
+gene-120660	-	Belongs to the peptidase S10 family
+gene-421265	-	---not_annotated---
+gene-84577	-	GMC oxidoreductase
+gene-370643	-	Dyggve-Melchior-Clausen syndrome protein
+gene-240602	-	no_description
+gene-217099	-	---not_annotated---
+gene-395158	-	Domain of unknown function DUF21
+gene-370842	-	peptidase inhibitor activity
+gene-301479	TRPL	Belongs to the transient receptor (TC 1.A.4) family
+gene-417051	-	Protein OPI10 homolog
+gene-81581	-	Inositol monophosphatase family
+gene-81458	gish	Casein kinase 1 gamma C terminal
+gene-81476	-	JAB1/Mov34/MPN/PAD-1 ubiquitin protease
+gene-81675	-	nucleic acid binding
+gene-81418	-	---not_annotated---
+gene-80415	-	Tetraspanin family
+gene-87700	-	Insect pheromone-binding family, A10/OS-D
+gene-225355	-	PA domain
+gene-237857	-	Domain of unknown function (DUF384)
+gene-219157	-	Zinc-finger associated domain (zf-AD)
+gene-400426	-	Calcium ion binding
+gene-125849	-	Belongs to the mitochondrial carrier (TC 2.A.29) family
+gene-119684	-	Tudor domain
+gene-428071	-	---not_annotated---

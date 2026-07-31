@@ -450,14 +450,14 @@ if __name__ == "__main__":
         early_days=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs.csv"
         make_table_sig_GO_terms(infile_path=early_days)
 
-    if False:
+    if True:
         ## add gene annotation information to a previously generated list of sig. geneIDs
         day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt"
         annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
 
         add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path)
         
-    if False:
+    if True:
         SB_LB_genes = {
             "day14" : {
                 "SL1" : ['gene-225158', 'gene-222430', 'gene-372264', 'gene-117712'],
@@ -476,7 +476,7 @@ if __name__ == "__main__":
                 day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_{day}_sex_{line}_and_line_M_biased_genes_functions.txt"
                 add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path, IDs_list=IDs_list)
 
-    if False:
+    if True:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days

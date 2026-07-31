@@ -693,7 +693,6 @@ def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = ""
     return data
 
 
-
 def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, plot_filename  = "LogFC_boxplot.png", plot_title = ""):
     """
     Make boxplot of abs LogFC of sig DE genes for all files specified in infiles_dict with the dict keys as axis labels
@@ -849,14 +848,14 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
     make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
     highlight_yTOR = False
 
-    if False:
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -866,8 +865,8 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "day_separated":
-            # if separation == "day_separated" or separation == "line_separated":
+            # if separation != "day_separated":
+            if (separation == "sex_separated" or separation == "no_separation") == False:
                 print(f"ignore {separation}")
                 continue
 
@@ -890,9 +889,9 @@ if __name__ == "__main__":
                 
                 for contrast, table_path in paths_dict.items():
                     
-                    if "(" in contrast:
-                        print(f"ignore {category}:{contrast}")
-                        continue
+                    # if "(" in contrast:
+                    #     print(f"ignore {category}:{contrast}")
+                    #     continue
 
 
                     # if "day" not in contrast:
@@ -984,7 +983,7 @@ if __name__ == "__main__":
                         if "(" in contrast and category =="line_random":
                             ## save the day-sex interaction for the full dataset separately to use in an upsetplot for the sex separated samples
                             no_sep_day_by_sex = DE_list
-                            # print(f"!!!!!!!!!! interaction day-by-sex full data: {len(no_sep_day_by_sex)} genes")
+                            print(f"!!!!!!!!!! interaction day-by-sex full data: {len(no_sep_day_by_sex)} genes")
                     
                     elif coefficients:
                         for coeff, coeff_list in smear_lists.items():
@@ -1027,7 +1026,7 @@ if __name__ == "__main__":
 
                 if separation == "sex_separated":
                     # plot only male line bias in the day separated data
-                    sep_DE_genes_ = {sep : l_ for sep,l_ in sep_DE_genes.items() if "day" in sep}
+                    sep_DE_genes_ = {sep : l_ for sep,l_ in sep_DE_genes.items() if "day" in sep and "females" not in sep}
                     sep_DE_genes_["full dataset: day-by-sex"] = no_sep_day_by_sex
                     min_overlap_ = 20
                     plot_title_ = f"min. overlap size: {min_overlap_}"
@@ -1471,7 +1470,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if True:
+    if False:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
