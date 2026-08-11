@@ -110,7 +110,6 @@ Export normalized counts to file. See Python scripting for the PCA plots based o
 
 # run whole dataset for basic analyses
 
-
 ```{r}
 counts_M <- count_data
 
@@ -120,6 +119,7 @@ meta_data <- meta_data[names(counts_M),]# reorder so it's in the same order as t
 all(colnames(counts_M) %in% rownames(meta_data))# check assumptions, should be TRUE
 all(colnames(counts_M) == rownames(meta_data))# check assumptions, should be TRUE
 ```
+
 
 ## Day as random factor for line-by-sex interaction
 
@@ -268,6 +268,10 @@ my.contrasts <- makeContrasts(
 day14_F_M = day14_F - day14_M,
 day16_F_M = day16_F - day16_M,
 day18_F_M = day18_F - day18_M,
+M_14_16 = day14_M - day16_M,
+M_16_18 = day16_M - day18_M,
+F_14_16 = day14_F - day16_F,
+F_16_18 = day16_F - day18_F,
 day_sex_interaction = (day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M),
 levels=MM)
 ```
@@ -289,8 +293,69 @@ day16_F_M_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day16_F_M
 day18_F_M_table = sprintf("%sfull_dataset_line_ignored_day18_F-M.txt", outdir)
 day18_F_M_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day18_F_M"],table_name=day18_F_M_table,lfc_min = 0)
 
+M_14_16_table = sprintf("%sfull_dataset_line_ignored_M_14_16.txt", outdir)
+M_14_16_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"M_14_16"],table_name=M_14_16_table,lfc_min = 0)
+
+M_16_18_table = sprintf("%sfull_dataset_line_ignored_M_16_18.txt", outdir)
+M_16_18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"M_16_18"],table_name=M_16_18_table,lfc_min = 0)
+
+F_14_16_table = sprintf("%sfull_dataset_line_ignored_F_14_16.txt", outdir)
+F_14_16_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"F_14_16"],table_name=F_14_16_table,lfc_min = 0)
+
+F_16_18_table = sprintf("%sfull_dataset_line_ignored_F_16_18.txt", outdir)
+F_16_18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"F_16_18"],table_name=F_16_18_table,lfc_min = 0)
+
 day_sex_interaction_table = sprintf("%sfull_dataset_line_ignored_day_sex_interaction.txt", outdir)
 day_sex_interaction_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day_sex_interaction"],table_name=day_sex_interaction_table,lfc_min = 0)
+```
+
+## Sex as random factor for day-by-line interaction
+
+```{r}
+# groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
+groups <- factor(paste(meta_data$line, meta_data$day, sep="_"))
+y <- DGEList(counts=counts_M, group=groups)
+# y <- DGEList(counts=counts_M)
+
+## filter out low count genes
+# filter by only line group and not day, since we aren't sure how the expression changes between days and we don't want to remove genes that are only rarely expressed
+keep <- filterByExpr(y, group=meta_data$line, min.count=5, min.total.count=15)
+  y <- y[keep, , keep.lib.sizes=FALSE]
+  y$samples$lib.size <- colSums(y$counts) # recompute library sizes
+# normalize by library sizes
+y <- calcNormFactors(y)
+
+# specify model
+line <- factor(meta_data$line)
+day <- factor(meta_data$day)
+sex <- factor(meta_data$sex)
+MM <- model.matrix(~ 0 + groups + sex, data = y$samples)
+colnames(MM)
+qr(MM)$rank   # should be 7
+ncol(MM)      # should be 7
+colnames(MM) <- c("SL1_d14", "SL1_d16", "SL1_d18", "SL3_d14", "SL3_d16","SL3_d18", "M")
+rownames(MM) <- colnames(y)
+
+# estimate dispersion with edgeR
+y <- estimateDisp(y, MM) 
+# plotBCV(y)
+
+my.contrasts <- makeContrasts(
+line_day_interaction = (SL1_d14 - SL3_d14) - (SL1_d16 - SL3_d16) - (SL1_d18 - SL3_d18),
+line_day_interaction_early = (SL1_d14 - SL3_d14) - (SL1_d16 - SL3_d16),
+line_day_interaction_late = (SL1_d16 - SL3_d16) - (SL1_d18 - SL3_d18),
+levels=MM)
+```
+
+```{r}
+day_line_interaction_table = sprintf("%sfull_dataset_line_ignored_day_line_interaction.txt", outdir)
+day_line_interaction_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_day_interaction"],table_name=day_line_interaction_table,lfc_min = 0)
+
+day_line_interaction_table_early = sprintf("%sfull_dataset_line_ignored_day_line_interaction.txt_early", outdir)
+day_line_interaction_table_early <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_day_interaction_early"],table_name=day_line_interaction_table_early,lfc_min = 0)
+
+day_line_interaction_tablen_late = sprintf("%sfull_dataset_line_ignored_day_line_interaction.txt_late", outdir)
+day_line_interaction_tablen_late <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_day_interaction_late"],table_name=day_line_interaction_tablen_late,lfc_min = 0)
 ```
 
 # basic DE with only one sex

@@ -35,9 +35,16 @@ def get_tables(username = "miltr339"):
                 "day14_F - day14_M" : f"{tables_dir}full_dataset_line_ignored_day14_F-M.txt",
                 "day16_F - day16_M" : f"{tables_dir}full_dataset_line_ignored_day16_F-M.txt",
                 "day18_F - day18_M" : f"{tables_dir}full_dataset_line_ignored_day18_F-M.txt",
+                "day14_M - day16_M" : f"{tables_dir}full_dataset_line_ignored_M_14_16.txt",
+                "day16_M - day18_M" : f"{tables_dir}full_dataset_line_ignored_M_16_18.txt",
+                "day14_F - day16_F" : f"{tables_dir}full_dataset_line_ignored_F_14_16.txt",
+                "day16_F - day18_F" : f"{tables_dir}full_dataset_line_ignored_F_16_18.txt",
                 "(day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M)" : f"{tables_dir}full_dataset_line_ignored_day_sex_interaction.txt",
                 "line3" : f"{tables_dir}full_dataset_line_random_factor_line_diff.txt",
             },
+            "sex_random" : {
+                "(SL1_d14 - SL3_d14) - (SL1_d16 - SL3_d16) - (SL1_d18 - SL3_d18)" : f"{tables_dir}full_dataset_line_ignored_day_line_interaction.txt",
+            }
         },
         
         "sex_separated" : {
@@ -162,10 +169,15 @@ def get_tables(username = "miltr339"):
         "day16_F - day16_M" : "day 16 sex bias",
         "day18_F - day18_M" : "day 18 sex bias",
         "(day14_F - day14_M) - (day16_F - day16_M) - (day18_F - day18_M)" : "day by sex interaction",
+        "(SL1_d14 - SL3_d14) - (SL1_d16 - SL3_d16) - (SL1_d18 - SL3_d18)" : "day by line interaction",
         "line3" : "line effect",
         "day14 - day16" : "day 14 - 16",
         "day14 - day18" : "day 14 - 18",
         "day16 - day18" : "day 16 - 18",
+        "day14_M - day16_M" : "males day 14 - 16",
+        "day16_M - day18_M" : "males day 16 - 18",
+        "day14_F - day16_F" : "females day 14 - 16",
+        "day16_F - day18_F" : "females day 16 - 18",
     }
     return out_dict,contrast_plot_titles
 
@@ -848,9 +860,9 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
     highlight_yTOR = False
@@ -865,8 +877,8 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            # if separation != "day_separated":
-            if (separation == "sex_separated" or separation == "no_separation") == False:
+            if separation != "sex_separated":
+            # if (separation == "sex_separated" or separation == "no_separation") == False:
                 print(f"ignore {separation}")
                 continue
 
@@ -889,7 +901,7 @@ if __name__ == "__main__":
                 
                 for contrast, table_path in paths_dict.items():
                     
-                    # if "(" in contrast:
+                    # if "(" not in contrast:
                     #     print(f"ignore {category}:{contrast}")
                     #     continue
 

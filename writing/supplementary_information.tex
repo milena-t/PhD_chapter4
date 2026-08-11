@@ -6,7 +6,7 @@
 % Useful packages
 
 \usepackage{graphicx}
-% \usepackage[draft]{graphicx}
+%\usepackage[draft]{graphicx}
 
 \usepackage{grffile}
 \usepackage{amsmath}
@@ -355,6 +355,67 @@
     }\label{GO_full_line_fixed_sb_all_days_intersection}
     
 \end{figure}
+
+
+\begin{figure}[H]
+    \begin{center}
+        \begin{subfigure}[t]{0.32\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{A}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_only_F_no_line_day_14-16_volcano.png}
+            \end{center}        
+        \end{subfigure}
+        \begin{subfigure}[t]{0.32\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{B}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_only_F_no_line_day_16-18_volcano.png}
+            \end{center}        
+        \end{subfigure}
+    \end{center}  
+    
+    \caption{\textbf{volcano plot showing time-bias of female samples.}
+    }\label{GO_males_day1416}
+        
+\end{figure}
+
+
+\begin{figure}[H]
+
+    \begin{subfigure}[t]{0.32\linewidth}
+	    \begin{picture}(0,0)
+   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+		\end{picture}
+	    \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_line_ignored_day_sex_interaction_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_day_ignored_line_sex_interaction_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\linewidth}
+        \begin{picture}(0,0)
+            \put(22,-15){\textbf{C}} % adjust the x and y values here
+		\end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_line_ignored_day_line_interaction_volcano.png}
+        \end{center}        
+    \end{subfigure}
+    
+    \caption{\textbf{Volcano plot all interaction effects on the full dataset}.The edgeR model matrix is specified differently each time, with the
+    condition that is not part of the interaction being the intercept.
+    }\label{days_sex-line_interaction_volcano}
+    
+\end{figure}
+
 
 
 \begin{figure}[H]
