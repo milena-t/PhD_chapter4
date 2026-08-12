@@ -1,0 +1,193 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:0002181","cytoplasmic translation",112,64,21.91,7.2e-19
+"2","GO:0009167","purine ribonucleoside monophosphate meta...",113,65,22.11,1.1e-12
+"3","GO:0046034","ATP metabolic process",111,63,21.72,1.4e-12
+"4","GO:0006120","mitochondrial electron transport, NADH t...",31,22,6.06,7.1e-10
+"5","GO:0009168","purine ribonucleoside monophosphate bios...",41,24,8.02,3.8e-08
+"6","GO:0015985","energy coupled proton transport, down el...",19,12,3.72,3.8e-05
+"7","GO:0006122","mitochondrial electron transport, ubiqui...",12,9,2.35,5.1e-05
+"8","GO:0006081","cellular aldehyde metabolic process",10,8,1.96,6.5e-05
+"9","GO:0006123","mitochondrial electron transport, cytoch...",11,8,2.15,2e-04
+"10","GO:0032543","mitochondrial translation",94,36,18.39,0.00024
+"11","GO:0006099","tricarboxylic acid cycle",34,16,6.65,0.00026
+"12","GO:0006101","citrate metabolic process",34,16,6.65,0.00026
+"13","GO:0006551","leucine metabolic process",5,5,0.98,0.00028
+"14","GO:0006531","aspartate metabolic process",5,5,0.98,0.00028
+"15","GO:0015986","proton motive force-driven ATP synthesis",19,12,3.72,0.00121
+"16","GO:0006208","pyrimidine nucleobase catabolic process",4,4,0.78,0.00146
+"17","GO:0070127","tRNA aminoacylation for mitochondrial pr...",4,4,0.78,0.00146
+"18","GO:0019674","NAD metabolic process",11,7,2.15,0.0017
+"19","GO:0006096","glycolytic process",14,8,2.74,0.00204
+"20","GO:0006754","ATP biosynthetic process",36,21,7.04,0.00204
+"21","GO:0040003","chitin-based cuticle development",90,33,17.61,0.00208
+"22","GO:0009063","cellular amino acid catabolic process",23,13,4.5,0.0021
+"23","GO:0042136","neurotransmitter biosynthetic process",12,7,2.35,0.00339
+"24","GO:0034389","lipid droplet organization",12,7,2.35,0.00339
+"25","GO:0042866","pyruvate biosynthetic process",12,7,2.35,0.00339
+"26","GO:0046496","nicotinamide nucleotide metabolic proces...",26,15,5.09,0.00352
+"27","GO:0009166","nucleotide catabolic process",15,8,2.93,0.00362
+"28","GO:0006734","NADH metabolic process",7,5,1.37,0.0042
+"29","GO:0033108","mitochondrial respiratory chain complex ...",22,10,4.3,0.00513
+"30","GO:0030730","sequestering of triglyceride",10,6,1.96,0.00564
+"31","GO:0051298","centrosome duplication",29,12,5.67,0.00566
+"32","GO:0035293","chitin-based larval cuticle pattern form...",13,7,2.54,0.00611
+"33","GO:0006084","acetyl-CoA metabolic process",5,4,0.98,0.00616
+"34","GO:0072523","purine-containing compound catabolic pro...",5,4,0.98,0.00616
+"35","GO:0009068","aspartate family amino acid catabolic pr...",5,4,0.98,0.00616
+"36","GO:0009435","NAD biosynthetic process",5,4,0.98,0.00616
+"37","GO:0016999","antibiotic metabolic process",55,19,10.76,0.00631
+"38","GO:0006164","purine nucleotide biosynthetic process",88,39,17.22,0.00659
+"39","GO:0006007","glucose catabolic process",3,3,0.59,0.00747
+"40","GO:0042776","proton motive force-driven mitochondrial...",3,3,0.59,0.00747
+"41","GO:0006359","regulation of transcription by RNA polym...",3,3,0.59,0.00747
+"42","GO:0000305","response to oxygen radical",3,3,0.59,0.00747
+"43","GO:0006564","L-serine biosynthetic process",3,3,0.59,0.00747
+"44","GO:0006545","glycine biosynthetic process",3,3,0.59,0.00747
+"45","GO:0006546","glycine catabolic process",3,3,0.59,0.00747
+"46","GO:0008652","cellular amino acid biosynthetic process",32,16,6.26,0.00887
+"47","GO:0006790","sulfur compound metabolic process",98,32,19.17,0.00904
+"48","GO:1901137","carbohydrate derivative biosynthetic pro...",225,71,44.02,0.00909
+"49","GO:0000027","ribosomal large subunit assembly",17,8,3.33,0.00945
+"50","GO:0000096","sulfur amino acid metabolic process",14,7,2.74,0.01018
+"51","GO:0098534","centriole assembly",24,10,4.7,0.01065
+"52","GO:0006022","aminoglycan metabolic process",46,16,9,0.01092
+"53","GO:0007099","centriole replication",21,9,4.11,0.01234
+"54","GO:0008039","synaptic target recognition",28,11,5.48,0.01243
+"55","GO:0005975","carbohydrate metabolic process",123,40,24.06,0.01246
+"56","GO:0017004","cytochrome complex assembly",18,8,3.52,0.01414
+"57","GO:0009152","purine ribonucleotide biosynthetic proce...",84,37,16.43,0.01494
+"58","GO:1901605","alpha-amino acid metabolic process",72,36,14.09,0.01496
+"59","GO:0005996","monosaccharide metabolic process",43,17,8.41,0.01552
+"60","GO:0006071","glycerol metabolic process",6,4,1.17,0.01561
+"61","GO:0006144","purine nucleobase metabolic process",6,4,1.17,0.01561
+"62","GO:0019400","alditol metabolic process",6,4,1.17,0.01561
+"63","GO:0072002","Malpighian tubule development",44,15,8.61,0.01642
+"64","GO:0061326","renal tubule development",44,15,8.61,0.01642
+"65","GO:0016051","carbohydrate biosynthetic process",29,11,5.67,0.01657
+"66","GO:0006555","methionine metabolic process",12,6,2.35,0.01735
+"67","GO:0043094","cellular metabolic compound salvage",9,5,1.76,0.01776
+"68","GO:0016310","phosphorylation",493,119,96.45,0.02021
+"69","GO:0001655","urogenital system development",49,16,9.59,0.02059
+"70","GO:0072001","renal system development",49,16,9.59,0.02059
+"71","GO:0007568","aging",155,41,30.32,0.02102
+"72","GO:0034404","nucleobase-containing small molecule bio...",30,11,5.87,0.02167
+"73","GO:0006493","protein O-linked glycosylation",23,9,4.5,0.02366
+"74","GO:0006040","amino sugar metabolic process",38,13,7.43,0.02393
+"75","GO:0044272","sulfur compound biosynthetic process",42,14,8.22,0.02452
+"76","GO:0008340","determination of adult lifespan",148,39,28.96,0.02543
+"77","GO:0043102","amino acid salvage",4,3,0.78,0.02551
+"78","GO:0046033","AMP metabolic process",4,3,0.78,0.02551
+"79","GO:0019509","L-methionine salvage from methylthioaden...",4,3,0.78,0.02551
+"80","GO:0019682","glyceraldehyde-3-phosphate metabolic pro...",4,3,0.78,0.02551
+"81","GO:0006167","AMP biosynthetic process",4,3,0.78,0.02551
+"82","GO:0071267","L-methionine salvage",4,3,0.78,0.02551
+"83","GO:0030202","heparin metabolic process",4,3,0.78,0.02551
+"84","GO:0006030","chitin metabolic process",27,10,5.28,0.0261
+"85","GO:0009066","aspartate family amino acid metabolic pr...",21,13,4.11,0.02636
+"86","GO:0006090","pyruvate metabolic process",27,14,5.28,0.02638
+"87","GO:0072525","pyridine-containing compound biosyntheti...",18,10,3.52,0.02663
+"88","GO:0006006","glucose metabolic process",23,11,4.5,0.02786
+"89","GO:1901071","glucosamine-containing compound metaboli...",35,12,6.85,0.02896
+"90","GO:0031109","microtubule polymerization or depolymeri...",35,12,6.85,0.02896
+"91","GO:0009101","glycoprotein biosynthetic process",84,24,16.43,0.02901
+"92","GO:0009142","nucleoside triphosphate biosynthetic pro...",43,25,8.41,0.02947
+"93","GO:0035090","maintenance of apical/basal cell polarit...",10,5,1.96,0.02988
+"94","GO:0033692","cellular polysaccharide biosynthetic pro...",10,5,1.96,0.02988
+"95","GO:0009067","aspartate family amino acid biosynthetic...",10,5,1.96,0.02988
+"96","GO:0015695","organic cation transport",10,5,1.96,0.02988
+"97","GO:0000271","polysaccharide biosynthetic process",10,5,1.96,0.02988
+"98","GO:0007224","smoothened signaling pathway",51,16,9.98,0.02996
+"99","GO:0046939","nucleotide phosphorylation",21,12,4.11,0.03031
+"100","GO:0006165","nucleoside diphosphate phosphorylation",21,12,4.11,0.03031
+"101","GO:1901607","alpha-amino acid biosynthetic process",29,14,5.67,0.03078
+"102","GO:0045199","maintenance of epithelial cell apical/ba...",7,4,1.37,0.03082
+"103","GO:0035268","protein mannosylation",7,4,1.37,0.03082
+"104","GO:0035269","protein O-linked mannosylation",7,4,1.37,0.03082
+"105","GO:0008343","adult feeding behavior",7,4,1.37,0.03082
+"106","GO:0071265","L-methionine biosynthetic process",7,4,1.37,0.03082
+"107","GO:0044282","small molecule catabolic process",82,33,16.04,0.03214
+"108","GO:0010259","multicellular organism aging",151,39,29.54,0.03433
+"109","GO:0019318","hexose metabolic process",35,14,6.85,0.03461
+"110","GO:0098754","detoxification",40,13,7.83,0.03633
+"111","GO:0046390","ribose phosphate biosynthetic process",89,37,17.41,0.03792
+"112","GO:0009260","ribonucleotide biosynthetic process",89,37,17.41,0.03792
+"113","GO:0046113","nucleobase catabolic process",6,6,1.17,0.03802
+"114","GO:0019287","isopentenyl diphosphate biosynthetic pro...",2,2,0.39,0.03825
+"115","GO:0050680","negative regulation of epithelial cell p...",2,2,0.39,0.03825
+"116","GO:0050678","regulation of epithelial cell proliferat...",2,2,0.39,0.03825
+"117","GO:0071596","ubiquitin-dependent protein catabolic pr...",2,2,0.39,0.03825
+"118","GO:0043489","RNA stabilization",2,2,0.39,0.03825
+"119","GO:0046967","cytosol to endoplasmic reticulum transpo...",2,2,0.39,0.03825
+"120","GO:0032223","negative regulation of synaptic transmis...",2,2,0.39,0.03825
+"121","GO:0003143","embryonic heart tube morphogenesis",2,2,0.39,0.03825
+"122","GO:0019860","uracil metabolic process",2,2,0.39,0.03825
+"123","GO:0061620","glycolytic process through glucose-6-pho...",2,2,0.39,0.03825
+"124","GO:0061621","canonical glycolysis",2,2,0.39,0.03825
+"125","GO:0046086","adenosine biosynthetic process",2,2,0.39,0.03825
+"126","GO:0043101","purine-containing compound salvage",2,2,0.39,0.03825
+"127","GO:0036084","GDP-fucose import into endoplasmic retic...",2,2,0.39,0.03825
+"128","GO:0097062","dendritic spine maintenance",2,2,0.39,0.03825
+"129","GO:0032529","follicle cell microvillus organization",2,2,0.39,0.03825
+"130","GO:0006426","glycyl-tRNA aminoacylation",2,2,0.39,0.03825
+"131","GO:0046490","isopentenyl diphosphate metabolic proces...",2,2,0.39,0.03825
+"132","GO:0006434","seryl-tRNA aminoacylation",2,2,0.39,0.03825
+"133","GO:0046487","glyoxylate metabolic process",2,2,0.39,0.03825
+"134","GO:0006166","purine ribonucleoside salvage",2,2,0.39,0.03825
+"135","GO:0006169","adenosine salvage",2,2,0.39,0.03825
+"136","GO:0006117","acetaldehyde metabolic process",2,2,0.39,0.03825
+"137","GO:0006145","purine nucleobase catabolic process",2,2,0.39,0.03825
+"138","GO:0046110","xanthine metabolic process",2,2,0.39,0.03825
+"139","GO:1901374","acetate ester transport",2,2,0.39,0.03825
+"140","GO:0006212","uracil catabolic process",2,2,0.39,0.03825
+"141","GO:0008315","G2/MI transition of meiotic cell cycle",2,2,0.39,0.03825
+"142","GO:0000303","response to superoxide",2,2,0.39,0.03825
+"143","GO:0034627","'de novo' NAD biosynthetic process",2,2,0.39,0.03825
+"144","GO:0034628","'de novo' NAD biosynthetic process from ...",2,2,0.39,0.03825
+"145","GO:0006735","NADH regeneration",2,2,0.39,0.03825
+"146","GO:0015870","acetylcholine transport",2,2,0.39,0.03825
+"147","GO:0015871","choline transport",2,2,0.39,0.03825
+"148","GO:0000461","endonucleolytic cleavage to generate mat...",2,2,0.39,0.03825
+"149","GO:0070150","mitochondrial glycyl-tRNA aminoacylation",2,2,0.39,0.03825
+"150","GO:1902369","negative regulation of RNA catabolic pro...",2,2,0.39,0.03825
+"151","GO:0070125","mitochondrial translational elongation",2,2,0.39,0.03825
+"152","GO:0048491","retrograde synaptic vesicle transport",2,2,0.39,0.03825
+"153","GO:0071450","cellular response to oxygen radical",2,2,0.39,0.03825
+"154","GO:0071451","cellular response to superoxide",2,2,0.39,0.03825
+"155","GO:0006801","superoxide metabolic process",2,2,0.39,0.03825
+"156","GO:0006573","valine metabolic process",2,2,0.39,0.03825
+"157","GO:0006533","aspartate catabolic process",2,2,0.39,0.03825
+"158","GO:0038179","neurotrophin signaling pathway",2,2,0.39,0.03825
+"159","GO:0030259","lipid glycosylation",2,2,0.39,0.03825
+"160","GO:0006616","SRP-dependent cotranslational protein ta...",2,2,0.39,0.03825
+"161","GO:0006642","triglyceride mobilization",2,2,0.39,0.03825
+"162","GO:0019482","beta-alanine metabolic process",2,2,0.39,0.03825
+"163","GO:0019483","beta-alanine biosynthetic process",2,2,0.39,0.03825
+"164","GO:0009115","xanthine catabolic process",2,2,0.39,0.03825
+"165","GO:0051289","protein homotetramerization",2,2,0.39,0.03825
+"166","GO:0019430","removal of superoxide radicals",2,2,0.39,0.03825
+"167","GO:0007502","digestive tract mesoderm development",2,2,0.39,0.03825
+"168","GO:0009240","isopentenyl diphosphate biosynthetic pro...",2,2,0.39,0.03825
+"169","GO:0061718","glucose catabolic process to pyruvate",2,2,0.39,0.03825
+"170","GO:0015960","diadenosine polyphosphate biosynthetic p...",2,2,0.39,0.03825
+"171","GO:0015965","diadenosine tetraphosphate metabolic pro...",2,2,0.39,0.03825
+"172","GO:0015966","diadenosine tetraphosphate biosynthetic ...",2,2,0.39,0.03825
+"173","GO:0010891","negative regulation of sequestering of t...",2,2,0.39,0.03825
+"174","GO:0015959","diadenosine polyphosphate metabolic proc...",2,2,0.39,0.03825
+"175","GO:0006903","vesicle targeting",14,6,2.74,0.03958
+"176","GO:0034637","cellular carbohydrate biosynthetic proce...",14,6,2.74,0.03958
+"177","GO:0035966","response to topologically incorrect prot...",25,9,4.89,0.04089
+"178","GO:0006839","mitochondrial transport",87,24,17.02,0.04287
+"179","GO:1901136","carbohydrate derivative catabolic proces...",41,13,8.02,0.04401
+"180","GO:0008589","regulation of smoothened signaling pathw...",37,12,7.24,0.04407
+"181","GO:0043413","macromolecule glycosylation",66,19,12.91,0.04517
+"182","GO:0006486","protein glycosylation",66,19,12.91,0.04517
+"183","GO:0019363","pyridine nucleotide biosynthetic process",16,9,3.13,0.04564
+"184","GO:0019359","nicotinamide nucleotide biosynthetic pro...",16,9,3.13,0.04564
+"185","GO:0006029","proteoglycan metabolic process",18,7,3.52,0.04585
+"186","GO:0030166","proteoglycan biosynthetic process",18,7,3.52,0.04585
+"187","GO:0009744","response to sucrose",11,5,2.15,0.04614
+"188","GO:0045047","protein targeting to ER",11,5,2.15,0.04614
+"189","GO:0033866","nucleoside bisphosphate biosynthetic pro...",22,8,4.3,0.04976
+"190","GO:0045879","negative regulation of smoothened signal...",22,8,4.3,0.04976
+"191","GO:0034030","ribonucleoside bisphosphate biosynthetic...",22,8,4.3,0.04976
+"192","GO:0034033","purine nucleoside bisphosphate biosynthe...",22,8,4.3,0.04976

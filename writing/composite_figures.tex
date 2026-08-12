@@ -159,7 +159,7 @@
         \end{center}        
     \end{subfigure}
 
-    \begin{subfigure}[t]{0.85\linewidth}
+    \begin{subfigure}[t]{\linewidth}
         \begin{picture}(0,0)
             \put(90,-40){\textbf{D}} % adjust the x and y values here
         \end{picture}
@@ -167,21 +167,12 @@
         \includegraphics[width=\linewidth]{../data/DE_figures_python/upsetplot_no_separation_line_random.png}
         \end{center}    
     \end{subfigure}
-
-    \begin{subfigure}[t]{0.85\linewidth}
-        \begin{picture}(0,0)
-            \put(90,-40){\textbf{E}} % adjust the x and y values here
-        \end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/upsetplot_sex_separated_day_bias.png}
-        \end{center}    
-    \end{subfigure}
     
     \caption{\textbf{Sex bias across developmental stages}. 
     (\textbf{A}, \textbf{B}, \textbf{C}): Genes that are significantly sex-biased in each developmental time point (Y-haplotype line modelled as fixed effect). 
     Upregulated genes are female-biased in the female-male contrast.
-    (\textbf{D}, \textbf{E}): UpSet plots showing the overlap of genes that are significant in the day-by-sex interaction overlapping with genes that are sex biased on any time point
-    in the full dataset (\textbf{D}) or time-biased in the day-split data (\textbf{E}). Only intersections with at least 15 or 20 genes are shown.
+    (\textbf{D}): UpSet plots showing the overlap of genes that are significant in the day-by-sex interaction overlapping with genes that are sex biased on any time point
+    in the full dataset. Only intersections with at least 30 genes are shown.
     }\label{sex_split}
     
 \end{figure}

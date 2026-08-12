@@ -860,9 +860,9 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
     highlight_yTOR = False
@@ -877,7 +877,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "sex_separated":
+            if separation != "no_separation":
             # if (separation == "sex_separated" or separation == "no_separation") == False:
                 print(f"ignore {separation}")
                 continue
@@ -892,9 +892,11 @@ if __name__ == "__main__":
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
 
-                # if "line_random" not in category:
-                #     print(f"ignore {category}")
-                #     continue
+                upset_all_cat=True
+                if "line_random" not in category:
+                    print(f"ignore {category}")
+                    upset_all_cat=False
+                    continue
     
                 numbers = {}
                 sig_DE_genes = {}
@@ -1007,7 +1009,7 @@ if __name__ == "__main__":
                         print(f"\t{contrast} : {number}")
                 if make_upset:
                     ## upsetplot within each separation
-                    min_overlap = 15
+                    min_overlap = 30
                     plot_title = f"{separation}: all categories\nsig. DE genes overlap\n(min. overlap size: {min_overlap})"
                     if separation == "no_separation":
                         # fix the contrast names when the interaction is included in the no_separation data
@@ -1015,7 +1017,7 @@ if __name__ == "__main__":
                         plot_title = f"min. overlap size: {min_overlap}"
                     plot_sig_gene_overlap(sig_DE_genes, plot_filename= f"{out_path_figs}/upsetplot_{separation}_{category}.png", plot_title = plot_title, min_overlap = min_overlap)
 
-            if make_upset:
+            if make_upset and upset_all_cat:
                 ## upsetplot for each contrast between categories
                 min_overlap = 15
                 plot_title = f"{separation}: all categories\nsig. DE genes overlap (min. overlap size: {min_overlap})"
