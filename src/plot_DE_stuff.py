@@ -1141,6 +1141,8 @@ if __name__ == "__main__":
                             upset_data_sex.index.get_level_values('day16: large-Y').astype(int) +
                             upset_data_sex.index.get_level_values('day18: large-Y').astype(int)
                         ) <=2
+
+                        ## Do column 1 fig. # upset plot -> SB in all except day14 small-Y
                         filt_early = upset_data_sex[mask_early]
                         filt_early = filt_early[filt_early.index.get_level_values('day14: small-Y') | filt_early.index.get_level_values('day14: large-Y')]
                         print(f"filtered for all geneIDs that are sig 14 in one or both lines:")
