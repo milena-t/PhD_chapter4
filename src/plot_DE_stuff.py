@@ -824,6 +824,127 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, plot_filename 
     plt.savefig(plot_filename, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {plot_filename}")
 
+
+def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs = [], intersection_nums = False):
+    """ 
+    plot a scatterplot of sig. DE genes with LFC values
+    """
+    if len(tables_diff) !=2 :
+        raise RuntimeError(f"list should have only 2 elements but it has has length {len(tables_diff)}! \n{tables_diff}")
+    
+    df_SB1 = pd.read_csv(tables_diff[0], sep="\t", skiprows=0)
+    df_SB1_sig = df_SB1.loc[df_SB1['FDR'] < p_sig]
+    SB1_sig = df_SB1_sig["Gene"].tolist()
+    df_SB1 = df_SB1.drop(columns=["logCPM","F","PValue","FDR"])
+
+    df_SB3 = pd.read_csv(tables_diff[1], sep="\t", skiprows=0)
+    df_SB3_sig = df_SB3.loc[df_SB3['FDR'] < p_sig]
+    SB3_sig = df_SB3_sig["Gene"].tolist()
+    df_SB3 = df_SB3.drop(columns=["logCPM","F","PValue","FDR"])
+    
+    df_sb = pd.merge(df_SB1,df_SB3, on = "Gene") # keeps only genes present in both, default inner join
+    df_sb["logFC_diff"] = abs(df_sb["logFC_x"])-abs(df_sb["logFC_y"])
+    df_sb = df_sb.drop(columns=["logFC_x","logFC_y"])
+
+    df_lb = pd.read_csv(table_LB, sep="\t", skiprows=0)
+    df_lb = df_lb.loc[df_lb['FDR'] < p_sig] # only genes that are sig. line biased in males
+    df_lb = df_lb.drop(columns=["logCPM","F","PValue","FDR"])
+    
+    df = pd.merge(df_sb,df_lb, on = "Gene")
+    print(f"{df.shape[0]} geneIDs included (significant line bias in males)")
+    print(f"{len(excl_geneIDs)} geneIDs excluded (significant line bias also in females)")
+
+    fig, ax = plt.subplots(1,1, figsize=(13, 13)) 
+    fs = 45
+    point_size_factor = 8
+    ps = fs*point_size_factor # point size
+
+    colors_dict = {"small-Y SB" : "#BD351E" , "large-Y SB" : "#EA882C"}
+    colors_dict["both SB"] = "#3C7FA7" # blue
+    colors_dict["neither"] = "#4B3B47" # mauve shadow
+    colors_count = {label : 0 for label in colors_dict.keys()}
+
+    excl_count = 0
+    for geneID in df_lb["Gene"].tolist():
+        if geneID in excl_geneIDs:
+            excl_count+=1
+        else:
+            try:
+                y = df.loc[df["Gene"]==geneID, "logFC_diff"]
+            except:
+                y = 0
+                print(geneID)
+            try:
+                x = df.loc[df["Gene"]==geneID, "logFC"]
+            except:
+                x = 0
+                print(geneID)
+
+            if geneID in SB1_sig and geneID not in SB3_sig:
+                c = colors_dict["small-Y SB"]
+                colors_count["small-Y SB"]+=1
+            elif geneID not in SB1_sig and geneID in SB3_sig:
+                c = colors_dict["large-Y SB"]
+                colors_count["large-Y SB"]+=1
+            elif geneID in SB1_sig and geneID in SB3_sig:
+                c = colors_dict["both SB"]
+                colors_count["both SB"]+=1
+            elif geneID not in SB1_sig and geneID not in SB3_sig:
+                c = colors_dict["neither"]
+                colors_count["neither"]+=1
+            
+            ax.scatter(x,y,color = c, s=ps, alpha = 0.75)
+
+    min_yline,max_yline = ax.get_ylim()
+    min_xline,max_xline = ax.get_xlim()
+    min_yline = min_yline-0.5
+    max_yline = max_yline+0.5
+    min_xline = min_xline-0.5
+    max_xline = max_xline+0.5
+
+    if min_LFC == 0:
+        ax.hlines(y=1, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.hlines(y=-1, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.vlines(x=1, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.vlines(x=-1, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+    else:
+        ax.hlines(y=min_LFC, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.hlines(y=-1*min_LFC, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.vlines(x=min_LFC, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+        ax.vlines(x=-1*min_LFC, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor*0.5, linestyle = ":", color="#818181",zorder=0)
+    
+    ax.hlines(y=0, xmin=min_xline, xmax=max_xline, linewidth=point_size_factor, linestyle = ":", color="#2F3E1D",zorder=0)
+    ax.vlines(x=0, ymin=min_yline, ymax=max_yline, linewidth=point_size_factor, linestyle = ":", color="#2F3E1D",zorder=0)
+
+    ## make legend points
+    main_sig = []
+    markertype="o"
+    # for cat in reversed(list(lists.keys())):
+    for legend_label, count in colors_count.items():
+        main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = f"{legend_label} ({count})", marker=markertype)
+        main_sig.append(main_sig_ind)
+
+    ax.set_ylim([min_yline,max_yline])
+    ax.set_xlim([min_xline,max_xline])
+
+    main_sig_legend = plt.legend(handles = main_sig, fontsize = fs*0.75, title ="gene sig. in\nmain effect", title_fontsize = fs*0.7)#, loc='lower right')
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
+
+    ax.set_ylabel(f"|small-Y SB| - |large-Y SB|", fontsize = fs)
+    ax.set_xlabel(f"logFC male line-bias", fontsize = fs)
+    ax.tick_params(axis='x', labelsize=fs*0.9)
+    ax.tick_params(axis='y', labelsize=fs*0.9)
+    ax.set_title(LFC_title, fontsize = fs*0.95)
+
+    plt.tight_layout()
+    plt.savefig(LFC_filename, dpi = 300, transparent = True)
+    print(f"plot saved in current working directory as: {LFC_filename}")
+    plt.clf()
+    plt.cla()
+    plt.close()
+
+    return(colors_count)
+
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
@@ -867,7 +988,7 @@ if __name__ == "__main__":
     ############
     highlight_yTOR = False
 
-    if True:
+    if False:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -1487,7 +1608,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if False:
+    if True:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
@@ -1505,6 +1626,7 @@ if __name__ == "__main__":
                 "sb_SL3 lb_F" : ["F_3 - M_3","F_1 - F_3"],
                 "sb_SL1 lb_M" : ["F_1 - M_1","M_1 - M_3"],
                 "sb_SL3 lb_M" : ["F_3 - M_3","M_1 - M_3"],
+                "sb_diff lb_M" : {"sb_diff" : ["F_1 - M_1","F_3 - M_3"], "lb_M" : ["M_1 - M_3"]} # do line biased genes have a stronger or weaker sex bias
             }
         }
 
@@ -1521,38 +1643,54 @@ if __name__ == "__main__":
                 for bias_cat, contrasts_list in contrasts_interaction_list[separation].items():
                     
                     if "bias" in bias_cat or "lb_F" in bias_cat:
-                        print(f"skip {bias_cat}:{contrasts_list}")
+                        print(f"skip {bias_cat}:({contrasts_list})")
                         continue
 
-                    try:
-                        incl_geneIDs = sig_IDs_list[separation][category]
-                    except:
-                        print(f"no interaction genes included for category '{category}'") 
-                        incl_geneIDs = []
-
-                    if bias_cat != "line bias":
-                        incl_geneIDs = []
-                        print(f"{bias_cat} : no interaction included")
-                    else:
-                        print(f"{bias_cat} : interaction has {len(incl_geneIDs)} genes")
-
-                    LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in contrasts_list}
                     LFC_filename_ = bias_cat.replace(" ", "_")
-                    LFC_filename = f"{out_path_figs}/LFC_scatter_interaction_{category}_{LFC_filename_}.png"
-                    # plot_title = f"{bias_cat} in males and females"
+                    LFC_filename = f"{out_path_figs}/LFC_scatter_{category}_{LFC_filename_}.png"
                     category_ = category.replace("day", "day ")
-                    bias_cat_ = bias_cat.replace("sb_", "sex-bias ").replace("lb_", ", line-bias ")
-                    bias_cat_ = bias_cat_.replace("SL1", "small-Y").replace("SL3", "large-Y")
+                    bias_cat_ = bias_cat.replace("lb_", ", line-bias ")
 
-                    if len(incl_geneIDs)>0:
-                        plot_title = f"{category_}: {bias_cat_} and interaction"
-                    else:
+                    if "diff" in bias_cat:
+                        bias_cat_ = bias_cat_.replace("sb_diff ", "sex-bias")
                         plot_title = f"{category_}: {bias_cat_}"
-                    if len(plot_title)>33:
-                        plot_title = plot_title.replace(" and", "\nand")
-                    
-                    numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
-                    print(f"\t{numbers}")
+                        
+                        tables_diff = [paths_dict[contrast] for contrast in contrasts_list["sb_diff"]]
+                        table_SB = paths_dict[contrasts_list["lb_M"][0]]
+                        excl_geneIDs = excl_line_bias_lists[separation][category]
+
+                        numbers = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True )
+                        print(f"\t{numbers}")
+
+                    else:
+                        continue
+
+                        try:
+                            incl_geneIDs = sig_IDs_list[separation][category]
+                        except:
+                            print(f"no interaction genes included for category '{category}'") 
+                            incl_geneIDs = []
+
+                        if bias_cat != "line bias":
+                            incl_geneIDs = []
+                            print(f"{bias_cat} : no interaction included")
+                        else:
+                            print(f"{bias_cat} : interaction has {len(incl_geneIDs)} genes")
+
+                        LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in contrasts_list}
+                        # plot_title = f"{bias_cat} in males and females"
+                        bias_cat_ = bias_cat.replace("sb_", "sex-bias ").replace("lb_", ", line-bias ")
+                        bias_cat_ = bias_cat_.replace("SL1", "small-Y").replace("SL3", "large-Y")
+
+                        if len(incl_geneIDs)>0:
+                            plot_title = f"{category_}: {bias_cat_} and interaction"
+                        else:
+                            plot_title = f"{category_}: {bias_cat_}"
+                        if len(plot_title)>33:
+                            plot_title = plot_title.replace(" and", "\nand")
+                        
+                        numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
+                        print(f"\t{numbers}")
 
 
     #############################################
