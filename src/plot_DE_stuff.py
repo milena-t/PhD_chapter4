@@ -705,22 +705,45 @@ def plot_sig_gene_overlap(geneIDs_dict:dict, plot_filename:str, plot_title  = ""
     return data
 
 
-def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, plot_filename  = "LogFC_boxplot.png", plot_title = ""):
+def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, only_all_intersection = False, plot_filename  = "LogFC_boxplot.png", plot_title = ""):
     """
     Make boxplot of abs LogFC of sig DE genes for all files specified in infiles_dict with the dict keys as axis labels
     """
     tables_list = []
     xtick_labels = []
+    # only use genes present in all tables
+    all_genes = []
+    if only_all_intersection:
+        for name,table_path in infiles_dict.items():
+            df = pd.read_csv(table_path, sep="\t", skiprows=0)
+            df_sig = df.loc[df['FDR'] < p_sig]
+            if min_LFC!=0:
+                # df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
+                df_sig = df_sig.loc[df_sig['logFC'] < min_LFC] ### only male-bias, min is -1 and no abs()
+            genes = df_sig["Gene"].tolist()
+            print(f"\t{name} --> {len(genes)} sig. male-biased genes")
+            all_genes.append(set(genes))
+    
+    intersection_genes = all_genes[0] & all_genes[1] & all_genes[2] & all_genes[3] & all_genes[4] & all_genes[5]
+    print(f"{len(intersection_genes)} shared sig genes")
+
     for name,table_path in infiles_dict.items():
         df = pd.read_csv(table_path, sep="\t", skiprows=0)
         df_sig = df.loc[df['FDR'] < p_sig]
         if min_LFC!=0:
             # df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
             df_sig = df_sig.loc[df_sig['logFC'] < min_LFC]
+        if len(intersection_genes)>0:
+            print(df_sig.shape[0])
+            df_sig = df_sig[df_sig['Gene'].isin(intersection_genes)]
+            print(df_sig.shape[0])
         data = df_sig["logFC"].tolist()
         tables_list.append(data)
         name_ = name.replace("SL1", "small-Y").replace("SL3", "large-Y").replace(":", f"\n")
-        xtick_labels.append(f"{name_}\n({len(data)})")
+        if only_all_intersection:
+            xtick_labels.append(f"{name_}")
+        else:
+            xtick_labels.append(f"{name_}\n({len(data)})")
         # sig_geneIDs_lists[name] = df_sig["Gene"].tolist()
     tick_pos = range(len(xtick_labels))
 
@@ -1608,7 +1631,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if True:
+    if False:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
@@ -1663,7 +1686,7 @@ if __name__ == "__main__":
                         print(f"\t{numbers}")
 
                     else:
-                        continue
+                        # continue
 
                         try:
                             incl_geneIDs = sig_IDs_list[separation][category]
@@ -1698,7 +1721,7 @@ if __name__ == "__main__":
     #############################################
 
     ## plot LogFC boxplots of male-biased genes of several contrasts within each separation
-    if False:
+    if True:
         LFC_comp_sets = {
             "day_separated" : {
                 "day14" : {
@@ -1722,9 +1745,10 @@ if __name__ == "__main__":
 
             boxplot_contrasts = {}
             for category, paths_dict in seps_dict.items():
-                print(f"\n ------------------- {category} -------------------")
+                # print(f"\n ------------------- {category} -------------------")
                 for name, contrast in LFC_comp_sets[separation][category].items():
                     boxplot_contrasts[f"{category}:{name}"] = paths_dict[LFC_comp_sets[separation][category][name]] 
 
             # set minLFC to only include male-biased genes
-            plot_logFC_boxplots(infiles_dict= boxplot_contrasts, min_LFC=-1, plot_filename=f"{out_path_figs}/{separation}_sex_bias_LFC_boxplot.png")
+            # plot_logFC_boxplots(infiles_dict= boxplot_contrasts, min_LFC=-1, plot_filename=f"{out_path_figs}/{separation}_sex_bias_LFC_boxplot.png")
+            plot_logFC_boxplots(infiles_dict= boxplot_contrasts, min_LFC=-1, only_all_intersection=True, plot_filename=f"{out_path_figs}/{separation}_sex_bias_LFC_boxplot_shared_sig_only.png")
