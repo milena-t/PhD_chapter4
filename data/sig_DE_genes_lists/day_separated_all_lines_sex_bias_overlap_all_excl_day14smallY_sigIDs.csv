@@ -1,0 +1,84 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:0060271","cilium assembly",73,8,0.71,6.2e-05
+"2","GO:0035082","axoneme assembly",26,3,0.25,0.0019
+"3","GO:0060294","cilium movement involved in cell motilit...",27,3,0.26,0.0021
+"4","GO:0050954","sensory perception of mechanical stimulu...",63,4,0.61,0.0031
+"5","GO:0046835","carbohydrate phosphorylation",9,2,0.09,0.0032
+"6","GO:0046034","ATP metabolic process",111,5,1.08,0.0042
+"7","GO:0009167","purine ribonucleoside monophosphate meta...",113,5,1.09,0.0045
+"8","GO:0006123","mitochondrial electron transport, cytoch...",11,2,0.11,0.0048
+"9","GO:0015800","acidic amino acid transport",11,2,0.11,0.0048
+"10","GO:0034220","ion transmembrane transport",343,9,3.32,0.0052
+"11","GO:0003333","amino acid transmembrane transport",45,3,0.44,0.0092
+"12","GO:0034606","response to hermaphrodite contact",1,1,0.01,0.0097
+"13","GO:0034608","vulval location",1,1,0.01,0.0097
+"14","GO:0035045","sperm plasma membrane disassembly",1,1,0.01,0.0097
+"15","GO:0018095","protein polyglutamylation",1,1,0.01,0.0097
+"16","GO:0046942","carboxylic acid transport",88,4,0.85,0.0101
+"17","GO:0007291","sperm individualization",47,3,0.46,0.0103
+"18","GO:0019233","sensory perception of pain",48,3,0.46,0.0109
+"19","GO:0007605","sensory perception of sound",48,3,0.46,0.0109
+"20","GO:1905515","non-motile cilium assembly",17,2,0.16,0.0114
+"21","GO:0050982","detection of mechanical stimulus",18,2,0.17,0.0128
+"22","GO:0009066","aspartate family amino acid metabolic pr...",21,2,0.2,0.0172
+"23","GO:1902475","L-alpha-amino acid transmembrane transpo...",22,2,0.21,0.0188
+"24","GO:0015807","L-amino acid transport",22,2,0.21,0.0188
+"25","GO:0034214","protein hexamerization",2,1,0.02,0.0193
+"26","GO:0006533","aspartate catabolic process",2,1,0.02,0.0193
+"27","GO:0032240","negative regulation of nucleobase-contai...",2,1,0.02,0.0193
+"28","GO:0006091","generation of precursor metabolites and ...",183,7,1.77,0.0216
+"29","GO:0098655","cation transmembrane transport",231,6,2.24,0.0233
+"30","GO:0006835","dicarboxylic acid transport",25,2,0.24,0.024
+"31","GO:0044782","cilium organization",76,9,0.74,0.025
+"32","GO:0097722","sperm motility",26,2,0.25,0.0258
+"33","GO:0030317","flagellated sperm motility",26,2,0.25,0.0258
+"34","GO:0009064","glutamine family amino acid metabolic pr...",27,2,0.26,0.0277
+"35","GO:0044341","sodium-dependent phosphate transport",3,1,0.03,0.0288
+"36","GO:0035494","SNARE complex disassembly",3,1,0.03,0.0288
+"37","GO:0097484","dendrite extension",3,1,0.03,0.0288
+"38","GO:0110118","negative regulation of compound eye phot...",3,1,0.03,0.0288
+"39","GO:0045873","negative regulation of sevenless signali...",3,1,0.03,0.0288
+"40","GO:0009092","homoserine metabolic process",3,1,0.03,0.0288
+"41","GO:0001678","cellular glucose homeostasis",3,1,0.03,0.0288
+"42","GO:0019343","cysteine biosynthetic process via cystat...",3,1,0.03,0.0288
+"43","GO:0019344","cysteine biosynthetic process",3,1,0.03,0.0288
+"44","GO:0019346","transsulfuration",3,1,0.03,0.0288
+"45","GO:0060042","retina morphogenesis in camera-type eye",3,1,0.03,0.0288
+"46","GO:0045501","regulation of sevenless signaling pathwa...",3,1,0.03,0.0288
+"47","GO:0071266","'de novo' L-methionine biosynthetic proc...",3,1,0.03,0.0288
+"48","GO:0048593","camera-type eye morphogenesis",3,1,0.03,0.0288
+"49","GO:0060219","camera-type eye photoreceptor cell diffe...",3,1,0.03,0.0288
+"50","GO:0042670","retinal cone cell differentiation",3,1,0.03,0.0288
+"51","GO:0045677","negative regulation of R7 cell different...",3,1,0.03,0.0288
+"52","GO:0016319","mushroom body development",70,3,0.68,0.0298
+"53","GO:1901607","alpha-amino acid biosynthetic process",29,2,0.28,0.0316
+"54","GO:0015711","organic anion transport",126,4,1.22,0.0331
+"55","GO:1901605","alpha-amino acid metabolic process",74,3,0.72,0.0344
+"56","GO:1902600","proton transmembrane transport",75,3,0.73,0.0356
+"57","GO:0006812","cation transport",255,6,2.47,0.0356
+"58","GO:0032536","regulation of cell projection size",4,1,0.04,0.0382
+"59","GO:0014047","glutamate secretion",4,1,0.04,0.0382
+"60","GO:0045213","neurotransmitter receptor metabolic proc...",4,1,0.04,0.0382
+"61","GO:0042795","snRNA transcription by RNA polymerase II",4,1,0.04,0.0382
+"62","GO:0060041","retina development in camera-type eye",4,1,0.04,0.0382
+"63","GO:1990255","subsynaptic reticulum organization",4,1,0.04,0.0382
+"64","GO:0003407","neural retina development",4,1,0.04,0.0382
+"65","GO:0008652","cellular amino acid biosynthetic process",33,2,0.32,0.0402
+"66","GO:0007286","spermatid development",80,3,0.77,0.0419
+"67","GO:0098662","inorganic cation transmembrane transport",200,5,1.94,0.0433
+"68","GO:0022900","electron transport chain",96,5,0.93,0.0447
+"69","GO:0001539","cilium or flagellum-dependent cell motil...",32,4,0.31,0.0452
+"70","GO:0060285","cilium-dependent cell motility",32,4,0.31,0.0452
+"71","GO:0098656","anion transmembrane transport",141,4,1.37,0.0469
+"72","GO:0006626","protein targeting to mitochondrion",36,2,0.35,0.0471
+"73","GO:0048526","imaginal disc-derived wing expansion",5,1,0.05,0.0475
+"74","GO:0043010","camera-type eye development",5,1,0.05,0.0475
+"75","GO:0035435","phosphate ion transmembrane transport",5,1,0.05,0.0475
+"76","GO:0006817","phosphate ion transport",5,1,0.05,0.0475
+"77","GO:0010378","temperature compensation of the circadia...",5,1,0.05,0.0475
+"78","GO:0009068","aspartate family amino acid catabolic pr...",5,1,0.05,0.0475
+"79","GO:0050667","homocysteine metabolic process",5,1,0.05,0.0475
+"80","GO:0009301","snRNA transcription",5,1,0.05,0.0475
+"81","GO:0006531","aspartate metabolic process",5,1,0.05,0.0475
+"82","GO:0072655","establishment of protein localization to...",37,2,0.36,0.0494
+"83","GO:0070585","protein localization to mitochondrion",37,2,0.36,0.0494

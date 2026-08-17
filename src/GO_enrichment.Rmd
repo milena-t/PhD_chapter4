@@ -192,6 +192,8 @@ sig_list_early = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_l
 GO_enrichment_analysis(sig_infile = sig_list_early, annotation_df = annotation_df)
 sig_list_all = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs.txt"
 GO_enrichment_analysis(sig_infile = sig_list_all, annotation_df = annotation_df, semantic_clustering=TRUE)
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_excl_day14smallY_sigIDs.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
 ```
 
 List of genes that are significant in the day-separated data for the line-by-sex interaction.
