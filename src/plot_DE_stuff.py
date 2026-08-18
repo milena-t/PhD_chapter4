@@ -1752,7 +1752,7 @@ if __name__ == "__main__":
                         
                         time_series_plots.plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = unique_shared_SB_LB_for_time_series, 
                                             outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
-
+                        print(unique_shared_SB_LB_for_time_series)
 
     #############################################
     ####### PLOT LOGFC MAGNITUDE BOXPLOTS #######
