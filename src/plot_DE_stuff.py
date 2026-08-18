@@ -1690,13 +1690,11 @@ if __name__ == "__main__":
                         excl_geneIDs = excl_line_bias_lists[separation][category]
 
                         shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True )
-                        print(f"\t{shared_IDs}")
-                        
-                        shared_SB_LB_for_time_series["small-Y SB"].extend(shared_IDs["small-Y SB"])
-                        shared_SB_LB_for_time_series["large-Y SB"].extend(shared_IDs["large-Y SB"])
-                        shared_SB_LB_for_time_series["both SB"].extend(shared_IDs["both SB"])
 
                         if True:
+                            shared_SB_LB_for_time_series["small-Y SB"].extend(shared_IDs["small-Y SB"])
+                            shared_SB_LB_for_time_series["large-Y SB"].extend(shared_IDs["large-Y SB"])
+                            shared_SB_LB_for_time_series["both SB"].extend(shared_IDs["both SB"])
                             ## plot time series of expression of shared line- and sex-biased genes
                             count_files = time_series_plots.get_counts_paths(username=username)
                             samples_group_dict = time_series_plots.samples_group()
@@ -1739,20 +1737,31 @@ if __name__ == "__main__":
                         numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
                         print(f"\t{numbers}")
 
-                    if True:
-                        ## plot time series of expression of shared line- and sex-biased genes
-                        count_files = time_series_plots.get_counts_paths(username=username)
-                        samples_group_dict = time_series_plots.samples_group()
-                        
-                        plot_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/counts_time_series"
-                        plot_file = f"{plot_dir}/time_series_day_and_sex_bias_all_days.png"
+            if True:
+                ## plot time series of expression of shared line- and sex-biased genes
+                count_files = time_series_plots.get_counts_paths(username=username)
+                samples_group_dict = time_series_plots.samples_group()
+                sex_chromosomes_superscaffolded,y_contigs,x_contigs,tor_related = time_series_plots.get_y_information()
 
-                        plot_title = f"genes that are line-biased in males and sex-biased on at least one day"
-                        unique_shared_SB_LB_for_time_series = {cat : list(set(geneids)) for cat,geneids in shared_SB_LB_for_time_series.items()}
-                        
-                        time_series_plots.plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = unique_shared_SB_LB_for_time_series, 
-                                            outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
-                        print(unique_shared_SB_LB_for_time_series)
+                plot_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/counts_time_series"
+                plot_file = f"{plot_dir}/time_series_day_and_sex_bias_all_days.png"
+
+                plot_title = f"genes that are line-biased in males and sex-biased on at least one day"
+                unique_shared_SB_LB_for_time_series = {cat : list(set(geneids)) for cat,geneids in shared_SB_LB_for_time_series.items()}
+
+                print(f"\n\tY-PROPORTION:")
+                ## check how many of the sex- and line-biased genes are on the Y
+                for cat,geneIDs_cat in unique_shared_SB_LB_for_time_series.items():
+                    num_genes_cat = len(geneIDs_cat)
+                    intersection = list(set(y_contigs["expressed"]) & set(geneIDs_cat))
+                    Y_count = len(intersection)
+                    frac = 100*Y_count/num_genes_cat
+                    print(f"\t - {cat}: {frac:.2f}% ({Y_count}/{num_genes_cat}) : {intersection}")
+                
+                print(f"\n")
+                time_series_plots.plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = unique_shared_SB_LB_for_time_series, 
+                                    outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
+                print(unique_shared_SB_LB_for_time_series)
 
     #############################################
     ####### PLOT LOGFC MAGNITUDE BOXPLOTS #######
