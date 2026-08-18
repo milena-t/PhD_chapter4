@@ -108,7 +108,54 @@ Export normalized counts to file. See Python scripting for the PCA plots based o
 ```
 
 
+# Differential expression analysis code
+
+```{r}
+coefficient_analysis_complete_ds <- function(y,MM,coefficients_vec, table_name, lfc_min){
+  
+  fit <- glmQLFit(y, MM)
+  qlf <- glmQLFTest(fit, coef=coefficients_vec)
+  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
+  print(coefficients_vec)
+  print(summary(de_qlf))
+  
+  print("--------------------------------------------")
+  
+  ## make output table
+  Tags <- topTags(qlf, n=Inf, p.value=1)						
+  Tags <- Tags$table
+  Tags$Gene <- rownames(Tags)
+  write.table(Tags, file=table_name, sep="\t")	
+  
+  output <- list(qlf=qlf,Tags=Tags)
+  return(output)
+}
+
+contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
+  
+  fit <- glmQLFit(y, MM)
+  qlf <- glmQLFTest(fit, contrast=contrast)
+  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
+  print(contrast)
+  print(summary(de_qlf))
+  
+  print("--------------------------------------------")
+  
+  ## make output table
+  Tags <- topTags(qlf, n=Inf, p.value=1)						
+  Tags <- Tags$table
+  Tags$Gene <- rownames(Tags)
+  write.table(Tags, file=table_name, sep="\t")	
+  
+  output <- list(qlf=qlf,Tags=Tags)
+  return(output)
+}
+```
+
+
 # run whole dataset for basic analyses
+
+
 
 ```{r}
 counts_M <- count_data
@@ -120,6 +167,7 @@ all(colnames(counts_M) %in% rownames(meta_data))# check assumptions, should be T
 all(colnames(counts_M) == rownames(meta_data))# check assumptions, should be TRUE
 ```
 
+Specify different linear models to get useful intercepts for interactions
 
 ## Day as random factor for line-by-sex interaction
 
@@ -161,51 +209,6 @@ line_sex_interaction = (SL1_F - SL3_F) - (SL1_M - SL3_M),
 levels=MM)
 ```
 
-Differential expression analysis 
-
-```{r}
-
-coefficient_analysis_complete_ds <- function(y,MM,coefficients_vec, table_name, lfc_min){
-  
-  fit <- glmQLFit(y, MM)
-  qlf <- glmQLFTest(fit, coef=coefficients_vec)
-  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
-  print(coefficients_vec)
-  print(summary(de_qlf))
-  
-  print("--------------------------------------------")
-  
-  ## make output table
-  Tags <- topTags(qlf, n=Inf, p.value=1)						
-  Tags <- Tags$table
-  Tags$Gene <- rownames(Tags)
-  write.table(Tags, file=table_name, sep="\t")	
-  
-  output <- list(qlf=qlf,Tags=Tags)
-  return(output)
-}
-
-contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
-  
-  fit <- glmQLFit(y, MM)
-  qlf <- glmQLFTest(fit, contrast=contrast)
-  de_qlf <- decideTestsDGE(qlf, p.value=0.05, lfc=lfc_min)
-  print(contrast)
-  print(summary(de_qlf))
-  
-  print("--------------------------------------------")
-  
-  ## make output table
-  Tags <- topTags(qlf, n=Inf, p.value=1)						
-  Tags <- Tags$table
-  Tags$Gene <- rownames(Tags)
-  write.table(Tags, file=table_name, sep="\t")	
-  
-  output <- list(qlf=qlf,Tags=Tags)
-  return(output)
-}
-
-```
 
 Check for overall day differences with coefficients
 
