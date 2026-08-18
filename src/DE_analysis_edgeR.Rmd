@@ -156,7 +156,6 @@ contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
 # run whole dataset for basic analyses
 
 
-
 ```{r}
 counts_M <- count_data
 
@@ -239,6 +238,23 @@ SL1_SL3_F_M <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"line_sex_inte
 
 ## Line as random factor for day-by-sex interaction
 
+downsample to three biological replicates for qualitative comparison of day-bias in males and females
+```{r}
+downsample_three <- TRUE
+if (downsample_three){
+  downsample_M <- c("WJ-3841-1-14-13-F_S429","WJ-3841-1-14-16-F_S430","WJ-3841-1-14-4-F_S378_","WJ-3841-1-16-17-F_S405","WJ-3841-1-16-19-F_S435","WJ-3841-1-16-22-F_S436","WJ-3841-1-18-12-F_S440","WJ-3841-1-18-13-F_S420","WJ-3841-1-18-5-F_S384_","WJ-3841-3-14-12-F_S389","WJ-3841-3-14-16-F_S414","WJ-3841-3-14-18-F_S415","WJ-3841-3-16-10-F_S393","WJ-3841-3-16-12-F_S394","WJ-3841-3-16-15-F_S418","WJ-3841-3-18-10-F_S373","WJ-3841-3-18-24-F_S424","WJ-3841-3-18-5-F_S372_")
+  downsample_F <- c("WJ-3841-1-14-10-M_S377","WJ-3841-1-14-14-M_S399","WJ-3841-1-14-15-M_S400","WJ-3841-1-16-10-M_S401","WJ-3841-1-16-12-M_S402","WJ-3841-1-16-14-M_S403","WJ-3841-1-18-10-M_S383","WJ-3841-1-18-11-M_S406","WJ-3841-1-18-14-M_S407","WJ-3841-3-14-10-M_S361","WJ-3841-3-14-11-M_S385","WJ-3841-3-14-13-M_S386","WJ-3841-3-16-11-M_S365","WJ-3841-3-16-13-M_S390","WJ-3841-3-16-14-M_S391","WJ-3841-3-18-11-M_S395","WJ-3841-3-18-15-M_S396","WJ-3841-3-18-16-M_S397")
+  downsampled_colnames <- append(downsample_M,downsample_F)
+  counts_M <- count_data[,downsampled_colnames]
+  # recompute metadata
+  meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
+  meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")## adjust metadata
+  meta_data <- meta_data[names(counts_M),]# reorder so it's in the same order as the count data columns
+  all(colnames(counts_M) %in% rownames(meta_data))# check assumptions, should be TRUE
+  all(colnames(counts_M) == rownames(meta_data))# check assumptions, should be TRUE
+}
+```
+
 ```{r}
 # groups <- factor(paste(meta_data$line, meta_data$sex, meta_data$day, sep="_"))
 groups <- factor(paste(meta_data$day, meta_data$sex, sep="_"))
@@ -287,6 +303,22 @@ line_diff_table <- coefficient_analysis_complete_ds(y=y,MM=MM,coef=c("line3"),ta
 
 sex bias in full dataset when line is not part of the contrast
 ```{r}
+if (downsample_three){
+
+M_14_16_table = sprintf("%sthree_biol_replicates_line_ignored_M_14_16.txt", outdir)
+M_14_16_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"M_14_16"],table_name=M_14_16_table,lfc_min = 0)
+
+M_16_18_table = sprintf("%sthree_biol_replicates_line_ignored_M_16_18.txt", outdir)
+M_16_18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"M_16_18"],table_name=M_16_18_table,lfc_min = 0)
+
+F_14_16_table = sprintf("%sthree_biol_replicates_line_ignored_F_14_16.txt", outdir)
+F_14_16_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"F_14_16"],table_name=F_14_16_table,lfc_min = 0)
+
+F_16_18_table = sprintf("%sthree_biol_replicates_line_ignored_F_16_18.txt", outdir)
+F_16_18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"F_16_18"],table_name=F_16_18_table,lfc_min = 0)
+
+}else{
+
 day14_F_M_table = sprintf("%sfull_dataset_line_ignored_day14_F-M.txt", outdir)
 day14_F_M_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day14_F_M"],table_name=day14_F_M_table,lfc_min = 0)
 
@@ -310,6 +342,7 @@ F_16_18_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"F_16_18"],t
 
 day_sex_interaction_table = sprintf("%sfull_dataset_line_ignored_day_sex_interaction.txt", outdir)
 day_sex_interaction_table <- contrast_analysis(y=y,MM=MM,contrast=my.contrasts[,"day_sex_interaction"],table_name=day_sex_interaction_table,lfc_min = 0)
+}
 ```
 
 ## Sex as random factor for day-by-line interaction
@@ -375,11 +408,11 @@ The analysis can be run separately for males and females, if use_males=True then
 or only line differences are tested
 
 ```{r} 
-use_males<-FALSE # only run on male samples (if False only run on female samples)
+use_males<-TRUE # only run on male samples (if False only run on female samples)
 
 # model either time or line as fixed effect with intercept in the contrasts
 use_time<-FALSE # contrasts that take time into account (if False then only line contrasts with time as fixed factor)
-use_line<-TRUE # contrasts that take line into account (if False then only time with line as fixed factor)
+use_line<-FALSE # contrasts that take line into account (if False then only time with line as fixed factor)
 ```
 
 
