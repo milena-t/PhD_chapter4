@@ -1,0 +1,12 @@
+small-Y day14 M	(0 expr. genes from 4 samples)	 median: nan	std.err: nan
+small-Y day16 M	(0 expr. genes from 1 samples)	 median: nan	std.err: nan
+small-Y day18 M	(0 expr. genes from 1 samples)	 median: nan	std.err: nan
+large-Y day14 M	(0 expr. genes from 7 samples)	 median: nan	std.err: nan
+large-Y day16 M	(0 expr. genes from 6 samples)	 median: nan	std.err: nan
+large-Y day18 M	(0 expr. genes from 10 samples)	 median: nan	std.err: nan
+small-Y day14 F	(0 expr. genes from 1 samples)	 median: nan	std.err: nan
+small-Y day16 F	(0 expr. genes from 0 samples)	 median: nan	std.err: nan
+small-Y day18 F	(0 expr. genes from 2 samples)	 median: nan	std.err: nan
+large-Y day14 F	(0 expr. genes from 6 samples)	 median: nan	std.err: nan
+large-Y day16 F	(0 expr. genes from 6 samples)	 median: nan	std.err: nan
+large-Y day18 F	(0 expr. genes from 2 samples)	 median: nan	std.err: nan

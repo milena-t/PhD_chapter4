@@ -11,6 +11,7 @@ import math
 import scipy.stats as sts
 import warnings
 import upsetplot
+import Y_expression_quantification as time_series_plots
 
 def get_tables(username = "miltr339"):
     """
@@ -884,6 +885,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
 
     colors_dict = {"small-Y SB" : "#BD351E" , "large-Y SB" : "#EA882C"}
     colors_dict["both SB"] = "#3C7FA7" # blue
+    shared_IDs = {label : [] for label in colors_dict.keys()}
     colors_dict["neither"] = "#4B3B47" # mauve shadow
     colors_count = {label : 0 for label in colors_dict.keys()}
 
@@ -906,12 +908,15 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
             if geneID in SB1_sig and geneID not in SB3_sig:
                 c = colors_dict["small-Y SB"]
                 colors_count["small-Y SB"]+=1
+                shared_IDs["small-Y SB"].append(geneID)
             elif geneID not in SB1_sig and geneID in SB3_sig:
                 c = colors_dict["large-Y SB"]
                 colors_count["large-Y SB"]+=1
+                shared_IDs["large-Y SB"].append(geneID)
             elif geneID in SB1_sig and geneID in SB3_sig:
                 c = colors_dict["both SB"]
                 colors_count["both SB"]+=1
+                shared_IDs["both SB"].append(geneID)
             elif geneID not in SB1_sig and geneID not in SB3_sig:
                 c = colors_dict["neither"]
                 colors_count["neither"]+=1
@@ -966,7 +971,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     plt.cla()
     plt.close()
 
-    return(colors_count)
+    return(shared_IDs)
 
 if __name__ == "__main__":
 
@@ -1631,7 +1636,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if False:
+    if True:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
@@ -1659,6 +1664,8 @@ if __name__ == "__main__":
             # only relevant interactions are in the day-separated data
             if "day" not in separation:
                 continue
+            
+            shared_SB_LB_for_time_series = {"small-Y SB" : [] , "large-Y SB" : [], "both SB" : []}
 
             for category, paths_dict in seps_dict.items():
                 print(f"\n ------------------- {category} -------------------")
@@ -1682,11 +1689,28 @@ if __name__ == "__main__":
                         table_SB = paths_dict[contrasts_list["lb_M"][0]]
                         excl_geneIDs = excl_line_bias_lists[separation][category]
 
-                        numbers = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True )
-                        print(f"\t{numbers}")
+                        shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True )
+                        print(f"\t{shared_IDs}")
+                        
+                        shared_SB_LB_for_time_series["small-Y SB"].extend(shared_IDs["small-Y SB"])
+                        shared_SB_LB_for_time_series["large-Y SB"].extend(shared_IDs["large-Y SB"])
+                        shared_SB_LB_for_time_series["both SB"].extend(shared_IDs["both SB"])
+
+                        if True:
+                            ## plot time series of expression of shared line- and sex-biased genes
+                            count_files = time_series_plots.get_counts_paths(username=username)
+                            samples_group_dict = time_series_plots.samples_group()
+                            
+                            plot_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/counts_time_series"
+                            plot_file = f"{plot_dir}/time_series_day_and_sex_bias_{category}.png"
+
+                            plot_title = f"{category_}: genes that are line-biased in males and sex-biased"
+                            
+                            time_series_plots.plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = shared_IDs, 
+                                                outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
 
                     else:
-                        # continue
+                        continue
 
                         try:
                             incl_geneIDs = sig_IDs_list[separation][category]
@@ -1715,13 +1739,27 @@ if __name__ == "__main__":
                         numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
                         print(f"\t{numbers}")
 
+                    if True:
+                        ## plot time series of expression of shared line- and sex-biased genes
+                        count_files = time_series_plots.get_counts_paths(username=username)
+                        samples_group_dict = time_series_plots.samples_group()
+                        
+                        plot_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/counts_time_series"
+                        plot_file = f"{plot_dir}/time_series_day_and_sex_bias_all_days.png"
+
+                        plot_title = f"genes that are line-biased in males and sex-biased on at least one day"
+                        unique_shared_SB_LB_for_time_series = {cat : list(set(geneids)) for cat,geneids in shared_SB_LB_for_time_series.items()}
+                        
+                        time_series_plots.plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = unique_shared_SB_LB_for_time_series, 
+                                            outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
+
 
     #############################################
     ####### PLOT LOGFC MAGNITUDE BOXPLOTS #######
     #############################################
 
     ## plot LogFC boxplots of male-biased genes of several contrasts within each separation
-    if True:
+    if False:
         LFC_comp_sets = {
             "day_separated" : {
                 "day14" : {

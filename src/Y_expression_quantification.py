@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from scipy import stats
+import random
 
 
 def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name:str, y_label="normalized counts", errorbars = False, samples_group_dict = {}, do_median=True, plot_title = ""):
@@ -66,6 +67,8 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
     c = 0
 
     for list_label, gene_counts in dfs_dict.items():
+
+        list_label_count = f"{list_label} ({len(geneIDs_lists_dict[list_label])})"
 
         outfile_table = outfile_name.replace(".png", f"_{list_label}.txt")
         with open(outfile_table, "w" ) as out_table:
@@ -170,8 +173,11 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
             print(f"table outfile written to: {outfile_table}")
 
             if errorbars:
-                ax.errorbar(tick_pos, medians_list, xerr = 0, yerr = errors_list, color=colors_list[c], linewidth =lw,
-                            marker = ".", markersize=ps, linestyle = linest, label=list_label)
+                # add scatter 
+                rand_offset = random.uniform(-0.1,0.1)
+                tick_scatter = [tick+rand_offset for tick in tick_pos]
+                ax.errorbar(tick_scatter, medians_list, xerr = 0, yerr = errors_list, color=colors_list[c], linewidth =lw,
+                            marker = ".", markersize=ps, linestyle = linest, label=list_label_count)
             else:
                 ax.plot(tick_pos, medians_list,color=colors_list[c], linewidth =lw, 
                         marker = ".", markersize=ps, linestyle = linest, label=list_label)
