@@ -11,7 +11,7 @@ import numpy as np
 from scipy import stats
 
 
-def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name:str, y_label="normalized counts", errorbars = False, samples_group_dict = {}, do_median=True):
+def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name:str, y_label="normalized counts", errorbars = False, samples_group_dict = {}, do_median=True, plot_title = ""):
     """
     plot the counts of the geneIDs in all samples
     except samples where all samples have zero counts
@@ -190,9 +190,13 @@ def plot_counts_sum_sets(counts_table:str, geneIDs_lists_dict:dict, outfile_name
     ax.tick_params(axis='x', labelsize=fs*0.75,labelrotation=90)#, colors)
     ax.tick_params(axis='y', labelsize=fs)
     ax.set_ylabel(f"{y_label}", fontsize = fs)
-    plt.tight_layout()
     if len(geneIDs_lists_dict)>1:
         plt.legend(fontsize = fs)
+    if len(plot_title)>0:
+        plt.title(plot_title, fontsize=fs)
+        print(f"plot has title: '{plot_title}'")
+    
+    plt.tight_layout()
     plt.savefig(outfile_name, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {outfile_name}")
 
@@ -258,7 +262,6 @@ def get_y_information():
     }
     return sex_chromosomes_superscaffolded,y_contigs,x_contigs,tor_related
 
-
 def filter_counts_file(counts_path, out_path, IDs_list):
     """
     filter a raw gene counts file to only include rows that are genes in IDs_list
@@ -280,8 +283,6 @@ def filter_counts_file(counts_path, out_path, IDs_list):
                 line_counts += 1
         print(f"filtering for {len(IDs_list)} genes : {line_counts} out of {line_counts_all} lines written to new file {out_path}")
             
-
-
 def plot_LFC_sets(LFC_tables_contrasts:dict, geneIDs_dict:list, outfile_name:str, y_label="LogFC", legend_side="right"):
     """
     plot the logFC of the geneIDs in all samples

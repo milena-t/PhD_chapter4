@@ -328,6 +328,39 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file, IDs_list
     print(f"file written to: \n{outfile_path}")
 
 
+def get_genes_with_GO(infile_path, annotation_file, GOs_list = [], plot_file = "plot.png", plot_title = ""):
+
+    annotation_header = ["query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs"]
+    annotation_df = pd.read_csv(annotation_file, sep="\t", comment="#", names=annotation_header)
+
+    sigIDs_df = pd.read_csv(infile_path, sep=",")
+    sigIDs = sigIDs_df.loc[sigIDs_df["sig_DE"]==1]["geneID"].tolist()
+
+    GO_set = set(GOs_list)
+    GO_geneIDs = {GO_term : [] for GO_term in GO_set}
+
+    for i, geneID in enumerate(sigIDs):
+        try:
+            GO_terms = annotation_df.loc[annotation_df["query"] == geneID, "GOs"].iloc[0]
+            if GO_terms != "-":
+                gene_terms = set(GO_terms.split(","))
+                shared = gene_terms & GO_set
+                if len(shared)>0:
+                    print(f"{i+1}\t{geneID}\t{shared}") 
+                    for shared_GO in shared:
+                        GO_geneIDs[shared_GO].append(geneID)       
+        except:
+            continue
+            print(f"{i+1}\t{geneID}\tparsing failed!")
+
+    from Y_expression_quantification import get_counts_paths,samples_group,plot_counts_sum_sets
+    count_files = get_counts_paths(username=username)
+    samples_group_dict = samples_group()
+    print(f"{plot_title}")
+    plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = GO_geneIDs, 
+                        outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
+
+
 
 
 if __name__ == "__main__":
@@ -450,14 +483,14 @@ if __name__ == "__main__":
         early_days=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs.csv"
         make_table_sig_GO_terms(infile_path=early_days)
 
-    if True:
+    if False:
         ## add gene annotation information to a previously generated list of sig. geneIDs
         day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt"
         annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
 
         add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path)
         
-    if True:
+    if False:
         SB_LB_genes = {
             "day14" : {
                 "SL1" : ['gene-225158', 'gene-222430', 'gene-372264', 'gene-117712'],
@@ -476,7 +509,7 @@ if __name__ == "__main__":
                 day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_{day}_sex_{line}_and_line_M_biased_genes_functions.txt"
                 add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path, IDs_list=IDs_list)
 
-    if True:
+    if False:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
@@ -492,3 +525,20 @@ if __name__ == "__main__":
 
                 day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_{day}_sex_by_line_interaction_sig_genes_functions.txt"
                 add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path, IDs_list=IDs_list)
+
+    if True:
+        # check for smoothened signalling pathway in full data line ignored early and late day contrasts
+        full_GO_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_M_16_18.csv"
+        sig_genes_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignored_M_16_18.txt"
+        annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
+        plot_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/counts_time_series"
+        
+        ### the function plots separate lines for each GO terms, but if a gene is annotated with more than one GO term, it is used for the median/SEM calculation in both!
+        if False:
+            smoothened_GO  = ["GO:0007224","GO:0008589","GO:0045879"]
+            get_genes_with_GO(infile_path = sig_genes_path, annotation_file=annotation_path, GOs_list=smoothened_GO, 
+                plot_file=f"{plot_dir}/full_dataset_line_ignored_M_16_18_smoothened_signalling_GO_terms.png", plot_title="GO-terms related to smoothened pathway")
+        if True:
+            aging_GO = ["GO:0007568","GO:0010259"]
+            get_genes_with_GO(infile_path = sig_genes_path, annotation_file=annotation_path, GOs_list=aging_GO, 
+                plot_file=f"{plot_dir}/full_dataset_line_ignored_M_16_18_aging_GO_terms.png", plot_title="GO-terms related to aging")
