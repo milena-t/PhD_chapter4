@@ -4422,6 +4422,138 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 
 </div>
+
+
+<h2 id="other-gene-functions">4.4 Other genes of functional interest</h2>
+
+<h3>Developmental time contrast</h3>
+
+<p>
+    In the late day-contrast of the full dataset with line as intercept (<code>data/sig_DE_genes_lists/full_dataset_line_ignored_M_16_18.txt</code>), 
+    the semantic clustering shows several interesting enrichment patterns:
+</p>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'time_series_smoothened')">Smoothened pathway</button>
+    <button class="tablinks" onclick="openTab(event, 'time_series_aging')">aging-related</button>
+</div>
+  
+<div id="time_series_smoothened" class="tabcontent">
+    <p>
+        The bias is significant only in males because the female increase is more gradual, while day 16-18 is a more harsh jump in males. 
+        Unfortunately the line difference is still super pronounced even in females so this is probably not useful.
+    </p>
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/full_dataset_line_ignored_M_16_18_smoothened_signalling_GO_terms.png" width="75%" />
+    </p>
+</div>
+<div id="time_series_aging" class="tabcontent">
+    <p>
+
+    </p>
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/full_dataset_line_ignored_M_16_18_aging_GO_terms.png" width="75%" />
+    </p>
+</div>
+
+
+<h3>Genes that are sex-biased and line-biased</h3>
+
+<p>
+    I also check for genes that are sex-biased as well as line-biassed in the day-split data, and to see if the ones that are show interesting behaviour. Most of these genes are 
+    autosomal, except the one that is sex-biased in both lines and also line-biased in males, which is on the Y.
+</p>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'time_series_day14')">Day 14</button>
+    <button class="tablinks" onclick="openTab(event, 'time_series_day16')">Day 16</button>
+    <button class="tablinks" onclick="openTab(event, 'time_series_day18')">Day 18</button>
+    <button class="tablinks" onclick="openTab(event, 'time_series_alldays')">All days</button>
+</div>
+
+<div id="time_series_day14" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/time_series_day_and_sex_bias_day14.png" width="75%" />
+    </p>
+</div>
+
+<div id="time_series_day16" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/time_series_day_and_sex_bias_day16.png" width="75%" />
+    </p>
+</div>
+
+<div id="time_series_day18" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/time_series_day_and_sex_bias_day18.png" width="75%" />
+    </p>
+</div>
+
+<div id="time_series_alldays" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/time_series_day_and_sex_bias_all_days.png" width="75%" />
+    </p>
+</div>
+
+<h3>Ecdysone</h3>
+
+<p>
+    Ecdysone is significant in sex-bias contrasts of the full dataset with line as the intercept on for all day-specific contrasts. It
+</p>
+
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'time_series_ecdysone_day14')">Day 14</button>
+    <button class="tablinks" onclick="openTab(event, 'time_series_ecdysone_day16')">Day 16</button>
+    <button class="tablinks" onclick="openTab(event, 'time_series_ecdysone_day18')">Day 18</button>
+</div>
+
+<div id="time_series_ecdysone_day14" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/full_dataset_line_ignored_ecdysone_day14_F-M.png" width="75%" />
+    </p>
+    <p>
+        <code>gene-144476 : {'GO:0008205', 'GO:0006697'}</code><br>
+        <code>gene-84601 : {'GO:0008205'}</code><br>
+        <code>gene-92757 : {'GO:0035075', 'GO:0035072'}</code><br>
+    </p>
+</div>
+
+<div id="time_series_ecdysone_day16" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/full_dataset_line_ignored_ecdysone_day16_F-M.png" width="75%" />
+    </p>
+    <p>
+        <code>gene-144476 : {'GO:0008205', 'GO:0006697'}</code><br>
+        <code>gene-84601 : {'GO:0008205'}</code><br>
+        <code>gene-92757 : {'GO:0035072'}</code><br>
+    </p>
+</div>
+
+<div id="time_series_ecdysone_day18" class="tabcontent">
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/full_dataset_line_ignored_ecdysone_day18_F-M.png" width="75%" />
+    </p>
+    <p>
+        <code>gene-84601 : {'GO:0008205'}</code><br>
+        <code>gene-144476 : {'GO:0008205'}</code><br>
+    </p>
+</div>
+
+<h3>Juvenile hormone</h3>
+
+<p>
+    GO-terms related to juvenile hormone (<code>"GO:0006719","GO:0006716"</code>) are significant in the same sex-bias contrasts as above, but not line-bias. 
+    This time it is always only one gene though, <code>gene-540</code>. Toggle down for plot:
+</p>
+
+<details>
+    <summary>Juvenile hormone-related gene time series</summary>
+    <p float="left">
+        <img loading="lazy" src="data/DE_figures_python/counts_time_series/full_dataset_line_ignored_jh_all_days.png" width="75%" />
+    </p>
+</details>
+
+
 </div>
 </div>
 

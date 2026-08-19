@@ -526,7 +526,7 @@ if __name__ == "__main__":
                 day_separated_line_bias_overlap = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_{day}_sex_by_line_interaction_sig_genes_functions.txt"
                 add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path, IDs_list=IDs_list)
 
-    if True:
+    if False:
         # check for smoothened signalling pathway in full data line ignored early and late day contrasts
         full_GO_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_M_16_18.csv"
         sig_genes_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignored_M_16_18.txt"
@@ -542,3 +542,39 @@ if __name__ == "__main__":
             aging_GO = ["GO:0007568","GO:0010259"]
             get_genes_with_GO(infile_path = sig_genes_path, annotation_file=annotation_path, GOs_list=aging_GO, 
                 plot_file=f"{plot_dir}/full_dataset_line_ignored_M_16_18_aging_GO_terms.png", plot_title="GO-terms related to aging")
+
+    if True:
+        ## check ecdysone GO-terms
+        GO_terms_ecdysone = {
+            "14" : ["GO:0008205","GO:0006697","GO:0035072","GO:0035075"],
+            "16" : ["GO:0008205","GO:0006697","GO:0035072"],
+            "18" : ["GO:0008205"]
+        }
+        GO_terms_juvenile_hormone = ["GO:0006719","GO:0006716"] # only gene-540
+
+        annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
+        plot_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/counts_time_series"
+
+        for day in ["14","16","18"]:
+            GO_terms_day_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day{day}_F-M.csv"
+            sig_genes_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignored_day{day}_F-M.txt"
+
+            if True:
+                GO_list = GO_terms_ecdysone[day]
+                get_genes_with_GO(infile_path = sig_genes_path, annotation_file=annotation_path, GOs_list=GO_list, 
+                    plot_file=f"{plot_dir}/full_dataset_line_ignored_ecdysone_day{day}_F-M.png", plot_title=f"GO-terms related to ecdysone on day {day}")
+            
+            # GO_list = GO_terms_juvenile_hormone
+            # get_genes_with_GO(infile_path = sig_genes_path, annotation_file=annotation_path, GOs_list=GO_list, 
+            #    plot_file=f"{plot_dir}/full_dataset_line_ignored_jh_day{day}_F-M.png", plot_title=f"GO-terms related to juvenile hormone on day {day}")
+
+    if True:
+        # plot the one gene for juvenile hormone
+        from Y_expression_quantification import get_counts_paths,samples_group,plot_counts_sum_sets
+        count_files = get_counts_paths(username=username)
+        samples_group_dict = samples_group()
+
+        GO_terms_juvenile_hormone = ["GO:0006719","GO:0006716"] # only gene-540, annotated as 'COesterase, Belongs to the type-B carboxylesterase lipase family'
+
+        plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = {"gene-540" : ["gene-540"]}, outfile_name = f"{plot_dir}/full_dataset_line_ignored_jh_all_days.png", 
+            y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=f"gene annotated with juvenile hormone-related function")

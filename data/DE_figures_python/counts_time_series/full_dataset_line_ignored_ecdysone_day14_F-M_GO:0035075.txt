@@ -1,0 +1,12 @@
+small-Y day14 M	(8 expr. genes from 10 samples)	 median: 0.149	std.err: 0.064
+small-Y day16 M	(9 expr. genes from 11 samples)	 median: 0.662	std.err: 0.281
+small-Y day18 M	(5 expr. genes from 7 samples)	 median: 1.185	std.err: 0.421
+large-Y day14 M	(4 expr. genes from 9 samples)	 median: 0.000	std.err: 0.047
+large-Y day16 M	(6 expr. genes from 7 samples)	 median: 0.372	std.err: 0.273
+large-Y day18 M	(12 expr. genes from 12 samples)	 median: 0.666	std.err: 0.421
+small-Y day14 F	(0 expr. genes from 3 samples)	 median: 0.000	std.err: 0.000
+small-Y day16 F	(0 expr. genes from 3 samples)	 median: 0.000	std.err: 0.000
+small-Y day18 F	(0 expr. genes from 5 samples)	 median: 0.000	std.err: 0.000
+large-Y day14 F	(0 expr. genes from 6 samples)	 median: 0.000	std.err: 0.000
+large-Y day16 F	(0 expr. genes from 6 samples)	 median: 0.000	std.err: 0.000
+large-Y day18 F	(0 expr. genes from 3 samples)	 median: 0.000	std.err: 0.000
