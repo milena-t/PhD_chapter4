@@ -57,24 +57,23 @@
 
 
 \begin{figure}[H]
-
-    \begin{subfigure}[t]{0.32\linewidth}
+    \begin{center}
+    \begin{subfigure}[t]{0.4\linewidth}
 	    \begin{picture}(0,0)
-   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
+   	  		\put(22,145){\textbf{A}} % adjust the x and y values here
 		\end{picture}
-	    \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_M_1-3_volcano.png}
-        \end{center}        
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_M_1-3_volcano.png}       
     \end{subfigure}
-    \begin{subfigure}[t]{0.32\linewidth}
+    \begin{subfigure}[t]{0.4\linewidth}
         \begin{picture}(0,0)
-            \put(22,-15){\textbf{B}} % adjust the x and y values here
+            \put(22,145){\textbf{B}} % adjust the x and y values here
 		\end{picture}
-        \begin{center}
         \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_M_1-3_volcano.png}
-        \end{center}        
     \end{subfigure}
-    \begin{subfigure}[t]{0.32\linewidth}
+    \end{center}        
+
+    \begin{subfigure}[t]{0.39\linewidth}
+        \vspace{1cm}
         \begin{picture}(0,0)
             \put(22,-15){\textbf{C}} % adjust the x and y values here
 		\end{picture}
@@ -82,50 +81,21 @@
         \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_M_1-3_volcano.png}
         \end{center}        
     \end{subfigure}
-
-    \begin{subfigure}[t]{0.32\linewidth}
-	    \begin{picture}(0,0)
-   	  		\put(15,-13){\textbf{D}} % adjust the x and y values here
-		\end{picture}
-	    \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day14_line_bias.png}
-        \end{center}        
-    \end{subfigure}
-    \begin{subfigure}[t]{0.32\linewidth}
+    \begin{subfigure}[t]{0.6\linewidth}
         \begin{picture}(0,0)
-            \put(15,-13){\textbf{E}} % adjust the x and y values here
-		\end{picture}
+            \put(100,-30){\textbf{D}} % adjust the x and y values here
+        \end{picture}
         \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day16_line_bias.png}
-        \end{center}        
-    \end{subfigure}
-    \begin{subfigure}[t]{0.32\linewidth}
-        \begin{picture}(0,0)
-            \put(15,-13){\textbf{F}} % adjust the x and y values here
-		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day18_line_bias.png}
-        \end{center}        
-    \end{subfigure}
-
-
-    \begin{center}
-        \begin{subfigure}[t]{0.6\linewidth}
-            \begin{picture}(0,0)
-                \put(90,180){\textbf{G}} % adjust the x and y values here
-            \end{picture}
             \includegraphics[width=\linewidth]{../data/DE_figures_python/upsetplot_day_separated_male_line_bias.png}
-        \end{subfigure}
-    \end{center}
+        \end{center}
+    \end{subfigure}
     
     
     \caption{\textbf{Line-biased genes in males}. 
     (\textbf{A}, \textbf{B}, \textbf{C}): Genes significantly differentially expressed in each developmental timepoint (FDR-p $<$ 0.05), genes that are line-biased in females are excluded. 
     Figure legend shows numbers of nonsignificant (nonsig.) genes, and genes that are significantly up- or downregulated, with upregulated genes being biased towards the large male haplotype 
     in the large-small contrast.
-    (\textbf{D}, \textbf{E}, \textbf{F}): log2FC of genes that show significant line-bias in male samples, female samples or both. All genes that are exclusively male-biased (yellow) are also 
-    significant in the line-by-sex interaction. 
-    (\textbf{G}): UpSet plot showing the overlap of line-significant genes identified in A-F.
+    (\textbf{D}): UpSet plot showing the overlap of line-significant genes identified in A-C.
     }\label{day_split}
     
 \end{figure}
