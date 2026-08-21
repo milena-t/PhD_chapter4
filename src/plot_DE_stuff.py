@@ -976,7 +976,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
-    username = "miltr339"
+    username = "milena"
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
     
@@ -1368,7 +1368,7 @@ if __name__ == "__main__":
     ###########################################
 
     ## compare if the same genes are DE between lines within days in males as in females
-    if False:
+    if True:
         venn_sets_day = {
             "sex_separated" : {
                 "day14" : {
@@ -1403,9 +1403,11 @@ if __name__ == "__main__":
                 
                 venn_filename = f"{out_path_figs}/Venn_{day}_f_vs_m.png"
                 day_ = day.replace("day", "day ")
+                venn_title = f"sig. DE genes overlap ({day_})\nfemales and males"
                 if day == "days_merged":
                     day_ = day.replace("_", " ")
-                venn_title = f"sig. DE genes overlap ({day_})\nfemales and males"
+                    venn_filename = venn_filename.replace("f_vs_m", "SL1-SL3")
+                    venn_title = f"sig. line biased genes overlap\nfemales and males"
                 shared_list = plot_venn_DE_genes(venn_paths_dict, venn_filename=venn_filename, venn_title=venn_title, get_shared_list=True)
                 print(shared_list)
     
@@ -1636,7 +1638,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if True:
+    if False:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
