@@ -843,8 +843,10 @@ I don't do the mds plot for these ones because it's weird with the sample names.
 
 ```{r}
 my.contrasts <- makeContrasts(
-line1 =	F_1 - M_1,
-line3 =	F_3 - M_3,
+# line1 =	F_1 - M_1,
+# line3 =	F_3 - M_3,
+line1 = (F_1 + F_3)/2 - M_1,
+line3 = (F_1 + F_3)/2 - M_3,
 females = F_1 - F_3,
 males = M_1 - M_3,
 sex_line = (F_1 - M_1) - (F_3 - M_3),

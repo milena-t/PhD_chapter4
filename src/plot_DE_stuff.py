@@ -919,6 +919,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
                 colors_count["both SB"]+=1
                 shared_IDs["both SB"].append(geneID)
             elif geneID not in SB1_sig and geneID not in SB3_sig:
+                continue
                 c = colors_dict["neither"]
                 colors_count["neither"]+=1
             
@@ -974,6 +975,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
 
     return(shared_IDs)
 
+
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
@@ -1017,7 +1019,7 @@ if __name__ == "__main__":
     ############
     highlight_yTOR = False
 
-    if False:
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
