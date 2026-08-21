@@ -557,6 +557,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
 
     nonsig_incl = 0
     sig_incl = 0
+    count_points = 0
     for cat in lists.keys():
         if len(lists[cat])>50 or cat!="shared":
             print(f"\t* {cat} ({len(lists[cat])})")
@@ -574,12 +575,13 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
             except:
                 x = 0
                 print(geneID)
-            if len(excl_geneIDs)==0:
+            if len(excl_geneIDs)>0:
                 if geneID in excl_geneIDs:
                     excl_counter[cat]+=1
                     ax.scatter(x,y,color = colors_dict[cat], s=ps*1.5, alpha = 1, marker="1")
                 else:
                     ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
+                count_points += 1
             elif len(incl_geneIDs)>0:
                 if geneID not in incl_geneIDs:
                     excl_counter[cat]+=1
@@ -588,7 +590,13 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
                 else:
                     ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
                     sig_incl+=1
+                count_points += 1
+            else:
+                ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
+                count_points += 1
+            
 
+    print(f" points with coords: {count_points}")
     label_a = table_a.replace("SL1-3", "line-bias")
     label_a = label_a.replace("SL1-SL3", "line-bias")
     label_a = label_a.replace("F-M", "sex-bias")
@@ -735,9 +743,9 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, only_all_inter
             # df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
             df_sig = df_sig.loc[df_sig['logFC'] < min_LFC]
         if len(intersection_genes)>0:
-            print(df_sig.shape[0])
+            before_downsample = df_sig.shape[0]
             df_sig = df_sig[df_sig['Gene'].isin(intersection_genes)]
-            print(df_sig.shape[0])
+            print(f"filter {before_downsample} -> {df_sig.shape[0]}")
         data = df_sig["logFC"].tolist()
         tables_list.append(data)
         name_ = name.replace("SL1", "small-Y").replace("SL3", "large-Y").replace(":", f"\n")
@@ -1012,7 +1020,7 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
     make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
@@ -1233,7 +1241,7 @@ if __name__ == "__main__":
                             outfile.write(nonsig)
 
                     ######### all lines sex bias
-                    if False:
+                    if True:
                         # filter to only include genes that are sig. in at least two days
                         mask_all = (
                             upset_data_sex.index.get_level_values('day14: small-Y').astype(int) +
@@ -1317,7 +1325,7 @@ if __name__ == "__main__":
     ############################################
     
     ## standard sets matching the tabs in the html
-    if True:
+    if False:
         venn_sets = {
             "no_separation" : { "all_samples" : {"" : []}},
             "sex_separated" : {
@@ -1644,7 +1652,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if True:
+    if False:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
@@ -1776,7 +1784,7 @@ if __name__ == "__main__":
     #############################################
 
     ## plot LogFC boxplots of male-biased genes of several contrasts within each separation
-    if False:
+    if True:
         LFC_comp_sets = {
             "day_separated" : {
                 "day14" : {
