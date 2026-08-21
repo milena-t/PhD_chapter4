@@ -89,11 +89,11 @@ line_sep_SL3 <- c(sprintf("%s/sig_DE_list_SL3_day14_16_F-M.txt",indir),sprintf("
 
 # day separated
 ## day 14
-day_sep_d14 <- c(sprintf("%s/sig_DE_list_day14_M_1-3.txt",indir))#,sprintf("%s/sig_DE_list_day14_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day14_SL3_F-M.txt",indir))
+day_sep_d14 <- c(sprintf("%s/sig_DE_list_day14_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day14_SL3_F-M.txt",indir))#,sprintf("%s/sig_DE_list_day14_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day14_F_1-3.txt",indir))
 ## day 16
-day_sep_d16 <- c(sprintf("%s/sig_DE_list_day16_M_1-3.txt",indir))#,sprintf("%s/sig_DE_list_day16_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day16_SL3_F-M.txt",indir))
+day_sep_d16 <- c(sprintf("%s/sig_DE_list_day16_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day16_SL3_F-M.txt",indir))#,sprintf("%s/sig_DE_list_day16_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day16_F_1-3.txt",indir))
 ## day 18
-day_sep_d18 <- c(sprintf("%s/sig_DE_list_day18_M_1-3.txt",indir))#,sprintf("%s/sig_DE_list_day18_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_F_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day18_SL3_F-M.txt",indir))
+day_sep_d18 <- c(sprintf("%s/sig_DE_list_day18_SL1_F-M.txt",indir),sprintf("%s/sig_DE_list_day18_SL3_F-M.txt",indir))#,sprintf("%s/sig_DE_list_day18_M_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_F-M_by_1-3.txt",indir),sprintf("%s/sig_DE_list_day18_F_1-3.txt",indir))
 
 # no separation
 ## line ignored
@@ -187,9 +187,9 @@ GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df)
 list for genes that are sig. sex biased in the day separated dataset for multiple days
 ```{r}
 sig_list_late = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day1618_sigIDs.txt"
-GO_enrichment_analysis(sig_infile = sig_list_late, annotation_df = annotation_df)
+GO_enrichment_analysis(sig_infile = sig_list_late, annotation_df = annotation_df, semantic_clustering=TRUE)
 sig_list_early = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_day14_sigIDs.txt"
-GO_enrichment_analysis(sig_infile = sig_list_early, annotation_df = annotation_df)
+GO_enrichment_analysis(sig_infile = sig_list_early, annotation_df = annotation_df, semantic_clustering=TRUE)
 sig_list_all = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs.txt"
 GO_enrichment_analysis(sig_infile = sig_list_all, annotation_df = annotation_df, semantic_clustering=TRUE)
 sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_excl_day14smallY_sigIDs.txt"
