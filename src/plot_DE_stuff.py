@@ -867,7 +867,8 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     df_SB3 = df_SB3.drop(columns=["logCPM","F","PValue","FDR"])
     
     df_sb = pd.merge(df_SB1,df_SB3, on = "Gene") # keeps only genes present in both, default inner join
-    df_sb["logFC_diff"] = abs(df_sb["logFC_x"])-abs(df_sb["logFC_y"])
+    # df_sb["logFC_diff"] = abs(df_sb["logFC_x"]-df_sb["logFC_y"])
+    df_sb["logFC_diff"] = df_sb["logFC_x"] - df_sb["logFC_y"]
     df_sb = df_sb.drop(columns=["logFC_x","logFC_y"])
 
     df_lb = pd.read_csv(table_LB, sep="\t", skiprows=0)
@@ -958,7 +959,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     main_sig_legend = plt.legend(handles = main_sig, fontsize = fs*0.75, title ="gene sig. in\nmain effect", title_fontsize = fs*0.7)#, loc='lower right')
     ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
 
-    ax.set_ylabel(f"|small-Y SB| - |large-Y SB|", fontsize = fs)
+    ax.set_ylabel(f"small-Y SB - large-Y SB", fontsize = fs)
     ax.set_xlabel(f"logFC male line-bias", fontsize = fs)
     ax.tick_params(axis='x', labelsize=fs*0.9)
     ax.tick_params(axis='y', labelsize=fs*0.9)
@@ -976,7 +977,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
-    username = "milena"
+    username = "miltr339"
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
     
@@ -1368,7 +1369,7 @@ if __name__ == "__main__":
     ###########################################
 
     ## compare if the same genes are DE between lines within days in males as in females
-    if True:
+    if False:
         venn_sets_day = {
             "sex_separated" : {
                 "day14" : {
@@ -1638,7 +1639,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if False:
+    if True:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days

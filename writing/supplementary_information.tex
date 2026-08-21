@@ -347,7 +347,7 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
 
 
 
-
+\iffalse
 \begin{figure}[H]
 
     \begin{subfigure}[t]{0.32\linewidth}
@@ -380,7 +380,7 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
     }\label{days_sex-line_interaction_volcano}
     
 \end{figure}
-
+\fi
 
 
 \begin{figure}[H]
@@ -438,6 +438,64 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
 
 
 \begin{figure}[H]
+    \begin{center}
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                     \put(22,-15){\textbf{A}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_SL1_F-M_volcano.png}
+            \end{center}        
+        \end{subfigure}
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{B}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_SL3_F-M_volcano.png}
+            \end{center}        
+        \end{subfigure}
+    
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{C}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_SL1_F-M_volcano.png}
+            \end{center}        
+        \end{subfigure}
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{D}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_SL3_F-M_volcano.png}
+            \end{center}        
+        \end{subfigure}
+    
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{E}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_SL1_F-M_volcano.png}
+            \end{center}        
+        \end{subfigure}
+        \begin{subfigure}[t]{0.40\linewidth}
+            \begin{picture}(0,0)
+                \put(22,-15){\textbf{F}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_SL3_F-M_volcano.png}
+            \end{center}        
+        \end{subfigure}
+     \end{center}        
+        \caption{\textbf{Volcano plot of sex-bias within each line for samples of each time point}.
+        }\label{day_Sep_sex_bias_within_line_volcano}
+        
+    \end{figure}
+
+\begin{figure}[H]
 
     \begin{center}
     \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/day_separated_all_lines_sex_bias_overlap_all_days_sigIDs_sig_GO.png}
@@ -465,100 +523,8 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
 
 
 
-\begin{figure}[H]
-\begin{center}
-    \begin{subfigure}[t]{0.40\linewidth}
-	    \begin{picture}(0,0)
-   	  		\put(22,-15){\textbf{A}} % adjust the x and y values here
-		\end{picture}
-	    \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_SL1_F-M_volcano.png}
-        \end{center}        
-    \end{subfigure}
-    \begin{subfigure}[t]{0.40\linewidth}
-        \begin{picture}(0,0)
-            \put(22,-15){\textbf{B}} % adjust the x and y values here
-		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_SL3_F-M_volcano.png}
-        \end{center}        
-    \end{subfigure}
 
-    \begin{subfigure}[t]{0.40\linewidth}
-        \begin{picture}(0,0)
-            \put(22,-15){\textbf{C}} % adjust the x and y values here
-		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_SL1_F-M_volcano.png}
-        \end{center}        
-    \end{subfigure}
-    \begin{subfigure}[t]{0.40\linewidth}
-        \begin{picture}(0,0)
-            \put(22,-15){\textbf{D}} % adjust the x and y values here
-		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day16_SL3_F-M_volcano.png}
-        \end{center}        
-    \end{subfigure}
-
-    \begin{subfigure}[t]{0.40\linewidth}
-        \begin{picture}(0,0)
-            \put(22,-15){\textbf{E}} % adjust the x and y values here
-		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_SL1_F-M_volcano.png}
-        \end{center}        
-    \end{subfigure}
-    \begin{subfigure}[t]{0.40\linewidth}
-        \begin{picture}(0,0)
-            \put(22,-15){\textbf{F}} % adjust the x and y values here
-		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day18_SL3_F-M_volcano.png}
-        \end{center}        
-    \end{subfigure}
- \end{center}        
-    \caption{\textbf{Volcano plot of sex-bias within each line for samples of each time point}.
-    }\label{day_Sep_sex_bias_within_line_volcano}
-    
-\end{figure}
-
-
-\begin{figure}[H]
-
-    \begin{subfigure}[t]{0.49\linewidth}
-	    \begin{picture}(0,0)
-   	  		\put(27,-15){\textbf{A}} % adjust the x and y values here
-		\end{picture}
-	    \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day14_sex_bias_by_line.png}
-        \end{center}        
-    \end{subfigure}
-    \begin{subfigure}[t]{0.49\linewidth}
-        \begin{picture}(0,0)
-            \put(27,-15){\textbf{B}} % adjust the x and y values here
-		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day16_sex_bias_by_line.png}
-        \end{center}        
-    \end{subfigure}
-    \begin{center}
-    \begin{subfigure}[t]{0.49\linewidth}
-        \begin{picture}(0,0)
-            \put(27,-30){\textbf{C}} % adjust the x and y values here
-		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/Venn_day18_sex_bias_by_line.png}
-        \end{center}        
-    \end{subfigure}
-    \end{center}
-    
-    \caption{\textbf{Overlap of sex-biased genes between the lines}. SL1 refers to small-Y males and SL3 refers to large-Y males. 
-    }\label{lines-sex-bias-venn}
-    
-\end{figure}
-
-
+\iffalse
 
 \begin{figure}[H]
 
@@ -607,7 +573,7 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
     }\label{days-line-sex-interaction-venn}
     
 \end{figure}
-
+\fi
 
 \begin{figure}[H]
     \centering
@@ -668,6 +634,17 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
         
 \end{figure}
 
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/DE_figures_python/counts_time_series/time_series_day_and_sex_bias_all_days.png}
+    \end{center}
+    
+    \caption{\textbf{Time-series plot of normalized counts of genes that are sex-biased and line biased}.
+    Genes that are significantly line-biased in males and sex-biased in at least one line (small-Y and large-Y sex bias shown as separate lines) on at least 
+    one day. Biologial replicates and genes in the same significance intersection are merged, showing median and standard error in all conditions.
+    }\label{time_Series_day_sep_line-sex_sig_overlap}
+\end{figure}
 
 \begin{figure}[H]
     \begin{center}

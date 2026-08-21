@@ -64,6 +64,7 @@
 		\end{picture}
         \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_day14_M_1-3_volcano.png}       
     \end{subfigure}
+    \hspace{2cm}
     \begin{subfigure}[t]{0.4\linewidth}
         \begin{picture}(0,0)
             \put(22,145){\textbf{B}} % adjust the x and y values here
@@ -73,7 +74,7 @@
     \end{center}        
 
     \begin{subfigure}[t]{0.39\linewidth}
-        \vspace{1cm}
+        \vspace{0.5cm}
         \begin{picture}(0,0)
             \put(22,-15){\textbf{C}} % adjust the x and y values here
 		\end{picture}
@@ -129,14 +130,16 @@
         \end{center}        
     \end{subfigure}
 
+\begin{center}
+    \vspace{-1cm}
+    \hspace{-4cm}
     \begin{subfigure}[t]{\linewidth}
         \begin{picture}(0,0)
-            \put(90,-40){\textbf{D}} % adjust the x and y values here
+            \put(120,250){\textbf{D}} % adjust the x and y values here
         \end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/upsetplot_no_separation_line_random.png}
-        \end{center}    
+        \includegraphics[width=1.2\linewidth]{../data/DE_figures_python/upsetplot_no_separation_line_random.png}
     \end{subfigure}
+\end{center}    
     
     \caption{\textbf{Sex bias across developmental stages}. 
     (\textbf{A}, \textbf{B}, \textbf{C}): Genes that are significantly sex-biased in each developmental time point (Y-haplotype line modelled as fixed effect). 
@@ -148,47 +151,48 @@
 \end{figure}
 
 \begin{figure}[H]
-\begin{center}
-    \begin{subfigure}[t]{0.65\linewidth}
-        \begin{picture}(0,0)
-            \put(90,-40){\textbf{A}} % adjust the x and y values here
-        \end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/upsetplot_day_separated_all_lines_sex_bias.png}
-        \end{center}    
-    \end{subfigure}
-\end{center}  
-
-    \begin{subfigure}[t]{0.32\linewidth}
+    \begin{center}
+    \begin{subfigure}[t]{0.4\linewidth}
 	    \begin{picture}(0,0)
-   	  		\put(15,-15){\textbf{B}} % adjust the x and y values here
+   	  		\put(15,-15){\textbf{A}} % adjust the x and y values here
 		\end{picture}
 	    \begin{center}
         \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day14_sex_bias.png}
         \end{center}        
     \end{subfigure}
-    \begin{subfigure}[t]{0.32\linewidth}
+    \hspace{1cm}
+    \begin{subfigure}[t]{0.4\linewidth}
         \begin{picture}(0,0)
-            \put(15,-15){\textbf{C}} % adjust the x and y values here
+            \put(15,-15){\textbf{B}} % adjust the x and y values here
 		\end{picture}
         \begin{center}
         \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day16_sex_bias.png}
         \end{center}        
     \end{subfigure}
-    \begin{subfigure}[t]{0.32\linewidth}
+    \end{center} 
+
+    \begin{subfigure}[t]{0.39\linewidth}
+    \vspace{1cm}
         \begin{picture}(0,0)
-            \put(15,-15){\textbf{D}} % adjust the x and y values here
+            \put(15,-15){\textbf{C}} % adjust the x and y values here
 		\end{picture}
         \begin{center}
         \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day18_sex_bias.png}
         \end{center}        
     \end{subfigure}
-
+    \begin{subfigure}[t]{0.6\linewidth}
+        \begin{picture}(0,0)
+            \put(90,-40){\textbf{D}} % adjust the x and y values here
+        \end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/upsetplot_day_separated_all_lines_sex_bias.png}
+        \end{center}    
+    \end{subfigure}
 
     \caption{\textbf{Sex bias across developmental stages}.
-    (\textbf{A}): UpSet plot showing the overlap of sex biased genes.
-    (\textbf{B}, \textbf{C}, \textbf{D}): Day-split data showing sex bias of large and small male haplotype lines in each day. Genes that are significant in the 
+    (\textbf{A}, \textbf{B}, \textbf{C}): Day-split data showing sex bias of large and small male haplotype lines in each day. Genes that are significant in the 
     sex-by-line interaction of the individual day are highlighted.
+    (\textbf{D}): UpSet plot showing the overlap of sex biased genes.
     }\label{sex_split}
     
 \end{figure}
@@ -212,6 +216,7 @@
         \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day16_sb_diff_lb_M.png}
         \end{center}        
     \end{subfigure}
+    \vspace{1cm}
 
     \begin{subfigure}[t]{0.36\linewidth}
 	    \begin{picture}(0,0)
@@ -231,14 +236,14 @@
     \end{subfigure}
 
     \caption{\textbf{Intersection of sex bias and line bias across developmental stages}.
-    Log2FC of sex-bias (females - males contrast) difference between the lines and line-bias (large-Y - small-Y contrast) in males of day 14 (\textbf{A}), 
+    Log2FC of sex-bias (females - males contrast) difference between the lines (SB small-Y - SB large-Y difference) and line-bias (large-Y - small-Y contrast) in males of day 14 (\textbf{A}), 
     day 16 (\textbf{B}) and day 18 (\textbf{C}), genes that are also line-biased in females are excluded. 
     (\textbf{D}): Magnitude of 129 male-biased genes that are significant in all time points and both selection lines. Significance is tested via Mann-Whitney-U, 
     day14 (small-Y vs. large-Y): U = 6512.0, p = 0.0026; 
     day16 (small-Y vs. large-Y): U = 7679.0, p = 0.2848; 
     day18 (small-Y vs. large-Y): U = 8909.0, p = 0.3265; 
     small-Y (day 14 vs. day 18): U = 10060.0, p = 0.0037; 
-    large-Y (day 14 vs. day 18): U = 11965.0, p < 0.0001
+    large-Y (day 14 vs. day 18): U = 11965.0, p $<$ 0.0001
     }\label{sex_split}
     
 \end{figure}
