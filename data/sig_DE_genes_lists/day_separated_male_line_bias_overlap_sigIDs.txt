@@ -1,4 +1,4 @@
-day14	day16	day18	id
+day14: males	day16: males	day18: males	id
 True	True	False	gene-124877
 True	True	False	gene-223758
 True	True	False	gene-424750

@@ -84,6 +84,8 @@ metadata <- sprintf("%slarvae_metadata.csv", outdir)
   # check assumptions, should be TRUE
   all(colnames(count_data) %in% rownames(meta_data))
   all(colnames(count_data) == rownames(meta_data))
+
+counts_M <- count_data
 ```
 
 ### plot MDS
@@ -106,6 +108,7 @@ Export normalized counts to file. See Python scripting for the PCA plots based o
   log_norm_counts <- cpm(y,normalized.lib.sizes = TRUE,log = TRUE,prior.count = 1)
   write.table(log_norm_counts,file = out_norm_counts, sep = "\t",quote = FALSE)
 ```
+
 
 
 # Differential expression analysis code
@@ -154,17 +157,6 @@ contrast_analysis <- function(y,MM,contrast, table_name, lfc_min){
 
 
 # run whole dataset for basic analyses
-
-
-```{r}
-counts_M <- count_data
-
-meta_data <- DE_metadata_all[which((DE_metadata_all$ID %in% names(counts_M))==TRUE), ]
-meta_data <- meta_data %>% remove_rownames %>% column_to_rownames(var="ID")## adjust metadata
-meta_data <- meta_data[names(counts_M),]# reorder so it's in the same order as the count data columns
-all(colnames(counts_M) %in% rownames(meta_data))# check assumptions, should be TRUE
-all(colnames(counts_M) == rownames(meta_data))# check assumptions, should be TRUE
-```
 
 Specify different linear models to get useful intercepts for interactions
 
@@ -843,10 +835,10 @@ I don't do the mds plot for these ones because it's weird with the sample names.
 
 ```{r}
 my.contrasts <- makeContrasts(
-# line1 =	F_1 - M_1,
-# line3 =	F_3 - M_3,
-line1 = (F_1 + F_3)/2 - M_1,
-line3 = (F_1 + F_3)/2 - M_3,
+line1 =	F_1 - M_1,
+line3 =	F_3 - M_3,
+# line1 = (F_1 + F_3)/2 - M_1,
+# line3 = (F_1 + F_3)/2 - M_3,
 females = F_1 - F_3,
 males = M_1 - M_3,
 sex_line = (F_1 - M_1) - (F_3 - M_3),

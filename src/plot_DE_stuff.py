@@ -886,7 +886,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     df = pd.merge(df_sb,df_lb, on = "Gene")
     print(f"{df.shape[0]} geneIDs included (significant line bias in males)")
     print(f"{len(excl_geneIDs)} geneIDs excluded (significant line bias also in females)")
-
+    
     fig, ax = plt.subplots(1,1, figsize=(13, 13)) 
     fs = 45
     point_size_factor = 8
@@ -958,9 +958,14 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     main_sig = []
     markertype="o"
     # for cat in reversed(list(lists.keys())):
-    for legend_label, count in colors_count.items():
-        main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = f"{legend_label} ({count})", marker=markertype)
-        main_sig.append(main_sig_ind)
+    if intersection_nums:
+        for legend_label, count in colors_count.items():
+            main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = f"{legend_label} ({count})", marker=markertype)
+            main_sig.append(main_sig_ind)
+    else:
+        for legend_label, count in colors_count.items():
+            main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = f"{legend_label}", marker=markertype)
+            main_sig.append(main_sig_ind)
 
     ax.set_ylim([min_yline,max_yline])
     ax.set_xlim([min_xline,max_xline])
@@ -1027,7 +1032,7 @@ if __name__ == "__main__":
     ############
     highlight_yTOR = False
 
-    if False:
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -1214,21 +1219,21 @@ if __name__ == "__main__":
                     print(f"\n\n\n\n ---<>--> male line bias upset data")
 
                     ######### male samples line bias
-                    if False:
+                    if True:
                         # filter to only include genes that are sig. in at least two days
                         mask = (
                             upset_data_line.index.get_level_values('day14: males').astype(int) +
                             upset_data_line.index.get_level_values('day16: males').astype(int) +
                             upset_data_line.index.get_level_values('day18: males').astype(int)
                         ) >= 2
-                        filt = upset_data[mask]
+                        filt = upset_data_line[mask]
                         print(f"filtered for all geneIDs that are sig in at least two:")
                         print(f"{len(filt)}")
 
                         filt.to_csv(f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt", sep="\t")
 
                         # filter to only include genes that are sig. only day 14 and 16
-                        filt = upset_data[upset_data.index.get_level_values('day14: males') & upset_data.index.get_level_values('day16: males')]
+                        filt = upset_data_line[upset_data_line.index.get_level_values('day14: males') & upset_data_line.index.get_level_values('day16: males')]
                         filt = filt["id"].tolist()
                         nonsig_geneIDs = [id for id in list(set(all_geneIDs)) if id not in filt]
                         nonsig = ",0\n".join(nonsig_geneIDs)+",0\n"
@@ -1707,7 +1712,7 @@ if __name__ == "__main__":
 
                         shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True )
 
-                        if True:
+                        if False:
                             shared_SB_LB_for_time_series["small-Y SB"].extend(shared_IDs["small-Y SB"])
                             shared_SB_LB_for_time_series["large-Y SB"].extend(shared_IDs["large-Y SB"])
                             shared_SB_LB_for_time_series["both SB"].extend(shared_IDs["both SB"])
@@ -1753,7 +1758,7 @@ if __name__ == "__main__":
                         numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
                         print(f"\t{numbers}")
 
-            if True:
+            if False:
                 ## plot time series of expression of shared line- and sex-biased genes
                 count_files = time_series_plots.get_counts_paths(username=username)
                 samples_group_dict = time_series_plots.samples_group()
@@ -1784,7 +1789,7 @@ if __name__ == "__main__":
     #############################################
 
     ## plot LogFC boxplots of male-biased genes of several contrasts within each separation
-    if True:
+    if False:
         LFC_comp_sets = {
             "day_separated" : {
                 "day14" : {
