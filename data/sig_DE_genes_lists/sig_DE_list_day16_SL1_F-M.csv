@@ -1,0 +1,121 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:0003341","cilium movement",38,17,1.34,8.7e-11
+"2","GO:0007605","sensory perception of sound",47,11,1.66,4.6e-07
+"3","GO:0030317","flagellated sperm motility",24,8,0.85,9.5e-07
+"4","GO:0060271","cilium assembly",67,21,2.37,1e-06
+"5","GO:0036158","outer dynein arm assembly",7,4,0.25,4.9e-05
+"6","GO:0035082","axoneme assembly",24,11,0.85,7e-05
+"7","GO:0050982","detection of mechanical stimulus",16,5,0.57,0.00017
+"8","GO:0036159","inner dynein arm assembly",4,3,0.14,0.00017
+"9","GO:0006123","mitochondrial electron transport, cytoch...",11,4,0.39,0.00041
+"10","GO:0042866","pyruvate biosynthetic process",12,4,0.42,6e-04
+"11","GO:0060285","cilium-dependent cell motility",30,11,1.06,0.00072
+"12","GO:0009167","purine ribonucleoside monophosphate meta...",112,15,3.96,0.00074
+"13","GO:0018094","protein polyglycylation",13,4,0.46,0.00084
+"14","GO:0046034","ATP metabolic process",109,15,3.85,9e-04
+"15","GO:0006096","glycolytic process",14,4,0.49,0.00114
+"16","GO:0007618","mating",75,9,2.65,0.00118
+"17","GO:0006754","ATP biosynthetic process",35,6,1.24,0.00124
+"18","GO:0043456","regulation of pentose-phosphate shunt",2,2,0.07,0.00124
+"19","GO:0071331","cellular response to hexose stimulus",2,2,0.07,0.00124
+"20","GO:0009166","nucleotide catabolic process",15,4,0.53,0.00152
+"21","GO:0019359","nicotinamide nucleotide biosynthetic pro...",16,4,0.57,0.00197
+"22","GO:0006730","one-carbon metabolic process",8,3,0.28,0.00213
+"23","GO:0009168","purine ribonucleoside monophosphate bios...",40,6,1.41,0.00253
+"24","GO:1902600","proton transmembrane transport",72,8,2.54,0.00361
+"25","GO:0019343","cysteine biosynthetic process via cystat...",3,2,0.11,0.00364
+"26","GO:0019346","transsulfuration",3,2,0.11,0.00364
+"27","GO:0071266","'de novo' L-methionine biosynthetic proc...",3,2,0.11,0.00364
+"28","GO:0001678","cellular glucose homeostasis",3,2,0.11,0.00364
+"29","GO:0015800","acidic amino acid transport",10,3,0.35,0.00433
+"30","GO:0043687","post-translational protein modification",11,3,0.39,0.0058
+"31","GO:0045454","cell redox homeostasis",11,3,0.39,0.0058
+"32","GO:0035092","sperm DNA condensation",4,2,0.14,0.0071
+"33","GO:0032781","positive regulation of ATP-dependent act...",12,3,0.42,0.00754
+"34","GO:0046693","sperm storage",12,3,0.42,0.00754
+"35","GO:0006006","glucose metabolic process",23,4,0.81,0.00788
+"36","GO:0006835","dicarboxylic acid transport",24,4,0.85,0.0092
+"37","GO:0006839","mitochondrial transport",87,8,3.07,0.01125
+"38","GO:0007589","body fluid secretion",5,2,0.18,0.01156
+"39","GO:0019319","hexose biosynthetic process",5,2,0.18,0.01156
+"40","GO:0006094","gluconeogenesis",5,2,0.18,0.01156
+"41","GO:0060078","regulation of postsynaptic membrane pote...",14,3,0.49,0.01184
+"42","GO:0071260","cellular response to mechanical stimulus",6,2,0.21,0.01694
+"43","GO:0006750","glutathione biosynthetic process",6,2,0.21,0.01694
+"44","GO:0007291","sperm individualization",44,5,1.55,0.01853
+"45","GO:1905039","carboxylic acid transmembrane transport",78,7,2.75,0.01956
+"46","GO:1903825","organic acid transmembrane transport",78,7,2.75,0.01956
+"47","GO:0048515","spermatid differentiation",83,9,2.93,0.01989
+"48","GO:0034404","nucleobase-containing small molecule bio...",30,4,1.06,0.02014
+"49","GO:0050878","regulation of body fluid levels",17,3,0.6,0.02046
+"50","GO:0007617","mating behavior",75,9,2.65,0.02165
+"51","GO:0051938","L-glutamate import",7,2,0.25,0.02318
+"52","GO:0015813","L-glutamate transmembrane transport",7,2,0.25,0.02318
+"53","GO:0019184","nonribosomal peptide biosynthetic proces...",7,2,0.25,0.02318
+"54","GO:0050832","defense response to fungus",47,5,1.66,0.02405
+"55","GO:0019646","aerobic electron transport chain",60,9,2.12,0.02633
+"56","GO:0055085","transmembrane transport",421,27,14.87,0.02949
+"57","GO:1903312","negative regulation of mRNA metabolic pr...",8,2,0.28,0.03019
+"58","GO:0019320","hexose catabolic process",8,2,0.28,0.03019
+"59","GO:0046364","monosaccharide biosynthetic process",8,2,0.28,0.03019
+"60","GO:0046365","monosaccharide catabolic process",8,2,0.28,0.03019
+"61","GO:0042391","regulation of membrane potential",50,5,1.77,0.03054
+"62","GO:0045333","cellular respiration",118,12,4.17,0.0315
+"63","GO:0060294","cilium movement involved in cell motilit...",25,9,0.88,0.03401
+"64","GO:0070286","axonemal dynein complex assembly",11,7,0.39,0.03429
+"65","GO:0007595","lactation",1,1,0.04,0.03531
+"66","GO:0002753","cytoplasmic pattern recognition receptor...",1,1,0.04,0.03531
+"67","GO:0018095","protein polyglutamylation",1,1,0.04,0.03531
+"68","GO:0060287","epithelial cilium movement involved in d...",1,1,0.04,0.03531
+"69","GO:0070935","3'-UTR-mediated mRNA stabilization",1,1,0.04,0.03531
+"70","GO:0015862","uridine transport",1,1,0.04,0.03531
+"71","GO:0015864","pyrimidine nucleoside transport",1,1,0.04,0.03531
+"72","GO:0015853","adenine transport",1,1,0.04,0.03531
+"73","GO:0015855","pyrimidine nucleobase transport",1,1,0.04,0.03531
+"74","GO:0032098","regulation of appetite",1,1,0.04,0.03531
+"75","GO:0003351","epithelial cilium movement involved in e...",1,1,0.04,0.03531
+"76","GO:1902373","negative regulation of mRNA catabolic pr...",1,1,0.04,0.03531
+"77","GO:0035045","sperm plasma membrane disassembly",1,1,0.04,0.03531
+"78","GO:0046341","CDP-diacylglycerol metabolic process",1,1,0.04,0.03531
+"79","GO:0070555","response to interleukin-1",1,1,0.04,0.03531
+"80","GO:0048250","iron import into the mitochondrion",1,1,0.04,0.03531
+"81","GO:0048255","mRNA stabilization",1,1,0.04,0.03531
+"82","GO:0030879","mammary gland development",1,1,0.04,0.03531
+"83","GO:0070498","interleukin-1-mediated signaling pathway",1,1,0.04,0.03531
+"84","GO:1903054","negative regulation of extracellular mat...",1,1,0.04,0.03531
+"85","GO:0070423","nucleotide-binding oligomerization domai...",1,1,0.04,0.03531
+"86","GO:0016024","CDP-diacylglycerol biosynthetic process",1,1,0.04,0.03531
+"87","GO:0050910","detection of mechanical stimulus involve...",1,1,0.04,0.03531
+"88","GO:0043123","positive regulation of I-kappaB kinase/N...",1,1,0.04,0.03531
+"89","GO:0035872","nucleotide-binding domain, leucine rich ...",1,1,0.04,0.03531
+"90","GO:0034606","response to hermaphrodite contact",1,1,0.04,0.03531
+"91","GO:0034608","vulval location",1,1,0.04,0.03531
+"92","GO:0050709","negative regulation of protein secretion",1,1,0.04,0.03531
+"93","GO:0050851","antigen receptor-mediated signaling path...",1,1,0.04,0.03531
+"94","GO:0050852","T cell receptor signaling pathway",1,1,0.04,0.03531
+"95","GO:0035364","thymine transport",1,1,0.04,0.03531
+"96","GO:0010715","regulation of extracellular matrix disas...",1,1,0.04,0.03531
+"97","GO:0010716","negative regulation of extracellular mat...",1,1,0.04,0.03531
+"98","GO:0071347","cellular response to interleukin-1",1,1,0.04,0.03531
+"99","GO:0035344","hypoxanthine transport",1,1,0.04,0.03531
+"100","GO:0071332","cellular response to fructose stimulus",1,1,0.04,0.03531
+"101","GO:0071333","cellular response to glucose stimulus",1,1,0.04,0.03531
+"102","GO:0009750","response to fructose",1,1,0.04,0.03531
+"103","GO:0042773","ATP synthesis coupled electron transport",64,9,2.26,0.0355
+"104","GO:0042775","mitochondrial ATP synthesis coupled elec...",64,9,2.26,0.0355
+"105","GO:0006749","glutathione metabolic process",21,3,0.74,0.0361
+"106","GO:0033108","mitochondrial respiratory chain complex ...",21,3,0.74,0.0361
+"107","GO:0046835","carbohydrate phosphorylation",9,2,0.32,0.03793
+"108","GO:0034394","protein localization to cell surface",9,2,0.32,0.03793
+"109","GO:0042398","cellular modified amino acid biosyntheti...",9,2,0.32,0.03793
+"110","GO:0051260","protein homooligomerization",9,2,0.32,0.03793
+"111","GO:0009620","response to fungus",53,5,1.87,0.03803
+"112","GO:0007286","spermatid development",76,8,2.68,0.03919
+"113","GO:0050906","detection of stimulus involved in sensor...",37,4,1.31,0.04013
+"114","GO:0015807","L-amino acid transport",22,3,0.78,0.04075
+"115","GO:1902475","L-alpha-amino acid transmembrane transpo...",22,3,0.78,0.04075
+"116","GO:0009060","aerobic respiration",104,11,3.67,0.04161
+"117","GO:0060079","excitatory postsynaptic potential",10,2,0.35,0.04633
+"118","GO:0050974","detection of mechanical stimulus involve...",10,2,0.35,0.04633
+"119","GO:0099565","chemical synaptic transmission, postsyna...",10,2,0.35,0.04633
+"120","GO:0019098","reproductive behavior",88,9,3.11,0.04825

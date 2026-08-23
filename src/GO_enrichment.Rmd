@@ -33,11 +33,13 @@ BiocManager::install("GO.db")
 #     sed -i '' '/importFrom(utils,findMatches)/d' GlobalOptions/NAMESPACE
 # 4. build:
 #     R CMD build GlobalOptions
-install.packages("/Users/miltr339/work/software/GlobalOptions_0.1.4.tar.gz", repos = NULL, type = "source")
-library(GlobalOptions)
-install.packages("RcppParallel")
-library(RcppParallel)
-BiocManager::install("simplifyEnrichment")
+if(FALSE){
+  install.packages("/Users/miltr339/work/software/GlobalOptions_0.1.4.tar.gz", repos = NULL, type = "source")
+  library(GlobalOptions)
+  install.packages("RcppParallel")
+  library(RcppParallel)
+  BiocManager::install("simplifyEnrichment")
+}
 ```
 
 ```{r}
