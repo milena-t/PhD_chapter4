@@ -842,15 +842,19 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, only_all_inter
             else:
                 bar_raise = 0
             ax.plot([x1, x1, x2, x2], [y+bar_raise, tick_top, tick_top, y+bar_raise], lw=lw, color=color)
-                
+
         ymax = max([max(box) for box in tables_list])
 
-        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[1], data=tables_list, y=ymax+1, lw=lw, fs=fs)
-        add_significance_bar_log(ax=ax, x1=tick_pos[2], x2=tick_pos[3], data=tables_list, y=ymax+1, lw=lw, fs=fs)
-        add_significance_bar_log(ax=ax, x1=tick_pos[4], x2=tick_pos[5], data=tables_list, y=ymax+1, lw=lw, fs=fs)
-        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[4], data=tables_list, y=ymax+3, lw=lw, fs=fs)
-        add_significance_bar_log(ax=ax, x1=tick_pos[1], x2=tick_pos[5], data=tables_list, y=ymax+5, lw=lw, fs=fs)
-    
+        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[1], data=tables_list, y=ymax+2, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[2], x2=tick_pos[3], data=tables_list, y=ymax+2, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[4], x2=tick_pos[5], data=tables_list, y=ymax+2, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[4], data=tables_list, y=ymax+4
+        , lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[1], x2=tick_pos[5], data=tables_list, y=ymax+6, lw=lw, fs=fs)
+
+    xmin_,xmax_ = ax.get_xlim()
+    print(f"--------> {xmin_} to {xmax_}")
+    ax.plot([xmin_, xmax_], [0, 0], color = "#7A6266", linestyle="dashed", linewidth=lw)
 
     plt.tight_layout()
     plt.savefig(plot_filename, dpi = 300, transparent = True)
@@ -1789,7 +1793,7 @@ if __name__ == "__main__":
     #############################################
 
     ## plot LogFC boxplots of male-biased genes of several contrasts within each separation
-    if False:
+    if True:
         LFC_comp_sets = {
             "day_separated" : {
                 "day14" : {
