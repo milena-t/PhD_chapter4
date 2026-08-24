@@ -17,6 +17,7 @@ def get_tables(username = "miltr339"):
     """
     tables are either split by sex, so that the line and day contrasts are made on a subset that is only males or only females,
     or split by line so that the day and sex contrasts are made on a subset of only one line at a time.
+    or split by day so that line and sex contrasts are asessed on each day individually
     """
 
     tables_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/"
@@ -1032,7 +1033,7 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
     highlight_yTOR = False
@@ -1073,9 +1074,9 @@ if __name__ == "__main__":
                 
                 for contrast, table_path in paths_dict.items():
                     
-                    # if "(" not in contrast:
-                    #     print(f"ignore {category}:{contrast}")
-                    #     continue
+                    if "(" not in contrast:
+                        print(f"ignore {category}:{contrast}")
+                        continue
 
 
                     # if "day" not in contrast:
@@ -1719,6 +1720,15 @@ if __name__ == "__main__":
                             shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=False )
                         else:    
                             shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=True )
+                            
+                        sex_line_interaction_sig_genes = {
+                            "day14" : set(["gene-237342","gene-181562","gene-58400"]),
+                            "day16" : set([]),
+                            "day18" : set(["gene-426041","gene-48523","gene-73742","gene-2355","gene-237494","gene-279406","gene-237342","gene-276797","gene-367071"]),
+                        }
+                        for cat,list_ in shared_IDs.items():
+                            intersection = set(list_) & sex_line_interaction_sig_genes[category]
+                            print(f" * {cat} : {len(list_)}, \tshared with sex-line interaction significant genes: {len(intersection)} ({intersection})")
 
                         if False:
                             shared_SB_LB_for_time_series["small-Y SB"].extend(shared_IDs["small-Y SB"])
