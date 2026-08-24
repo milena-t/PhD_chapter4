@@ -860,7 +860,7 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, only_all_inter
     print(f"plot saved in current working directory as: {plot_filename}")
 
 
-def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs = [], intersection_nums = False):
+def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs = [], intersection_nums = False, excl_nonsig=False):
     """ 
     plot a scatterplot of sig. DE genes with LFC values
     """
@@ -898,7 +898,8 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     colors_dict = {"small-Y SB" : "#BD351E" , "large-Y SB" : "#EA882C"}
     colors_dict["both SB"] = "#3C7FA7" # blue
     shared_IDs = {label : [] for label in colors_dict.keys()}
-    colors_dict["neither"] = "#4B3B47" # mauve shadow
+    if excl_nonsig==False:
+        colors_dict["neither"] = "#4B3B47" # mauve shadow
     colors_count = {label : 0 for label in colors_dict.keys()}
 
     excl_count = 0
@@ -930,7 +931,8 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
                 colors_count["both SB"]+=1
                 shared_IDs["both SB"].append(geneID)
             elif geneID not in SB1_sig and geneID not in SB3_sig:
-                continue
+                if excl_nonsig:
+                    continue
                 c = colors_dict["neither"]
                 colors_count["neither"]+=1
             
@@ -1713,7 +1715,10 @@ if __name__ == "__main__":
                         table_SB = paths_dict[contrasts_list["lb_M"][0]]
                         excl_geneIDs = excl_line_bias_lists[separation][category]
 
-                        shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True )
+                        if category=="day18":
+                            shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=False )
+                        else:    
+                            shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=True )
 
                         if False:
                             shared_SB_LB_for_time_series["small-Y SB"].extend(shared_IDs["small-Y SB"])
