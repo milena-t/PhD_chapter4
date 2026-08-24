@@ -848,8 +848,7 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, only_all_inter
         add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[1], data=tables_list, y=ymax+2, lw=lw, fs=fs)
         add_significance_bar_log(ax=ax, x1=tick_pos[2], x2=tick_pos[3], data=tables_list, y=ymax+2, lw=lw, fs=fs)
         add_significance_bar_log(ax=ax, x1=tick_pos[4], x2=tick_pos[5], data=tables_list, y=ymax+2, lw=lw, fs=fs)
-        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[4], data=tables_list, y=ymax+4
-        , lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[4], data=tables_list, y=ymax+4, lw=lw, fs=fs)
         add_significance_bar_log(ax=ax, x1=tick_pos[1], x2=tick_pos[5], data=tables_list, y=ymax+6, lw=lw, fs=fs)
 
     xmin_,xmax_ = ax.get_xlim()
@@ -1661,7 +1660,7 @@ if __name__ == "__main__":
                     print(f"\t{numbers}")
     
     ### plot only the sig DE genes in the interactions
-    if False:
+    if True:
         sig_IDs_list = {
             ## geneIDs that are significant in the day separated line-by-sex interaction
             ## from PhD_chapter4/data/sig_DE_genes_lists/sig_DE_list_day14_F-M_by_1-3.txt and other days
@@ -1793,7 +1792,7 @@ if __name__ == "__main__":
     #############################################
 
     ## plot LogFC boxplots of male-biased genes of several contrasts within each separation
-    if True:
+    if False:
         LFC_comp_sets = {
             "day_separated" : {
                 "day14" : {
