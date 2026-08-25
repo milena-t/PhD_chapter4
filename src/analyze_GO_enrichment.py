@@ -297,11 +297,13 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file, IDs_list
                     desc = "---not_annotated---"
                 if desc == "-":
                     desc = "no_description"
-
-                try:
-                    name = annotation_df.loc[annotation_df["query"] == geneID, "Preferred_name"].iloc[0]
-                except:
-                    name = "-"
+                if desc == "---not_annotated---":
+                    name = "na"
+                else:
+                    try:
+                        name = annotation_df.loc[annotation_df["query"] == geneID, "Preferred_name"].iloc[0]
+                    except:
+                        name = "-"
 
                 print(f"{i+1}\t{geneID}\t{name}\t{desc}")
                 outfile.write(f"{geneID}\t{name}\t{desc}\n")
@@ -317,10 +319,13 @@ def add_functional_information_to_geneIDs(infile_path, annotation_file, IDs_list
                     desc = "---not_annotated---"
                 if desc == "-":
                     desc = "no_description"
-                try:
-                    name = annotation_df.loc[annotation_df["query"] == geneID, "Preferred_name"].iloc[0]
-                except:
-                    name = "-"
+                if desc == "---not_annotated---":
+                    name = "na"
+                else:
+                    try:
+                        name = annotation_df.loc[annotation_df["query"] == geneID, "Preferred_name"].iloc[0]
+                    except:
+                        name = "-"
 
                 print(f"{i+1}\t{geneID}\t{name}\t{desc}")
                 outfile.write(f"{geneID}\t{name}\t{desc}\n")
@@ -490,15 +495,19 @@ if __name__ == "__main__":
 
         add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path)
         
-    if False:
+    if True:
         SB_LB_genes = {
             "day14" : {
-                "SL1" : ['gene-225158', 'gene-222430', 'gene-372264', 'gene-117712'],
-                "SL3" : ['gene-149137', 'gene-372264', 'gene-227137', 'gene-224956', 'gene-414353', 'gene-39545', 'gene-115312', 'gene-130081', 'gene-371957', 'gene-204669', 'gene-166391', 'gene-246615', 'gene-277078', 'gene-406603', 'gene-158197', 'gene-122220', 'gene-100036', 'gene-143368', 'gene-130096', 'gene-398993', 'gene-220249'],
+                # "SL1" : ['gene-225158', 'gene-222430', 'gene-372264', 'gene-117712'],
+                # "SL3" : ['gene-149137', 'gene-372264', 'gene-227137', 'gene-224956', 'gene-414353', 'gene-39545', 'gene-115312', 'gene-130081', 'gene-371957', 'gene-204669', 'gene-166391', 'gene-246615', 'gene-277078', 'gene-406603', 'gene-158197', 'gene-122220', 'gene-100036', 'gene-143368', 'gene-130096', 'gene-398993', 'gene-220249'],
+                "SL1" : ['gene-225158', 'gene-372264'],
+                "SL3" : ['gene-371957', 'gene-39545', 'gene-130096', 'gene-166391', 'gene-130081', 'gene-158197', 'gene-414353', 'gene-115312', 'gene-122220', 'gene-204669', 'gene-143368', 'gene-398993', 'gene-149137', 'gene-100036', 'gene-227137', 'gene-246615', 'gene-406603', 'gene-277078', 'gene-372264'],
             },
             "day16" : {
-                "SL1" : ['gene-372264', 'gene-23884', 'gene-24278', 'gene-90918', 'gene-279676', 'gene-240602', 'gene-225158', 'gene-80062', 'gene-222332', 'gene-30595', 'gene-411056', 'gene-329410', 'gene-431362', 'gene-13404', 'gene-48598', 'gene-104371', 'gene-351334', 'gene-55869', 'gene-390687', 'gene-127707', 'gene-63245', 'gene-240860', 'gene-23834', 'gene-122692'],
-                "SL3" : ['gene-372264', 'gene-23413', 'gene-24120', 'gene-224357', 'gene-15763', 'gene-23365', 'gene-349163', 'gene-24203', 'gene-24221', 'gene-24167', 'gene-23689', 'gene-225030', 'gene-12075', 'gene-24290', 'gene-410366', 'gene-24052', 'gene-423321', 'gene-23514', 'gene-24079', 'gene-24088', 'gene-7220', 'gene-24132', 'gene-23840', 'gene-23597', 'gene-24185', 'gene-23538', 'gene-27466', 'gene-220249'],
+                # "SL1" : ['gene-372264', 'gene-23884', 'gene-24278', 'gene-90918', 'gene-279676', 'gene-240602', 'gene-225158', 'gene-80062', 'gene-222332', 'gene-30595', 'gene-411056', 'gene-329410', 'gene-431362', 'gene-13404', 'gene-48598', 'gene-104371', 'gene-351334', 'gene-55869', 'gene-390687', 'gene-127707', 'gene-63245', 'gene-240860', 'gene-23834', 'gene-122692'],
+                # "SL3" : ['gene-372264', 'gene-23413', 'gene-24120', 'gene-224357', 'gene-15763', 'gene-23365', 'gene-349163', 'gene-24203', 'gene-24221', 'gene-24167', 'gene-23689', 'gene-225030', 'gene-12075', 'gene-24290', 'gene-410366', 'gene-24052', 'gene-423321', 'gene-23514', 'gene-24079', 'gene-24088', 'gene-7220', 'gene-24132', 'gene-23840', 'gene-23597', 'gene-24185', 'gene-23538', 'gene-27466', 'gene-220249'],
+                "SL1" : ['gene-372264', 'gene-240602', 'gene-390687', 'gene-24278', 'gene-13404', 'gene-63245', 'gene-55869', 'gene-23834', 'gene-23884', 'gene-122692', 'gene-279676', 'gene-104371', 'gene-329410', 'gene-431362', 'gene-411056', 'gene-127707', 'gene-80062', 'gene-351334', 'gene-48598', 'gene-30595', 'gene-90918'],
+                "SL3" : ['gene-372264', 'gene-24185', 'gene-24290', 'gene-23840', 'gene-23597', 'gene-24203', 'gene-24120', 'gene-24132', 'gene-23538', 'gene-423321', 'gene-24088', 'gene-24221', 'gene-24167', 'gene-23514', 'gene-23365', 'gene-15763', 'gene-23689', 'gene-23413', 'gene-7220', 'gene-24052', 'gene-24079', 'gene-27466', 'gene-410366', 'gene-12075', 'gene-349163'],
             }
         }
         annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
@@ -543,7 +552,7 @@ if __name__ == "__main__":
             get_genes_with_GO(infile_path = sig_genes_path, annotation_file=annotation_path, GOs_list=aging_GO, 
                 plot_file=f"{plot_dir}/full_dataset_line_ignored_M_16_18_aging_GO_terms.png", plot_title="GO-terms related to aging")
 
-    if True:
+    if False:
         ## check ecdysone GO-terms
         GO_terms_ecdysone = {
             "14" : ["GO:0008205","GO:0006697","GO:0035072","GO:0035075"],
@@ -568,7 +577,7 @@ if __name__ == "__main__":
             # get_genes_with_GO(infile_path = sig_genes_path, annotation_file=annotation_path, GOs_list=GO_list, 
             #    plot_file=f"{plot_dir}/full_dataset_line_ignored_jh_day{day}_F-M.png", plot_title=f"GO-terms related to juvenile hormone on day {day}")
 
-    if True:
+    if False:
         # plot the one gene for juvenile hormone
         from Y_expression_quantification import get_counts_paths,samples_group,plot_counts_sum_sets
         count_files = get_counts_paths(username=username)

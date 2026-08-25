@@ -217,6 +217,8 @@ sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/L
 GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
 sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/LFC_scatter_interaction_day14_sb_SL3_lb_M_shared_sig_DE_list.txt"
 GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/LFC_scatter_interaction_day14_sb_SL1_lb_M_shared_sig_DE_list.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
 ```
 
 

@@ -533,6 +533,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     if len(incl_geneIDs) == 0:
         excl_counter = { cat : 0 for cat in [table_a,table_b,"shared"]}
         all_sig = lists['shared']+lists[table_a]+lists[table_b]
+        nonsig_cat_list = []
     else:
         excl_counter = { cat : 0 for cat in [table_a,table_b,"shared","neither"]}
         all_sig = lists['shared']+lists[table_a]+lists[table_b]
@@ -542,19 +543,19 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
         elif incl_geneIDs == [None]:
             lists["neither"] = []
 
-        if intersection_nums:
-            # make a list of the genes that are sig. in both in the format required for the GO enrichment
-            sig_list_outfile = LFC_filename.split("/")[-1].replace(".png", "_shared_sig_DE_list.txt")
-            sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
-            with open(sig_list_outfile, "w") as sig_list_file:
-                DE_list_outfile = [f"{geneID},1" for geneID in lists['shared']]
-                DE_string = "\n".join(DE_list_outfile)
-                sig_list_file.write(f"geneID,sig_DE\n{DE_string}\n") 
-                singleDE_list_outfile = [f"{geneID},0" for geneID in lists[table_a]+lists[table_b]+nonsig_cat_list]
-                singleDE_string = "\n".join(singleDE_list_outfile)
-                sig_list_file.write(f"{singleDE_string}\n") # needs the newline character so that R can read the list right
+    if intersection_nums:
+        # make a list of the genes that are sig. in both in the format required for the GO enrichment
+        sig_list_outfile = LFC_filename.split("/")[-1].replace(".png", "_shared_sig_DE_list.txt")
+        sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
+        with open(sig_list_outfile, "w") as sig_list_file:
+            DE_list_outfile = [f"{geneID},1" for geneID in lists['shared']]
+            DE_string = "\n".join(DE_list_outfile)
+            sig_list_file.write(f"geneID,sig_DE\n{DE_string}\n") 
+            singleDE_list_outfile = [f"{geneID},0" for geneID in lists[table_a]+lists[table_b]+nonsig_cat_list]
+            singleDE_string = "\n".join(singleDE_list_outfile)
+            sig_list_file.write(f"{singleDE_string}\n") # needs the newline character so that R can read the list right
 
-            print(f" * list of sig DE genes written to: {sig_list_outfile}")
+        print(f" * list of sig DE genes written to: {sig_list_outfile}")
 
     nonsig_incl = 0
     sig_incl = 0
@@ -1747,7 +1748,6 @@ if __name__ == "__main__":
                                                 outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
 
                     else:
-                        continue
 
                         try:
                             incl_geneIDs = sig_IDs_list[separation][category]

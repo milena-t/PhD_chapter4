@@ -671,8 +671,28 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
         },
         every head row/.style={before row=\toprule, after row=\midrule},
         every last row/.style={after row=\bottomrule}
+    ]{tableday14SL1.txt}
+    \caption{Gene IDs and annotated functions (from eggnog) of genes sig. sex-biased in small-Y and line-biased in males in Fig. 4A.}
+\label{tab:gene-list-sharedday14}
+\end{table}
+
+
+\begin{table}[htbp]
+    \centering
+    \pgfplotstabletypeset[
+        col sep=tab,
+        header=false, % if there are col-names: has-colnames instead of false
+        string type,
+        columns/0/.style={column name=Gene ID},
+        columns/1/.style={column name=Name},
+        columns/2/.style={
+            column name=Description,
+            column type={p{11cm}},   % fixed width -> enables automatic line wrapping
+        },
+        every head row/.style={before row=\toprule, after row=\midrule},
+        every last row/.style={after row=\bottomrule}
     ]{tableday14.txt}
-    \caption{Gene IDs and annotated functions (from eggnog) of genes sig. in both (blue) in Fig. 4B.}
+    \caption{Gene IDs and annotated functions (from eggnog) of genes sig. sex-biased in large-Y and line-biased in males in Fig. 4A.}
 \label{tab:gene-list-sharedday14}
 \end{table}
 
@@ -703,7 +723,7 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
         every head row/.style={before row=\toprule, after row=\midrule},
         every last row/.style={after row=\bottomrule}
     ]{tableday16SL1.txt}
-    \caption{Gene IDs and annotated functions (from eggnog) of genes sig. in both (blue) in Fig. 4C.}
+    \caption{Gene IDs and annotated functions (from eggnog) of genes sig. sex-biased in small-Y and line-biased in males in Fig. 4B.}
 \label{tab:gene-list-sharedday16SL1}
 \end{table}
 
@@ -735,7 +755,7 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
         every head row/.style={before row=\toprule, after row=\midrule},
         every last row/.style={after row=\bottomrule}
     ]{tableday16.txt}
-    \caption{Gene IDs and annotated functions (from eggnog) of genes sig. in both (blue) in Fig. 4D.}
+    \caption{Gene IDs and annotated functions (from eggnog) of genes sig. sex-biased in large-Y and line-biased in males in Fig. 4A.}
 \label{tab:gene-list-sharedday16}
 \end{table}
 
