@@ -256,4 +256,80 @@
     
 \end{figure}
 
+
+
+
+
+\begin{figure}[H]
+    \centering
+        \begin{subfigure}[t]{0.425\linewidth}
+            \begin{picture}(0,0)
+                     \put(15,-16){\textbf{A}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day14_sb_SL1_lb_M.png}
+            \end{center}        
+        \end{subfigure}
+        \hspace{0.5cm}
+        \begin{subfigure}[t]{0.425\linewidth}
+            \begin{picture}(0,0)
+                \put(15,-16){\textbf{B}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day14_sb_SL3_lb_M.png}
+            \end{center}        
+        \end{subfigure}
+        \vspace{0.5cm}
+    
+        \begin{subfigure}[t]{0.425\linewidth}
+            \begin{picture}(0,0)
+                     \put(15,-16){\textbf{C}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day16_sb_SL1_lb_M.png}
+            \end{center}        
+        \end{subfigure}
+        \hspace{0.5cm}
+        \begin{subfigure}[t]{0.425\linewidth}
+            \begin{picture}(0,0)
+                \put(15,-16){\textbf{D}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day16_sb_SL3_lb_M.png}
+            \end{center}        
+        \end{subfigure}
+        \vspace{0.5cm}
+
+        \begin{subfigure}[t]{0.63\linewidth}
+            \begin{picture}(0,0)
+                \put(10,-10){\textbf{E}} % adjust the x and y values here
+            \end{picture}
+            \begin{center}
+            \includegraphics[width=\linewidth]{../data/DE_figures_python/day_separated_sex_bias_LFC_boxplot_shared_sig_only.png}
+            \end{center}    
+        \end{subfigure}
+    
+        \caption{\textbf{Intersection of sex bias and line bias across developmental stages}.
+        Log2FC of sex-bias (females - males contrast) in small-Y (\textbf{A}) or large-Y (\textbf{B}) vs. line-bias (small-Y - large-Y contrast) in males of day 14, 
+        and day 16 with sex-bias in small-Y (\textbf{C}) or large-Y (\textbf{D}). Genes that are also line-biased in females are excluded. 
+        (\textbf{E}): Magnitude of 129 male-biased genes that are significant in all time points and both selection lines. Significance is tested via Mann-Whitney-U, 
+        %% new sex bias contrast with (F_1 + F_3)/2 - M_1
+        day14 (small-Y vs. large-Y): U = 100653.0, p = 0.010; 
+        day16 (small-Y vs. large-Y): U = 94097.0, p  $<$ 0.0001; 
+        day18 (small-Y vs. large-Y): U = 107263.0, p = 0.324; 
+        small-Y (day 14 vs. day 18): U = 169800.0, p  $<$ 0.0001; 
+        large-Y (day 14 vs. day 18): U = 172706.0, p  $<$ 0.0001
+        %% old sex bias contrast with (F_1 - M_1)
+        % day14 (small-Y vs. large-Y): U = 6512.0, p = 0.0026; 
+        % day16 (small-Y vs. large-Y): U = 7679.0, p = 0.2848; 
+        % day18 (small-Y vs. large-Y): U = 8909.0, p = 0.3265; 
+        % small-Y (day 14 vs. day 18): U = 10060.0, p = 0.0037; 
+        % large-Y (day 14 vs. day 18): U = 11965.0, p $<$ 0.0001
+        }\label{sex_split}
+        
+    \end{figure}
+
+
+
+
 \end{document}
