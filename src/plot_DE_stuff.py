@@ -478,7 +478,7 @@ def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filenam
             return None
 
 
-def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs =[], incl_geneIDs = [], intersection_nums = False):
+def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC_list = [0,0], LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs =[], incl_geneIDs = [], intersection_nums = False):
     """ 
     plot a scatterplot of sig. DE genes with LFC values
     """
@@ -488,6 +488,8 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     sig_geneIDs_lists = {table_title : [] for table_title in tables_dict.keys()}
     tables_df = {table_title : [] for table_title in tables_dict.keys()}
     tables_df_all = {table_title : [] for table_title in tables_dict.keys()}
+
+    min_LFC_dict = { table_title : min_LFC_list[i] for i, table_title in enumerate(tables_dict.keys())}
 
     for table_title,table_path in tables_dict.items():
 
@@ -502,9 +504,9 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
         
         df_sig = df.loc[df['FDR'] < p_sig]
         tables_df_all[table_title] = df
-        
-        if min_LFC>0:
-            df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
+
+        min_LFC = min_LFC_dict[table_title]
+        df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
         
         tables_df[table_title] = df_sig
         sig_geneIDs_lists[table_title] = df_sig["Gene"].tolist()
@@ -862,20 +864,24 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, only_all_inter
     print(f"plot saved in current working directory as: {plot_filename}")
 
 
-def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs = [], intersection_nums = False, excl_nonsig=False):
+def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list = [0,0], LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs = [], intersection_nums = False, excl_nonsig=False):
     """ 
     plot a scatterplot of sig. DE genes with LFC values
     """
     if len(tables_diff) !=2 :
         raise RuntimeError(f"list should have only 2 elements but it has has length {len(tables_diff)}! \n{tables_diff}")
     
+    min_LFC = min_LFC_list[0]
     df_SB1 = pd.read_csv(tables_diff[0], sep="\t", skiprows=0)
     df_SB1_sig = df_SB1.loc[df_SB1['FDR'] < p_sig]
+    df_SB1_sig = df_SB1_sig.loc[abs(df_SB1_sig['logFC']) >= min_LFC]
     SB1_sig = df_SB1_sig["Gene"].tolist()
     df_SB1 = df_SB1.drop(columns=["logCPM","F","PValue","FDR"])
 
+    min_LFC = min_LFC_list[1]
     df_SB3 = pd.read_csv(tables_diff[1], sep="\t", skiprows=0)
     df_SB3_sig = df_SB3.loc[df_SB3['FDR'] < p_sig]
+    df_SB3_sig = df_SB3_sig.loc[abs(df_SB3_sig['logFC']) >= min_LFC]
     SB3_sig = df_SB3_sig["Gene"].tolist()
     df_SB3 = df_SB3.drop(columns=["logCPM","F","PValue","FDR"])
     
@@ -1703,7 +1709,7 @@ if __name__ == "__main__":
                     if "bias" in bias_cat or "lb_F" in bias_cat:
                         print(f"skip {bias_cat}:({contrasts_list})")
                         continue
-
+                    
                     LFC_filename_ = bias_cat.replace(" ", "_")
                     LFC_filename = f"{out_path_figs}/LFC_scatter_{category}_{LFC_filename_}.png"
                     category_ = category.replace("day", "day ")
@@ -1716,11 +1722,11 @@ if __name__ == "__main__":
                         tables_diff = [paths_dict[contrast] for contrast in contrasts_list["sb_diff"]]
                         table_SB = paths_dict[contrasts_list["lb_M"][0]]
                         excl_geneIDs = excl_line_bias_lists[separation][category]
-
+                        LFC_threshold_list = [1,1]
                         if category=="day18":
-                            shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=False )
+                            shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, min_LFC_list=LFC_threshold_list, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=False )
                         else:    
-                            shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=True )
+                            shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, min_LFC_list=LFC_threshold_list, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=True )
                             
                         sex_line_interaction_sig_genes = {
                             "day14" : set(["gene-237342","gene-181562","gene-58400"]),
@@ -1748,7 +1754,7 @@ if __name__ == "__main__":
                                                 outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
 
                     else:
-
+                        continue
                         try:
                             incl_geneIDs = sig_IDs_list[separation][category]
                         except:
@@ -1761,6 +1767,7 @@ if __name__ == "__main__":
                         else:
                             print(f"{bias_cat} : interaction has {len(incl_geneIDs)} genes")
 
+                        LFC_threshold_list = [1 if "F" in contrast and "M" in contrast else 0 for contrast in contrasts_list]
                         LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in contrasts_list}
                         # plot_title = f"{bias_cat} in males and females"
                         bias_cat_ = bias_cat.replace("sb_", "sex-bias ").replace("lb_", ", line-bias ")
@@ -1773,7 +1780,7 @@ if __name__ == "__main__":
                         if len(plot_title)>33:
                             plot_title = plot_title.replace(" and", "\nand")
                         
-                        numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
+                        numbers = plot_sig_LFC_overlap(LFC_paths_dict, min_LFC_list=LFC_threshold_list, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
                         print(f"\t{numbers}")
 
             if False:
