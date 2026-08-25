@@ -222,7 +222,7 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
         \end{center}        
     \end{subfigure}
 \end{center}   
-    \caption{\textbf{PCA plots of samples from each time point separately}. 
+    \caption{\textbf{PCA plots of samples from each time point separately} Only male samples (M) are shown. 
     }\label{PCA_line-split}
     
 \end{figure}
@@ -387,11 +387,15 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
 \begin{center}
     \begin{subfigure}[t]{0.4\linewidth}
         \begin{picture}(0,0)
-            \put(22,-15){\textbf{A}} % adjust the x and y values here
+            \put(22,145){\textbf{A}} % adjust the x and y values here
 		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_line_ignored_M_14_16_volcano.png}
-        \end{center}        
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_line_ignored_M_14_16_volcano.png}       
+    \end{subfigure}
+    \begin{subfigure}[t]{0.4\linewidth}
+        \begin{picture}(0,0)
+            \put(22,145){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_line_ignored_F_14_16_volcano.png}       
     \end{subfigure}
 \end{center}  
     \begin{subfigure}[t]{\linewidth}
@@ -399,12 +403,12 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
         \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_M_14_16.png}
         \end{center}        
         \begin{picture}(0,0)
-            \put(5,375){\textbf{B}} % adjust the x and y values here
+            \put(5,375){\textbf{C}} % adjust the x and y values here
 		\end{picture}
     \end{subfigure}
 
     \caption{\textbf{volcano plot, GO-term enrichment and semantic clustering of genes that are day-biased}. Only male samples with day 14-16 comparison (Fig. 2E intersection). 
-    (A) shows the volcano plot, and (B) the semantic clustering of GO-terms that are enriched in sig. DE genes.
+    (A) shows the volcano plot for males and (B) for females, (C)is the semantic clustering of GO-terms that are enriched in sig. DE genes in the male contrast.
     }\label{GO_males_day1416}
     
 \end{figure}
@@ -413,11 +417,15 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
 \begin{center}
     \begin{subfigure}[t]{0.4\linewidth}
         \begin{picture}(0,0)
-            \put(22,-15){\textbf{A}} % adjust the x and y values here
+            \put(22,145){\textbf{A}} % adjust the x and y values here
 		\end{picture}
-        \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_line_ignored_M_16_18_volcano.png}
-        \end{center}        
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_line_ignored_M_16_18_volcano.png}      
+    \end{subfigure}
+    \begin{subfigure}[t]{0.4\linewidth}
+        \begin{picture}(0,0)
+            \put(22,145){\textbf{B}} % adjust the x and y values here
+		\end{picture}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/smear_full_dataset_line_ignored_F_16_18_volcano.png}      
     \end{subfigure}
 \end{center}      
     \begin{subfigure}[t]{\linewidth}
@@ -425,12 +433,12 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
         \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_M_16_18.png}
         \end{center}       
         \begin{picture}(0,0)
-            \put(5,375){\textbf{B}} % adjust the x and y values here
+            \put(5,375){\textbf{C}} % adjust the x and y values here
 		\end{picture}
     \end{subfigure}
     
     \caption{\textbf{volcano plot, GO-term enrichment and semantic clustering of genes that are day-biased}. Only male samples with day 16-18 comparison (Fig. 2E intersection)
-    (A) shows the volcano plot, and (B) the semantic clustering of GO-terms that are enriched in sig. DE genes.
+    (A) shows the volcano plot for males and (B) for females, (C)is the semantic clustering of GO-terms that are enriched in sig. DE genes in the male contrast.
     }\label{GO_males_day1618}
     
 \end{figure}
@@ -577,60 +585,63 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.37\linewidth}
+    \begin{subfigure}[t]{0.40\linewidth}
         \begin{picture}(0,0)
                  \put(13,-16){\textbf{A}} % adjust the x and y values here
         \end{picture}
         \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day14_sb_SL1_lb_M.png}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day14_sb_SL1_lb_M.png}
         \end{center}        
     \end{subfigure}
-    \begin{subfigure}[t]{0.37\linewidth}
+    \hspace{0.5cm}
+    \begin{subfigure}[t]{0.40\linewidth}
         \begin{picture}(0,0)
             \put(13,-16){\textbf{B}} % adjust the x and y values here
         \end{picture}
         \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day14_sb_SL3_lb_M.png}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day14_sb_SL3_lb_M.png}
         \end{center}        
     \end{subfigure}
 
-    \begin{subfigure}[t]{0.37\linewidth}
+    \begin{subfigure}[t]{0.40\linewidth}
         \begin{picture}(0,0)
                  \put(13,-16){\textbf{C}} % adjust the x and y values here
         \end{picture}
         \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day16_sb_SL1_lb_M.png}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day16_sb_SL1_lb_M.png}
         \end{center}        
     \end{subfigure}
-    \begin{subfigure}[t]{0.37\linewidth}
+    \hspace{0.5cm}
+    \begin{subfigure}[t]{0.40\linewidth}
         \begin{picture}(0,0)
             \put(13,-16){\textbf{D}} % adjust the x and y values here
         \end{picture}
         \begin{center}
-        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day16_sb_SL3_lb_M.png}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day16_sb_SL3_lb_M.png}
         \end{center}        
     \end{subfigure}
 
-        \begin{subfigure}[t]{0.37\linewidth}
-            \begin{picture}(0,0)
-                     \put(13,-16){\textbf{E}} % adjust the x and y values here
-            \end{picture}
-            \begin{center}
-            \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day18_sb_SL1_lb_M.png}
-            \end{center}        
-        \end{subfigure}
-        \begin{subfigure}[t]{0.37\linewidth}
-            \begin{picture}(0,0)
-                \put(13,-16){\textbf{F}} % adjust the x and y values here
-            \end{picture}
-            \begin{center}
-            \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_interaction_day18_sb_SL3_lb_M.png}
-            \end{center}        
-        \end{subfigure}
-    
-        \caption{\textbf{Intersection of sex bias and line bias across developmental stages day 18}.
-        Log2FC of sex-bias (females - males contrast) and line-bias (large-Y - small-Y) of day 14, 16, and 18.
-        }\label{sex_split}
+    \begin{subfigure}[t]{0.40\linewidth}
+        \begin{picture}(0,0)
+                    \put(13,-16){\textbf{E}} % adjust the x and y values here
+        \end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day18_sb_SL1_lb_M.png}
+        \end{center}        
+    \end{subfigure}
+    \hspace{0.5cm}
+    \begin{subfigure}[t]{0.40\linewidth}
+        \begin{picture}(0,0)
+            \put(13,-16){\textbf{F}} % adjust the x and y values here
+        \end{picture}
+        \begin{center}
+        \includegraphics[width=\linewidth]{../data/DE_figures_python/LFC_scatter_day18_sb_SL3_lb_M.png}
+        \end{center}        
+    \end{subfigure}
+
+    \caption{\textbf{Intersection of sex bias and line bias across developmental stages day 18}.
+    Log2FC of sex-bias (females - males contrast) and line-bias (large-Y - small-Y) of day 14, 16, and 18.
+    }\label{sex_split}
         
 \end{figure}
 
