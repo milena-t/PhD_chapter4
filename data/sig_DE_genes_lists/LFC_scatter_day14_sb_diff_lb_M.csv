@@ -1,0 +1,97 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:1905349","ciliary transition zone assembly",2,2,0.02,7.2e-05
+"2","GO:0035082","axoneme assembly",26,3,0.22,0.0013
+"3","GO:1902882","regulation of response to oxidative stre...",11,2,0.09,0.0038
+"4","GO:0006873","cellular ion homeostasis",82,4,0.7,0.0051
+"5","GO:0030728","ovulation",13,2,0.11,0.0053
+"6","GO:0018990","ecdysis, chitin-based cuticle",14,2,0.12,0.0061
+"7","GO:0098771","inorganic ion homeostasis",90,4,0.77,0.0071
+"8","GO:0055080","cation homeostasis",90,4,0.77,0.0071
+"9","GO:0040003","chitin-based cuticle development",92,4,0.79,0.0077
+"10","GO:0007619","courtship behavior",49,3,0.42,0.0083
+"11","GO:0030710","regulation of border follicle cell delam...",1,1,0.01,0.0086
+"12","GO:0097120","receptor localization to synapse",1,1,0.01,0.0086
+"13","GO:0071454","cellular response to anoxia",1,1,0.01,0.0086
+"14","GO:1905515","non-motile cilium assembly",18,2,0.15,0.0101
+"15","GO:0015988","energy coupled proton transmembrane tran...",20,2,0.17,0.0124
+"16","GO:0006032","chitin catabolic process",20,2,0.17,0.0124
+"17","GO:0090175","regulation of establishment of planar po...",21,2,0.18,0.0136
+"18","GO:0042332","gravitaxis",22,2,0.19,0.0149
+"19","GO:0009629","response to gravity",22,2,0.19,0.0149
+"20","GO:0046348","amino sugar catabolic process",23,2,0.2,0.0162
+"21","GO:1901072","glucosamine-containing compound cataboli...",23,2,0.2,0.0162
+"22","GO:0030714","anterior/posterior axis specification, f...",2,1,0.02,0.0171
+"23","GO:0033058","directional locomotion",2,1,0.02,0.0171
+"24","GO:1902176","negative regulation of oxidative stress-...",2,1,0.02,0.0171
+"25","GO:0015886","heme transport",2,1,0.02,0.0171
+"26","GO:1901678","iron coordination entity transport",2,1,0.02,0.0171
+"27","GO:0046487","glyoxylate metabolic process",2,1,0.02,0.0171
+"28","GO:0045838","positive regulation of membrane potentia...",2,1,0.02,0.0171
+"29","GO:0043056","forward locomotion",2,1,0.02,0.0171
+"30","GO:0043059","regulation of forward locomotion",2,1,0.02,0.0171
+"31","GO:1900244","positive regulation of synaptic vesicle ...",2,1,0.02,0.0171
+"32","GO:0051382","kinetochore assembly",2,1,0.02,0.0171
+"33","GO:0010918","positive regulation of mitochondrial mem...",2,1,0.02,0.0171
+"34","GO:0071927","octopamine signaling pathway",2,1,0.02,0.0171
+"35","GO:1903423","positive regulation of synaptic vesicle ...",2,1,0.02,0.0171
+"36","GO:0055065","metal ion homeostasis",64,3,0.55,0.0171
+"37","GO:0009611","response to wounding",117,4,1,0.0174
+"38","GO:0050795","regulation of behavior",69,3,0.59,0.0209
+"39","GO:1905330","regulation of morphogenesis of an epithe...",27,2,0.23,0.022
+"40","GO:0006026","aminoglycan catabolic process",27,2,0.23,0.022
+"41","GO:0006030","chitin metabolic process",27,2,0.23,0.022
+"42","GO:0007618","mating",74,3,0.63,0.0251
+"43","GO:0009132","nucleoside diphosphate metabolic process",29,2,0.25,0.0252
+"44","GO:0000041","transition metal ion transport",29,2,0.25,0.0252
+"45","GO:1902175","regulation of oxidative stress-induced i...",3,1,0.03,0.0255
+"46","GO:0052128","positive energy taxis",3,1,0.03,0.0255
+"47","GO:0007211","octopamine or tyramine signaling pathway",3,1,0.03,0.0255
+"48","GO:0008631","intrinsic apoptotic signaling pathway in...",3,1,0.03,0.0255
+"49","GO:0046956","positive phototaxis",3,1,0.03,0.0255
+"50","GO:1902884","positive regulation of response to oxida...",3,1,0.03,0.0255
+"51","GO:0030003","cellular cation homeostasis",79,3,0.68,0.0297
+"52","GO:0055076","transition metal ion homeostasis",32,2,0.27,0.0303
+"53","GO:0002084","protein depalmitoylation",4,1,0.03,0.0339
+"54","GO:0002815","biosynthetic process of antibacterial pe...",4,1,0.03,0.0339
+"55","GO:0002816","regulation of biosynthetic process of an...",4,1,0.03,0.0339
+"56","GO:0035009","negative regulation of melanization defe...",4,1,0.03,0.0339
+"57","GO:0006965","positive regulation of biosynthetic proc...",4,1,0.03,0.0339
+"58","GO:0006589","octopamine biosynthetic process",4,1,0.03,0.0339
+"59","GO:0046710","GDP metabolic process",4,1,0.03,0.0339
+"60","GO:0060086","circadian temperature homeostasis",4,1,0.03,0.0339
+"61","GO:0001659","temperature homeostasis",4,1,0.03,0.0339
+"62","GO:0048013","ephrin receptor signaling pathway",4,1,0.03,0.0339
+"63","GO:0042421","norepinephrine biosynthetic process",4,1,0.03,0.0339
+"64","GO:1903202","negative regulation of oxidative stress-...",4,1,0.03,0.0339
+"65","GO:0042415","norepinephrine metabolic process",4,1,0.03,0.0339
+"66","GO:0034508","centromere complex assembly",4,1,0.03,0.0339
+"67","GO:1900242","regulation of synaptic vesicle endocytos...",4,1,0.03,0.0339
+"68","GO:2001243","negative regulation of intrinsic apoptot...",4,1,0.03,0.0339
+"69","GO:0042159","lipoprotein catabolic process",4,1,0.03,0.0339
+"70","GO:0043113","receptor clustering",4,1,0.03,0.0339
+"71","GO:0048665","neuron fate specification",4,1,0.03,0.0339
+"72","GO:0006828","manganese ion transport",4,1,0.03,0.0339
+"73","GO:0008049","male courtship behavior",35,2,0.3,0.0358
+"74","GO:1901071","glucosamine-containing compound metaboli...",35,2,0.3,0.0358
+"75","GO:0042060","wound healing",87,3,0.75,0.0379
+"76","GO:0048149","behavioral response to ethanol",37,2,0.32,0.0396
+"77","GO:0006040","amino sugar metabolic process",38,2,0.33,0.0416
+"78","GO:0016335","morphogenesis of larval imaginal disc ep...",5,1,0.04,0.0422
+"79","GO:0016336","establishment or maintenance of polarity...",5,1,0.04,0.0422
+"80","GO:1900408","negative regulation of cellular response...",5,1,0.04,0.0422
+"81","GO:0098734","macromolecule depalmitoylation",5,1,0.04,0.0422
+"82","GO:0046333","octopamine metabolic process",5,1,0.04,0.0422
+"83","GO:0050908","detection of light stimulus involved in ...",5,1,0.04,0.0422
+"84","GO:0045039","protein insertion into mitochondrial inn...",5,1,0.04,0.0422
+"85","GO:0046037","GMP metabolic process",5,1,0.04,0.0422
+"86","GO:0042420","dopamine catabolic process",5,1,0.04,0.0422
+"87","GO:0042424","catecholamine catabolic process",5,1,0.04,0.0422
+"88","GO:1903201","regulation of oxidative stress-induced c...",5,1,0.04,0.0422
+"89","GO:0019614","catechol-containing compound catabolic p...",5,1,0.04,0.0422
+"90","GO:0070070","proton-transporting V-type ATPase comple...",5,1,0.04,0.0422
+"91","GO:0070072","vacuolar proton-transporting V-type ATPa...",5,1,0.04,0.0422
+"92","GO:1902883","negative regulation of response to oxida...",5,1,0.04,0.0422
+"93","GO:1903421","regulation of synaptic vesicle recycling",5,1,0.04,0.0422
+"94","GO:0019336","phenol-containing compound catabolic pro...",5,1,0.04,0.0422
+"95","GO:0060179","male mating behavior",41,2,0.35,0.0477
+"96","GO:1901136","carbohydrate derivative catabolic proces...",42,2,0.36,0.0499

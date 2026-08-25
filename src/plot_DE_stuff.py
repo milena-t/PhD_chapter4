@@ -864,7 +864,7 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, only_all_inter
     print(f"plot saved in current working directory as: {plot_filename}")
 
 
-def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list = [0,0], LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs = [], intersection_nums = False, excl_nonsig=False):
+def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list = [0,0], LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs = [], intersection_nums = False, excl_nonsig=False, min_diff_LFC = 0):
     """ 
     plot a scatterplot of sig. DE genes with LFC values
     """
@@ -873,6 +873,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
     
     min_LFC = min_LFC_list[0]
     df_SB1 = pd.read_csv(tables_diff[0], sep="\t", skiprows=0)
+    SB1_all = df_SB1["Gene"].tolist()
     df_SB1_sig = df_SB1.loc[df_SB1['FDR'] < p_sig]
     df_SB1_sig = df_SB1_sig.loc[abs(df_SB1_sig['logFC']) >= min_LFC]
     SB1_sig = df_SB1_sig["Gene"].tolist()
@@ -880,6 +881,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
 
     min_LFC = min_LFC_list[1]
     df_SB3 = pd.read_csv(tables_diff[1], sep="\t", skiprows=0)
+    SB3_all = df_SB3["Gene"].tolist()
     df_SB3_sig = df_SB3.loc[df_SB3['FDR'] < p_sig]
     df_SB3_sig = df_SB3_sig.loc[abs(df_SB3_sig['logFC']) >= min_LFC]
     SB3_sig = df_SB3_sig["Gene"].tolist()
@@ -906,6 +908,11 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
     colors_dict = {"small-Y SB" : "#BD351E" , "large-Y SB" : "#EA882C"}
     colors_dict["both SB"] = "#3C7FA7" # blue
     shared_IDs = {label : [] for label in colors_dict.keys()}
+    all_plotted_IDs = []
+
+    if min_diff_LFC > 0:
+        excl_nonsig = False
+
     if excl_nonsig==False:
         colors_dict["neither"] = "#4B3B47" # mauve shadow
     colors_count = {label : 0 for label in colors_dict.keys()}
@@ -918,12 +925,12 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
             try:
                 y = df.loc[df["Gene"]==geneID, "logFC_diff"]
             except:
-                y = 0
+                y = pd.Series([0.0]) # to match the datatype without the exception
                 print(geneID)
             try:
                 x = df.loc[df["Gene"]==geneID, "logFC"]
             except:
-                x = 0
+                x = pd.Series([0.0]) # to match the datatype without the exception
                 print(geneID)
 
             if geneID in SB1_sig and geneID not in SB3_sig:
@@ -941,10 +948,32 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
             elif geneID not in SB1_sig and geneID not in SB3_sig:
                 if excl_nonsig:
                     continue
+                try:
+                    if abs(y.iloc[0]) < min_diff_LFC:
+                        continue
+                except:
+                    # raise RuntimeError(f"cannot test y-coordinate for minimum logfc diff: \n{y}\nshape: {y.shape}")
+                    continue
                 c = colors_dict["neither"]
                 colors_count["neither"]+=1
             
+            all_plotted_IDs.append(geneID)
             ax.scatter(x,y,color = c, s=ps, alpha = 0.75)
+
+    all_IDs = set(SB1_all+SB3_all)
+    not_plotted_IDs = list(all_IDs - set(all_plotted_IDs))
+    head = f"geneID,sig_DE\n"
+    table_enrichment_name = LFC_filename.replace(".png", ".txt").replace("/DE_figures_python/", "/sig_DE_genes_lists/")
+    with open(table_enrichment_name, "w") as table_enrichment:
+        table_enrichment.write(head)
+        all_plotted_points = "\n".join([f"{gene},1" for gene in all_plotted_IDs])
+        table_enrichment.write(all_plotted_points)
+        table_enrichment.write("\n")
+        not_plotted_points = "\n".join([f"{gene},0" for gene in not_plotted_IDs])
+        table_enrichment.write(not_plotted_points)
+        table_enrichment.write("\n")
+    print(f"\t -----> GO-enrichment table of plotted points vs. all genes:\n\t{table_enrichment_name}")
+
 
     min_yline,max_yline = ax.get_ylim()
     min_xline,max_xline = ax.get_xlim()
@@ -973,11 +1002,22 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
     # for cat in reversed(list(lists.keys())):
     if intersection_nums:
         for legend_label, count in colors_count.items():
-            main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = f"{legend_label} ({count})", marker=markertype)
+            if legend_label == "neither":
+                if min_diff_LFC>0:
+                    label_ = f"LB only\n(diff. SB > {min_diff_LFC})"
+                else:
+                    label_ = f"LB only ({count})"
+            else:
+                label_=f"{legend_label} ({count})"
+            main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = label_, marker=markertype)
             main_sig.append(main_sig_ind)
     else:
         for legend_label, count in colors_count.items():
-            main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = f"{legend_label}", marker=markertype)
+            if legend_label == "neither" and min_diff_LFC>0:
+                label_ = f"LB only"
+            else:
+                label_=f"{legend_label}"
+            main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = label_, marker=markertype)
             main_sig.append(main_sig_ind)
 
     ax.set_ylim([min_yline,max_yline])
@@ -999,7 +1039,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
     plt.cla()
     plt.close()
 
-    return(shared_IDs)
+    return(shared_IDs,all_plotted_IDs)
 
 
 if __name__ == "__main__":
@@ -1724,9 +1764,9 @@ if __name__ == "__main__":
                         excl_geneIDs = excl_line_bias_lists[separation][category]
                         LFC_threshold_list = [1,1]
                         if category=="day18":
-                            shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, min_LFC_list=LFC_threshold_list, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=False )
-                        else:    
-                            shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, min_LFC_list=LFC_threshold_list, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=True )
+                            shared_IDs,all_plotted_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, min_LFC_list=LFC_threshold_list, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=False )
+                        else:
+                            shared_IDs,all_plotted_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, min_LFC_list=LFC_threshold_list, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, min_diff_LFC=1 )
                             
                         sex_line_interaction_sig_genes = {
                             "day14" : set(["gene-237342","gene-181562","gene-58400"]),

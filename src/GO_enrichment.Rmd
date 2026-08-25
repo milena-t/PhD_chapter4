@@ -220,6 +220,14 @@ GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, sem
 sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/LFC_scatter_interaction_day14_sb_SL1_lb_M_shared_sig_DE_list.txt"
 GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
 ```
+```{r}
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/LFC_scatter_day14_sb_diff_lb_M.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/LFC_scatter_day16_sb_diff_lb_M.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
+sig_list = "/Users/miltr339/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/LFC_scatter_day18_sb_diff_lb_M.txt"
+GO_enrichment_analysis(sig_infile = sig_list, annotation_df = annotation_df, semantic_clustering=TRUE)
+```
 
 
 analyze GO term enrichment from upsetplot intersection lists
