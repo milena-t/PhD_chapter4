@@ -12,6 +12,7 @@ import scipy.stats as sts
 import warnings
 import upsetplot
 import Y_expression_quantification as time_series_plots
+import parse_gff as gff
 
 def get_tables(username = "miltr339"):
     """
@@ -1063,12 +1064,59 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
     return(shared_IDs,all_plotted_IDs)
 
 
+def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contigs:dict, full_gene_counts_dict:dict):
+    """
+    Get the proportion of sig. DE genes according to smear_list (output of plot_smear) 
+    {"Downregulated" : downreg, "no difference" : nodiff,  "Upregulated" : upreg}
+    on the sex chromosomes via the annotation (read by parse_gff.py function into dict) and a sex chromosome contig dict 
+    { 'X' : [list],  'Y' : [list] }
+    Test for enrichment with the hypergeometric test (only one-sided enrichment! not depletion)
+    """
+    chr_list = {expr_cat : {"A":0, "X":0, "Y":0} for expr_cat in smear_list.keys()}
+    for expr_cat,geneID_list in smear_list.items():
+        for geneID in geneID_list:
+            ID_contig = gff_dict[geneID].contig
+            if ID_contig in sex_chr_contigs["X"]:
+                chr_list[expr_cat]["X"]+=1
+            elif ID_contig in sex_chr_contigs["Y"]:
+                chr_list[expr_cat]["Y"]+=1
+            else:
+                chr_list[expr_cat]["A"]+=1
+    
+    print("\t- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+    # test for enrichment of X over A and Y over A
+    for sex_chr in ["X", "Y"]:
+        print(f"\t  > test enrichment in -- {sex_chr} --")
+        N_full = full_gene_counts_dict["A"] + full_gene_counts_dict[sex_chr]
+        X_full = full_gene_counts_dict[sex_chr]
+        n_sig_genes = chr_list["Downregulated"]["A"] + chr_list["Upregulated"]["A"] + chr_list["Downregulated"][sex_chr] + chr_list["Upregulated"][sex_chr]
+        x_sig = chr_list["Downregulated"][sex_chr] + chr_list["Upregulated"][sex_chr]
+        x_expected = n_sig_genes * X_full / N_full
+
+        p_value = sts.hypergeom.sf(x_sig - 1, N_full, X_full, n_sig_genes)  # x -1 is on purpose, google for details
+
+        if p_value<0.05:
+            print(f"\t*   expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.4f} < 0.05 !!!")
+        else:
+            print(f"\t    expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.4f}")
+    print("\t- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+
+    
+    return chr_list
+
+
+
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
     username = "miltr339"
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
+    annotation = f"/Users/{username}/work/c_maculatus/Cmac_Lome_yes_yTor.gff"
+    sex_chromosomes = {
+        "X" : ['scaffold_10','scaffold_14','scaffold_23','scaffold_31','scaffold_34','scaffold_83'],
+        "Y" : ['scaffold_26','scaffold_48','scaffold_103','scaffold_112','scaffold_164']
+    }
     
     ### genes that are line-biased in both males and females (should be excluded from male analysis in the sex-separated data since they can't be related to the Y-haplotype)
     excl_line_bias_lists = {
@@ -1101,10 +1149,35 @@ if __name__ == "__main__":
     ############
     make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
-    make_list_outfiles = False # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
+    make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
     highlight_yTOR = False
+
+    ############ 
+    ## test for the enrichment of sig. DE genes on the sex chromosome in any given contrast
+    ## this uses the hypergeom. distr so it only tests for enrichment and not depletion! (one-sided)
+    ## it also does not distinguish between up- and downregulation, only sig. DE according to the volcano plot
+    test_sexchr_enrichment = True
+    ## get required counts from full annotation etc.
+    if test_sexchr_enrichment:
+        annot_gff = gff.parse_gff3_general(filepath=annotation) # read all for the test below because sometimes the IDs refer to mRNA
+        ## make dict with sex chr gene counts for enrichment test
+        sex_chr_gene_counts_dict = {"A":0, "X":0, "Y":0}
+        annot_gff_only_genes = gff.parse_gff3_general(filepath=annotation, only_genes=True) # read only genes for accurate counts
+        for gene_class in annot_gff_only_genes.values():
+            ID_contig = gene_class.contig
+            if ID_contig in sex_chromosomes["X"]:
+                sex_chr_gene_counts_dict["X"]+=1
+            elif ID_contig in sex_chromosomes["Y"]:
+                sex_chr_gene_counts_dict["Y"]+=1
+            else:
+                sex_chr_gene_counts_dict["A"]+=1
+        print(f"\n------------------------------------------")
+        print(f"---------- gene counts on sex chromosomes: ")
+        for chr, count in sex_chr_gene_counts_dict.items():
+            print(f"---------- {chr} : {count}")
+        print(f"------------------------------------------")
 
     if True:
         
@@ -1116,7 +1189,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "day_separated":
+            if separation != "no_separation":
             # if (separation == "sex_separated" or separation == "no_separation") == False:
                 print(f"ignore {separation}")
                 continue
@@ -1142,10 +1215,9 @@ if __name__ == "__main__":
                 
                 for contrast, table_path in paths_dict.items():
                     
-                    if "(" not in contrast:
+                    if "(" in contrast:
                         print(f"ignore {category}:{contrast}")
                         continue
-
 
                     # if "day" not in contrast:
                     #     print(f"ignore {contrast}")
@@ -1156,6 +1228,8 @@ if __name__ == "__main__":
                         # don't do it for the interaction
                         min_LFC = 1
                     else:
+                        print(f"ignore {category}:{contrast}")
+                        continue
                         min_LFC = 0
 
                     if "line_random" in category and "(" in contrast:
@@ -1199,6 +1273,10 @@ if __name__ == "__main__":
                     # volcano plot
                     smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot, coefficients=coefficients, highlight_yTOR=highlight_yTOR)
                     
+                    if test_sexchr_enrichment:
+                        ### test for enrichment on sex chromosomes
+                        chr_counts = enrichment_on_sex_chromosomes(smear_list=smear_lists, gff_dict=annot_gff, sex_chr_contigs=sex_chromosomes, full_gene_counts_dict=sex_chr_gene_counts_dict)
+
                     if False:
                         Downlist = smear_lists["Downregulated"]
                         Uplist = smear_lists["Upregulated"]
@@ -1288,7 +1366,7 @@ if __name__ == "__main__":
                 #######################################
                 #### make list of all the significantly line-biased genes from Fig 1 to do the GO enrichment                
                 #######################################
-                if True and separation == "day_separated":
+                if False and separation == "day_separated":
 
                     print(f"\n\n\n\n ---<>--> male line bias upset data")
 
