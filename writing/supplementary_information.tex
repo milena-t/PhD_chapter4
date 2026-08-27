@@ -642,32 +642,9 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
     \caption{\textbf{Intersection of sex bias and line bias across developmental stages day 18}.
     Log2FC of sex-bias (females - males contrast) and line-bias (large-Y - small-Y) of day 14, 16, and 18.
     }\label{sex_split}
+\end{figure}
         
-\end{figure}
-
-
-\begin{figure}[H]
-    \begin{center}
-    \includegraphics[width=\linewidth]{../data/DE_figures_python/counts_time_series/time_series_day_and_sex_bias_all_days.png}
-    \end{center}
-    
-    \caption{\textbf{Time-series plot of normalized counts of genes that are sex-biased and line-biased}.
-    Genes that are significantly line-biased in males and sex-biased in at least one line (small-Y and large-Y sex bias shown as separate lines) on at least 
-    one day. Biologial replicates and genes in the same significance intersection are merged, showing median and standard error in all conditions. 
-    'both SB' is one gene with the gene ID \texttt{gene-372264} and transcript ID \texttt{transcript-372265}.
-    }\label{time_Series_day_sep_line-sex_sig_overlap}
-\end{figure}
-
-\begin{figure}[H]
-    \begin{center}
-    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/LFC_scatter_day14_sb_diff_lb_M.png}
-    \end{center}
-    
-    \caption{\textbf{GO-term enrichment and semantic clustering of genes that are plotted in Fig. 4A}.
-    Genes that are significantly line-biased in males on day 14, and significantly sex-biased in at least one line or show a min. difference of 1 between the sex-bias logFC.
-    }\label{GO_day_sep_line-sex_interaction_day16}
-\end{figure}
-
+\iffalse
 \begin{table}[htbp]
     \centering
     \pgfplotstabletypeset[
@@ -686,7 +663,7 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
     \caption{Gene IDs and annotated functions (from eggnog) of genes sig. sex-biased in \textbf{small-Y} and line-biased in males on day 14 (Fig. 4A).}
 \label{tab:gene-list-sharedday14}
 \end{table}
-
+\fi
 
 \begin{table}[htbp]
     \centering
@@ -707,16 +684,6 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
 \label{tab:gene-list-sharedday14}
 \end{table}
 
-
-\begin{figure}[H]
-    \begin{center}
-        \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/LFC_scatter_day16_sb_diff_lb_M.png}
-    \end{center}
-    
-    \caption{\textbf{GO-term enrichment and semantic clustering of genes that are plotted in Fig. 4B}.
-    Genes that are significantly line-biased in males on day 16, and significantly sex-biased in at least one line or show a min. difference of 1 between the sex-bias logFC.
-    }\label{GO_day_sep_line-sex_interaction_day16}
-\end{figure}
 
 \begin{table}[htbp]
     \centering
@@ -756,6 +723,42 @@ The contrast of small-Y - large-Y was tested in male and female samples separate
     \caption{Gene IDs and annotated functions (from eggnog) of genes sig. sex-biased in \textbf{large-Y} and line-biased in males on day 16 (Fig. 4B).}
 \label{tab:gene-list-sharedday16}
 \end{table}
+
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/DE_figures_python/counts_time_series/time_series_day_and_sex_bias_all_days.png}
+    \end{center}
+    
+    \caption{\textbf{Time-series plot of normalized counts of genes that are sex-biased and line-biased}.
+    Genes that are significantly line-biased in males and sex-biased in at least one line (small-Y and large-Y sex bias shown as separate lines) on at least 
+    one day. Biologial replicates and genes in the same significance intersection are merged, showing median and standard error in all conditions. 
+    'both SB' is one gene with the gene ID \texttt{gene-372264} and transcript ID \texttt{transcript-372265}.
+    }\label{time_Series_day_sep_line-sex_sig_overlap}
+\end{figure}
+
+\begin{figure}[H]
+    \begin{center}
+    \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/LFC_scatter_day14_sb_diff_lb_M.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of genes that are plotted in Fig. 4A}.
+    Genes that are significantly line-biased in males on day 14, and significantly sex-biased in at least one line or show a min. difference of 1 between the sex-bias logFC.
+    }\label{GO_day_sep_line-sex_interaction_day16}
+\end{figure}
+
+
+
+\begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=\linewidth]{../data/sig_DE_genes_lists/LFC_scatter_day16_sb_diff_lb_M.png}
+    \end{center}
+    
+    \caption{\textbf{GO-term enrichment and semantic clustering of genes that are plotted in Fig. 4B}.
+    Genes that are significantly line-biased in males on day 16, and significantly sex-biased in at least one line or show a min. difference of 1 between the sex-bias logFC.
+    }\label{GO_day_sep_line-sex_interaction_day16}
+\end{figure}
+
 
 
 \begin{figure}[H]
