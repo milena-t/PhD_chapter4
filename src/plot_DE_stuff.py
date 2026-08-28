@@ -1075,21 +1075,27 @@ def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contig
     chr_list = {expr_cat : {"A":0, "X":0, "Y":0} for expr_cat in smear_list.keys()}
     for expr_cat,geneID_list in smear_list.items():
         for geneID in geneID_list:
-            ID_contig = gff_dict[geneID].contig
-            if ID_contig in sex_chr_contigs["X"]:
-                chr_list[expr_cat]["X"]+=1
-            elif ID_contig in sex_chr_contigs["Y"]:
-                chr_list[expr_cat]["Y"]+=1
-            else:
-                chr_list[expr_cat]["A"]+=1
+            try:
+                ID_contig = gff_dict[geneID].contig
+                if ID_contig in sex_chr_contigs["X"]:
+                    chr_list[expr_cat]["X"]+=1
+                elif ID_contig in sex_chr_contigs["Y"]:
+                    chr_list[expr_cat]["Y"]+=1
+                else:
+                    chr_list[expr_cat]["A"]+=1
+            except:
+                if geneID == "yTor-all": # this is only in the counts, the annotation has yTor-A, yTor-B, and yTor-C, of which A and C are expressed, so add 2
+                    chr_list[expr_cat]["Y"]+=2
+                else:
+                    raise RuntimeError(f"{geneID} in the mapping somehow not present in the annotation ???")
     
     print("\t- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
     # test for enrichment of X over A and Y over A
     for sex_chr in ["X", "Y"]:
         if test_enrichment:
-            print(f"\t  > test enrichment in -- {sex_chr} --")
+            print(f"\t> test enrichment in -- {sex_chr} --")
         else:
-            print(f"\t  > test depletion in -- {sex_chr} --")
+            print(f"\t> test depletion in -- {sex_chr} --")
         N_full = full_gene_counts_dict["A"] + full_gene_counts_dict[sex_chr]
         X_full = full_gene_counts_dict[sex_chr]
         n_sig_genes = chr_list["Downregulated"]["A"] + chr_list["Upregulated"]["A"] + chr_list["Downregulated"][sex_chr] + chr_list["Upregulated"][sex_chr]
@@ -1162,7 +1168,8 @@ if __name__ == "__main__":
 
     ############ 
     ## test for the enrichment of sig. DE genes on the sex chromosome in any given contrast
-    ## this uses the hypergeom. distr so it only tests for enrichment and not depletion! (one-sided)
+    ## this uses the hypergeom. distr so it only tests for either enrichment or depletion! (one-sided)
+    ##      -> pick in the funciton below which one with the flag
     ## it also does not distinguish between up- and downregulation, only sig. DE according to the volcano plot
     test_sexchr_enrichment = True
     ## get required counts from full annotation etc.
@@ -1195,7 +1202,7 @@ if __name__ == "__main__":
             plot=True
 
         for separation, seps_dict in table_paths.items():
-            if separation != "no_separation":
+            if separation != "day_separated":
             # if (separation == "sex_separated" or separation == "no_separation") == False:
                 print(f"ignore {separation}")
                 continue
@@ -1232,10 +1239,12 @@ if __name__ == "__main__":
                     if "F" in contrast and "M" in contrast and "(" not in contrast:
                         # sex-biased contrast -> use |LFC| = 1 as min
                         # don't do it for the interaction
-                        min_LFC = 1
-                    else:
                         print(f"ignore {category}:{contrast}")
                         continue
+                        min_LFC = 1
+                    else:
+                        # print(f"ignore {category}:{contrast}")
+                        # continue
                         min_LFC = 0
 
                     if "line_random" in category and "(" in contrast:
@@ -1275,13 +1284,18 @@ if __name__ == "__main__":
                         print(f"\texcluding {len(excl_list)} genes from list '{excl_list_name}'")
         
                     # smear plot
-                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot, coefficients=coefficients)
+                    if False:
+                        smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot, coefficients=coefficients)
                     # volcano plot
                     smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot, coefficients=coefficients, highlight_yTOR=highlight_yTOR)
                     
                     if test_sexchr_enrichment:
                         ### test for enrichment on sex chromosomes
-                        chr_counts = enrichment_on_sex_chromosomes(smear_list=smear_lists, gff_dict=annot_gff, sex_chr_contigs=sex_chromosomes, full_gene_counts_dict=sex_chr_gene_counts_dict)
+                        if separation == "day_separated" and "F" in contrast and "M" not in contrast:
+                            pass
+                        else:
+                            chr_counts = enrichment_on_sex_chromosomes(smear_list=smear_lists, gff_dict=annot_gff, sex_chr_contigs=sex_chromosomes, full_gene_counts_dict=sex_chr_gene_counts_dict, 
+                            test_enrichment=True)
 
                     if False:
                         Downlist = smear_lists["Downregulated"]
