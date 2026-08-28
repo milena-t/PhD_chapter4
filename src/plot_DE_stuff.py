@@ -1064,13 +1064,13 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
     return(shared_IDs,all_plotted_IDs)
 
 
-def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contigs:dict, full_gene_counts_dict:dict):
+def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contigs:dict, full_gene_counts_dict:dict, test_enrichment=False):
     """
     Get the proportion of sig. DE genes according to smear_list (output of plot_smear) 
     {"Downregulated" : downreg, "no difference" : nodiff,  "Upregulated" : upreg}
     on the sex chromosomes via the annotation (read by parse_gff.py function into dict) and a sex chromosome contig dict 
     { 'X' : [list],  'Y' : [list] }
-    Test for enrichment with the hypergeometric test (only one-sided enrichment! not depletion)
+    Test for enrichment or depletion with the hypergeometric test (only one-sided!) via test_enrichment=true for enrichment, or False for depletion
     """
     chr_list = {expr_cat : {"A":0, "X":0, "Y":0} for expr_cat in smear_list.keys()}
     for expr_cat,geneID_list in smear_list.items():
@@ -1086,19 +1086,25 @@ def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contig
     print("\t- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
     # test for enrichment of X over A and Y over A
     for sex_chr in ["X", "Y"]:
-        print(f"\t  > test enrichment in -- {sex_chr} --")
+        if test_enrichment:
+            print(f"\t  > test enrichment in -- {sex_chr} --")
+        else:
+            print(f"\t  > test depletion in -- {sex_chr} --")
         N_full = full_gene_counts_dict["A"] + full_gene_counts_dict[sex_chr]
         X_full = full_gene_counts_dict[sex_chr]
         n_sig_genes = chr_list["Downregulated"]["A"] + chr_list["Upregulated"]["A"] + chr_list["Downregulated"][sex_chr] + chr_list["Upregulated"][sex_chr]
         x_sig = chr_list["Downregulated"][sex_chr] + chr_list["Upregulated"][sex_chr]
         x_expected = n_sig_genes * X_full / N_full
 
-        p_value = sts.hypergeom.sf(x_sig - 1, N_full, X_full, n_sig_genes)  # x -1 is on purpose, google for details
+        if test_enrichment:
+            p_value = sts.hypergeom.sf(x_sig - 1, N_full, X_full, n_sig_genes)  # x -1 is on purpose, google for details
+        else:
+            p_value = sts.hypergeom.cdf(x_sig, N_full, X_full, n_sig_genes)
 
         if p_value<0.05:
-            print(f"\t*   expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.4f} < 0.05 !!!")
+            print(f"\t*   expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.6f} < 0.05 !!!")
         else:
-            print(f"\t    expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.4f}")
+            print(f"\t    expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.2f}")
     print("\t- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
 
     
@@ -1366,7 +1372,7 @@ if __name__ == "__main__":
                 #######################################
                 #### make list of all the significantly line-biased genes from Fig 1 to do the GO enrichment                
                 #######################################
-                if True and separation == "day_separated":
+                if False and separation == "day_separated":
 
                     print(f"\n\n\n\n ---<>--> male line bias upset data")
 
