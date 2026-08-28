@@ -1366,7 +1366,7 @@ if __name__ == "__main__":
                 #######################################
                 #### make list of all the significantly line-biased genes from Fig 1 to do the GO enrichment                
                 #######################################
-                if False and separation == "day_separated":
+                if True and separation == "day_separated":
 
                     print(f"\n\n\n\n ---<>--> male line bias upset data")
 
