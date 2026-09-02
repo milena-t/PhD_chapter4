@@ -1064,28 +1064,36 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list
     return(shared_IDs,all_plotted_IDs)
 
 
-def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contigs:dict, full_gene_counts_dict:dict, test_enrichment=False):
+def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contigs:dict, full_gene_counts_dict:dict, test_enrichment=False, sig_list=False):
     """
     Get the proportion of sig. DE genes according to smear_list (output of plot_smear) 
     {"Downregulated" : downreg, "no difference" : nodiff,  "Upregulated" : upreg}
     on the sex chromosomes via the annotation (read by parse_gff.py function into dict) and a sex chromosome contig dict 
     { 'X' : [list],  'Y' : [list] }
     Test for enrichment or depletion with the hypergeometric test (only one-sided!) via test_enrichment=true for enrichment, or False for depletion
+    if sig_list: print a list of the X or Y-linked geneIDs when enrichment/depletion is significant
     """
     chr_list = {expr_cat : {"A":0, "X":0, "Y":0} for expr_cat in smear_list.keys()}
+    sig_list = { "X" : [], "Y" : []}
     for expr_cat,geneID_list in smear_list.items():
         for geneID in geneID_list:
             try:
                 ID_contig = gff_dict[geneID].contig
                 if ID_contig in sex_chr_contigs["X"]:
                     chr_list[expr_cat]["X"]+=1
+                    if expr_cat != "no difference":
+                        sig_list["X"].append(geneID)
                 elif ID_contig in sex_chr_contigs["Y"]:
                     chr_list[expr_cat]["Y"]+=1
+                    if expr_cat != "no difference":
+                        sig_list["Y"].append(geneID)
                 else:
                     chr_list[expr_cat]["A"]+=1
             except:
                 if geneID == "yTor-all": # this is only in the counts, the annotation has yTor-A, yTor-B, and yTor-C, of which A and C are expressed, so add 2
                     chr_list[expr_cat]["Y"]+=2
+                    if expr_cat != "no difference":
+                        sig_list["Y"].append("yTor-all (yTor-A + yTor-C)")
                 else:
                     raise RuntimeError(f"{geneID} in the mapping somehow not present in the annotation ???")
     
@@ -1093,9 +1101,9 @@ def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contig
     # test for enrichment of X over A and Y over A
     for sex_chr in ["X", "Y"]:
         if test_enrichment:
-            print(f"\t> test enrichment in -- {sex_chr} --")
+            print(f"\ttest enrichment in -- {sex_chr} --")
         else:
-            print(f"\t> test depletion in -- {sex_chr} --")
+            print(f"\ttest depletion in -- {sex_chr} --")
         N_full = full_gene_counts_dict["A"] + full_gene_counts_dict[sex_chr]
         X_full = full_gene_counts_dict[sex_chr]
         n_sig_genes = chr_list["Downregulated"]["A"] + chr_list["Upregulated"]["A"] + chr_list["Downregulated"][sex_chr] + chr_list["Upregulated"][sex_chr]
@@ -1108,7 +1116,10 @@ def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contig
             p_value = sts.hypergeom.cdf(x_sig, N_full, X_full, n_sig_genes)
 
         if p_value<0.05:
-            print(f"\t*   expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.6f} < 0.05 !!!")
+            print(f"\t *  expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.6f} < 0.05 !!!")
+            if sig_list:
+                print(f"\t    geneIDs on {sex_chr} : {sig_list[sex_chr]}")
+                
         else:
             print(f"\t    expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.2f}")
     print("\t- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
@@ -1295,7 +1306,8 @@ if __name__ == "__main__":
                             pass
                         else:
                             chr_counts = enrichment_on_sex_chromosomes(smear_list=smear_lists, gff_dict=annot_gff, sex_chr_contigs=sex_chromosomes, full_gene_counts_dict=sex_chr_gene_counts_dict, 
-                            test_enrichment=True)
+                            test_enrichment=True, # True for enrichment, False for depletion test
+                            sig_list=True) 
 
                     if False:
                         Downlist = smear_lists["Downregulated"]
