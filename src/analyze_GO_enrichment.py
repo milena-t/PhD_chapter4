@@ -337,7 +337,8 @@ def get_genes_with_GO(infile_path, annotation_file, GOs_list = [], plot_file = "
 
     annotation_header = ["query","seed_ortholog","evalue","score","eggNOG_OGs","max_annot_lvl","COG_category","Description","Preferred_name","GOs","EC","KEGG_ko","KEGG_Pathway","KEGG_Module","KEGG_Reaction","KEGG_rclass","BRITE","KEGG_TC","CAZy","BiGG_Reaction","PFAMs"]
     annotation_df = pd.read_csv(annotation_file, sep="\t", comment="#", names=annotation_header)
-
+    print(annotation_df)
+    print(annotation_df["query"])
     sigIDs_df = pd.read_csv(infile_path, sep=",")
     sigIDs = sigIDs_df.loc[sigIDs_df["sig_DE"]==1]["geneID"].tolist()
 
@@ -347,21 +348,22 @@ def get_genes_with_GO(infile_path, annotation_file, GOs_list = [], plot_file = "
     for i, geneID in enumerate(sigIDs):
         try:
             GO_terms = annotation_df.loc[annotation_df["query"] == geneID, "GOs"].iloc[0]
-            if GO_terms != "-":
-                gene_terms = set(GO_terms.split(","))
-                shared = gene_terms & GO_set
-                if len(shared)>0:
-                    print(f"{i+1}\t{geneID}\t{shared}") 
-                    for shared_GO in shared:
-                        GO_geneIDs[shared_GO].append(geneID)       
         except:
+            raise RuntimeError(f"{i+1}\t{geneID}\tparsing failed!")
             continue
-            print(f"{i+1}\t{geneID}\tparsing failed!")
+
+        if GO_terms != "-":
+            gene_terms = set(GO_terms.split(","))
+            shared = gene_terms & GO_set
+            if len(shared)>0:
+                print(f"{i+1}\t{geneID}\t{shared}") 
+                for shared_GO in shared:
+                    GO_geneIDs[shared_GO].append(geneID)       
 
     from Y_expression_quantification import get_counts_paths,samples_group,plot_counts_sum_sets
     count_files = get_counts_paths(username=username)
     samples_group_dict = samples_group()
-    print(f"{plot_title}")
+    print(f"{plot_title} ({len(GO_geneIDs)} genes): {GO_geneIDs}")
     plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = GO_geneIDs, 
                         outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
 
@@ -495,7 +497,7 @@ if __name__ == "__main__":
 
         add_functional_information_to_geneIDs(infile_path = day_separated_line_bias_overlap, annotation_file=annotation_path)
         
-    if True:
+    if False:
         SB_LB_genes = {
             "day14" : {
                 "SL1" : ['gene-225158', 'gene-372264'],
