@@ -1,0 +1,31 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:0071454","cellular response to anoxia",1,1,0,0.00069
+"2","GO:0006873","cellular ion homeostasis",86,2,0.06,0.00129
+"3","GO:0006828","manganese ion transport",4,1,0,0.00277
+"4","GO:0050908","detection of light stimulus involved in ...",6,1,0,0.00415
+"5","GO:0007589","body fluid secretion",6,1,0,0.00415
+"6","GO:0051480","regulation of cytosolic calcium ion conc...",16,1,0.01,0.01103
+"7","GO:0007076","mitotic chromosome condensation",17,1,0.01,0.01171
+"8","GO:0007603","phototransduction, visible light",26,1,0.02,0.01787
+"9","GO:0006874","cellular calcium ion homeostasis",29,1,0.02,0.01992
+"10","GO:0019722","calcium-mediated signaling",29,1,0.02,0.01992
+"11","GO:0055074","calcium ion homeostasis",31,1,0.02,0.02128
+"12","GO:0006406","mRNA export from nucleus",36,1,0.02,0.02468
+"13","GO:0072503","cellular divalent inorganic cation homeo...",38,1,0.03,0.02604
+"14","GO:0051304","chromosome separation",39,1,0.03,0.02672
+"15","GO:0072507","divalent inorganic cation homeostasis",43,1,0.03,0.02942
+"16","GO:0051028","mRNA transport",43,1,0.03,0.02942
+"17","GO:0070588","calcium ion transmembrane transport",45,1,0.03,0.03078
+"18","GO:0007602","phototransduction",46,1,0.03,0.03145
+"19","GO:0007605","sensory perception of sound",48,1,0.03,0.0328
+"20","GO:0030261","chromosome condensation",50,1,0.03,0.03415
+"21","GO:0071166","ribonucleoprotein complex localization",50,1,0.03,0.03415
+"22","GO:0006816","calcium ion transport",51,1,0.04,0.03483
+"23","GO:0019932","second-messenger-mediated signaling",52,1,0.04,0.0355
+"24","GO:0006875","cellular metal ion homeostasis",57,1,0.04,0.03886
+"25","GO:0006611","protein export from nucleus",62,1,0.04,0.04222
+"26","GO:0050954","sensory perception of mechanical stimulu...",63,1,0.04,0.04289
+"27","GO:0006405","RNA export from nucleus",64,1,0.04,0.04356
+"28","GO:0007422","peripheral nervous system development",66,1,0.05,0.04489
+"29","GO:0055065","metal ion homeostasis",67,1,0.05,0.04556
+"30","GO:0031503","protein-containing complex localization",71,1,0.05,0.04823

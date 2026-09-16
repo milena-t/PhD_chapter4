@@ -1,21 +1,19 @@
-gene-149137	-	no_description
-gene-372264	-	---not_annotated---
-gene-227137	-	no_description
-gene-224956	RpL37A	Ribosomal L37ae protein family
-gene-414353	-	no_description
-gene-39545	Osi20	Protein of unknown function (DUF1676)
-gene-115312	Tsf1	Transferrins are iron binding transport proteins which bind Fe(3 ) ion in association with the binding of an anion, usually bicarbonate
-gene-130081	-	no_description
 gene-371957	-	serine-type endopeptidase activity. It is involved in the biological process described with proteolysis
-gene-204669	-	Lipase
-gene-166391	-	DM4/DM12 family
-gene-246615	-	---not_annotated---
-gene-277078	GPRCAL3	G-protein coupled receptor activity. It is involved in the biological process described with G-protein coupled receptor signaling pathway
-gene-406603	-	Ciliary basal body-associated, B9 protein
-gene-158197	-	---not_annotated---
-gene-122220	-	Belongs to the short-chain dehydrogenases reductases (SDR) family
-gene-100036	-	Zinc-dependent metalloprotease
-gene-143368	-	Zinc carboxypeptidase
+gene-39545	Osi20	Protein of unknown function (DUF1676)
 gene-130096	-	no_description
+gene-166391	-	DM4/DM12 family
+gene-130081	-	no_description
+gene-158197	na	---not_annotated---
+gene-414353	-	no_description
+gene-115312	Tsf1	Transferrins are iron binding transport proteins which bind Fe(3 ) ion in association with the binding of an anion, usually bicarbonate
+gene-122220	-	Belongs to the short-chain dehydrogenases reductases (SDR) family
+gene-204669	-	Lipase
+gene-143368	-	Zinc carboxypeptidase
 gene-398993	-	Src homology 3 domains
-gene-220249	-	axonemal central apparatus assembly
+gene-149137	-	no_description
+gene-100036	-	Zinc-dependent metalloprotease
+gene-227137	-	no_description
+gene-246615	na	---not_annotated---
+gene-406603	-	Ciliary basal body-associated, B9 protein
+gene-277078	GPRCAL3	G-protein coupled receptor activity. It is involved in the biological process described with G-protein coupled receptor signaling pathway
+gene-372264	na	---not_annotated---

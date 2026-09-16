@@ -12,11 +12,13 @@ import scipy.stats as sts
 import warnings
 import upsetplot
 import Y_expression_quantification as time_series_plots
+import parse_gff as gff
 
 def get_tables(username = "miltr339"):
     """
     tables are either split by sex, so that the line and day contrasts are made on a subset that is only males or only females,
     or split by line so that the day and sex contrasts are made on a subset of only one line at a time.
+    or split by day so that line and sex contrasts are asessed on each day individually
     """
 
     tables_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/"
@@ -477,7 +479,7 @@ def plot_venn_DE_genes(tables_dict:dict, p_sig = 0.05, min_LFC = 0, venn_filenam
             return None
 
 
-def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs =[], incl_geneIDs = [], intersection_nums = False):
+def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC_list = [0,0], LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs =[], incl_geneIDs = [], intersection_nums = False):
     """ 
     plot a scatterplot of sig. DE genes with LFC values
     """
@@ -488,12 +490,15 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     tables_df = {table_title : [] for table_title in tables_dict.keys()}
     tables_df_all = {table_title : [] for table_title in tables_dict.keys()}
 
+    min_LFC_dict = { table_title : min_LFC_list[i] for i, table_title in enumerate(tables_dict.keys())}
+
     for table_title,table_path in tables_dict.items():
 
         df = pd.read_csv(table_path, sep="\t", skiprows=0)
 
-        if len(incl_geneIDs) >0:
+        if len(incl_geneIDs) >0 and len(excl_geneIDs)>0:
             excl_geneIDs = []
+            print(f"!!!! cannot use incl_geneIDs and excl_geneIDs at the same time! set excl_geneIDs to empty")
             # full_size = df.shape[0]
             # print(f"\t{table_title} : only including {len(incl_geneIDs)} from {full_size}")
             # df = df[df["Gene"].isin(incl_geneIDs)]
@@ -501,9 +506,9 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
         
         df_sig = df.loc[df['FDR'] < p_sig]
         tables_df_all[table_title] = df
-        
-        if min_LFC>0:
-            df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
+
+        min_LFC = min_LFC_dict[table_title]
+        df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
         
         tables_df[table_title] = df_sig
         sig_geneIDs_lists[table_title] = df_sig["Gene"].tolist()
@@ -513,10 +518,18 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     set_a = set(sig_geneIDs_lists[table_a])
     set_b = set(sig_geneIDs_lists[table_b])
 
-    lists = {
-        table_a : list(set_a - set_b),
-        table_b : list(set_b - set_a),
-        "shared" : list(set_a & set_b),
+    if len(excl_geneIDs)>0:
+        print(f"remove excl_geneIDs from data and do not plot")
+        lists = {
+            table_a : [gene for gene in list(set_a - set_b) if gene not in excl_geneIDs],
+            table_b : [gene for gene in list(set_b - set_a) if gene not in excl_geneIDs],
+            "shared" : [gene for gene in list(set_a & set_b) if gene not in excl_geneIDs],
+        }
+    else:
+        lists = {
+            table_a : list(set_a - set_b),
+            table_b : list(set_b - set_a),
+            "shared" : list(set_a & set_b),
         }
 
     fig, ax = plt.subplots(1,1, figsize=(13, 13)) 
@@ -532,6 +545,7 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
     if len(incl_geneIDs) == 0:
         excl_counter = { cat : 0 for cat in [table_a,table_b,"shared"]}
         all_sig = lists['shared']+lists[table_a]+lists[table_b]
+        nonsig_cat_list = []
     else:
         excl_counter = { cat : 0 for cat in [table_a,table_b,"shared","neither"]}
         all_sig = lists['shared']+lists[table_a]+lists[table_b]
@@ -541,22 +555,23 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
         elif incl_geneIDs == [None]:
             lists["neither"] = []
 
-        if intersection_nums:
-            # make a list of the genes that are sig. in both in the format required for the GO enrichment
-            sig_list_outfile = LFC_filename.split("/")[-1].replace(".png", "_shared_sig_DE_list.txt")
-            sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
-            with open(sig_list_outfile, "w") as sig_list_file:
-                DE_list_outfile = [f"{geneID},1" for geneID in lists['shared']]
-                DE_string = "\n".join(DE_list_outfile)
-                sig_list_file.write(f"geneID,sig_DE\n{DE_string}\n") 
-                singleDE_list_outfile = [f"{geneID},0" for geneID in lists[table_a]+lists[table_b]+nonsig_cat_list]
-                singleDE_string = "\n".join(singleDE_list_outfile)
-                sig_list_file.write(f"{singleDE_string}\n") # needs the newline character so that R can read the list right
+    if intersection_nums:
+        # make a list of the genes that are sig. in both in the format required for the GO enrichment
+        sig_list_outfile = LFC_filename.split("/")[-1].replace(".png", "_shared_sig_DE_list.txt")
+        sig_list_outfile = f"{lists_outdir}/{sig_list_outfile}"
+        with open(sig_list_outfile, "w") as sig_list_file:
+            DE_list_outfile = [f"{geneID},1" for geneID in lists['shared']]
+            DE_string = "\n".join(DE_list_outfile)
+            sig_list_file.write(f"geneID,sig_DE\n{DE_string}\n") 
+            singleDE_list_outfile = [f"{geneID},0" for geneID in lists[table_a]+lists[table_b]+nonsig_cat_list]
+            singleDE_string = "\n".join(singleDE_list_outfile)
+            sig_list_file.write(f"{singleDE_string}\n") # needs the newline character so that R can read the list right
 
-            print(f" * list of sig DE genes written to: {sig_list_outfile}")
+        print(f" * list of sig DE genes written to: {sig_list_outfile}")
 
     nonsig_incl = 0
     sig_incl = 0
+    count_points = 0
     for cat in lists.keys():
         if len(lists[cat])>50 or cat!="shared":
             print(f"\t* {cat} ({len(lists[cat])})")
@@ -574,12 +589,13 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
             except:
                 x = 0
                 print(geneID)
-            if len(excl_geneIDs)==0:
+            if len(incl_geneIDs)==0:
                 if geneID in excl_geneIDs:
                     excl_counter[cat]+=1
                     ax.scatter(x,y,color = colors_dict[cat], s=ps*1.5, alpha = 1, marker="1")
                 else:
                     ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
+                count_points += 1
             elif len(incl_geneIDs)>0:
                 if geneID not in incl_geneIDs:
                     excl_counter[cat]+=1
@@ -588,7 +604,13 @@ def plot_sig_LFC_overlap(tables_dict:dict, p_sig = 0.05, min_LFC = 0, LFC_filena
                 else:
                     ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
                     sig_incl+=1
+                count_points += 1
+            else:
+                ax.scatter(x,y,color = colors_dict[cat], s=ps, alpha = 0.75)
+                count_points += 1
+            
 
+    print(f" points with coords: {count_points}")
     label_a = table_a.replace("SL1-3", "line-bias")
     label_a = label_a.replace("SL1-SL3", "line-bias")
     label_a = label_a.replace("F-M", "sex-bias")
@@ -735,9 +757,9 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, only_all_inter
             # df_sig = df_sig.loc[abs(df_sig['logFC']) >= min_LFC]
             df_sig = df_sig.loc[df_sig['logFC'] < min_LFC]
         if len(intersection_genes)>0:
-            print(df_sig.shape[0])
+            before_downsample = df_sig.shape[0]
             df_sig = df_sig[df_sig['Gene'].isin(intersection_genes)]
-            print(df_sig.shape[0])
+            print(f"filter {before_downsample} -> {df_sig.shape[0]}")
         data = df_sig["logFC"].tolist()
         tables_list.append(data)
         name_ = name.replace("SL1", "small-Y").replace("SL3", "large-Y").replace(":", f"\n")
@@ -834,49 +856,71 @@ def plot_logFC_boxplots(infiles_dict, p_sig = 0.05, min_LFC = -1, only_all_inter
             else:
                 bar_raise = 0
             ax.plot([x1, x1, x2, x2], [y+bar_raise, tick_top, tick_top, y+bar_raise], lw=lw, color=color)
-                
+
         ymax = max([max(box) for box in tables_list])
 
-        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[1], data=tables_list, y=ymax+1, lw=lw, fs=fs)
-        add_significance_bar_log(ax=ax, x1=tick_pos[2], x2=tick_pos[3], data=tables_list, y=ymax+1, lw=lw, fs=fs)
-        add_significance_bar_log(ax=ax, x1=tick_pos[4], x2=tick_pos[5], data=tables_list, y=ymax+1, lw=lw, fs=fs)
-        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[4], data=tables_list, y=ymax+3, lw=lw, fs=fs)
-        add_significance_bar_log(ax=ax, x1=tick_pos[1], x2=tick_pos[5], data=tables_list, y=ymax+5, lw=lw, fs=fs)
-    
+        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[1], data=tables_list, y=ymax+2, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[2], x2=tick_pos[3], data=tables_list, y=ymax+2, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[4], x2=tick_pos[5], data=tables_list, y=ymax+2, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[0], x2=tick_pos[4], data=tables_list, y=ymax+4, lw=lw, fs=fs)
+        add_significance_bar_log(ax=ax, x1=tick_pos[1], x2=tick_pos[5], data=tables_list, y=ymax+6, lw=lw, fs=fs)
+
+    xmin_,xmax_ = ax.get_xlim()
+    print(f"--------> {xmin_} to {xmax_}")
+    ax.plot([xmin_, xmax_], [0, 0], color = "#7A6266", linestyle="dashed", linewidth=lw)
 
     plt.tight_layout()
     plt.savefig(plot_filename, dpi = 300, transparent = True)
     print(f"plot saved in current working directory as: {plot_filename}")
 
 
-def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0, LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs = [], intersection_nums = False):
+def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC_list = [0,0], LFC_filename = "sig_LFC_scatter.png", LFC_title = "", excl_geneIDs = [], intersection_nums = False, excl_nonsig=False, min_diff_LFC = 0):
     """ 
     plot a scatterplot of sig. DE genes with LFC values
     """
     if len(tables_diff) !=2 :
         raise RuntimeError(f"list should have only 2 elements but it has has length {len(tables_diff)}! \n{tables_diff}")
     
+    min_LFC = min_LFC_list[0]
     df_SB1 = pd.read_csv(tables_diff[0], sep="\t", skiprows=0)
+    SB1_all = df_SB1["Gene"].tolist()
+    # get significant genes, but don't use filtering for the merge df to still include nonsig genes in the plot
     df_SB1_sig = df_SB1.loc[df_SB1['FDR'] < p_sig]
+    df_SB1_sig = df_SB1_sig.loc[abs(df_SB1_sig['logFC']) >= min_LFC]
     SB1_sig = df_SB1_sig["Gene"].tolist()
+    # keep only cols for join
     df_SB1 = df_SB1.drop(columns=["logCPM","F","PValue","FDR"])
 
+
+    min_LFC = min_LFC_list[1]
     df_SB3 = pd.read_csv(tables_diff[1], sep="\t", skiprows=0)
+    SB3_all = df_SB3["Gene"].tolist()
+    # get significant genes, but don't use filtering for the merge df to still include nonsig genes in the plot
     df_SB3_sig = df_SB3.loc[df_SB3['FDR'] < p_sig]
+    df_SB3_sig = df_SB3_sig.loc[abs(df_SB3_sig['logFC']) >= min_LFC]
     SB3_sig = df_SB3_sig["Gene"].tolist()
+    # keep only cols for join
     df_SB3 = df_SB3.drop(columns=["logCPM","F","PValue","FDR"])
-    
+
     df_sb = pd.merge(df_SB1,df_SB3, on = "Gene") # keeps only genes present in both, default inner join
-    df_sb["logFC_diff"] = abs(df_sb["logFC_x"])-abs(df_sb["logFC_y"])
+    # df_sb["logFC_diff"] = abs(df_sb["logFC_x"]-df_sb["logFC_y"])
+    df_sb["logFC_diff"] = df_sb["logFC_x"] - df_sb["logFC_y"]
     df_sb = df_sb.drop(columns=["logFC_x","logFC_y"])
+
+    sb_intersection = set(SB1_sig) & set(SB3_sig)
+    print(f"\t - any direction of sex bias in small-Y ({len(SB1_sig)}) and large-Y ({len(SB3_sig)}) --> sex bias in both ({len(sb_intersection)})")
 
     df_lb = pd.read_csv(table_LB, sep="\t", skiprows=0)
     df_lb = df_lb.loc[df_lb['FDR'] < p_sig] # only genes that are sig. line biased in males
     df_lb = df_lb.drop(columns=["logCPM","F","PValue","FDR"])
-    
     df = pd.merge(df_sb,df_lb, on = "Gene")
-    print(f"{df.shape[0]} geneIDs included (significant line bias in males)")
-    print(f"{len(excl_geneIDs)} geneIDs excluded (significant line bias also in females)")
+    
+    print(f"\t - {df.shape[0]-len(excl_geneIDs)} line-biased geneIDs included from male samples, ({df.shape[0]} before {len(excl_geneIDs)} are removed because of significant line bias also in females)")
+    lb_sig = [gene for gene in df_lb["Gene"].tolist() if gene not in excl_geneIDs]
+    sb1_lb_intersection = set(SB1_sig) & set(lb_sig)
+    sb3_lb_intersection = set(SB3_sig) & set(lb_sig)
+    print(f"\t - {len(lb_sig)} LB genes and {len(sb_intersection)} SB genes --> small-Y: {len(sb1_lb_intersection)}, large-Y: {len(sb3_lb_intersection)} intersection size")
+
 
     fig, ax = plt.subplots(1,1, figsize=(13, 13)) 
     fs = 45
@@ -886,7 +930,13 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     colors_dict = {"small-Y SB" : "#BD351E" , "large-Y SB" : "#EA882C"}
     colors_dict["both SB"] = "#3C7FA7" # blue
     shared_IDs = {label : [] for label in colors_dict.keys()}
-    colors_dict["neither"] = "#4B3B47" # mauve shadow
+    all_plotted_IDs = []
+
+    if min_diff_LFC > 0:
+        excl_nonsig = False
+
+    if excl_nonsig==False:
+        colors_dict["neither"] = "#4B3B47" # mauve shadow
     colors_count = {label : 0 for label in colors_dict.keys()}
 
     excl_count = 0
@@ -897,12 +947,12 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
             try:
                 y = df.loc[df["Gene"]==geneID, "logFC_diff"]
             except:
-                y = 0
+                y = pd.Series([0.0]) # to match the datatype without the exception
                 print(geneID)
             try:
                 x = df.loc[df["Gene"]==geneID, "logFC"]
             except:
-                x = 0
+                x = pd.Series([0.0]) # to match the datatype without the exception
                 print(geneID)
 
             if geneID in SB1_sig and geneID not in SB3_sig:
@@ -918,10 +968,34 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
                 colors_count["both SB"]+=1
                 shared_IDs["both SB"].append(geneID)
             elif geneID not in SB1_sig and geneID not in SB3_sig:
+                if excl_nonsig:
+                    continue
+                try:
+                    if abs(y.iloc[0]) < min_diff_LFC:
+                        continue
+                except:
+                    # raise RuntimeError(f"cannot test y-coordinate for minimum logfc diff: \n{y}\nshape: {y.shape}")
+                    continue
                 c = colors_dict["neither"]
                 colors_count["neither"]+=1
             
+            all_plotted_IDs.append(geneID)
             ax.scatter(x,y,color = c, s=ps, alpha = 0.75)
+
+    all_IDs = set(SB1_all+SB3_all)
+    not_plotted_IDs = list(all_IDs - set(all_plotted_IDs))
+    head = f"geneID,sig_DE\n"
+    table_enrichment_name = LFC_filename.replace(".png", ".txt").replace("/DE_figures_python/", "/sig_DE_genes_lists/")
+    with open(table_enrichment_name, "w") as table_enrichment:
+        table_enrichment.write(head)
+        all_plotted_points = "\n".join([f"{gene},1" for gene in all_plotted_IDs])
+        table_enrichment.write(all_plotted_points)
+        table_enrichment.write("\n")
+        not_plotted_points = "\n".join([f"{gene},0" for gene in not_plotted_IDs])
+        table_enrichment.write(not_plotted_points)
+        table_enrichment.write("\n")
+    print(f"\t -----> GO-enrichment table of plotted points vs. all genes:\n\t -----> {table_enrichment_name}")
+
 
     min_yline,max_yline = ax.get_ylim()
     min_xline,max_xline = ax.get_xlim()
@@ -948,9 +1022,25 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     main_sig = []
     markertype="o"
     # for cat in reversed(list(lists.keys())):
-    for legend_label, count in colors_count.items():
-        main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = f"{legend_label} ({count})", marker=markertype)
-        main_sig.append(main_sig_ind)
+    if intersection_nums:
+        for legend_label, count in colors_count.items():
+            if legend_label == "neither":
+                if min_diff_LFC>0:
+                    label_ = f"LB only\n(diff. SB > {min_diff_LFC})"
+                else:
+                    label_ = f"LB only ({count})"
+            else:
+                label_=f"{legend_label} ({count})"
+            main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = label_, marker=markertype)
+            main_sig.append(main_sig_ind)
+    else:
+        for legend_label, count in colors_count.items():
+            if legend_label == "neither" and min_diff_LFC>0:
+                label_ = f"LB only"
+            else:
+                label_=f"{legend_label}"
+            main_sig_ind = ax.scatter(1000,1000,color = colors_dict[legend_label], s=ps, alpha = 0.75, label = label_, marker=markertype)
+            main_sig.append(main_sig_ind)
 
     ax.set_ylim([min_yline,max_yline])
     ax.set_xlim([min_xline,max_xline])
@@ -958,7 +1048,7 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     main_sig_legend = plt.legend(handles = main_sig, fontsize = fs*0.75, title ="gene sig. in\nmain effect", title_fontsize = fs*0.7)#, loc='lower right')
     ax.yaxis.set_major_locator(MaxNLocator(integer=True)) # force y axis as integers to make the y axis label visible and not outside of bounds
 
-    ax.set_ylabel(f"|small-Y SB| - |large-Y SB|", fontsize = fs)
+    ax.set_ylabel(f"small-Y SB - large-Y SB", fontsize = fs)
     ax.set_xlabel(f"logFC male line-bias", fontsize = fs)
     ax.tick_params(axis='x', labelsize=fs*0.9)
     ax.tick_params(axis='y', labelsize=fs*0.9)
@@ -971,14 +1061,85 @@ def plot_sig_LFC_diff(tables_diff:list, table_LB:str, p_sig = 0.05, min_LFC = 0,
     plt.cla()
     plt.close()
 
-    return(shared_IDs)
+    return(shared_IDs,all_plotted_IDs)
+
+
+def enrichment_on_sex_chromosomes(smear_list:dict, gff_dict:dict, sex_chr_contigs:dict, full_gene_counts_dict:dict, test_enrichment=False, sig_list=False):
+    """
+    Get the proportion of sig. DE genes according to smear_list (output of plot_smear) 
+    {"Downregulated" : downreg, "no difference" : nodiff,  "Upregulated" : upreg}
+    on the sex chromosomes via the annotation (read by parse_gff.py function into dict) and a sex chromosome contig dict 
+    { 'X' : [list],  'Y' : [list] }
+    Test for enrichment or depletion with the hypergeometric test (only one-sided!) via test_enrichment=true for enrichment, or False for depletion
+    if sig_list: print a list of the X or Y-linked geneIDs when enrichment/depletion is significant
+    """
+    chr_list = {expr_cat : {"A":0, "X":0, "Y":0} for expr_cat in smear_list.keys()}
+    sig_list = { "X" : [], "Y" : []}
+    for expr_cat,geneID_list in smear_list.items():
+        for geneID in geneID_list:
+            try:
+                ID_contig = gff_dict[geneID].contig
+                if ID_contig in sex_chr_contigs["X"]:
+                    chr_list[expr_cat]["X"]+=1
+                    if expr_cat != "no difference":
+                        sig_list["X"].append(geneID)
+                elif ID_contig in sex_chr_contigs["Y"]:
+                    chr_list[expr_cat]["Y"]+=1
+                    if expr_cat != "no difference":
+                        sig_list["Y"].append(geneID)
+                else:
+                    chr_list[expr_cat]["A"]+=1
+            except:
+                if geneID == "yTor-all": # this is only in the counts, the annotation has yTor-A, yTor-B, and yTor-C, of which A and C are expressed, so add 2
+                    chr_list[expr_cat]["Y"]+=2
+                    if expr_cat != "no difference":
+                        sig_list["Y"].append("yTor-all (yTor-A + yTor-C)")
+                else:
+                    raise RuntimeError(f"{geneID} in the mapping somehow not present in the annotation ???")
+    
+    print("\t- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+    # test for enrichment of X over A and Y over A
+    for sex_chr in ["X", "Y"]:
+        if test_enrichment:
+            print(f"\ttest enrichment in -- {sex_chr} --")
+        else:
+            print(f"\ttest depletion in -- {sex_chr} --")
+        N_full = full_gene_counts_dict["A"] + full_gene_counts_dict[sex_chr]
+        X_full = full_gene_counts_dict[sex_chr]
+        n_sig_genes = chr_list["Downregulated"]["A"] + chr_list["Upregulated"]["A"] + chr_list["Downregulated"][sex_chr] + chr_list["Upregulated"][sex_chr]
+        x_sig = chr_list["Downregulated"][sex_chr] + chr_list["Upregulated"][sex_chr]
+        x_expected = n_sig_genes * X_full / N_full
+
+        if test_enrichment:
+            p_value = sts.hypergeom.sf(x_sig - 1, N_full, X_full, n_sig_genes)  # x -1 is on purpose, google for details
+        else:
+            p_value = sts.hypergeom.cdf(x_sig, N_full, X_full, n_sig_genes)
+
+        if p_value<0.05:
+            print(f"\t *  expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.6f} < 0.05 !!!")
+            if sig_list:
+                print(f"\t    geneIDs on {sex_chr} : {sig_list[sex_chr]}")
+                
+        else:
+            print(f"\t    expected {sex_chr}-sig: {x_expected:.2f} ,  observed {sex_chr}-sig: {x_sig} --> p = {p_value:.2f}")
+    print("\t- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+
+    
+    return chr_list
+
+
 
 if __name__ == "__main__":
 
     warnings.filterwarnings("ignore")
-    username = "milena"
+    username = "miltr339"
     table_paths,contrast_plot_titles = get_tables(username=username)
     out_path_figs = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python"
+    annotation = f"/Users/{username}/work/c_maculatus/Cmac_Lome_yes_yTor.gff"
+    sex_chromosomes = {
+        "X" : ['scaffold_10','scaffold_14','scaffold_23','scaffold_31','scaffold_34','scaffold_83'],
+        "Y" : ['scaffold_26','scaffold_48','scaffold_103','scaffold_112','scaffold_164']
+    }
     
     ### genes that are line-biased in both males and females (should be excluded from male analysis in the sex-separated data since they can't be related to the Y-haplotype)
     excl_line_bias_lists = {
@@ -1009,14 +1170,40 @@ if __name__ == "__main__":
     
     # only one of the below ones can be true at the same time! if both are false, smear/volcano plots are created by default
     ############
-    make_upset = True # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
+    make_upset = False # don't plot the smear/volcano plots but insetad make category-wise upset plots of DE genes
     ############
     make_list_outfiles = True # don't plot anything, instead make output files with lists of significant geneIDs for each contrast
     lists_outdir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists"
     ############
     highlight_yTOR = False
 
-    if False:
+    ############ 
+    ## test for the enrichment of sig. DE genes on the sex chromosome in any given contrast
+    ## this uses the hypergeom. distr so it only tests for either enrichment or depletion! (one-sided)
+    ##      -> pick in the funciton below which one with the flag
+    ## it also does not distinguish between up- and downregulation, only sig. DE according to the volcano plot
+    test_sexchr_enrichment = True
+    ## get required counts from full annotation etc.
+    if test_sexchr_enrichment:
+        annot_gff = gff.parse_gff3_general(filepath=annotation) # read all for the test below because sometimes the IDs refer to mRNA
+        ## make dict with sex chr gene counts for enrichment test
+        sex_chr_gene_counts_dict = {"A":0, "X":0, "Y":0}
+        annot_gff_only_genes = gff.parse_gff3_general(filepath=annotation, only_genes=True) # read only genes for accurate counts
+        for gene_class in annot_gff_only_genes.values():
+            ID_contig = gene_class.contig
+            if ID_contig in sex_chromosomes["X"]:
+                sex_chr_gene_counts_dict["X"]+=1
+            elif ID_contig in sex_chromosomes["Y"]:
+                sex_chr_gene_counts_dict["Y"]+=1
+            else:
+                sex_chr_gene_counts_dict["A"]+=1
+        print(f"\n------------------------------------------")
+        print(f"---------- gene counts on sex chromosomes: ")
+        for chr, count in sex_chr_gene_counts_dict.items():
+            print(f"---------- {chr} : {count}")
+        print(f"------------------------------------------")
+
+    if True:
         
         if make_upset or make_list_outfiles:
             plot=False
@@ -1052,10 +1239,9 @@ if __name__ == "__main__":
                 
                 for contrast, table_path in paths_dict.items():
                     
-                    # if "(" not in contrast:
-                    #     print(f"ignore {category}:{contrast}")
-                    #     continue
-
+                    if "(" in contrast:
+                        print(f"ignore {category}:{contrast}")
+                        continue
 
                     # if "day" not in contrast:
                     #     print(f"ignore {contrast}")
@@ -1064,8 +1250,12 @@ if __name__ == "__main__":
                     if "F" in contrast and "M" in contrast and "(" not in contrast:
                         # sex-biased contrast -> use |LFC| = 1 as min
                         # don't do it for the interaction
+                        print(f"ignore {category}:{contrast}")
+                        continue
                         min_LFC = 1
                     else:
+                        # print(f"ignore {category}:{contrast}")
+                        # continue
                         min_LFC = 0
 
                     if "line_random" in category and "(" in contrast:
@@ -1105,10 +1295,20 @@ if __name__ == "__main__":
                         print(f"\texcluding {len(excl_list)} genes from list '{excl_list_name}'")
         
                     # smear plot
-                    smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot, coefficients=coefficients)
+                    if False:
+                        smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="logcpm", plot=plot, coefficients=coefficients)
                     # volcano plot
                     smear_lists = plot_smear(table_path=table_path, contrast=contrast, smear_plot_name=smear_name, min_LFC=min_LFC, title = smear_title, excl_genes_list=excl_list, x_axis="fdr_p", plot=plot, coefficients=coefficients, highlight_yTOR=highlight_yTOR)
                     
+                    if test_sexchr_enrichment:
+                        ### test for enrichment on sex chromosomes
+                        if separation == "day_separated" and "F" in contrast and "M" not in contrast:
+                            pass
+                        else:
+                            chr_counts = enrichment_on_sex_chromosomes(smear_list=smear_lists, gff_dict=annot_gff, sex_chr_contigs=sex_chromosomes, full_gene_counts_dict=sex_chr_gene_counts_dict, 
+                            test_enrichment=True, # True for enrichment, False for depletion test
+                            sig_list=True) 
+
                     if False:
                         Downlist = smear_lists["Downregulated"]
                         Uplist = smear_lists["Upregulated"]
@@ -1198,26 +1398,26 @@ if __name__ == "__main__":
                 #######################################
                 #### make list of all the significantly line-biased genes from Fig 1 to do the GO enrichment                
                 #######################################
-                if True and separation == "day_separated":
+                if False and separation == "day_separated":
 
                     print(f"\n\n\n\n ---<>--> male line bias upset data")
 
                     ######### male samples line bias
-                    if False:
+                    if True:
                         # filter to only include genes that are sig. in at least two days
                         mask = (
                             upset_data_line.index.get_level_values('day14: males').astype(int) +
                             upset_data_line.index.get_level_values('day16: males').astype(int) +
                             upset_data_line.index.get_level_values('day18: males').astype(int)
                         ) >= 2
-                        filt = upset_data[mask]
+                        filt = upset_data_line[mask]
                         print(f"filtered for all geneIDs that are sig in at least two:")
                         print(f"{len(filt)}")
 
                         filt.to_csv(f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/day_separated_male_line_bias_overlap_sigIDs.txt", sep="\t")
 
                         # filter to only include genes that are sig. only day 14 and 16
-                        filt = upset_data[upset_data.index.get_level_values('day14: males') & upset_data.index.get_level_values('day16: males')]
+                        filt = upset_data_line[upset_data_line.index.get_level_values('day14: males') & upset_data_line.index.get_level_values('day16: males')]
                         filt = filt["id"].tolist()
                         nonsig_geneIDs = [id for id in list(set(all_geneIDs)) if id not in filt]
                         nonsig = ",0\n".join(nonsig_geneIDs)+",0\n"
@@ -1230,7 +1430,7 @@ if __name__ == "__main__":
                             outfile.write(nonsig)
 
                     ######### all lines sex bias
-                    if False:
+                    if True:
                         # filter to only include genes that are sig. in at least two days
                         mask_all = (
                             upset_data_sex.index.get_level_values('day14: small-Y').astype(int) +
@@ -1347,6 +1547,9 @@ if __name__ == "__main__":
             }
         }
         for separation, seps_dict in table_paths.items():
+            if separation != "day_separated":
+                continue
+
             print(f"\n=========================== {separation} ===========================")
 
             for category, paths_dict in seps_dict.items():
@@ -1368,7 +1571,7 @@ if __name__ == "__main__":
     ###########################################
 
     ## compare if the same genes are DE between lines within days in males as in females
-    if True:
+    if False:
         venn_sets_day = {
             "sex_separated" : {
                 "day14" : {
@@ -1677,23 +1880,40 @@ if __name__ == "__main__":
                     if "bias" in bias_cat or "lb_F" in bias_cat:
                         print(f"skip {bias_cat}:({contrasts_list})")
                         continue
-
+                    
+                    excl_geneIDs = excl_line_bias_lists[separation][category]
                     LFC_filename_ = bias_cat.replace(" ", "_")
                     LFC_filename = f"{out_path_figs}/LFC_scatter_{category}_{LFC_filename_}.png"
                     category_ = category.replace("day", "day ")
                     bias_cat_ = bias_cat.replace("lb_", ", line-bias ")
 
                     if "diff" in bias_cat:
+                        continue
+                        print(f"\n * {bias_cat}")
+
                         bias_cat_ = bias_cat_.replace("sb_diff ", "sex-bias")
                         plot_title = f"{category_}: {bias_cat_}"
                         
                         tables_diff = [paths_dict[contrast] for contrast in contrasts_list["sb_diff"]]
                         table_SB = paths_dict[contrasts_list["lb_M"][0]]
-                        excl_geneIDs = excl_line_bias_lists[separation][category]
-
-                        shared_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True )
-
-                        if True:
+                        LFC_threshold_list = [0,0]
+                        if category=="day18":
+                            shared_IDs,all_plotted_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, min_LFC_list=LFC_threshold_list, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, excl_nonsig=False )
+                        else:
+                            shared_IDs,all_plotted_IDs = plot_sig_LFC_diff(tables_diff=tables_diff, min_LFC_list=LFC_threshold_list, table_LB=table_SB, LFC_filename = LFC_filename, excl_geneIDs=excl_geneIDs, LFC_title = plot_title, intersection_nums = True, min_diff_LFC=1 )
+                            
+                        sex_line_interaction_sig_genes = {
+                            "day14" : set(["gene-237342","gene-181562","gene-58400"]),
+                            "day16" : set([]),
+                            "day18" : set(["gene-426041","gene-48523","gene-73742","gene-2355","gene-237494","gene-279406","gene-237342","gene-276797","gene-367071"]),
+                        }
+                        for cat,list_ in shared_IDs.items():
+                            # intersection = set(list_) & sex_line_interaction_sig_genes[category]
+                            # print(f" * {cat} : {len(list_)}, \tshared with sex-line interaction significant genes: {len(intersection)} ({intersection})")
+                            print(f" * {cat} : {list_}")
+                        print()
+                        
+                        if False:
                             shared_SB_LB_for_time_series["small-Y SB"].extend(shared_IDs["small-Y SB"])
                             shared_SB_LB_for_time_series["large-Y SB"].extend(shared_IDs["large-Y SB"])
                             shared_SB_LB_for_time_series["both SB"].extend(shared_IDs["both SB"])
@@ -1710,8 +1930,8 @@ if __name__ == "__main__":
                                                 outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
 
                     else:
-                        continue
 
+                        print(f"\n * {bias_cat}")
                         try:
                             incl_geneIDs = sig_IDs_list[separation][category]
                         except:
@@ -1720,10 +1940,11 @@ if __name__ == "__main__":
 
                         if bias_cat != "line bias":
                             incl_geneIDs = []
-                            print(f"{bias_cat} : no interaction included")
+                            print(f"{bias_cat} : no interaction included, {len(excl_geneIDs)} genes line-biased in females are excluded")
                         else:
                             print(f"{bias_cat} : interaction has {len(incl_geneIDs)} genes")
 
+                        LFC_threshold_list = [1 if "F" in contrast and "M" in contrast else 0 for contrast in contrasts_list]
                         LFC_paths_dict = {contrast_plot_titles[contrast] : paths_dict[contrast] for contrast in contrasts_list}
                         # plot_title = f"{bias_cat} in males and females"
                         bias_cat_ = bias_cat.replace("sb_", "sex-bias ").replace("lb_", ", line-bias ")
@@ -1736,10 +1957,10 @@ if __name__ == "__main__":
                         if len(plot_title)>33:
                             plot_title = plot_title.replace(" and", "\nand")
                         
-                        numbers = plot_sig_LFC_overlap(LFC_paths_dict, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True )
+                        numbers = plot_sig_LFC_overlap(LFC_paths_dict, min_LFC_list=LFC_threshold_list, LFC_filename = LFC_filename, LFC_title = plot_title , incl_geneIDs=incl_geneIDs, intersection_nums = True, excl_geneIDs=excl_geneIDs )
                         print(f"\t{numbers}")
 
-            if True:
+            if False:
                 ## plot time series of expression of shared line- and sex-biased genes
                 count_files = time_series_plots.get_counts_paths(username=username)
                 samples_group_dict = time_series_plots.samples_group()

@@ -1,0 +1,132 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:0046034","ATP metabolic process",109,11,2.62,5.2e-05
+"2","GO:0009167","purine ribonucleoside monophosphate meta...",112,11,2.69,6.7e-05
+"3","GO:0035082","axoneme assembly",26,5,0.62,0.00032
+"4","GO:0030317","flagellated sperm motility",26,5,0.62,0.00032
+"5","GO:0060271","cilium assembly",70,13,1.68,0.00059
+"6","GO:1905515","non-motile cilium assembly",18,4,0.43,0.00075
+"7","GO:0006165","nucleoside diphosphate phosphorylation",21,4,0.5,0.00138
+"8","GO:0006123","mitochondrial electron transport, cytoch...",10,3,0.24,0.00143
+"9","GO:0003407","neural retina development",3,2,0.07,0.00169
+"10","GO:0071266","'de novo' L-methionine biosynthetic proc...",3,2,0.07,0.00169
+"11","GO:0019343","cysteine biosynthetic process via cystat...",3,2,0.07,0.00169
+"12","GO:0019346","transsulfuration",3,2,0.07,0.00169
+"13","GO:0009581","detection of external stimulus",61,6,1.46,0.00322
+"14","GO:0009582","detection of abiotic stimulus",61,6,1.46,0.00322
+"15","GO:0009142","nucleoside triphosphate biosynthetic pro...",43,5,1.03,0.00342
+"16","GO:0060285","cilium-dependent cell motility",31,7,0.74,0.00511
+"17","GO:0007600","sensory perception",139,9,3.34,0.00594
+"18","GO:0018200","peptidyl-glutamic acid modification",16,3,0.38,0.00602
+"19","GO:1902600","proton transmembrane transport",72,6,1.73,0.0073
+"20","GO:0007617","mating behavior",72,6,1.73,0.0073
+"21","GO:0007618","mating",72,6,1.73,0.0073
+"22","GO:0006750","glutathione biosynthetic process",6,2,0.14,0.00805
+"23","GO:0072525","pyridine-containing compound biosyntheti...",18,3,0.43,0.00848
+"24","GO:0006754","ATP biosynthetic process",36,4,0.86,0.01032
+"25","GO:0007286","spermatid development",78,6,1.87,0.01069
+"26","GO:0099111","microtubule-based transport",58,5,1.39,0.01224
+"27","GO:0009145","purine nucleoside triphosphate biosynthe...",38,4,0.91,0.01246
+"28","GO:0007602","phototransduction",38,4,0.91,0.01246
+"29","GO:0009206","purine ribonucleoside triphosphate biosy...",38,4,0.91,0.01246
+"30","GO:0007283","spermatogenesis",185,10,4.44,0.01303
+"31","GO:0009201","ribonucleoside triphosphate biosynthetic...",39,4,0.94,0.01363
+"32","GO:0060179","male mating behavior",40,4,0.96,0.01487
+"33","GO:0048515","spermatid differentiation",85,6,2.04,0.01589
+"34","GO:0009168","purine ribonucleoside monophosphate bios...",42,4,1.01,0.01756
+"35","GO:0009127","purine nucleoside monophosphate biosynth...",42,4,1.01,0.01756
+"36","GO:0009583","detection of light stimulus",42,4,1.01,0.01756
+"37","GO:0051260","protein homooligomerization",9,2,0.22,0.01844
+"38","GO:0046835","carbohydrate phosphorylation",9,2,0.22,0.01844
+"39","GO:0043052","thermotaxis",9,2,0.22,0.01844
+"40","GO:0007018","microtubule-based movement",118,11,2.83,0.01952
+"41","GO:0007291","sperm individualization",44,4,1.06,0.02053
+"42","GO:0015800","acidic amino acid transport",10,2,0.24,0.02269
+"43","GO:0060294","cilium movement involved in cell motilit...",27,6,0.65,0.02321
+"44","GO:0009064","glutamine family amino acid metabolic pr...",26,3,0.62,0.0235
+"45","GO:0009156","ribonucleoside monophosphate biosyntheti...",46,4,1.1,0.02379
+"46","GO:0048255","mRNA stabilization",1,1,0.02,0.02401
+"47","GO:0016024","CDP-diacylglycerol biosynthetic process",1,1,0.02,0.02401
+"48","GO:0035045","sperm plasma membrane disassembly",1,1,0.02,0.02401
+"49","GO:0003351","epithelial cilium movement involved in e...",1,1,0.02,0.02401
+"50","GO:0051039","positive regulation of transcription inv...",1,1,0.02,0.02401
+"51","GO:1902373","negative regulation of mRNA catabolic pr...",1,1,0.02,0.02401
+"52","GO:0060287","epithelial cilium movement involved in d...",1,1,0.02,0.02401
+"53","GO:0018095","protein polyglutamylation",1,1,0.02,0.02401
+"54","GO:0034606","response to hermaphrodite contact",1,1,0.02,0.02401
+"55","GO:0034608","vulval location",1,1,0.02,0.02401
+"56","GO:0046341","CDP-diacylglycerol metabolic process",1,1,0.02,0.02401
+"57","GO:0070935","3'-UTR-mediated mRNA stabilization",1,1,0.02,0.02401
+"58","GO:0019646","aerobic electron transport chain",58,7,1.39,0.02556
+"59","GO:0045727","positive regulation of translation",27,3,0.65,0.02598
+"60","GO:0035041","sperm DNA decondensation",11,2,0.26,0.0273
+"61","GO:0009124","nucleoside monophosphate biosynthetic pr...",48,4,1.15,0.02735
+"62","GO:0035039","male pronucleus assembly",12,2,0.29,0.03225
+"63","GO:0042866","pyruvate biosynthetic process",12,2,0.29,0.03225
+"64","GO:0008089","anterograde axonal transport",12,2,0.29,0.03225
+"65","GO:0046460","neutral lipid biosynthetic process",12,2,0.29,0.03225
+"66","GO:0046463","acylglycerol biosynthetic process",12,2,0.29,0.03225
+"67","GO:0042773","ATP synthesis coupled electron transport",62,7,1.49,0.03312
+"68","GO:0042775","mitochondrial ATP synthesis coupled elec...",62,7,1.49,0.03312
+"69","GO:0009620","response to fungus",51,4,1.22,0.03326
+"70","GO:0006120","mitochondrial electron transport, NADH t...",31,3,0.74,0.03727
+"71","GO:0016545","male courtship behavior, veined wing vib...",13,2,0.31,0.03753
+"72","GO:0050907","detection of chemical stimulus involved ...",13,2,0.31,0.03753
+"73","GO:0045433","male courtship behavior, veined wing gen...",13,2,0.31,0.03753
+"74","GO:0018094","protein polyglycylation",13,2,0.31,0.03753
+"75","GO:0006536","glutamate metabolic process",13,2,0.31,0.03753
+"76","GO:0048065","male courtship behavior, veined wing ext...",13,2,0.31,0.03753
+"77","GO:0045333","cellular respiration",116,9,2.78,0.03794
+"78","GO:0048232","male gamete generation",220,10,5.28,0.03796
+"79","GO:0003341","cilium movement",40,7,0.96,0.04055
+"80","GO:0006091","generation of precursor metabolites and ...",176,11,4.23,0.04097
+"81","GO:0022900","electron transport chain",92,8,2.21,0.04303
+"82","GO:0006757","ATP generation from ADP",14,2,0.34,0.04311
+"83","GO:0007289","spermatid nucleus differentiation",14,2,0.34,0.04311
+"84","GO:0050982","detection of mechanical stimulus",14,2,0.34,0.04311
+"85","GO:0042073","intraciliary transport",14,2,0.34,0.04311
+"86","GO:0006096","glycolytic process",14,2,0.34,0.04311
+"87","GO:0050906","detection of stimulus involved in sensor...",34,3,0.82,0.04712
+"88","GO:0008049","male courtship behavior",34,3,0.82,0.04712
+"89","GO:0010970","transport along microtubule",57,4,1.37,0.04716
+"90","GO:0061620","glycolytic process through glucose-6-pho...",2,1,0.05,0.04744
+"91","GO:0061621","canonical glycolysis",2,1,0.05,0.04744
+"92","GO:0000820","regulation of glutamine family amino aci...",2,1,0.05,0.04744
+"93","GO:0008377","light-induced release of internally sequ...",2,1,0.05,0.04744
+"94","GO:0032240","negative regulation of nucleobase-contai...",2,1,0.05,0.04744
+"95","GO:0008315","G2/MI transition of meiotic cell cycle",2,1,0.05,0.04744
+"96","GO:0051055","negative regulation of lipid biosyntheti...",2,1,0.05,0.04744
+"97","GO:0042822","pyridoxal phosphate metabolic process",2,1,0.05,0.04744
+"98","GO:0042823","pyridoxal phosphate biosynthetic process",2,1,0.05,0.04744
+"99","GO:0042819","vitamin B6 biosynthetic process",2,1,0.05,0.04744
+"100","GO:0010868","negative regulation of triglyceride bios...",2,1,0.05,0.04744
+"101","GO:0051037","regulation of transcription involved in ...",2,1,0.05,0.04744
+"102","GO:0006735","NADH regeneration",2,1,0.05,0.04744
+"103","GO:0061718","glucose catabolic process to pyruvate",2,1,0.05,0.04744
+"104","GO:0045873","negative regulation of sevenless signali...",2,1,0.05,0.04744
+"105","GO:1902369","negative regulation of RNA catabolic pro...",2,1,0.05,0.04744
+"106","GO:0060042","retina morphogenesis in camera-type eye",2,1,0.05,0.04744
+"107","GO:0006858","extracellular transport",2,1,0.05,0.04744
+"108","GO:0110118","negative regulation of compound eye phot...",2,1,0.05,0.04744
+"109","GO:0030397","membrane disassembly",2,1,0.05,0.04744
+"110","GO:0010511","regulation of phosphatidylinositol biosy...",2,1,0.05,0.04744
+"111","GO:0010513","positive regulation of phosphatidylinosi...",2,1,0.05,0.04744
+"112","GO:0048490","anterograde synaptic vesicle transport",2,1,0.05,0.04744
+"113","GO:0048491","retrograde synaptic vesicle transport",2,1,0.05,0.04744
+"114","GO:0071073","positive regulation of phospholipid bios...",2,1,0.05,0.04744
+"115","GO:0042670","retinal cone cell differentiation",2,1,0.05,0.04744
+"116","GO:0048593","camera-type eye morphogenesis",2,1,0.05,0.04744
+"117","GO:1903727","positive regulation of phospholipid meta...",2,1,0.05,0.04744
+"118","GO:0060219","camera-type eye photoreceptor cell diffe...",2,1,0.05,0.04744
+"119","GO:0006521","regulation of cellular amino acid metabo...",2,1,0.05,0.04744
+"120","GO:0043489","RNA stabilization",2,1,0.05,0.04744
+"121","GO:0045501","regulation of sevenless signaling pathwa...",2,1,0.05,0.04744
+"122","GO:1905349","ciliary transition zone assembly",2,1,0.05,0.04744
+"123","GO:0001580","detection of chemical stimulus involved ...",2,1,0.05,0.04744
+"124","GO:2000211","regulation of glutamate metabolic proces...",2,1,0.05,0.04744
+"125","GO:0006533","aspartate catabolic process",2,1,0.05,0.04744
+"126","GO:0034214","protein hexamerization",2,1,0.05,0.04744
+"127","GO:0045677","negative regulation of R7 cell different...",2,1,0.05,0.04744
+"128","GO:0006651","diacylglycerol biosynthetic process",2,1,0.05,0.04744
+"129","GO:1902176","negative regulation of oxidative stress-...",2,1,0.05,0.04744
+"130","GO:2000766","negative regulation of cytoplasmic trans...",2,1,0.05,0.04744
+"131","GO:0009166","nucleotide catabolic process",15,2,0.36,0.04897

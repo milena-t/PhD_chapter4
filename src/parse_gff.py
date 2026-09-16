@@ -348,6 +348,11 @@ def parse_gff3_general(filepath:str, verbose = True, only_genes = False, keep_fe
             ## add Feature to the output dict
             new_feature=Feature(feature_id=attributes["ID"],contig = contig,category=category,start=int(start),end=int(stop),strandedness=strandedness, frame=frame, parent_id=parent_id)
             genome_annotation[new_feature.feature_id]=new_feature
+            
+            ## also add the geneID feature:
+            if "gene_id" in attributes:
+                new_feature=Feature(feature_id=attributes["gene_id"],contig = contig,category=category,start=int(start),end=int(stop),strandedness=strandedness, frame=frame, parent_id=parent_id)
+                genome_annotation[new_feature.feature_id]=new_feature
 
     if verbose:
         end_time = time.perf_counter()

@@ -1,4 +1,2 @@
-gene-225158	-	---not_annotated---
-gene-222430	-	this activity may be independent of acetylation activity. Acetylates alpha-tubulin with a slow enzymatic rate, due to a catalytic site that is not optimized for acetyl transfer. Enters the microtubule through each end and diffuses quickly throughout the lumen of microtubules. Acetylates only long old microtubules because of its slow acetylation rate since it does not have time to act on dynamically unstable microtubules before the enzyme is released
-gene-372264	-	---not_annotated---
-gene-117712	-	Ribosome biogenesis protein SLX9
+gene-225158	na	---not_annotated---
+gene-372264	na	---not_annotated---

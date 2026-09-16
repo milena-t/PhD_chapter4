@@ -1,0 +1,101 @@
+"","GO.ID","Term","Annotated","Significant","Expected","classicFisher"
+"1","GO:0046578","regulation of Ras protein signal transdu...",67,4,0.6,0.0029
+"2","GO:0034446","substrate adhesion-dependent cell spread...",11,2,0.1,0.0041
+"3","GO:1903461","Okazaki fragment processing involved in ...",1,1,0.01,0.0089
+"4","GO:0014703","oscillatory muscle contraction",1,1,0.01,0.0089
+"5","GO:0042180","cellular ketone metabolic process",52,3,0.47,0.0109
+"6","GO:0071711","basement membrane organization",19,2,0.17,0.0122
+"7","GO:0042742","defense response to bacterium",103,4,0.92,0.0131
+"8","GO:0060033","anatomical structure regression",58,3,0.52,0.0147
+"9","GO:0042445","hormone metabolic process",62,3,0.55,0.0176
+"10","GO:0009445","putrescine metabolic process",2,1,0.02,0.0178
+"11","GO:0009446","putrescine biosynthetic process",2,1,0.02,0.0178
+"12","GO:0019441","tryptophan catabolic process to kynureni...",2,1,0.02,0.0178
+"13","GO:0010918","positive regulation of mitochondrial mem...",2,1,0.02,0.0178
+"14","GO:0044208","'de novo' AMP biosynthetic process",2,1,0.02,0.0178
+"15","GO:0042832","defense response to protozoan",2,1,0.02,0.0178
+"16","GO:1900024","regulation of substrate adhesion-depende...",2,1,0.02,0.0178
+"17","GO:1900026","positive regulation of substrate adhesio...",2,1,0.02,0.0178
+"18","GO:0045838","positive regulation of membrane potentia...",2,1,0.02,0.0178
+"19","GO:0009052","pentose-phosphate shunt, non-oxidative b...",2,1,0.02,0.0178
+"20","GO:0033387","putrescine biosynthetic process from orn...",2,1,0.02,0.0178
+"21","GO:0006569","tryptophan catabolic process",2,1,0.02,0.0178
+"22","GO:0035106","operant conditioning",2,1,0.02,0.0178
+"23","GO:0050941","negative regulation of pigment cell diff...",2,1,0.02,0.0178
+"24","GO:0050932","regulation of pigment cell differentiati...",2,1,0.02,0.0178
+"25","GO:0001562","response to protozoan",2,1,0.02,0.0178
+"26","GO:0035008","positive regulation of melanization defe...",2,1,0.02,0.0178
+"27","GO:0009617","response to bacterium",114,4,1.02,0.0184
+"28","GO:0009063","cellular amino acid catabolic process",24,2,0.21,0.0191
+"29","GO:1901606","alpha-amino acid catabolic process",24,2,0.21,0.0191
+"30","GO:0035096","larval midgut cell programmed cell death",25,2,0.22,0.0206
+"31","GO:0042593","glucose homeostasis",26,2,0.23,0.0222
+"32","GO:0016319","mushroom body development",68,3,0.61,0.0225
+"33","GO:0035069","larval midgut histolysis",28,2,0.25,0.0256
+"34","GO:0044319","wound healing, spreading of cells",3,1,0.03,0.0266
+"35","GO:0070189","kynurenine metabolic process",3,1,0.03,0.0266
+"36","GO:0051969","regulation of transmission of nerve impu...",3,1,0.03,0.0266
+"37","GO:0090504","epiboly",3,1,0.03,0.0266
+"38","GO:0010811","positive regulation of cell-substrate ad...",3,1,0.03,0.0266
+"39","GO:0090505","epiboly involved in wound healing",3,1,0.03,0.0266
+"40","GO:0051970","negative regulation of transmission of n...",3,1,0.03,0.0266
+"41","GO:0098900","regulation of action potential",3,1,0.03,0.0266
+"42","GO:0098908","regulation of neuronal action potential",3,1,0.03,0.0266
+"43","GO:0006014","D-ribose metabolic process",3,1,0.03,0.0266
+"44","GO:0009071","serine family amino acid catabolic proce...",3,1,0.03,0.0266
+"45","GO:0006266","DNA ligation",3,1,0.03,0.0266
+"46","GO:1904456","negative regulation of neuronal action p...",3,1,0.03,0.0266
+"47","GO:0006007","glucose catabolic process",3,1,0.03,0.0266
+"48","GO:0031645","negative regulation of nervous system pr...",3,1,0.03,0.0266
+"49","GO:0042537","benzene-containing compound metabolic pr...",3,1,0.03,0.0266
+"50","GO:0030241","skeletal muscle myosin thick filament as...",3,1,0.03,0.0266
+"51","GO:0060012","synaptic transmission, glycinergic",3,1,0.03,0.0266
+"52","GO:0019228","neuronal action potential",3,1,0.03,0.0266
+"53","GO:0006546","glycine catabolic process",3,1,0.03,0.0266
+"54","GO:0042436","indole-containing compound catabolic pro...",3,1,0.03,0.0266
+"55","GO:0045759","negative regulation of action potential",3,1,0.03,0.0266
+"56","GO:0042683","negative regulation of compound eye cone...",3,1,0.03,0.0266
+"57","GO:1901605","alpha-amino acid metabolic process",73,3,0.65,0.027
+"58","GO:1902476","chloride transmembrane transport",29,2,0.26,0.0273
+"59","GO:0006821","chloride transport",29,2,0.26,0.0273
+"60","GO:0006576","cellular biogenic amine metabolic proces...",31,2,0.28,0.0309
+"61","GO:0010817","regulation of hormone levels",79,3,0.71,0.0331
+"62","GO:0009308","amine metabolic process",33,2,0.3,0.0347
+"63","GO:0044106","cellular amine metabolic process",33,2,0.3,0.0347
+"64","GO:0019682","glyceraldehyde-3-phosphate metabolic pro...",4,1,0.04,0.0353
+"65","GO:0006167","AMP biosynthetic process",4,1,0.04,0.0353
+"66","GO:0046033","AMP metabolic process",4,1,0.04,0.0353
+"67","GO:0061031","endodermal digestive tract morphogenesis",4,1,0.04,0.0353
+"68","GO:0019889","pteridine metabolic process",4,1,0.04,0.0353
+"69","GO:0009074","aromatic amino acid family catabolic pro...",4,1,0.04,0.0353
+"70","GO:0006591","ornithine metabolic process",4,1,0.04,0.0353
+"71","GO:0030335","positive regulation of cell migration",4,1,0.04,0.0353
+"72","GO:0048086","negative regulation of developmental pig...",4,1,0.04,0.0353
+"73","GO:0050931","pigment cell differentiation",4,1,0.04,0.0353
+"74","GO:0042682","regulation of compound eye cone cell fat...",4,1,0.04,0.0353
+"75","GO:0042679","compound eye cone cell fate specificatio...",4,1,0.04,0.0353
+"76","GO:0006728","pteridine biosynthetic process",4,1,0.04,0.0353
+"77","GO:0098661","inorganic anion transmembrane transport",34,2,0.3,0.0367
+"78","GO:0033500","carbohydrate homeostasis",34,2,0.3,0.0367
+"79","GO:0044282","small molecule catabolic process",83,3,0.74,0.0375
+"80","GO:0042060","wound healing",85,3,0.76,0.0399
+"81","GO:0045455","ecdysteroid metabolic process",36,2,0.32,0.0407
+"82","GO:0006914","autophagy",148,4,1.32,0.0425
+"83","GO:0061919","process utilizing autophagic mechanism",148,4,1.32,0.0425
+"84","GO:0006740","NADPH regeneration",5,1,0.04,0.044
+"85","GO:1900181","negative regulation of protein localizat...",5,1,0.04,0.044
+"86","GO:0001508","action potential",5,1,0.04,0.044
+"87","GO:0042135","neurotransmitter catabolic process",5,1,0.04,0.044
+"88","GO:1904590","negative regulation of protein import",5,1,0.04,0.044
+"89","GO:0010810","regulation of cell-substrate adhesion",5,1,0.04,0.044
+"90","GO:0006098","pentose-phosphate shunt",5,1,0.04,0.044
+"91","GO:0071688","striated muscle myosin thick filament as...",5,1,0.04,0.044
+"92","GO:2000147","positive regulation of cell motility",5,1,0.04,0.044
+"93","GO:0006595","polyamine metabolic process",5,1,0.04,0.044
+"94","GO:0006596","polyamine biosynthetic process",5,1,0.04,0.044
+"95","GO:0042308","negative regulation of protein import in...",5,1,0.04,0.044
+"96","GO:0006568","tryptophan metabolic process",5,1,0.04,0.044
+"97","GO:0019321","pentose metabolic process",5,1,0.04,0.044
+"98","GO:0006586","indolalkylamine metabolic process",5,1,0.04,0.044
+"99","GO:0042446","hormone biosynthetic process",38,2,0.34,0.0449
+"100","GO:0002165","instar larval or pupal development",453,8,4.05,0.0459

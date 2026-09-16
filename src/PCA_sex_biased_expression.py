@@ -140,7 +140,7 @@ def plot_PCA_vst_counts(counts_path:str, metadata_path:str, plot_path:str="", co
 
 
 
-def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", colors_dict=colors_dict, points_dict=points_dict, sex="", day = "", line = ""):
+def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", colors_dict=colors_dict, points_dict=points_dict, sex="", day = "", line = "", day_excl_F=False):
     """
     make a PCA of the DE counts for only one sex by day and line
     """
@@ -175,9 +175,16 @@ def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", co
     if sex != "":
         categories = [sample for sample in list(norm_counts.columns) if f"-{sex}_" in sample]
     elif day != "":
-        line1 = [sample for sample in list(norm_counts.columns) if f"-1-{day}-" in sample] #otherwise you also get other days where the sample number happens to be 14/16/18
-        line3 = [sample for sample in list(norm_counts.columns) if f"-3-{day}-" in sample]
-        categories = line1+line3
+        if day_excl_F:
+            ## exclude female samples from PCA and only plot males
+            only_M_cols = [sample for sample in list(norm_counts.columns) if f"-M_" in sample]
+            line1 = [sample for sample in list(only_M_cols) if f"-1-{day}-" in sample] #otherwise you also get other days where the sample number happens to be 14/16/18
+            line3 = [sample for sample in list(only_M_cols) if f"-3-{day}-" in sample]
+            categories = line1+line3
+        else:
+            line1 = [sample for sample in list(norm_counts.columns) if f"-1-{day}-" in sample] #otherwise you also get other days where the sample number happens to be 14/16/18
+            line3 = [sample for sample in list(norm_counts.columns) if f"-3-{day}-" in sample]
+            categories = line1+line3
     elif line != "":
         categories = [sample for sample in list(norm_counts.columns) if f"WJ-3841-{line}-" in sample]
 
@@ -293,8 +300,12 @@ def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", co
         ax.set_xlim(xlim)
 
         ## make legend
-        sex_labels = { sex : points_dict['sex'][sex] for sex in pca_df['sex']}
-        org_labels = { org : colors_dict["line"][org] for org in pca_df["line"]}
+        if day_excl_F:
+            sex_labels = { sex : points_dict['sex'][sex] for sex in ["M"]}
+            org_labels = { org : colors_dict["line"][org] for org in pca_df["line"]}
+        else:
+            sex_labels = { sex : points_dict['sex'][sex] for sex in pca_df['sex']}
+            org_labels = { org : colors_dict["line"][org] for org in pca_df["line"]}
     
         yleg = ylim[0]-1e6
         xleg = xlim[0]-1e6
@@ -326,7 +337,10 @@ def plot_PCA_separation(counts_path:str, metadata_path:str, plot_path:str="", co
                     label_ = key
             ax.scatter(xleg,yleg,color=value,s=ps,label=label_, marker="s")
     ax.legend(fontsize=fs)
-    plt.suptitle(f"Differential expression \nbased on {len(metadata)} {cat_name} samples", fontsize=fs*1.25)
+    if day_excl_F:
+        plt.suptitle(f"Differential expression \nbased on {len(metadata)} male samples on {cat_name}", fontsize=fs*1.25)
+    else:
+        plt.suptitle(f"Differential expression \nbased on {len(metadata)} {cat_name} samples", fontsize=fs*1.25)
     
     # Adjust layout to prevent overlap
     plt.tight_layout(rect=[0, 0.05, 1, 1])
@@ -345,7 +359,7 @@ if __name__ == "__main__":
     if True:
         counts_path, vst_path = counts_paths(username=username)
         metadata_path = metadata_paths(username=username)
-        if True:
+        if False:
             # genes that are sig. line-biased in males and females which we think are batch effects, 
             # try to exclude them from the PCA to see if we can reduce the line-difference in females.
             excl_list = list(set(['gene-390678', 'gene-326825', 'gene-428756', 'gene-392159', 'gene-237318', 'gene-80484', 'gene-222486', 'gene-326909', 'gene-391198', 'gene-220544', 'gene-225236', 'gene-323148', 'gene-90157', 'gene-403706', 'gene-428738', 'gene-328764', 'gene-241055', 'gene-390956', 'gene-241108', 'gene-403583', 'gene-323803', 'gene-80466', 'gene-89234', 'gene-237881', 'gene-224357', 'gene-226245', 'gene-395080', 'gene-220249', 'gene-430044', 'gene-222365', 'gene-240929', 'gene-392186', 'gene-430032', 'gene-224782', 'gene-239553', 'gene-240623', 'gene-224743', 'gene-403700', 'gene-117712', 'gene-224860', 'gene-407253', 'gene-225635', 'gene-403902', 'gene-225709', 'gene-225030', 'gene-406468', 'gene-395143', 'gene-322927', 'gene-222600', 'gene-240871', 'gene-84949', 'gene-81551', 'gene-224845', 'gene-431701', 'gene-240833', 'gene-222383', 'gene-225738', 'gene-224227', 'gene-243308', 'gene-224277', 'gene-241126', 'gene-240910', 'gene-240935', 'gene-392248', 'gene-283443', 'gene-403809', 'gene-222344', 'gene-218086', 'gene-390637', 'gene-392224', 'gene-225629', 'gene-224697', 'gene-224682', 'gene-406796', 'gene-214979', 'gene-222531', 'gene-231925', 'gene-430068', 'gene-225173', 'gene-80359', 'gene-241001', 'gene-81640', 'gene-81599', 'gene-225140', 'gene-391222', 'gene-225720', 'gene-219019', 'gene-222332', 'gene-430263', 'gene-390616', 'gene-120952', 'gene-222555', 'gene-224968', 'gene-224614', 'gene-224250', 'gene-428747', 'gene-224307', 'gene-222501', 'gene-81427', 'gene-222430', 'gene-221953', 'gene-81572', 'gene-225107', 'gene-430314', 'gene-327441', 'gene-222350', 'gene-240983', 'gene-240691', 'gene-84970', 'gene-322912', 'gene-224201', 'gene-224956', 'gene-428765', 'gene-224593', 'gene-392290', 'gene-326873', 'gene-224896', 'gene-326849', 'gene-403818', 'gene-326810', 'gene-403851', 'gene-88715', 'gene-234575', 'gene-220028', 'gene-260693', 'gene-225325', 'gene-224875', 'gene-222519', 'gene-430080', 'gene-403652', 'gene-390678', 'gene-431030', 'gene-231854', 'gene-428756', 'gene-282886', 'gene-282746', 'gene-222486', 'gene-222159', 'gene-220544', 'gene-391198', 'gene-326909', 'gene-225236', 'gene-223491', 'gene-323148', 'gene-90157', 'gene-400402', 'gene-428738', 'gene-224890', 'gene-241055', 'gene-390956', 'gene-282347', 'gene-241108', 'gene-238407', 'gene-323803', 'gene-89234', 'gene-282491', 'gene-237881', 'gene-224357', 'gene-226245', 'gene-282853', 'gene-395080', 'gene-220249', 'gene-380466', 'gene-282398', 'gene-399475', 'gene-430044', 'gene-286545', 'gene-222365', 'gene-240929', 'gene-392186', 'gene-430032', 'gene-224782', 'gene-428113', 'gene-241682', 'gene-240623', 'gene-224743', 'gene-222519', 'gene-224860', 'gene-242512', 'gene-225635', 'gene-225709', 'gene-225030', 'g14784', 'gene-223773', 'gene-395143', 'gene-322927', 'gene-222600', 'gene-227308', 'gene-240871', 'gene-84949', 'gene-224845', 'gene-282590', 'gene-431701', 'gene-240833', 'gene-222383', 'gene-225738', 'gene-224227', 'gene-282551', 'gene-399317', 'gene-224277', 'gene-241126', 'gene-240638', 'gene-240910', 'gene-225158', 'gene-403809', 'gene-222344', 'gene-390637', 'gene-225629', 'gene-399424', 'gene-224697', 'gene-400393', 'gene-224682', 'gene-243299', 'gene-406796', 'gene-241262', 'gene-282620', 'gene-222531', 'gene-430068', 'gene-225173', 'gene-400384', 'gene-80359', 'gene-227370', 'gene-241001', 'gene-81640', 'gene-225140', 'gene-391222', 'gene-428104', 'gene-225720', 'gene-222332', 'gene-430263', 'gene-282458', 'gene-390616', 'gene-120952', 'gene-399484', 'gene-222555', 'gene-224968', 'gene-282362', 'gene-428747', 'gene-224307', 'gene-222501', 'gene-81427', 'gene-239506', 'gene-222430', 'gene-221953', 'gene-282524', 'gene-81572', 'gene-225107', 'gene-399270', 'gene-430314', 'gene-222350', 'gene-240983', 'gene-240691', 'gene-84970', 'gene-238849', 'gene-322912', 'gene-224201', 'gene-224956', 'gene-428765', 'gene-224593', 'gene-224896', 'gene-240860', 'gene-326849', 'gene-282784', 'gene-403818', 'gene-282665', 'gene-220028', 'gene-260693', 'gene-225325', 'gene-224875', 'gene-392290', 'gene-430080', 'gene-282701']))
@@ -363,12 +377,14 @@ if __name__ == "__main__":
                     metadata_path=metadata_path, 
                     plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_{sex}_day_line.png",
                     sex=sex)
+        if True:
             for day in ["14","16","18"]:
                 plot_PCA_separation(
                     counts_path=vst_path, 
                     metadata_path=metadata_path, 
                     plot_path=f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures/PCA_sex_day{day}_line.png",
-                    day=day)
+                    day=day, day_excl_F=True)
+        if False:
             for line in ["1","3"]:
                 plot_PCA_separation(
                     counts_path=vst_path, 
