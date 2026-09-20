@@ -341,6 +341,7 @@ def get_genes_with_GO(infile_path, annotation_file, GOs_list = [], plot_file = "
     print(annotation_df["query"])
     sigIDs_df = pd.read_csv(infile_path, sep=",")
     sigIDs = sigIDs_df.loc[sigIDs_df["sig_DE"]==1]["geneID"].tolist()
+    print(f"({len(sigIDs)} sig DE genes): {sigIDs[:10]}...")
 
     GO_set = set(GOs_list)
     GO_geneIDs = {GO_term : [] for GO_term in GO_set}
@@ -363,7 +364,7 @@ def get_genes_with_GO(infile_path, annotation_file, GOs_list = [], plot_file = "
     from Y_expression_quantification import get_counts_paths,samples_group,plot_counts_sum_sets
     count_files = get_counts_paths(username=username)
     samples_group_dict = samples_group()
-    print(f"{plot_title} ({len(GO_geneIDs)} genes): {GO_geneIDs}")
+    print(f"{plot_title}")
     plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = GO_geneIDs, 
                         outfile_name = plot_file, y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=plot_title)
 
@@ -577,23 +578,36 @@ if __name__ == "__main__":
 
     if True:
         # check protein kinase B, an immediate downstream protein in the tor pathway, see about line bias especially
-        GO_terms_AKT = {
-            "16" : ["GO:0051898","GO:0051896","GO:0043491"],
-            "18" : ["GO:0051898","GO:0051896","GO:0043491"]
-        }
         
         annotation_path = f"/Users/{username}/work/c_maculatus/C_mac_eggnog_diamond.emapper.annotations_geneIDs"
         plot_dir = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/DE_figures_python/counts_time_series"
+        from Y_expression_quantification import get_counts_paths,samples_group,plot_counts_sum_sets
+        count_files = get_counts_paths(username=username)
+        samples_group_dict = samples_group()
 
-        for day in ["16","18"]:
-            GO_terms_day_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignore_GO_enrichmentd_day{day}_F-M.csv"
-            sig_genes_path = f"/Users/{username}/work/PhD_code/PhD_chapter4/data/sig_DE_genes_lists/full_dataset_line_ignored_day{day}_F-M.txt"
+        if True:
+            geneIDs = { 
+            # negative regulation of Akt
+            "GO:0051898, neg. regulation of Akt" : ["gene-227164","gene-257490","gene-257490","gene-277384","gene-277384","gene-369893","gene-397624"],
+            # regultation of Akt, contains yTor
+            # "GO:0051896" : ["gene-30110","gene-67561","gene-67561","gene-67561","gene-67561","gene-134336","gene-177833","gene-181689","gene-207938","gene-207938","gene-207938","gene-227164","gene-257490","gene-257490","gene-277384","gene-277384","gene-369893","yTor-A","yTor-B","yTor-C","gene-393841","gene-397624"],
+            # Akt signalling
+            "GO:0043491, Akt signaling" : ["gene-257490","gene-257490","gene-288990"],
+            }
 
-            if True:
-                GO_list = GO_terms_AKT[day]
-                get_genes_with_GO(infile_path = sig_genes_path, annotation_file=annotation_path, GOs_list=GO_list, 
-                    plot_file=f"{plot_dir}/day_separated_line_bias_Akt_day{day}.png", plot_title=f"GO-terms related to Akt on day {day}")
-            
+            plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = geneIDs, outfile_name = f"{plot_dir}/day_separated_line_bias_Akt.png", 
+                        y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=f"GO-terms related to Akt/PKB")
+
+        if True:
+            geneIDs = { 
+                # Akt signalling
+                "GO:0043491, Akt signaling" : ["gene-257490","gene-257490","gene-288990"],
+            }
+            plot_counts_sum_sets(counts_table=count_files["no_log"], geneIDs_lists_dict = geneIDs, outfile_name = f"{plot_dir}/day_separated_line_bias_Akt_singaling.png", 
+                y_label= "normalized counts", errorbars=True, samples_group_dict = samples_group_dict, plot_title=f"GO:0043491, Akt singaling")
+
+        
+    
 
     if False:
         # plot the one gene for juvenile hormone
