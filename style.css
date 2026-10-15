@@ -1,0 +1,316 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background-color: #eaebee;
+    max-width: 1800px;
+    margin: 2em auto;
+    padding: 0 1em;
+    line-height: 1.5;
+    color: #24292f;
+  }
+  h1, h2, h3 { margin-top: 1.6em; margin-bottom: 0.6em; color:#44506e;}
+  h4, h5, h6 { margin-top: 1.6em; color:#44506e;}
+  h1 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+  h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .3em; }
+  p {margin-top: 0.5em;}
+
+  ul {
+    /* user-agent styles */
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding-inline-start: 40px;
+  }
+  ol {
+    /* user-agent styles */
+    display: block;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding-inline-start: 40px;
+  }
+  .tabcontent, details, pre {
+      min-width: 0;
+  }
+  code {
+    background: #f8f9fa;
+    color:#44506e;
+    padding: 0.1em 0.1em;
+    border-radius: 15px;
+    font-size: 90%;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre {
+    background: #f8f9fa;
+    padding: 1em;
+    border-radius: 10px;
+    overflow-x: auto;
+    max-width: 100%;
+    color: #44506e;
+  }
+  details {
+    background: #dddee5;
+    padding: 1em;
+    border-radius: 10px;
+    overflow-x: auto;
+  }
+  
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; margin: 1em 0; }
+  table th, table td { border: 1.5px solid #909bb5; padding: 6px 10px; }
+  table th { background: #dddee5; }
+  img { max-width: 100%; height: auto; }
+  details { margin: 0.8em 0; }
+  summary { cursor: pointer; }
+  iframe { border: 1px solid #d0d7de; border-radius: 4px; }
+  a { color: #416793; }
+  sub,i,b,code { color: inherit; }
+
+
+/* Style the tab */
+:root {
+  --tab-border-width: 0.125em;   /* adjust to taste */
+  --tab-border-color: #909bb5;
+}
+
+.tab {
+  overflow: hidden;
+  border: var(--tab-border-width) solid var(--tab-border-color);
+  background-color: #d0d4df;
+  border-radius: 25px 25px 0 0;
+  margin-top: 1em;
+}
+  
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  color: #44506e;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 0.9rem;
+}
+  
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #909bb5;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #909bb5;
+}
+  
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 12px 12px;
+  border: var(--tab-border-width) solid var(--tab-border-color);
+  border-top: none;
+  border-radius: 0 0 25px 25px;
+  margin-bottom: 1em;
+  overflow: auto;
+}
+
+
+
+/* Style the scrollable table that displays csv files */
+.tableframe {
+    height:30vh; 
+    overflow:auto; 
+    border:1px solid #909bb5;
+}
+
+    .left-div {
+       float: left;
+       width: 49%;
+    }
+    .right-div {
+       float: right;
+       width: 49%;
+    }
+
+*{
+    border : 0 ;
+    margin : 0 ; 
+    padding : 0 ;
+    color: #394053;
+    font-family: Arial;
+}
+#outer-box{
+    background-color: #eaebee;
+    display : grid ;
+    grid-template:
+    "header-image header-image"
+    "sidebar-contents main-body"
+    "footer footer" 
+    / minmax(0, 1fr) minmax(0, 4fr);
+}
+#header-image{
+    grid-area: header-image;
+    height: 12em;
+    background-color: #C2C8D6;
+}
+.center-content{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+}
+
+#sidebar-contents{
+    grid-area: sidebar-contents;
+    padding: 1em;
+    top:0;
+    height:max-content;
+    max-height: 95vh;
+    overflow-y: auto;
+    position:sticky;
+    display: grid;
+    grid-template: 
+    "sidebar-element"
+    / 1fr;
+}
+.sidebar-element{
+    background-color: #dddee5;
+    padding: 1em;
+    border-radius: 10px 10px 10px 10px;
+    border-bottom-style: solid;
+    border-bottom-color: #C2C8D6;
+    border-bottom-width: var(--tab-border-width);
+    text-decoration: none;
+}
+.sidebar-element:hover {
+    text-decoration: underline;
+}
+
+#main-body{
+    grid-area: main-body;
+    padding :1em;
+    max-width: 1500px;
+    padding-right: 4em;
+}
+#footer{
+    background-color: #929cb5;
+    grid-area: footer;
+    padding: 1em;
+}
+.project-link{
+    display: block;
+    font-weight: bold;
+    color: #44506e;
+}
+.subsection-link{
+    display: block;
+    color: #394053;
+    padding-left: 2.5em;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}   
+
+#controls { padding: 12px; box-sizing: border-box; }
+textarea {
+    width: 100%;
+    height: 70px;
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 13px;
+    padding: 8px;
+    border-radius: 10px 10px 10px 10px;
+  }
+#tree-container {
+    width: 100%;
+    overflow: auto;
+    background: #eaebee;
+    border-radius: 10px 10px 10px 10px;
+    border: var(--tab-border-width) solid #C2C8D6;;
+  }
+.branch {
+    stroke: #44506e;
+    stroke-width: 1.5;
+    fill: none;
+  }
+.leaf-label {
+    font-size: 14px;
+    fill: #44506e;
+    font-style: italic;
+    dominant-baseline: middle;
+  }
+.node-label {
+    font-size: 11px;
+    fill: #416793;
+    font-style: italic;
+    dominant-baseline: middle;
+  }
+.node-dot {
+    fill: #416793;
+  }
+
+  /* Flowchart nodes */
+.mermaid svg .node rect,
+.mermaid svg .node polygon,
+.mermaid svg .node circle,
+.mermaid svg .node ellipse,
+.mermaid svg .node path{
+fill: #C2C8D6 !important;
+stroke: #394053 !important;
+}
+
+
+/* Edge labels */
+.mermaid svg .edgeLabel,
+.mermaid svg .edgeLabel span,
+.mermaid svg .edgeLabel p {
+background-color: #eaebee !important;
+color: #394053 !important;
+}
+/* Edge label background box (--text-->) */
+.mermaid svg .edgeLabel rect {
+fill: #eaebee !important;
+opacity: 1 !important;
+}
+
+
+/* Arrows */
+.mermaid svg .edgePath path,
+.mermaid svg .edgePath path,
+.mermaid svg .flowchart-link {
+stroke: #394053 !important;
+stroke-width: 2px !important;
+}
+
+/* Arrowhead marker */
+.mermaid svg marker path {
+fill: #394053 !important;
+stroke: #394053 !important;
+}
+
+.mermaid svg {
+background-color: #eaebee !important;
+}
+.mermaid svg .background {
+fill: #eaebee !important;
+}
+.mermaid svg rect#background {
+fill: #eaebee !important;
+}
+
+/* Mermaid injects a background rect — hide it */
+.mermaid svg > rect:first-child {
+fill: #eaebee !important;
+}  
+
+.left-div {
+ float: left;
+ width: 50%;
+}
+.right-div {
+ float: right;
+ width: 50%;
+}
